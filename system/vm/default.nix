@@ -1,0 +1,84 @@
+{
+  lib,
+  pkgs,
+  hypervisor ? null,
+  ...
+}:
+
+let
+  hasVmProfile = builtins.elem hypervisor [
+    "utm"
+    "vmware"
+  ];
+in
+{
+  config = lib.mkMerge [
+    (lib.mkIf hasVmProfile {
+      # Allow SSHing into VMs
+      # From https://github.com/nix-community/nixos-anywhere-examples/blob/main/configuration.nix
+      services.openssh.enable = true;
+      environment.systemPackages = map lib.lowPrio [
+        pkgs.curl
+        pkgs.gitMinimal
+      ];
+    })
+
+    (lib.mkIf (hypervisor == "utm") {
+      # Enable SPICE agent
+      services.spice-vdagentd.enable = true;
+
+      boot.initrd.availableKernelModules = [
+        "9p"
+        "9pnet_virtio"
+      ];
+      boot.kernelModules = [
+        "9p"
+        "9pnet_virtio"
+      ];
+
+      systemd.tmpfiles.rules = [
+        "d /mnt/utm 777 root root -"
+      ];
+
+      # Mount shared directory
+      fileSystems."/mnt/utm" = {
+        device = "share";
+        fsType = "9p";
+        options = [
+          "trans=virtio"
+          "version=9p2000.L"
+          "rw"
+          "_netdev"
+          "nofail"
+        ];
+      };
+    })
+
+    (lib.mkIf (hypervisor == "vmware") {
+      # Enable VMWare guest tools
+      virtualisation.vmware.guest.enable = true;
+
+      # Workaround for broken DNS
+      networking.networkmanager.insertNameservers = [
+        "8.8.8.8"
+        "1.1.1.1"
+      ];
+
+      systemd.tmpfiles.rules = [
+        "d /mnt/hgfs 0755 root root -"
+      ];
+
+      # Mount shared directory
+      systemd.mounts = [
+        {
+          what = ".host:/";
+          where = "/mnt/hgfs";
+          type = "fuse./run/current-system/sw/bin/vmhgfs-fuse";
+          options = "allow_other,uid=1000";
+          wantedBy = [ "multi-user.target" ];
+          after = [ "sys-fs-fuse-connections.mount" ];
+        }
+      ];
+    })
+  ];
+}
