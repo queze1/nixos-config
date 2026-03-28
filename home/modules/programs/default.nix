@@ -7,6 +7,7 @@
 {
   imports = [
     ./git.nix
+    ./nvf
     ./shell.nix
   ];
 
@@ -48,7 +49,7 @@
       package = pkgs.jdk21;
     };
     nix-index-database.comma.enable = true;
-    nvf.enable = true;
+
     vscode = {
       enable = true;
       package = pkgs.vscode.fhs;
