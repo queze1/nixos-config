@@ -11,7 +11,6 @@
       action = "<C-d>zz";
       options.desc = "Scroll down half a page and center";
     }
-
     # Scroll up half a page and center the cursor
     {
       mode = "n";
@@ -20,4 +19,13 @@
       options.desc = "Scroll up half a page and center";
     }
   ];
+
+  plugins.toggleterm = {
+    enable = true;
+    settings = {
+      # Use Ctrl+t to toggle the terminal
+      open_mapping = "[[<c-t>]]";
+      direction = "vertical";
+    };
+  };
 }
