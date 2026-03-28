@@ -48,10 +48,7 @@
       package = pkgs.jdk21;
     };
     nix-index-database.comma.enable = true;
-    nixvim = {
-      enable = true;
-      imports = [ ./nixvim.nix ];
-    };
+    nvf.enable = true;
     vscode = {
       enable = true;
       package = pkgs.vscode.fhs;
