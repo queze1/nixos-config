@@ -17,11 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-
-    nvf = {
-      url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -31,7 +26,6 @@
       home-manager,
       nix-index-database,
       plasma-manager,
-      nvf,
       ...
     }:
     let
@@ -61,7 +55,6 @@
             imports = [
               ./${homeProfile}.nix
               nix-index-database.homeModules.default
-              nvf.homeManagerModules.default
             ]
             ++ lib.optional (desktop == "kde") plasma-manager.homeModules.plasma-manager;
           };
