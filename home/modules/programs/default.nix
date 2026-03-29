@@ -35,6 +35,17 @@
       nixfmt
       nodejs
       yarn
+
+      # Force Audacity to use native Wayland
+      (symlinkJoin {
+        name = "audacity-wayland-fix";
+        paths = [ audacity ];
+        nativeBuildInputs = [ makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/audacity \
+            --set GDK_BACKEND wayland
+        '';
+      })
     ]
 
     # Use Dolphin for GNOME
@@ -49,7 +60,6 @@
       package = pkgs.jdk21;
     };
     nix-index-database.comma.enable = true;
-
     vscode = {
       enable = true;
       package = pkgs.vscode.fhs;
