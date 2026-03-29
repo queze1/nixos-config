@@ -18,7 +18,6 @@
       celluloid
       keepassxc
       obsidian
-      obs-studio
       pinta
       vesktop
 
