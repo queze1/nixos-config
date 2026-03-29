@@ -14,7 +14,8 @@
   # Enable zRAM
   zramSwap.enable = true;
 
-  # Enable SSH
+  # Configure SSH
+  programs.ssh.startAgent = true;
   services.openssh = {
     enable = true;
     settings = {
