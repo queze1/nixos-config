@@ -1,28 +1,11 @@
 {
   lib,
-  pkgs,
   hypervisor ? null,
   ...
 }:
 
-let
-  hasVmProfile = builtins.elem hypervisor [
-    "utm"
-    "vmware"
-  ];
-in
 {
   config = lib.mkMerge [
-    (lib.mkIf hasVmProfile {
-      # Allow SSHing into VMs
-      # From https://github.com/nix-community/nixos-anywhere-examples/blob/main/configuration.nix
-      services.openssh.enable = true;
-      environment.systemPackages = map lib.lowPrio [
-        pkgs.curl
-        pkgs.gitMinimal
-      ];
-    })
-
     (lib.mkIf (hypervisor == "utm") {
       # Enable SPICE agent
       services.spice-vdagentd.enable = true;
