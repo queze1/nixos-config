@@ -15,7 +15,6 @@
     with pkgs;
     [
       # GUI apps
-      audacity
       celluloid
       keepassxc
       obsidian
