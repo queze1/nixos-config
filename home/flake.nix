@@ -31,15 +31,11 @@
       dc-tec-nixvim,
       ...
     }:
-    let
-      lib = nixpkgs.lib;
-    in
     {
       nixosModules.default =
         {
           user,
           homeProfile,
-          desktop ? null,
           hypervisor ? null,
           ...
         }:
@@ -53,18 +49,17 @@
           home-manager.extraSpecialArgs = {
             inherit
               user
-              desktop
               hypervisor
               dc-tec-nixvim
-              ; # passed to all modules
+              ;
           };
 
           home-manager.users."${user}" = {
             imports = [
               ./${homeProfile}.nix
               nix-index-database.homeModules.default
-            ]
-            ++ lib.optional (desktop == "kde") plasma-manager.homeModules.plasma-manager;
+              plasma-manager.homeModules.plasma-manager
+            ];
           };
         };
     };
