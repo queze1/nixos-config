@@ -2,6 +2,7 @@
   pkgs,
   lib,
   desktop,
+  dc-tec-nixvim,
   ...
 }:
 {
@@ -13,8 +14,9 @@
   home.packages =
     with pkgs;
     [
-      # GUI apps
+      # Apps
       celluloid
+      dc-tec-nixvim.packages.aarch64-linux.default
       keepassxc
       obsidian
       pinta
