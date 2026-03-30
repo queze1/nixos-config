@@ -14,10 +14,7 @@
       "$mod, Q, exec, kitty" # Open terminal
       "$mod, C, killactive," # Close the active window
       "$mod, M, exit," # Force quit Hyprland
-      "$mod, V, togglefloating," # Make a window float
       "$mod, R, exec, wofi --show drun" # App launcher
-      "$mod, P, pseudo," # dwindle (tiling layout)
-      "$mod, J, togglesplit," # dwindle (tiling layout)
       "$mod, F, exec, uwsm app -- firefox"
     ]
     ++ (
@@ -39,7 +36,6 @@
     exec-once = [
       "uwsm app -- waybar"
       "uwsm app -- hyprpaper"
-      "uwsm app -- mako"
     ];
   };
 
@@ -75,6 +71,5 @@
     waybar # status bar
     wofi # app launcher
     hyprpaper # wallpaper
-    grimblast # screenshots
   ];
 }
