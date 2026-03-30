@@ -10,6 +10,12 @@
       # Enable SPICE agent
       services.spice-vdagentd.enable = true;
 
+      # Pretend that we support OpenGL 3.3
+      environment.sessionVariables = {
+        MESA_GL_VERSION_OVERRIDE = "3.3";
+        MESA_GLSL_VERSION_OVERRIDE = "330";
+      };
+
       boot.initrd.availableKernelModules = [
         "9p"
         "9pnet_virtio"
