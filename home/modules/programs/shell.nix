@@ -13,7 +13,7 @@
       enable = true;
       shellIntegration.enableBashIntegration = true;
       shellIntegration.enableFishIntegration = true;
-      themeFile = "rose-pine-dawn";
+      themeFile = "Catppuccin-Latte";
       settings = {
         # Use fish instead of bash by default
         shell = "${pkgs.fish}/bin/fish";
