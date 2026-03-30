@@ -11,7 +11,7 @@
 
   home.shellAliases = {
     nrs = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild switch";
-    nrd = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild boot";
+    nrb = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild boot";
   };
 
   home.packages = [
