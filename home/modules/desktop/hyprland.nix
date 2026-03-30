@@ -67,9 +67,8 @@
   };
 
   # Hyprland-specific tools
-  home.packages = with pkgs; [
-    waybar # status bar
-    wofi # app launcher
-    hyprpaper # wallpaper
-  ];
+  programs = {
+    waybar.enable = true;
+    wofi.enable = true;
+  };
 }
