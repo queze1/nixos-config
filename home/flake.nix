@@ -53,6 +53,7 @@
               dc-tec-nixvim
               ;
           };
+          home-manager.backupFileExtension = "backup";
 
           home-manager.users."${user}" = {
             imports = [
