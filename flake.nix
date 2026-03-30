@@ -49,6 +49,7 @@
               homeProfile
               hypervisor
               ;
+            inherit (inputs) neovim-config;
           };
 
           modules = [
