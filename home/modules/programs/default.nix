@@ -20,10 +20,8 @@
 
     # CLI tools
     gemini-cli
-    rclone
     sshfs
     tree
-    unzip
     wl-clipboard
 
     # Development tools
@@ -46,6 +44,7 @@
 
   programs = {
     firefox.enable = true;
+    kitty.enable = true;
     java = {
       enable = true;
       package = pkgs.jdk21;
