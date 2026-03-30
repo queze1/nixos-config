@@ -1,19 +1,24 @@
 { pkgs, ... }:
 
 {
-  programs.kitty.enable = true;
   wayland.windowManager.hyprland = {
     enable = true;
     package = null;
     portalPackage = null;
-    systemd.enable = false; # fix conflict with uswm
+    systemd.enable = false; # Fix conflict with uswm
   };
 
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
     bind = [
-      "$mod, F, exec, firefox"
-      ", Print, exec, grimblast copy area"
+      "$mod, Q, exec, kitty" # Open terminal
+      "$mod, C, killactive," # Close the active window
+      "$mod, M, exit," # Force quit Hyprland
+      "$mod, V, togglefloating," # Make a window float
+      "$mod, R, exec, wofi --show drun" # App launcher
+      "$mod, P, pseudo," # dwindle (tiling layout)
+      "$mod, J, togglesplit," # dwindle (tiling layout)
+      "$mod, F, exec, uwsm app -- firefox"
     ]
     ++ (
       # workspaces
@@ -31,6 +36,11 @@
         ) 9
       )
     );
+    exec-once = [
+      "uwsm app -- waybar"
+      "uwsm app -- hyprpaper"
+      "uwsm app -- mako"
+    ];
   };
 
   home.pointerCursor = {
@@ -59,4 +69,12 @@
       size = 11;
     };
   };
+
+  # Hyprland-specific tools
+  home.packages = with pkgs; [
+    waybar # status bar
+    wofi # app launcher
+    hyprpaper # wallpaper
+    grimblast # screenshots
+  ];
 }
