@@ -1,7 +1,5 @@
 {
   pkgs,
-  lib,
-  desktop,
   dc-tec-nixvim,
   ...
 }:
@@ -11,47 +9,40 @@
     ./shell.nix
   ];
 
-  home.packages =
-    with pkgs;
-    [
-      # Apps
-      celluloid
-      dc-tec-nixvim.packages.aarch64-linux.default
-      keepassxc
-      obsidian
-      pinta
-      vesktop
+  home.packages = with pkgs; [
+    # Apps
+    celluloid
+    dc-tec-nixvim.packages.aarch64-linux.default
+    keepassxc
+    obsidian
+    pinta
+    vesktop
 
-      # CLI tools
-      gemini-cli
-      rclone
-      sshfs
-      tree
-      unzip
-      wl-clipboard
+    # CLI tools
+    gemini-cli
+    rclone
+    sshfs
+    tree
+    unzip
+    wl-clipboard
 
-      # Development tools
-      nil
-      nixfmt
-      nodejs
-      yarn
+    # Development tools
+    nil
+    nixfmt
+    nodejs
+    yarn
 
-      # Force Audacity to use native Wayland
-      (symlinkJoin {
-        name = "audacity-wayland-fix";
-        paths = [ audacity ];
-        nativeBuildInputs = [ makeWrapper ];
-        postBuild = ''
-          wrapProgram $out/bin/audacity \
-            --set GDK_BACKEND wayland
-        '';
-      })
-    ]
-
-    # Use Dolphin for GNOME
-    ++ lib.optionals (desktop == "gnome") [
-      kdePackages.dolphin
-    ];
+    # Force Audacity to use native Wayland
+    (symlinkJoin {
+      name = "audacity-wayland-fix";
+      paths = [ audacity ];
+      nativeBuildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/audacity \
+          --set GDK_BACKEND wayland
+      '';
+    })
+  ];
 
   programs = {
     firefox.enable = true;
