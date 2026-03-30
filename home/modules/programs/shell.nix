@@ -11,8 +11,12 @@
     };
     kitty = {
       enable = true;
+      shellIntegration.enableBashIntegration = true;
       shellIntegration.enableFishIntegration = true;
       themeFile = "1984_dark";
+      settings = {
+        shell = "${pkgs.fish}/bin/fish";
+      };
     };
   };
 
