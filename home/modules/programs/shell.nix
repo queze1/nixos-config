@@ -7,6 +7,11 @@
       enableFishIntegration = true;
       nix-direnv.enable = true;
     };
+    kitty = {
+      enable = true;
+      shellIntegration.enableFishIntegration = true;
+      themeFile = "1984_dark";
+    };
   };
 
   home.shellAliases = {
