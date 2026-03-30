@@ -2,10 +2,20 @@
   lib,
   pkgs,
   desktop,
+  neovim-config,
   ...
 }:
 
 {
+  # Ugly, move elsewhere later
+  nixpkgs.overlays = [
+    neovim-config.overlays.default
+  ];
+
+  environment.systemPackages = with pkgs; [
+    nvim-pkg
+  ];
+
   config = lib.mkMerge [
     # ---- KDE Plasma Config ----
     (lib.mkIf (desktop == "kde") {

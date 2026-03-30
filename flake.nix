@@ -18,6 +18,7 @@
 
     # For build-time secrets
     my-secrets.url = "git+ssh://git@github.com/queze1/nixos-secrets.git";
+    neovim-config.url = "github:queze1/neovim-config";
   };
 
   outputs =
