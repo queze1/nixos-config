@@ -4,6 +4,7 @@
 {
   imports = [
     ./boot.nix
+    ./desktop.nix
     ./localisation.nix
     ./networking.nix
     ./nix.nix

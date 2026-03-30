@@ -8,7 +8,6 @@
   imports = [
     ./hardware-configuration.nix
     "${self}/system/core"
-    "${self}/system/desktop.nix"
     "${self}/system/vm"
   ];
 
