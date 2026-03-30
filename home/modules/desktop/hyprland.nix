@@ -11,10 +11,10 @@
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
     bind = [
-      "$mod, Q, exec, kitty" # Open terminal
+      "$mod, Q, exec, uwsm app -- kitty" # Open terminal
       "$mod, C, killactive," # Close the active window
       "$mod, M, exit," # Force quit Hyprland
-      "$mod, R, exec, wofi --show drun" # App launcher
+      "$mod, R, exec, uwsm app -- wofi --show drun" # App launcher
       "$mod, F, exec, uwsm app -- firefox"
     ]
     ++ (
