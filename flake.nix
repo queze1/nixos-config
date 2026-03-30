@@ -35,7 +35,6 @@
           system,
           user,
           homeProfile,
-          desktop ? null,
           hypervisor ? null,
         }:
         nixpkgs.lib.nixosSystem {
@@ -44,7 +43,6 @@
             inherit
               self
               user
-              desktop
               homeProfile
               hypervisor
               ;
@@ -72,21 +70,18 @@
           system = "aarch64-linux";
           user = "andrewh";
           homeProfile = "general";
-          desktop = "kde";
           hypervisor = "vmware";
         };
         utm-vm = {
           system = "aarch64-linux";
           user = "andrewh";
           homeProfile = "general";
-          desktop = "kde";
           hypervisor = "utm";
         };
         utm-vm-2 = {
           system = "aarch64-linux";
           user = "andrewh";
           homeProfile = "general";
-          desktop = "kde";
           hypervisor = "utm";
         };
       };
