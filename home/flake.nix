@@ -17,6 +17,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    dc-tec-nixvim.url = "github:dc-tec/nixvim";
   };
 
   outputs =
@@ -26,6 +28,7 @@
       home-manager,
       nix-index-database,
       plasma-manager,
+      dc-tec-nixvim,
       ...
     }:
     let
@@ -48,7 +51,12 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {
-            inherit user desktop hypervisor; # passed to all modules
+            inherit
+              user
+              desktop
+              hypervisor
+              dc-tec-nixvim
+              ; # passed to all modules
           };
 
           home-manager.users."${user}" = {
