@@ -15,6 +15,7 @@
       shellIntegration.enableFishIntegration = true;
       themeFile = "1984_dark";
       settings = {
+        # Use fish instead of bash by default
         shell = "${pkgs.fish}/bin/fish";
       };
     };
