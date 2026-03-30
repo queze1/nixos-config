@@ -12,6 +12,9 @@
     ./sound.nix
   ];
 
+  # Enable Fish
+  programs.fish.enable = true;
+
   # Enable zRAM
   zramSwap.enable = true;
 
