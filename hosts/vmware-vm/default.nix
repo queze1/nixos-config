@@ -7,6 +7,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    "${self}/system/common"
     "${self}/system/core"
     "${self}/system/vm"
   ];

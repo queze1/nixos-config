@@ -4,16 +4,10 @@
 {
   imports = [
     ./boot.nix
-    ./desktop.nix
     ./localisation.nix
     ./networking.nix
     ./nix.nix
-    ./printing.nix
-    ./sound.nix
   ];
-
-  # Enable Fish
-  programs.fish.enable = true;
 
   # Enable zRAM
   zramSwap.enable = true;
