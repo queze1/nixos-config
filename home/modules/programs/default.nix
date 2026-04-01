@@ -7,6 +7,7 @@
   imports = [
     ./git.nix
     ./shell.nix
+    ./syncthing.nix
   ];
 
   home.packages = with pkgs; [
