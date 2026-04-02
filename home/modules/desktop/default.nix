@@ -5,6 +5,6 @@
 {
   imports = [
     ./plasma-manager.nix
-    ./hyprland.nix
+    ./niri.nix
   ];
 }
