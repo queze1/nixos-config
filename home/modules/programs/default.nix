@@ -12,7 +12,7 @@
 
   home.packages = with pkgs; [
     # Apps
-    celluloid
+    # celluloid
     dc-tec-nixvim.packages.aarch64-linux.default
     keepassxc
     obsidian
