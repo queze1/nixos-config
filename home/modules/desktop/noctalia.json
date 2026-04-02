@@ -4,7 +4,7 @@
     "barType": "simple",
     "position": "left",
     "monitors": [],
-    "density": "default",
+    "density": "comfortable",
     "showOutline": false,
     "showCapsule": true,
     "capsuleOpacity": 1,
@@ -182,7 +182,7 @@
     "screenOverrides": []
   },
   "general": {
-    "avatarImage": "/home/andrewh/.face",
+    "avatarImage": "/mnt/utm/Pictures/Art/pfps/pfp.png",
     "dimmerOpacity": 0.3,
     "showScreenCorners": false,
     "forceBlackScreenCorners": false,
@@ -293,7 +293,7 @@
   "wallpaper": {
     "enabled": true,
     "overviewEnabled": false,
-    "directory": "/home/andrewh/Pictures/Wallpapers",
+    "directory": "/mnt/utm/Pictures/Wallpapers",
     "monitorDirectories": [
       {
         "directory": "/home/andrewh/Pictures/Wallpapers",
@@ -627,7 +627,7 @@
     "backlightDeviceMappings": []
   },
   "colorSchemes": {
-    "useWallpaperColors": false,
+    "useWallpaperColors": true,
     "predefinedScheme": "Catppuccin",
     "darkMode": false,
     "schedulingMode": "off",
