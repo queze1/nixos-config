@@ -49,6 +49,7 @@
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {
             inherit
+              self
               user
               desktop
               hypervisor

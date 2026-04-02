@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ self, pkgs, ... }:
 {
   programs = {
     bash.enable = true;
@@ -14,6 +14,7 @@
   home.shellAliases = {
     nrs = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild switch";
     nrb = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild boot";
+    export-noctalia = "noctalia-shell ipc call state all | nix run nixpkgs#jq .settings > ${self}/home/modules/desktop/noctalia.json";
   };
 
   home.packages = [
