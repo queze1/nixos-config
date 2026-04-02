@@ -2,7 +2,7 @@
   "settingsVersion": 59,
   "bar": {
     "barType": "simple",
-    "position": "left",
+    "position": "top",
     "monitors": [],
     "density": "comfortable",
     "showOutline": false,
@@ -11,7 +11,7 @@
     "capsuleColorKey": "none",
     "widgetSpacing": 6,
     "contentPadding": 2,
-    "fontScale": 1,
+    "fontScale": 1.05,
     "enableExclusionZoneInset": true,
     "backgroundOpacity": 0.93,
     "useSeparateOpacity": false,
@@ -246,8 +246,8 @@
     "smoothScrollEnabled": true
   },
   "ui": {
-    "fontDefault": "Sans Serif",
-    "fontFixed": "monospace",
+    "fontDefault": "Liberation Mono",
+    "fontFixed": "Liberation Mono",
     "fontDefaultScale": 1,
     "fontFixedScale": 1,
     "tooltipsEnabled": true,
@@ -421,7 +421,7 @@
         "id": "brightness-card"
       },
       {
-        "enabled": true,
+        "enabled": false,
         "id": "weather-card"
       },
       {
@@ -667,7 +667,7 @@
     "notifyUpdates": true
   },
   "idle": {
-    "enabled": false,
+    "enabled": true,
     "screenOffTimeout": 600,
     "lockTimeout": 660,
     "suspendTimeout": 1800,
@@ -681,7 +681,7 @@
     "customCommands": "[]"
   },
   "desktopWidgets": {
-    "enabled": false,
+    "enabled": true,
     "overviewEnabled": true,
     "gridSnap": false,
     "gridSnapScale": false,
