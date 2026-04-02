@@ -577,4 +577,4 @@ binds {
 }
 
 // Autostart Noctalia
-spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-at-startup "noctalia-shell"
