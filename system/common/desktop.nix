@@ -9,15 +9,11 @@
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    MOZ_ENABLE_WAYLAND = "1";
   };
 
   # ---- KDE Plasma ----
   services.desktopManager.plasma6.enable = true;
 
-  # ---- Hyprland ----
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-  };
+  # ---- Niri ----
+  programs.niri.enable = true;
 }
