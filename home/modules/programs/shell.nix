@@ -9,16 +9,6 @@
       enableFishIntegration = true;
       nix-direnv.enable = true;
     };
-    kitty = {
-      enable = true;
-      shellIntegration.enableBashIntegration = true;
-      shellIntegration.enableFishIntegration = true;
-      themeFile = "Catppuccin-Latte";
-      settings = {
-        # Use fish instead of bash by default
-        shell = "${pkgs.fish}/bin/fish";
-      };
-    };
   };
 
   home.shellAliases = {

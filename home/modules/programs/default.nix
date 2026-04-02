@@ -43,7 +43,6 @@
 
   programs = {
     firefox.enable = true;
-    kitty.enable = true;
     java = {
       enable = true;
       package = pkgs.jdk21;
