@@ -12,6 +12,7 @@
   home.packages = with pkgs; [
     # Apps
     # celluloid
+    kdePackages.dolphin
     keepassxc
     obsidian
     pinta
