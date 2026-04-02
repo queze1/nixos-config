@@ -1,7 +1,7 @@
 {
-  inputs,
   config,
   hypervisor ? null,
+  inputs,
   ...
 }:
 

@@ -28,6 +28,12 @@
     }:
 
     let
+      desktopDefaults = {
+        plasma = false;
+        niri = false;
+        noctalia = false;
+      };
+
       # Helper function to create a NixOS system
       mkSystem =
         host:
@@ -35,8 +41,13 @@
           system,
           user,
           homeProfile,
+          desktop ? { },
           hypervisor ? null,
         }:
+        let
+          # Needed so Nix doesn't complain about missing values
+          desktop' = desktopDefaults // desktop;
+        in
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
@@ -46,6 +57,7 @@
               homeProfile
               hypervisor
               ;
+            desktop = desktop';
           };
 
           modules = [
@@ -71,18 +83,30 @@
           user = "andrewh";
           homeProfile = "general";
           hypervisor = "vmware";
+          desktop = {
+            plasma = true;
+          };
         };
         utm-vm = {
           system = "aarch64-linux";
           user = "andrewh";
           homeProfile = "general";
           hypervisor = "utm";
+          desktop = {
+            niri = true;
+            noctalia = true;
+          };
         };
         utm-vm-2 = {
           system = "aarch64-linux";
           user = "andrewh";
           homeProfile = "general";
           hypervisor = "utm";
+          desktop = {
+            plasma = true;
+            niri = true;
+            noctalia = true;
+          };
         };
       };
     in
