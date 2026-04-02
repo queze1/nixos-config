@@ -36,6 +36,7 @@
         {
           user,
           homeProfile,
+          desktop ? { },
           hypervisor ? null,
           ...
         }:
@@ -49,6 +50,7 @@
           home-manager.extraSpecialArgs = {
             inherit
               user
+              desktop
               hypervisor
               inputs
               ;
