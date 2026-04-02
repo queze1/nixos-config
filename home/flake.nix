@@ -17,18 +17,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-
-    dc-tec-nixvim.url = "github:dc-tec/nixvim";
   };
 
   outputs =
-    {
+    inputs@{
       self,
       nixpkgs,
       home-manager,
-      nix-index-database,
-      plasma-manager,
-      dc-tec-nixvim,
       ...
     }:
     {
@@ -50,7 +45,7 @@
             inherit
               user
               hypervisor
-              dc-tec-nixvim
+              inputs
               ;
           };
 
@@ -72,8 +67,8 @@
           home-manager.users."${user}" = {
             imports = [
               ./${homeProfile}.nix
-              nix-index-database.homeModules.default
-              plasma-manager.homeModules.plasma-manager
+              inputs.nix-index-database.homeModules.default
+              inputs.plasma-manager.homeModules.plasma-manager
             ];
           };
         };
