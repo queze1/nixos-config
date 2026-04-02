@@ -17,6 +17,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -68,7 +73,6 @@
             imports = [
               ./${homeProfile}.nix
               inputs.nix-index-database.homeModules.default
-              inputs.plasma-manager.homeModules.plasma-manager
             ];
           };
         };
