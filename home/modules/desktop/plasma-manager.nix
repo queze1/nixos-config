@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   hypervisor ? null,
   ...
@@ -15,6 +16,10 @@ let
 in
 
 {
+  imports = [
+    inputs.plasma-manager.homeModules.plasma-manager
+  ];
+
   programs.plasma = {
     enable = true;
 
