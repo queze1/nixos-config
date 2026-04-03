@@ -40,6 +40,9 @@ in
     tree
     wl-clipboard
 
+    # Theming
+    pywalfox-native
+
     # Development tools
     nil
     nixfmt
