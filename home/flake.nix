@@ -26,16 +26,14 @@
 
   outputs =
     inputs@{
-      self,
-      nixpkgs,
       home-manager,
       ...
     }:
     {
       nixosModules.default =
-        {
-          user,
+        nixosArgs@{
           homeProfile,
+          user,
           desktop ? { },
           hypervisor ? null,
           ...
@@ -49,12 +47,12 @@
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {
             inherit
-              self
+              inputs
               user
               desktop
               hypervisor
-              inputs
               ;
+            pkgsStable = nixosArgs.pkgsStable;
           };
 
           # Backup with an incrementing number

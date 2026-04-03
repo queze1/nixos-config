@@ -10,7 +10,7 @@
         autoSetupRemote = "true";
       };
       alias = {
-        ca = "commit --amend";
+        ca = "commit -a --amend";
         cm = "commit -m";
         co = "checkout";
         s = "status";
