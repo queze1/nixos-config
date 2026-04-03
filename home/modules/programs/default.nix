@@ -14,6 +14,7 @@
     # celluloid
     kdePackages.dolphin
     keepassxc
+    kooha
     obsidian
     pinta
     vesktop
