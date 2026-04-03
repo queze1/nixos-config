@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
     home-config = {
       url = "path:./home";
@@ -28,16 +29,11 @@
     inputs@{
       self,
       nixpkgs,
+      nixpkgs-stable,
       ...
     }:
 
     let
-      desktopDefaults = {
-        plasma = false;
-        niri = false;
-        noctalia = false;
-      };
-
       # Helper function to create a NixOS system
       mkSystem =
         host:
@@ -49,14 +45,23 @@
           hypervisor ? null,
         }:
         let
+          lib = nixpkgs.lib;
+          pkgs-stable = nixpkgs-stable.legacyPackages.${system};
+
           # Needed so Nix doesn't complain about missing values
-          desktop' = desktopDefaults // desktop;
+          desktop' = {
+            plasma = false;
+            niri = false;
+            noctalia = false;
+          }
+          // desktop;
         in
-        nixpkgs.lib.nixosSystem {
+        lib.nixosSystem {
           inherit system;
           specialArgs = {
             inherit
               self
+              pkgs-stable
               user
               homeProfile
               hypervisor

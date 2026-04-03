@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-stable,
   ...
 }:
 {
@@ -11,7 +12,7 @@
 
   home.packages = with pkgs; [
     # Apps
-    # celluloid
+    pkgs-stable.celluloid
     kdePackages.dolphin
     keepassxc
     kooha
