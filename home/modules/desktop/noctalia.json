@@ -64,13 +64,13 @@
           "hideMode": "hidden",
           "hideWhenIdle": false,
           "id": "MediaMini",
-          "maxWidth": 145,
+          "maxWidth": 600,
           "panelShowAlbumArt": true,
           "scrollingMode": "hover",
           "showAlbumArt": true,
           "showArtistFirst": true,
           "showProgressRing": true,
-          "showVisualizer": false,
+          "showVisualizer": true,
           "textColor": "none",
           "useFixedWidth": false,
           "visualizerType": "linear"
@@ -406,7 +406,7 @@
     "disableDesktopWidgets": true
   },
   "dock": {
-    "enabled": true,
+    "enabled": false,
     "position": "bottom",
     "displayMode": "auto_hide",
     "dockType": "floating",
@@ -658,6 +658,11 @@
     "overviewEnabled": true,
     "gridSnap": false,
     "gridSnapScale": false,
-    "monitorWidgets": []
+    "monitorWidgets": [
+      {
+        "name": "Virtual-1",
+        "widgets": []
+      }
+    ]
   }
 }
