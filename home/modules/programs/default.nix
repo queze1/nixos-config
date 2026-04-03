@@ -22,6 +22,7 @@
 
     # CLI tools
     gemini-cli
+    gpu-screen-recorder
     sshfs
     tree
     wl-clipboard
