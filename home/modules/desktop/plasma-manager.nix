@@ -14,7 +14,6 @@ let
     else
       config.home.homeDirectory;
 in
-
 {
   imports = [
     inputs.plasma-manager.homeModules.plasma-manager
