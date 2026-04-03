@@ -1,8 +1,21 @@
 {
   pkgs,
   pkgsStable,
+  config,
+  hypervisor,
   ...
 }:
+let
+  # Duplicated from /home/queze/etc/nixos/home/modules/desktop/plasma-manager.nix
+  # Factor out later
+  homeDirectory =
+    if hypervisor == "vmware" then
+      "/mnt/hgfs/VMShared"
+    else if hypervisor == "utm" then
+      "/mnt/utm"
+    else
+      config.home.homeDirectory;
+in
 {
   imports = [
     ./git.nix
@@ -56,6 +69,7 @@
         DisableTelemetry = true;
         GenerativeAI = false;
         OfferToSaveLoginsDefault = false;
+        DefaultDownloadDirectory = "${homeDirectory}/Downloads";
       };
 
       profiles.default = {
