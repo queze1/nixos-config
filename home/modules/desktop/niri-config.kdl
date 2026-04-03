@@ -310,8 +310,9 @@ binds {
     Mod+S hotkey-overlay-title="Open Control Centre: noctalia-shell" { spawn-sh "noctalia-shell ipc call controlCenter toggle"; }
     Mod+Comma hotkey-overlay-title="Open Settings: noctalia-shell" { spawn-sh "noctalia-shell ipc call settings toggle"; }
 
-    // Change wallpaper
+    // Custom binds
     Mod+Shift+W hotkey-overlay-title="Change Wallpaper: noctalia-shell" { spawn-sh "noctalia-shell ipc call wallpaper toggle"; }
+    Mod+Shift+M hotkey-overlay-title="Toggle Theme: noctalia-shell" { spawn-sh "noctalia-shell ipc call darkMode toggle"; }
 
     // Audio & Brightness
     XF86AudioRaiseVolume { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
@@ -321,11 +322,6 @@ binds {
     XF86MonBrightnessDown { spawn "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
 
     Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
-
-    // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
-    // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
-    // For example, this is a standard bind to toggle the screen reader (orca).
-    Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
     // Example media keys mapping using playerctl.
     // This will work with any MPRIS-enabled media player.
