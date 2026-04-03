@@ -14,4 +14,7 @@
 
   services.desktopManager.plasma6.enable = desktop.plasma;
   programs.niri.enable = desktop.niri;
+  xdg.portal.config.niri = {
+    "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
+  };
 }
