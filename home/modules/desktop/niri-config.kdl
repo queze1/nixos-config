@@ -310,6 +310,9 @@ binds {
     Mod+S hotkey-overlay-title="Open Control Centre: noctalia-shell" { spawn-sh "noctalia-shell ipc call controlCenter toggle"; }
     Mod+Comma hotkey-overlay-title="Open Settings: noctalia-shell" { spawn-sh "noctalia-shell ipc call settings toggle"; }
 
+    // Change wallpaper
+    Mod+Shift+W hotkey-overlay-title="Change Wallpaper: noctalia-shell" { spawn-sh "noctalia-shell ipc call wallpaper toggle"; }
+
     // Audio & Brightness
     XF86AudioRaiseVolume { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
     XF86AudioLowerVolume { spawn "noctalia-shell" "ipc" "call" "volume" "decrease"; }
