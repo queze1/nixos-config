@@ -25,14 +25,16 @@ in
 
   home.packages = with pkgs; [
     # Apps
-    pkgsStable.celluloid
+    digikam
     kdePackages.dolphin
     keepassxc
     obsidian
     pinta
+    pkgsStable.celluloid
     vesktop
 
     # CLI tools
+    fastfetch
     gemini-cli
     sshfs
     tree
