@@ -15,14 +15,12 @@
     pkgsStable.celluloid
     kdePackages.dolphin
     keepassxc
-    kooha
     obsidian
     pinta
     vesktop
 
     # CLI tools
     gemini-cli
-    gpu-screen-recorder
     sshfs
     tree
     wl-clipboard
