@@ -52,7 +52,7 @@
               desktop
               hypervisor
               ;
-            pkgsStable = nixosArgs.pkgsStable;
+            pkgs-stable = nixosArgs.pkgs-stable;
           };
 
           # Backup with an incrementing number
