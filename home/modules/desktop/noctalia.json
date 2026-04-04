@@ -211,6 +211,7 @@
     "name": "Sydney",
     "weatherEnabled": true,
     "weatherShowEffects": true,
+    "weatherTaliaMascotAlways": false,
     "useFahrenheit": false,
     "use12hourFormat": false,
     "showWeekNumberInCalendar": false,
@@ -610,6 +611,10 @@
       {
         "enabled": true,
         "id": "discord"
+      },
+      {
+        "enabled": true,
+        "id": "kitty"
       }
     ],
     "enableUserTheming": false
