@@ -14,6 +14,7 @@
       settings = {
         main = {
           shell = "${pkgs.fish}/bin/fish";
+          font = "Liberation Mono:size=12";
         };
       };
     };
