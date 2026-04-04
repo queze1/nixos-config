@@ -11,6 +11,7 @@
     fish.enable = true;
     kitty = {
       enable = true;
+      shellIntegration.enableFishIntegration = true;
     };
     yazi.enable = true;
   };
