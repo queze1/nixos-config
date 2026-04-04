@@ -29,6 +29,7 @@ in
     kdePackages.dolphin
     keepassxc
     obsidian
+    obs-studio
     pinta
     pkgsStable.celluloid
     vesktop
@@ -39,8 +40,6 @@ in
     slurp
     sshfs
     tree
-    wf-recorder
-    wl-clipboard
 
     # Theming
     pywalfox-native
