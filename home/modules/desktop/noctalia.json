@@ -611,10 +611,6 @@
       {
         "enabled": true,
         "id": "discord"
-      },
-      {
-        "enabled": true,
-        "id": "kitty"
       }
     ],
     "enableUserTheming": false
