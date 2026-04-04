@@ -161,5 +161,6 @@ in
       enable = true;
       package = pkgs.vscode.fhs;
     };
+    yazi.enable = true;
   };
 }
