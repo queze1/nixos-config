@@ -36,6 +36,7 @@ in
     # CLI tools
     fastfetch
     gemini-cli
+    slurp
     sshfs
     tree
     wf-recorder
