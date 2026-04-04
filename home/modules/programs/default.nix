@@ -1,6 +1,6 @@
 {
   pkgs,
-  pkgsStable,
+  pkgs-stable,
   config,
   hypervisor,
   ...
@@ -31,7 +31,7 @@ in
     obsidian
     obs-studio
     pinta
-    pkgsStable.celluloid
+    pkgs-stable.celluloid
     vesktop
 
     # CLI tools

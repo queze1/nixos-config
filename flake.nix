@@ -45,7 +45,7 @@
           hypervisor ? null,
         }:
         let
-          pkgsStable = nixpkgs-stable.legacyPackages.${system};
+          pkgs-stable = nixpkgs-stable.legacyPackages.${system};
 
           # Needed so Nix doesn't complain about missing values
           desktop' = {
@@ -60,7 +60,7 @@
           specialArgs = {
             inherit
               self
-              pkgsStable
+              pkgs-stable
               user
               homeProfile
               hypervisor
