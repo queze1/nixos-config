@@ -2,13 +2,17 @@
 {
   programs = {
     bash.enable = true;
-    fish.enable = true;
     direnv = {
       enable = true;
       enableBashIntegration = true;
       enableFishIntegration = true;
       nix-direnv.enable = true;
     };
+    fish.enable = true;
+    kitty = {
+      enable = true;
+    };
+    yazi.enable = true;
   };
 
   home.shellAliases = {
