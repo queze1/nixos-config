@@ -9,14 +9,15 @@
       nix-direnv.enable = true;
     };
     fish.enable = true;
-    kitty = {
+    foot = {
       enable = true;
-      shellIntegration.enableBashIntegration = true;
-      shellIntegration.enableFishIntegration = true;
       settings = {
-        shell = "${pkgs.fish}/bin/fish";
+        main = {
+          shell = "${pkgs.fish}/bin/fish";
+        };
       };
     };
+
     yazi.enable = true;
   };
 
