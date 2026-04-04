@@ -38,6 +38,7 @@ in
     gemini-cli
     sshfs
     tree
+    wf-recorder
     wl-clipboard
 
     # Theming
