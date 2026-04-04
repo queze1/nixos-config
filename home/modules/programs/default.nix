@@ -35,7 +35,7 @@
     # Development tools
     nil
     nixfmt
-    nodejs
+    nodejs_22
     yarn
 
     # Force Audacity to use native Wayland
