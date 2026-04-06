@@ -9,6 +9,7 @@
     ./firefox.nix
     ./git.nix
     ./shell.nix
+    ./thunar.nix
   ];
 
   home.packages = with pkgs; [
@@ -25,9 +26,9 @@
     # CLI tools
     fastfetch
     gemini-cli
-    slurp
     sshfs
     tree
+    wl-clipboard
 
     # Theming
     pywalfox-native
@@ -60,6 +61,7 @@
       enable = true;
       package = pkgs.vscode.fhs;
     };
+    yazi.enable = true;
   };
 
   services.syncthing = {
