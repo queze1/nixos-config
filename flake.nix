@@ -17,9 +17,10 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.darwin.follows = "";
 
-    niri-nix = {
-      url = "git+https://codeberg.org/BANanaD3V/niri-nix";
-    };
+    # Currently unused
+    # niri-nix = {
+    #   url = "git+https://codeberg.org/BANanaD3V/niri-nix";
+    # };
 
     # For build-time secrets
     my-secrets.url = "git+ssh://git@github.com/queze1/nixos-secrets.git";
