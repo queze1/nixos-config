@@ -18,8 +18,11 @@
         };
       };
     };
-
-    yazi.enable = true;
+    zoxide = {
+      enable = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+    };
   };
 
   xdg.terminal-exec = {
