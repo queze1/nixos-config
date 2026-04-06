@@ -32,6 +32,7 @@ in
         "browser.aboutConfig.showWarning" = false;
         "sidebar.verticalTabs" = true;
         "widget.use-xdg-desktop-portal.file-picker" = 1;
+        "gfx.canvas.accelerated" = false; # fixes broken PDFs in VMs
         "gfx.font_rendering.fontconfig.max_generic_substitution" = 127;
       };
 
