@@ -9,7 +9,6 @@
     ./firefox.nix
     ./git.nix
     ./shell.nix
-    ./thunar.nix
   ];
 
   home.packages = with pkgs; [
