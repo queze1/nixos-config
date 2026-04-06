@@ -22,6 +22,13 @@
     yazi.enable = true;
   };
 
+  xdg.terminal-exec = {
+    enable = true;
+    settings = {
+      default = [ "foot.desktop" ];
+    };
+  };
+
   home.shellAliases = {
     nrs = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild switch";
     nrb = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild boot";
