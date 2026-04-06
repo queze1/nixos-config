@@ -13,3 +13,24 @@ My personal NixOS config.
 - [agentix](https://github.com/ryantm/agenix) - to securely manage secrets
 - [nixos-anywhere](https://github.com/nix-community/nixos-anywhere) - to remotely install NixOS with a single CLI command
 - [disko](https://github.com/nix-community/disko) - for declarative disk management
+
+## Project Structure
+```bash
+.
+├── home
+│   └── modules
+│       ├── desktop
+│       ├── programs
+├── hosts
+│   ├── utm-vm
+│   ├── utm-vm-2
+│   └── vmware-vm
+├── secrets
+├── system
+│   ├── common
+│   ├── core
+│   ├── disko
+│   └── vm
+└── users
+    └── andrewh.nix
+```
