@@ -1,4 +1,4 @@
-# queze's NixOS Config
+# nixos-config
 
 My personal NixOS config.
 
