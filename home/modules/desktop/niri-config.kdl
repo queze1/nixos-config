@@ -28,7 +28,7 @@ output "Virtual-1" {
     // mode "1920x1080@60"
 
     mode custom=true "2560x1664@60"
-    scale 1.75 
+    scale 1.8
 }
 
 // Settings that influence how windows are positioned and sized.
