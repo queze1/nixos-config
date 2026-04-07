@@ -9,9 +9,4 @@
     thunar-volman
   ];
   services.gvfs.enable = true;
-
-  services.syncthing = {
-    enable = true;
-    openDefaultPorts = true;
-  };
 }
