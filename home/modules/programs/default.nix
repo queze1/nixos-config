@@ -62,8 +62,4 @@
     };
     yazi.enable = true;
   };
-
-  services.syncthing = {
-    enable = true;
-  };
 }
