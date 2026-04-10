@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   pkgs-stable,
   ...
@@ -60,6 +61,19 @@
     vscode = {
       enable = true;
       package = pkgs.vscode.fhs;
+    };
+    programs.yazi = {
+      plugins.bunny = "${inputs.bunny-yazi}";
+      initLua = ''
+        require("bunny"):setup({ ... })
+      '';
+      keymap.mgr.prepend_keymap = [
+        {
+          on = ";";
+          run = "plugin bunny";
+          desc = "Start bunny.yazi";
+        }
+      ];
     };
     yazi.enable = true;
   };
