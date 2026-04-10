@@ -24,6 +24,7 @@
 
     # CLI tools
     fastfetch
+    ffmpeg
     gemini-cli
     sshfs
     tree
