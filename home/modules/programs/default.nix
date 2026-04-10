@@ -62,7 +62,8 @@
       enable = true;
       package = pkgs.vscode.fhs;
     };
-    programs.yazi = {
+    yazi = {
+      enable = true;
       plugins.bunny = "${inputs.bunny-yazi}";
       initLua = ''
         require("bunny"):setup({ ... })
@@ -75,7 +76,6 @@
         }
       ];
     };
-    yazi.enable = true;
   };
 
   services.syncthing = {
