@@ -78,6 +78,7 @@
             { key = "D",          path = "/mnt/utm/Documents",                    },
             { key = "p",          path = "/mnt/utm/Pictures",                     },
             { key = "v",          path = "/mnt/utm/Videos",                       },
+            { key = "o",          path = "/mnt/utm/Documents/obsidian",           },
           },
           desc_strategy = "path", -- If desc isn't present, use "path" or "filename", default is "path"
           ephemeral = true, -- Enable ephemeral hops, default is true
