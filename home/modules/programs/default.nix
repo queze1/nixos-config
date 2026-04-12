@@ -64,9 +64,27 @@
     };
     yazi = {
       enable = true;
+      shellWrapperName = "y";
       plugins.bunny = "${inputs.bunny-yazi}";
       initLua = ''
-        require("bunny"):setup({ ... })
+        require("bunny"):setup({
+          hops = {
+            { key = "/",          path = "/",                                     },
+            { key = "t",          path = "/tmp",                                  },
+            { key = "n",          path = "/nix/store",         desc = "Nix store" },
+            { key = "~",          path = "/mnt/utm",                              },
+            { key = "m",          path = "/mnt/utm/Music",                        },
+            { key = "d",          path = "/mnt/utm/Downloads",                    },
+            { key = "D",          path = "/mnt/utm/Documents",                    },
+            { key = "p",          path = "/mnt/utm/Pictures",                     },
+            { key = "v",          path = "/mnt/utm/Videos",                       },
+          },
+          desc_strategy = "path", -- If desc isn't present, use "path" or "filename", default is "path"
+          ephemeral = true, -- Enable ephemeral hops, default is true
+          tabs = true, -- Enable tab hops, default is true
+          notify = false, -- Notify after hopping, default is false
+          fuzzy_cmd = "fzf", -- Fuzzy searching command, default is "fzf"
+        })
       '';
       keymap.mgr.prepend_keymap = [
         {
