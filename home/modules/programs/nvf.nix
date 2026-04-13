@@ -6,7 +6,6 @@
     enable = true;
     settings = {
       vim = {
-        autocomplete.nvim-cmp.enable = true;
         lsp.enable = true;
 
         # ----------------------------------------
@@ -66,6 +65,8 @@
         # ----------------------------------------
         # Features & Plugins
         # ----------------------------------------
+        comments.comment-nvim.enable = true;
+        autocomplete.nvim-cmp.enable = true;
 
         # Multi-cursor
         utility.multicursors.enable = true;
