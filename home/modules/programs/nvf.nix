@@ -164,11 +164,8 @@
         };
         options.wrap = false; # interferes with cinnamon
 
-        # Copilot integration
-        assistant.copilot = {
-          enable = true;
-          cmp.enable = true; # Intercepts nvim-cmp to provide inline suggestions within autocomplete
-        };
+        # AI integration
+        assistant.avante-nvim.enable = true;
 
         # Open and close terminals easily
         terminal.toggleterm = {
