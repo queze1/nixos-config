@@ -7,6 +7,12 @@
     settings = {
       vim = {
         lsp.enable = true;
+        languages = {
+          python.enable = true;
+          rust.enable = true;
+          java.enable = true;
+          nix.enable = true;
+        };
 
         # ----------------------------------------
         # Hot keys
