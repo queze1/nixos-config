@@ -149,7 +149,10 @@
         };
 
         # Enable smooth scrolling
-        visuals.cinnamon-nvim.enable = true;
+        visuals.cinnamon-nvim = {
+          enable = true;
+          setupOpts.keymaps.basic = true;
+        };
         options.wrap = false; # interferes with cinnamon
 
         # Copilot integration
