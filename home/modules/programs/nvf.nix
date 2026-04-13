@@ -193,8 +193,16 @@
         };
         options.wrap = false; # interferes with cinnamon
 
-        # AI integration
-        assistant.avante-nvim.enable = true;
+        # Copilot integration
+        assistant = {
+          copilot.enable = true;
+          avante-nvim = {
+            enable = true;
+            setupOpts = {
+              provider = "copilot";
+            };
+          };
+        };
 
         # Open and close terminals easily
         terminal.toggleterm = {
