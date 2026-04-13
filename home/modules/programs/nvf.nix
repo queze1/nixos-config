@@ -141,10 +141,10 @@
           mappings = {
             markFile = "<leader>a";
             listMarks = "<C-e>";
-            file1 = "<C-j>";
-            file2 = "<C-k>";
-            file3 = "<C-l>";
-            file4 = "<C-m>";
+            file1 = "<leader>1";
+            file2 = "<leader>2";
+            file3 = "<leader>3";
+            file4 = "<leader>4";
           };
         };
 
