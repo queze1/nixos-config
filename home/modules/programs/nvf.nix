@@ -51,6 +51,7 @@
             mode = [
               "n"
               "v"
+              "o"
             ];
             action = "^";
             silent = true;
@@ -61,6 +62,7 @@
             mode = [
               "n"
               "v"
+              "o"
             ];
             action = "$";
             silent = true;
