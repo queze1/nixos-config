@@ -10,6 +10,7 @@
     ./firefox.nix
     ./git.nix
     ./shell.nix
+    ./nvf.nix
   ];
 
   home.packages = with pkgs; [
