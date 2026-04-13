@@ -68,6 +68,35 @@
             silent = true;
             desc = "Go to end of line";
           }
+          # Window navigation
+          {
+            key = "<C-h>";
+            mode = "n";
+            action = "<C-w>h";
+            silent = true;
+            desc = "Move to window left";
+          }
+          {
+            key = "<C-j>";
+            mode = "n";
+            action = "<C-w>j";
+            silent = true;
+            desc = "Move to window down";
+          }
+          {
+            key = "<C-k>";
+            mode = "n";
+            action = "<C-w>k";
+            silent = true;
+            desc = "Move to window up";
+          }
+          {
+            key = "<C-l>";
+            mode = "n";
+            action = "<C-w>l";
+            silent = true;
+            desc = "Move to window right";
+          }
         ];
 
         # ----------------------------------------
