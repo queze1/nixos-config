@@ -150,6 +150,7 @@
 
         # Enable smooth scrolling
         visuals.cinnamon-nvim.enable = true;
+        options.wrap = false; # interferes with cinnamon
 
         # Copilot integration
         assistant.copilot = {
