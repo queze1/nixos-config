@@ -105,9 +105,6 @@
         comments.comment-nvim.enable = true;
         autocomplete.nvim-cmp.enable = true;
 
-        # Multi-cursor
-        utility.multicursors.enable = true;
-
         # Surround with braces/brackets
         utility.surround.enable = true;
 
