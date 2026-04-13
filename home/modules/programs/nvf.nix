@@ -25,28 +25,7 @@
             silent = true;
             desc = "Save file";
           }
-          # Ctrl-D/U to scroll and then centre
-          {
-            key = "<C-d>";
-            mode = [
-              "n"
-              "v"
-            ];
-            action = "<C-d>zz";
-            silent = true;
-            desc = "Scroll down and center";
-          }
-          {
-            key = "<C-u>";
-            mode = [
-              "n"
-              "v"
-            ];
-            action = "<C-u>zz";
-            silent = true;
-            desc = "Scroll up and center";
-          }
-          # Shortcut to insert newline above or below without entering insert mode
+          # Insert newline above or below without entering insert mode
           {
             key = "<leader>o";
             mode = "n";
@@ -88,6 +67,9 @@
         # Features & Plugins
         # ----------------------------------------
 
+        # Smooth scrolling
+        visuals.neoscroll.enable = true;
+
         # Multi-cursor
         utility.multicursors.enable = true;
 
@@ -104,8 +86,6 @@
         utility.motion.flash-nvim.enable = true;
 
         # Ability to move based on indentation (vim-indentwise)
-        # Since this plugin isn't natively exposed via a toggle in nvf yet, we add it via extraPlugins.
-        # It provides `[-`, `]+`, `[=`, `]=` bindings out of the box for jump to inner / jump to same
         extraPlugins = with pkgs.vimPlugins; {
           vim-indentwise = {
             package = vim-indentwise;
@@ -127,10 +107,10 @@
         # Fuzzy finding (Telescope)
         telescope.enable = true;
 
-        # Being able to go to a previous file/project on start (session-manager)
+        # Going to a previous file/project on start (session-manager)
         session.nvim-session-manager.enable = true;
 
-        # Being able to easily swap between files like VSCode tabs (Harpoon)
+        # Swapping between files like VSCode tabs (Harpoon)
         navigation.harpoon = {
           enable = true;
           mappings = {
@@ -160,7 +140,6 @@
         };
 
         # Git integration
-        # Enables a full suite of Git tools including gitsigns, vim-fugitive, and git-conflict
         git.enable = true;
 
         # Ability to see git history of a file and copy paste from it (diffview)
