@@ -174,7 +174,7 @@
         navigation.harpoon = {
           enable = true;
           mappings = {
-            markFile = "<leader>a";
+            markFile = "<leader>m";
             listMarks = "<C-e>";
             file1 = "<leader>1";
             file2 = "<leader>2";
