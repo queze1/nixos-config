@@ -170,12 +170,11 @@
           cmp.enable = true; # Intercepts nvim-cmp to provide inline suggestions within autocomplete
         };
 
-        # Being able to open and close a terminal easily (ToggleTerm + hotkeys)
+        # Open and close terminals easily
         terminal.toggleterm = {
           enable = true;
           mappings.open = "<C-t>";
 
-          # Optional: Run lazygit inside toggleterm automatically
           lazygit.enable = true;
           lazygit.mappings.open = "<leader>gg";
         };
