@@ -30,6 +30,7 @@
     gemini-cli
     sshfs
     tree
+    unzip
     wl-clipboard
 
     # Theming
