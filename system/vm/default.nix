@@ -7,8 +7,9 @@
 {
   config = lib.mkMerge [
     (lib.mkIf (hypervisor == "utm") {
-      # Enable SPICE agent
+      # Enable guest tools
       services.spice-vdagentd.enable = true;
+      services.qemuGuest.enable = true;
 
       # Pretend that we support OpenGL 3.3
       environment.sessionVariables = {
