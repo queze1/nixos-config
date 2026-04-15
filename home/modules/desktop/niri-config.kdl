@@ -524,3 +524,5 @@ environment {
 
 // Autostart Noctalia
 spawn-at-startup "noctalia-shell"
+// Autostart spice-vdagent
+spawn-sh-at-startup "spice-vdagent -x"
