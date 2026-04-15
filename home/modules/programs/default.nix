@@ -32,6 +32,7 @@
     tree
     unzip
     wl-clipboard
+    xclip
 
     # Theming
     pywalfox-native
