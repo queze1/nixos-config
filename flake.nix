@@ -138,6 +138,7 @@
             "8022"
           ];
           path = activateNixOnDroid inputs.nix-on-droid-repo.nixOnDroidConfigurations.default;
+          magicRollback = false;
         };
       };
 
