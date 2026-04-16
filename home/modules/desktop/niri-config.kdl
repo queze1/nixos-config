@@ -518,10 +518,6 @@ binds {
     Mod+Shift+P { power-off-monitors; }
 }
 
-environment {
-    TERMINAL "foot"
-}
-
 // Autostart Noctalia
 spawn-at-startup "noctalia-shell"
 // Autostart spice-vdagent
