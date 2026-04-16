@@ -9,8 +9,15 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Optimise storage
-  nix.settings.auto-optimise-store = true;
+  nix.settings = {
+    substituters = [
+      "https://nix-on-droid.cachix.org"
+    ];
+    trusted-public-keys = [
+      "nix-on-droid.cachix.org-1:56snoMJTXmE7wm+67YySRoTY64Zkivk9RT4QaKYgpkE="
+    ];
+  };
+
   nix.gc = {
     automatic = true;
     dates = "weekly";

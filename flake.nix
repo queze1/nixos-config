@@ -17,10 +17,11 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.darwin.follows = "";
 
-    # Currently unused
-    # niri-nix = {
-    #   url = "git+https://codeberg.org/BANanaD3V/niri-nix";
-    # };
+    deploy-rs.url = "github:serokell/deploy-rs";
+
+    nix-on-droid-repo = {
+      url = "github:queze1/nix-on-droid-config";
+    };
 
     # For build-time secrets
     my-secrets.url = "git+ssh://git@github.com/queze1/nixos-secrets.git";
@@ -31,10 +32,15 @@
       self,
       nixpkgs,
       nixpkgs-stable,
+      deploy-rs,
       ...
     }:
-
     let
+      # Helper function to activate Nix-on-droid
+      activateNixOnDroid =
+        configuration:
+        deploy-rs.lib.aarch64-linux.activate.custom configuration.activationPackage "${configuration.activationPackage}/activate";
+
       # Helper function to create a NixOS system
       mkSystem =
         host:
@@ -122,5 +128,19 @@
     {
       # Use mapAttrs to create a system for each host
       nixosConfigurations = builtins.mapAttrs mkSystem hosts;
+
+      deploy.nodes.nix-on-droid-server = {
+        hostname = "poco-x3-pro";
+        profiles.system = {
+          sshUser = "nix-on-droid";
+          sshOpts = [
+            "-p"
+            "8022"
+          ];
+          path = activateNixOnDroid inputs.nix-on-droid-repo.nixOnDroidConfigurations.default;
+        };
+      };
+
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
 }
