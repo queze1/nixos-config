@@ -34,6 +34,19 @@
     wl-clipboard
     xclip
 
+    (tree-sitter.overrideAttrs (oldAttrs: rec {
+      version = "0.26.8";
+      patches = [ ];
+      src = pkgs.fetchFromGitHub {
+        owner = "tree-sitter";
+        repo = "tree-sitter";
+        tag = "v${version}";
+        hash = "sha256-fcFEfoALrbpBD6rWogxJ7FNVlvDQgswoX9ylRgko+8Q=";
+        fetchSubmodules = true;
+      };
+      cargoHash = "";
+    }))
+
     # Theming
     pywalfox-native
 
