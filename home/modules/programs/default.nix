@@ -38,10 +38,10 @@
     pywalfox-native
 
     # Development tools
+    lua55Packages.tree-sitter-cli
     nil
     nixfmt
     nodejs_22
-    tree-sitter
     yarn
 
     # Force Audacity to use native Wayland
