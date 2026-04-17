@@ -38,7 +38,6 @@
     pywalfox-native
 
     # Development tools
-    lua55Packages.tree-sitter-cli
     nil
     nixfmt
     nodejs_22
