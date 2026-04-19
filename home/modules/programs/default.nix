@@ -73,10 +73,11 @@
         require("bunny"):setup({
           hops = {
             { key = "/",          path = "/",                                      },
+            { key = "~",          path = "~",                                      },
             { key = "t",          path = "/tmp",                                   },
             { key = "n",          path = "/nix/store",         desc = "Nix store"  },
             { key = "c",          path = "~/etc/nixos",        desc = "Nix config" },
-            { key = "~",          path = "/mnt/utm",                               },
+            { key = "C",          path = "~/Coding",           desc = "Coding"     },
             { key = "m",          path = "/mnt/utm/Music",                         },
             { key = "d",          path = "/mnt/utm/Downloads",                     },
             { key = "D",          path = "/mnt/utm/Documents",                     },
