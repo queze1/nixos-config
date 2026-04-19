@@ -162,8 +162,8 @@
           };
         };
 
-        # A tree plugin (neo-tree)
-        filetree.neo-tree.enable = true;
+        # File manager (yazi.nvim)
+        utility.yazi-nvim.enable = true;
 
         # Autoformat on save (conform.nvim)
         formatter.conform-nvim.enable = true;
