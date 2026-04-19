@@ -6,6 +6,14 @@
     enable = true;
     settings = {
       vim = {
+        # ----------------------------------------
+        # Visuals
+        # ----------------------------------------
+        hideSearchHighlight = true;
+
+        # ----------------------------------------
+        # Languages
+        # ----------------------------------------
         lsp.enable = true;
         languages = {
           python.enable = true;
@@ -13,6 +21,8 @@
           java.enable = true;
           nix.enable = true;
         };
+        treesitter.enable = true;
+        treesitter.context.enable = true; # Shows sticky function/class context at the top
 
         # ----------------------------------------
         # Hot keys
@@ -154,10 +164,6 @@
 
         # A tree plugin (neo-tree)
         filetree.neo-tree.enable = true;
-
-        # Language highlighting and support (tree-sitter)
-        treesitter.enable = true;
-        treesitter.context.enable = true; # Shows sticky function/class context at the top
 
         # Autoformat on save (conform.nvim)
         formatter.conform-nvim.enable = true;
