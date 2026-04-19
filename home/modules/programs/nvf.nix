@@ -170,7 +170,17 @@
         };
 
         # File manager (yazi.nvim)
-        utility.yazi-nvim.enable = true;
+        utility.yazi-nvim = {
+          enable = true;
+          mappings = {
+            openYazi = "<leader>-";
+            openYaziDir = "<leader>cw";
+            yaziToggle = "<c-up>";
+          };
+          setupOpts = {
+            open_for_directories = true;
+          };
+        };
 
         # Autoformat on save (conform.nvim)
         formatter.conform-nvim.enable = true;
