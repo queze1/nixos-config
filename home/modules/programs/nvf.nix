@@ -21,8 +21,18 @@
           java.enable = true;
           nix.enable = true;
         };
-        treesitter.enable = true;
-        treesitter.context.enable = true; # Shows sticky function/class context at the top
+        treesitter = {
+          enable = true;
+          context.enable = true;
+          grammars = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
+            java
+            kdl
+            nix
+            python
+            regex
+            rust
+          ];
+        };
 
         # ----------------------------------------
         # Hot keys
