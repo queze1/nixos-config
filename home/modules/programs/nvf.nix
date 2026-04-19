@@ -129,13 +129,13 @@
             setup = ''
               neoscroll = require('neoscroll')
               neoscroll.setup({
-                easing = 'quadratic',
+                easing = 'sine',
               })
 
               -- Set scrolling animations
               local keymap = {
-                ["<C-u>"] = function() neoscroll.ctrl_u({ duration = 250 }) end;
-                ["<C-d>"] = function() neoscroll.ctrl_d({ duration = 250 }) end;
+                ["<C-u>"] = function() neoscroll.ctrl_u({ duration = 150 }) end; -- 250 default
+                ["<C-d>"] = function() neoscroll.ctrl_d({ duration = 150 }) end; -- 250 default
                 ["<C-b>"] = function() neoscroll.ctrl_b({ duration = 450 }) end;
                 ["<C-f>"] = function() neoscroll.ctrl_f({ duration = 450 }) end;
                 ["<C-y>"] = function() neoscroll.scroll(-0.1, { move_cursor=false; duration = 100 }) end;
