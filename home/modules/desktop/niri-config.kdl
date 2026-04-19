@@ -257,6 +257,7 @@ binds {
 
     // Application keybinds
     Mod+T hotkey-overlay-title="Open a Terminal: foot" { spawn "foot"; }
+    Mod+N hotkey-overlay-title="Open Neovim: nvim" { spawn "foot" "nvim"; }
 
     XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
     XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
