@@ -102,7 +102,6 @@
         # ----------------------------------------
         # Features & Plugins
         # ----------------------------------------
-        comments.comment-nvim.enable = true;
         autocomplete.nvim-cmp.enable = true;
 
         # Surround with braces/brackets
@@ -125,32 +124,32 @@
           };
 
           # Smooth scrolling (neoscroll)
-          # neoscroll = {
-          #   package = neoscroll-nvim;
-          #   setup = ''
-          #     neoscroll = require('neoscroll')
-          #     neoscroll.setup({
-          #       easing = 'quadratic',
-          #     })
-          #
-          #     -- Set scrolling animations
-          #     local keymap = {
-          #       ["<C-u>"] = function() neoscroll.ctrl_u({ duration = 250 }) end;
-          #       ["<C-d>"] = function() neoscroll.ctrl_d({ duration = 250 }) end;
-          #       ["<C-b>"] = function() neoscroll.ctrl_b({ duration = 450 }) end;
-          #       ["<C-f>"] = function() neoscroll.ctrl_f({ duration = 450 }) end;
-          #       ["<C-y>"] = function() neoscroll.scroll(-0.1, { move_cursor=false; duration = 100 }) end;
-          #       ["<C-e>"] = function() neoscroll.scroll(0.1, { move_cursor=false; duration = 100 }) end;
-          #       ["zt"]    = function() neoscroll.zt({ half_win_duration = 150 }) end; -- 250 default
-          #       ["zz"]    = function() neoscroll.zz({ half_win_duration = 150 }) end; -- 250 default
-          #       ["zb"]    = function() neoscroll.zb({ half_win_duration = 150 }) end; -- 250 default
-          #     }
-          #     local modes = { 'n', 'v', 'x' }
-          #     for key, func in pairs(keymap) do
-          #       vim.keymap.set(modes, key, func)
-          #     end
-          #   '';
-          # };
+          neoscroll = {
+            package = neoscroll-nvim;
+            setup = ''
+              neoscroll = require('neoscroll')
+              neoscroll.setup({
+                easing = 'quadratic',
+              })
+
+              -- Set scrolling animations
+              local keymap = {
+                ["<C-u>"] = function() neoscroll.ctrl_u({ duration = 250 }) end;
+                ["<C-d>"] = function() neoscroll.ctrl_d({ duration = 250 }) end;
+                ["<C-b>"] = function() neoscroll.ctrl_b({ duration = 450 }) end;
+                ["<C-f>"] = function() neoscroll.ctrl_f({ duration = 450 }) end;
+                ["<C-y>"] = function() neoscroll.scroll(-0.1, { move_cursor=false; duration = 100 }) end;
+                ["<C-e>"] = function() neoscroll.scroll(0.1, { move_cursor=false; duration = 100 }) end;
+                ["zt"]    = function() neoscroll.zt({ half_win_duration = 150 }) end; -- 250 default
+                ["zz"]    = function() neoscroll.zz({ half_win_duration = 150 }) end; -- 250 default
+                ["zb"]    = function() neoscroll.zb({ half_win_duration = 150 }) end; -- 250 default
+              }
+              local modes = { 'n', 'v', 'x' }
+              for key, func in pairs(keymap) do
+                vim.keymap.set(modes, key, func)
+              end
+            '';
+          };
         };
 
         # A tree plugin (neo-tree)
@@ -183,13 +182,6 @@
           };
         };
 
-        # Enable smooth scrolling
-        visuals.cinnamon-nvim = {
-          enable = true;
-          setupOpts.keymaps.basic = true;
-        };
-        options.wrap = false; # interferes with cinnamon
-
         # Copilot integration
         assistant = {
           copilot.enable = true;
@@ -212,8 +204,6 @@
 
         # Git integration
         git.enable = true;
-
-        # Ability to see git history of a file and copy paste from it (diffview)
         utility.diffview-nvim.enable = true;
 
         # Keybinding help (which-key)
