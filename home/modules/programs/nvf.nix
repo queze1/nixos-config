@@ -107,6 +107,13 @@
             silent = true;
             desc = "Move to window right";
           }
+          {
+            key = "<Esc>";
+            mode = "n";
+            action = "<Cmd>nohlsearch<CR>";
+            silent = true;
+            desc = "Clear search highlights";
+          }
         ];
 
         # ----------------------------------------
