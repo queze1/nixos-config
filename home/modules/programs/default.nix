@@ -72,16 +72,17 @@
       initLua = ''
         require("bunny"):setup({
           hops = {
-            { key = "/",          path = "/",                                     },
-            { key = "t",          path = "/tmp",                                  },
-            { key = "n",          path = "/nix/store",         desc = "Nix store" },
-            { key = "~",          path = "/mnt/utm",                              },
-            { key = "m",          path = "/mnt/utm/Music",                        },
-            { key = "d",          path = "/mnt/utm/Downloads",                    },
-            { key = "D",          path = "/mnt/utm/Documents",                    },
-            { key = "p",          path = "/mnt/utm/Pictures",                     },
-            { key = "v",          path = "/mnt/utm/Videos",                       },
-            { key = "o",          path = "/mnt/utm/Documents/obsidian",           },
+            { key = "/",          path = "/",                                      },
+            { key = "t",          path = "/tmp",                                   },
+            { key = "n",          path = "/nix/store",         desc = "Nix store"  },
+            { key = "c",          path = "~/etc/nixos",        desc = "Nix config" },
+            { key = "~",          path = "/mnt/utm",                               },
+            { key = "m",          path = "/mnt/utm/Music",                         },
+            { key = "d",          path = "/mnt/utm/Downloads",                     },
+            { key = "D",          path = "/mnt/utm/Documents",                     },
+            { key = "p",          path = "/mnt/utm/Pictures",                      },
+            { key = "v",          path = "/mnt/utm/Videos",                        },
+            { key = "o",          path = "/mnt/utm/Documents/obsidian",            },
           },
           desc_strategy = "path", -- If desc isn't present, use "path" or "filename", default is "path"
           ephemeral = true, -- Enable ephemeral hops, default is true
