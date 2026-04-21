@@ -33,6 +33,7 @@
     unzip
     wl-clipboard
     xclip
+    yt-dlp
 
     # Theming
     pywalfox-native
