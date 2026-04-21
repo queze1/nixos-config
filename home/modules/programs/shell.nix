@@ -40,7 +40,7 @@ let
     fi
   '';
 
-  deploy-nix-on-droid = pkgs.writeShellScriptBin "build-nix-on-droid" ''
+  deploy-nix-on-droid = pkgs.writeShellScriptBin "deploy-nix-on-droid" ''
     set -e
 
     ${update-flake}/bin/update-flake nix-on-droid-repo
