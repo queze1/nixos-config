@@ -2,6 +2,11 @@
 {
   imports = [ inputs.nvf.homeManagerModules.default ];
 
+  # Set Neovim as default editor
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
   programs.nvf = {
     enable = true;
     settings = {
