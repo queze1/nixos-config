@@ -33,6 +33,11 @@
         run = "plugin bunny";
         desc = "Start bunny.yazi";
       }
+      {
+        on = [ "T" ];
+        run = "shell 'foot' --orphan";
+        desc = "Open foot in current directory";
+      }
     ];
   };
 }
