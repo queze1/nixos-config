@@ -360,11 +360,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1776750351,
-        "narHash": "sha256-534fyO0J+FT8lHi3spatBpy91rC58Gr/t95TheBB0Bs=",
+        "lastModified": 1776750904,
+        "narHash": "sha256-3Uri/s9dzxkT98HYhSODFjtQARc+FiNb5561Ak2P8I8=",
         "owner": "queze1",
         "repo": "nix-on-droid-config",
-        "rev": "08d184b078c408d86becb5330a8ec302271ea20a",
+        "rev": "67b051cbbb3676e77acc88163414ccb3c8940580",
         "type": "github"
       },
       "original": {
