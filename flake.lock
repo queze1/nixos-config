@@ -408,11 +408,11 @@
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1776756848,
-        "narHash": "sha256-aEyaETJm6iQUkvo7o5239L69SNEp7OWOBpQULDRwoB0=",
+        "lastModified": 1776757333,
+        "narHash": "sha256-tlzmtX/Q5yxMt/MumXp0C877E4TBVsf9iu3PQVoF6QA=",
         "owner": "queze1",
         "repo": "nix-on-droid-config",
-        "rev": "80b9222702a9a9281453182a4f35c965d009ecb9",
+        "rev": "d2771bca16d9709b799b7a517a30ca61a42d8e62",
         "type": "github"
       },
       "original": {
