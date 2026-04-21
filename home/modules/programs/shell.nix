@@ -37,6 +37,7 @@
     nrb = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild boot";
     # Not portable at all, fix sometime
     noctalia-export = "noctalia-shell ipc call state all | nix run nixpkgs#jq .settings > ~/etc/nixos/home/modules/desktop/noctalia.json";
+    build-nix-on-droid = "nix flake update nix-on-droid-repo && git add . && git commit -m 'chore: update flake' && git push && sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild switch && nix run github:serokell/deploy-rs -- --targets '.#nix-on-droid-server' -- --impure";
   };
 
   home.packages = [
