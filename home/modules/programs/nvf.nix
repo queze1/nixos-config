@@ -12,9 +12,13 @@
     settings = {
       vim = {
         # ----------------------------------------
-        # Visuals
+        # Settings
         # ----------------------------------------
-        # hideSearchHighlight = true;
+        # Yank into system keyboard
+        clipboard = {
+          enable = true;
+          registers = "unnamedplus";
+        };
 
         # ----------------------------------------
         # Languages
@@ -132,24 +136,21 @@
         ];
 
         # ----------------------------------------
-        # Features & Plugins
+        # Plugins
         # ----------------------------------------
+        statusline.lualine.enable = true;
+
+        # Autocomplete with nvim-cmp
         autocomplete.nvim-cmp.enable = true;
 
         # Surround with braces/brackets
         utility.surround.enable = true;
 
-        # Yank into system keyboard
-        clipboard = {
-          enable = true;
-          registers = "unnamedplus";
-        };
-
         # Jumping (flash.nvim)
         utility.motion.flash-nvim.enable = true;
 
         extraPlugins = with pkgs.vimPlugins; {
-          # Ability to move based on indentation (vim-indentwise)
+          # Move based on indentation (vim-indentwise)
           vim-indentwise = {
             package = vim-indentwise;
             setup = "";
@@ -204,10 +205,10 @@
         # Fuzzy finding (Telescope)
         telescope.enable = true;
 
-        # Going to a previous file/project on start (session-manager)
+        # Session management (session-manager)
         session.nvim-session-manager.enable = true;
 
-        # Swapping between files like VSCode tabs (Harpoon)
+        # File swapping (Harpoon)
         navigation.harpoon = {
           enable = true;
           mappings = {
