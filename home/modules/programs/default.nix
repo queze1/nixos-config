@@ -18,7 +18,9 @@
     digikam
     kdePackages.dolphin
     keepassxc
-    obsidian
+    (obsidian.override {
+      commandLineArgs = "--ozone-platform=x11";
+    })
     obs-studio
     pinta
     pkgs-stable.celluloid
