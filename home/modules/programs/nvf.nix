@@ -14,6 +14,12 @@
         # ----------------------------------------
         # Settings
         # ----------------------------------------
+        theme = {
+          enable = true;
+          name = "catppuccin";
+          style = "mocha";
+        };
+
         # Yank into system keyboard
         clipboard = {
           enable = true;
