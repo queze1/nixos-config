@@ -61,7 +61,6 @@
           grammars = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
             kdl
             regex
-            tsx
           ];
         };
 
