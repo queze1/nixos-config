@@ -210,11 +210,17 @@
           }
           {
             key = "cc";
-            mode = "ca"; # "ca" stands for Command-line Abbreviation
+            mode = "ca";
             action = "CodeCompanion";
             silent = true;
           }
         ];
+
+        # Workaround for bugged Harpoon WhichKey
+        binds.whichKey.register = {
+          "<leader>a" = lib.mkForce "Toggle CodeCompanion Chat";
+          "<leader>m" = "Mark file [Harpoon]";
+        };
 
         # ----------------------------------------
         # Plugins
