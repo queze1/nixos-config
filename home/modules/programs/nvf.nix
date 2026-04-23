@@ -20,9 +20,9 @@
           style = "mocha";
         };
 
-        options = {
-          # 4 space indentation by default
+        opts = {
           shiftwidth = 4;
+          tabstop = 4;
         };
 
         # Yank into system keyboard
