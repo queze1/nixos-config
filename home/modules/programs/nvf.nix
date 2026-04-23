@@ -17,24 +17,28 @@
     settings = {
       vim = {
         # ----------------------------------------
-        # Settings
+        # General
+        # ----------------------------------------
+        opts = {
+          shiftwidth = 4;
+          tabstop = 4;
+        };
+        # Yank into system keyboard
+        clipboard = {
+          enable = true;
+          registers = "unnamedplus";
+        };
+        binds.whichKey.enable = true;
+
+        # ----------------------------------------
+        # Appearance
         # ----------------------------------------
         theme = {
           enable = true;
           name = "catppuccin";
           style = "mocha";
         };
-
-        opts = {
-          shiftwidth = 4;
-          tabstop = 4;
-        };
-
-        # Yank into system keyboard
-        clipboard = {
-          enable = true;
-          registers = "unnamedplus";
-        };
+        statusline.lualine.enable = true;
 
         # ----------------------------------------
         # Languages
@@ -62,7 +66,119 @@
         };
 
         # ----------------------------------------
-        # Hot keys
+        # Editing
+        # ----------------------------------------
+        autocomplete.nvim-cmp.enable = true;
+        utility.surround.enable = true;
+        autopairs.nvim-autopairs.enable = true;
+
+        # Autoformat on save
+        formatter.conform-nvim.enable = true;
+        lsp.formatOnSave = true;
+
+        # ----------------------------------------
+        # Navigation
+        # ----------------------------------------
+        # Jumping
+        utility.motion.flash-nvim.enable = true;
+
+        # Fuzzy finding
+        telescope.enable = true;
+
+        # Session management
+        session.nvim-session-manager.enable = true;
+
+        # File swapping
+        navigation.harpoon = {
+          enable = true;
+          mappings = {
+            markFile = "<leader>m";
+            listMarks = "<leader>e";
+            file1 = "<leader>1";
+            file2 = "<leader>2";
+            file3 = "<leader>3";
+            file4 = "<leader>4";
+          };
+        };
+
+        # File navigation
+        utility.yazi-nvim = {
+          enable = true;
+          mappings = {
+            openYazi = "<leader>-";
+            openYaziDir = "<leader>cw";
+            yaziToggle = "<c-up>";
+          };
+          setupOpts = {
+            open_for_directories = true;
+          };
+        };
+
+        # ----------------------------------------
+        # Integrations
+        # ----------------------------------------
+        # Open and close terminals easily
+        terminal.toggleterm = {
+          enable = true;
+          mappings.open = "<C-t>";
+
+          lazygit.enable = true;
+          lazygit.mappings.open = "<leader>gg";
+        };
+
+        # Git integration
+        git.enable = true;
+        utility.diffview-nvim.enable = true;
+
+        # Copilot integration
+        assistant = {
+          copilot.enable = true;
+          codecompanion-nvim = {
+            enable = true;
+          };
+        };
+
+        # ----------------------------------------
+        # Extra Plugins
+        # ----------------------------------------
+        extraPlugins = with pkgs.vimPlugins; {
+          # Move based on indentation
+          vim-indentwise = {
+            package = vim-indentwise;
+            setup = "";
+          };
+
+          # Smooth scrolling
+          neoscroll = {
+            package = neoscroll-nvim;
+            setup = ''
+              neoscroll = require('neoscroll')
+              neoscroll.setup({
+                easing = 'sine',
+              })
+
+              -- Set scrolling animations
+              local keymap = {
+                ["<C-u>"] = function() neoscroll.ctrl_u({ duration = 150 }) end; -- 250 default
+                ["<C-d>"] = function() neoscroll.ctrl_d({ duration = 150 }) end; -- 250 default
+                ["<C-b>"] = function() neoscroll.ctrl_b({ duration = 450 }) end;
+                ["<C-f>"] = function() neoscroll.ctrl_f({ duration = 450 }) end;
+                ["<C-y>"] = function() neoscroll.scroll(-0.1, { move_cursor=false; duration = 100 }) end;
+                ["<C-e>"] = function() neoscroll.scroll(0.1, { move_cursor=false; duration = 100 }) end;
+                ["zt"]    = function() neoscroll.zt({ half_win_duration = 150 }) end; -- 250 default
+                ["zz"]    = function() neoscroll.zz({ half_win_duration = 150 }) end; -- 250 default
+                ["zb"]    = function() neoscroll.zb({ half_win_duration = 150 }) end; -- 250 default
+              }
+              local modes = { 'n', 'v', 'x' }
+              for key, func in pairs(keymap) do
+                vim.keymap.set(modes, key, func)
+              end
+            '';
+          };
+        };
+
+        # ----------------------------------------
+        # Keybinds
         # ----------------------------------------
         augroups = [
           {
@@ -225,119 +341,6 @@
           "<leader>a" = lib.mkForce "Toggle CodeCompanion Chat";
           "<leader>m" = "Mark file [Harpoon]";
         };
-
-        # ----------------------------------------
-        # Plugins
-        # ----------------------------------------
-        statusline.lualine.enable = true;
-
-        # Autocomplete
-        autocomplete.nvim-cmp.enable = true;
-
-        # Surround with braces/brackets
-        utility.surround.enable = true;
-
-        # Jumping (flash.nvim)
-        utility.motion.flash-nvim.enable = true;
-
-        # Autopairs
-        autopairs.nvim-autopairs.enable = true;
-
-        extraPlugins = with pkgs.vimPlugins; {
-          # Move based on indentation (vim-indentwise)
-          vim-indentwise = {
-            package = vim-indentwise;
-            setup = "";
-          };
-
-          # Smooth scrolling (neoscroll)
-          neoscroll = {
-            package = neoscroll-nvim;
-            setup = ''
-              neoscroll = require('neoscroll')
-              neoscroll.setup({
-                easing = 'sine',
-              })
-
-              -- Set scrolling animations
-              local keymap = {
-                ["<C-u>"] = function() neoscroll.ctrl_u({ duration = 150 }) end; -- 250 default
-                ["<C-d>"] = function() neoscroll.ctrl_d({ duration = 150 }) end; -- 250 default
-                ["<C-b>"] = function() neoscroll.ctrl_b({ duration = 450 }) end;
-                ["<C-f>"] = function() neoscroll.ctrl_f({ duration = 450 }) end;
-                ["<C-y>"] = function() neoscroll.scroll(-0.1, { move_cursor=false; duration = 100 }) end;
-                ["<C-e>"] = function() neoscroll.scroll(0.1, { move_cursor=false; duration = 100 }) end;
-                ["zt"]    = function() neoscroll.zt({ half_win_duration = 150 }) end; -- 250 default
-                ["zz"]    = function() neoscroll.zz({ half_win_duration = 150 }) end; -- 250 default
-                ["zb"]    = function() neoscroll.zb({ half_win_duration = 150 }) end; -- 250 default
-              }
-              local modes = { 'n', 'v', 'x' }
-              for key, func in pairs(keymap) do
-                vim.keymap.set(modes, key, func)
-              end
-            '';
-          };
-        };
-
-        # File manager (yazi.nvim)
-        utility.yazi-nvim = {
-          enable = true;
-          mappings = {
-            openYazi = "<leader>-";
-            openYaziDir = "<leader>cw";
-            yaziToggle = "<c-up>";
-          };
-          setupOpts = {
-            open_for_directories = true;
-          };
-        };
-
-        # Autoformat on save (conform.nvim)
-        formatter.conform-nvim.enable = true;
-        lsp.formatOnSave = true;
-
-        # Fuzzy finding (Telescope)
-        telescope.enable = true;
-
-        # Session management (session-manager)
-        session.nvim-session-manager.enable = true;
-
-        # File swapping (Harpoon)
-        navigation.harpoon = {
-          enable = true;
-          mappings = {
-            markFile = "<leader>m";
-            listMarks = "<leader>e";
-            file1 = "<leader>1";
-            file2 = "<leader>2";
-            file3 = "<leader>3";
-            file4 = "<leader>4";
-          };
-        };
-
-        # Copilot integration
-        assistant = {
-          copilot.enable = true;
-          codecompanion-nvim = {
-            enable = true;
-          };
-        };
-
-        # Open and close terminals easily
-        terminal.toggleterm = {
-          enable = true;
-          mappings.open = "<C-t>";
-
-          lazygit.enable = true;
-          lazygit.mappings.open = "<leader>gg";
-        };
-
-        # Git integration
-        git.enable = true;
-        utility.diffview-nvim.enable = true;
-
-        # Keybinding help (which-key)
-        binds.whichKey.enable = true;
       };
     };
   };
