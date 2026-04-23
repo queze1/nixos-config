@@ -42,6 +42,10 @@
         lsp.enable = true;
         languages = {
           java.enable = true;
+          markdown = {
+            enable = true;
+            extensions.render-markdown-nvim.enable = true;
+          };
           nix.enable = true;
           python.enable = true;
           rust.enable = true;
@@ -235,6 +239,9 @@
 
         # Jumping (flash.nvim)
         utility.motion.flash-nvim.enable = true;
+
+        # Autopairs
+        autopairs.nvim-autopairs.enable = true;
 
         extraPlugins = with pkgs.vimPlugins; {
           # Move based on indentation (vim-indentwise)
