@@ -46,13 +46,8 @@
           enable = true;
           context.enable = true;
           grammars = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
-            java
             kdl
-            nix
-            python
             regex
-            rust
-            typescript
           ];
         };
 
