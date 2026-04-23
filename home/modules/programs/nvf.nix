@@ -148,9 +148,6 @@
         # ----------------------------------------
         statusline.lualine.enable = true;
 
-        # Auto adjust indentation width
-        utility.sleuth.enable = true;
-
         # Autocomplete
         autocomplete.nvim-cmp.enable = true;
 
