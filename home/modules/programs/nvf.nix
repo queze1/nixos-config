@@ -76,6 +76,9 @@
         formatter.conform-nvim.enable = true;
         lsp.formatOnSave = true;
 
+        # Paste images from system clipboard
+        utility.images.img-clip.enable = true;
+
         # ----------------------------------------
         # Navigation
         # ----------------------------------------
