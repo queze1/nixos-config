@@ -172,12 +172,47 @@
             silent = true;
             desc = "Move to window right";
           }
+          # Clear search highlights with ESC
           {
             key = "<Esc>";
             mode = "n";
             action = "<Cmd>nohlsearch<CR>";
             silent = true;
             desc = "Clear search highlights";
+          }
+          # CodeCompanion keybinds
+          {
+            key = "<C-a>";
+            mode = [
+              "n"
+              "v"
+            ];
+            action = "<cmd>CodeCompanionActions<cr>";
+            silent = true;
+            desc = "Open CodeCompanion actions";
+          }
+          {
+            key = "<Leader>a";
+            mode = [
+              "n"
+              "v"
+            ];
+            action = "<cmd>CodeCompanionChat Toggle<cr>";
+            silent = true;
+            desc = "Toggle CodeCompanion Chat";
+          }
+          {
+            key = "ga";
+            mode = [ "v" ];
+            action = "<cmd>CodeCompanionChat Add<cr>";
+            silent = true;
+            desc = "Add selected text to CodeCompanion Chat";
+          }
+          {
+            key = "cc";
+            mode = "ca"; # "ca" stands for Command-line Abbreviation
+            action = "CodeCompanion";
+            silent = true;
           }
         ];
 
