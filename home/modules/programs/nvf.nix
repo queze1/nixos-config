@@ -20,6 +20,11 @@
           style = "mocha";
         };
 
+        options = {
+          # 4 space indentation by default
+          shiftwidth = 4;
+        };
+
         # Yank into system keyboard
         clipboard = {
           enable = true;
@@ -148,7 +153,10 @@
         # ----------------------------------------
         statusline.lualine.enable = true;
 
-        # Autocomplete with nvim-cmp
+        # Auto adjust indentation width
+        utility.sleuth.enable = true;
+
+        # Autocomplete
         autocomplete.nvim-cmp.enable = true;
 
         # Surround with braces/brackets
