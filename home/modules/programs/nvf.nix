@@ -1,4 +1,9 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [ inputs.nvf.homeManagerModules.default ];
 
@@ -55,6 +60,38 @@
         # ----------------------------------------
         # Hot keys
         # ----------------------------------------
+        augroups = [
+          {
+            name = "close_with_q";
+            clear = true;
+          }
+        ];
+
+        # Close special buffers with 'q'
+        autocmds = [
+          {
+            event = [ "FileType" ];
+            group = "close_with_q";
+            pattern = [
+              # Use :set ft? to find FileType
+              "checkhealth"
+              "help"
+              "lspinfo"
+              "man"
+              "qf"
+            ];
+            callback = lib.generators.mkLuaInline ''
+              function(event)
+                vim.keymap.set("n", "q", "<cmd>close<cr>", { 
+                  buffer = event.buf, 
+                  silent = true,
+                  desc = "Close special buffer" 
+                })
+              end
+            '';
+          }
+        ];
+
         keymaps = [
           # Ctrl-S to save
           {
