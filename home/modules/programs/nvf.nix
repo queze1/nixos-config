@@ -31,10 +31,11 @@
         # ----------------------------------------
         lsp.enable = true;
         languages = {
-          python.enable = true;
-          rust.enable = true;
           java.enable = true;
           nix.enable = true;
+          python.enable = true;
+          rust.enable = true;
+          typescript.enable = true;
         };
         treesitter = {
           enable = true;
@@ -46,6 +47,7 @@
             python
             regex
             rust
+            typescript
           ];
         };
 
