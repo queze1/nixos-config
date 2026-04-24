@@ -24,14 +24,14 @@ input {
 
 output "Virtual-1" {
     // External monitor
-    mode "1920x1080@60"
+    // mode "1920x1080@60"
 
     // Macbook (Retina OFF)
     // mode custom=true "1280x862@60"
 
     // Macbook (Retina ON)
-    // mode custom=true "2560x1664@60"
-    // scale 2.0 
+    mode custom=true "2560x1664@60"
+    scale 2.0 
 }
 
 // Settings that influence how windows are positioned and sized.
@@ -64,18 +64,6 @@ layout {
 
     default-column-width { proportion 0.5; }
 
-    // By default focus ring and border are rendered as a solid background rectangle
-    // behind windows. That is, they will show up through semitransparent windows.
-    // This is because windows using client-side decorations can have an arbitrary shape.
-    //
-    // If you don't like that, you should uncomment `prefer-no-csd` below.
-    // Niri will draw focus ring and border *around* windows that agree to omit their
-    // client-side decorations.
-    //
-    // Alternatively, you can override it with a window rule called
-    // `draw-border-with-background`.
-
-    // You can change how the focus ring looks.
     focus-ring {
         // How many logical pixels the ring extends out from the windows.
         width 4
@@ -189,7 +177,7 @@ hotkey-overlay {
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
 // This option will also fix border/focus ring drawing behind some semitransparent windows.
 // After enabling or disabling this, you need to restart the apps for this to take effect.
-// prefer-no-csd
+prefer-no-csd
 
 screenshot-path "/mnt/utm/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
@@ -220,11 +208,6 @@ window-rule {
 window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
     block-out-from "screen-capture"
-}
-
-/-window-rule {
-    geometry-corner-radius 12
-    clip-to-geometry true
 }
 
 binds {
