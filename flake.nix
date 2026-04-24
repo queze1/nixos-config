@@ -23,8 +23,6 @@
       url = "github:queze1/nix-on-droid-config";
     };
 
-    clipboard-sync.url = "github:dnut/clipboard-sync";
-
     # For build-time secrets
     my-secrets.url = "git+ssh://git@github.com/queze1/nixos-secrets.git";
   };
@@ -91,7 +89,6 @@
             }
             inputs.disko.nixosModules.disko
             inputs.agenix.nixosModules.default
-            inputs.clipboard-sync.nixosModules.default
           ];
         };
 
