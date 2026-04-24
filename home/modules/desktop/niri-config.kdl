@@ -24,14 +24,14 @@ input {
 
 output "Virtual-1" {
     // External monitor
-    // mode "1920x1080@60"
+    mode "1920x1080@60"
 
     // Macbook (Retina OFF)
     // mode custom=true "1280x862@60"
 
     // Macbook (Retina ON)
-    mode custom=true "2560x1664@60"
-    scale 2.0 
+    // mode custom=true "2560x1664@60"
+    // scale 2.0 
 }
 
 // Settings that influence how windows are positioned and sized.
