@@ -81,6 +81,9 @@
         # ----------------------------------------
         # Navigation
         # ----------------------------------------
+        # Search case-insensitive unless a capital letter is used
+        searchCase = "smart";
+
         # Jumping
         utility.motion.flash-nvim.enable = true;
 
