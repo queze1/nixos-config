@@ -12,7 +12,7 @@ let
       repo = "neovim-project";
       # Last updated 24/05/2026
       rev = "6ecf6253697b2964e9afef9d000357d887221a2c";
-      sha256 = lib.fakeHash;
+      sha256 = "sha256-1SR/Pkzn1XWHJeGBiYd3hXArvVx7IgdlWDFdznl/gsw=";
     };
   };
 in
