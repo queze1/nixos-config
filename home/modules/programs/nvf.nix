@@ -215,6 +215,18 @@
               end
             '';
           }
+          {
+            event = [ "User" ];
+            pattern = [
+              "DirenvLoaded"
+            ];
+            callback = lib.generators.mkLuaInline ''
+              function()
+                vim.cmd("lsp restart")
+                print("Direnv environment loaded!")
+              end
+            '';
+          }
         ];
 
         keymaps = [
