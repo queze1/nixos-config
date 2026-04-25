@@ -12,7 +12,7 @@ let
       repo = "neovim-project";
       # Last updated 24/05/2026
       rev = "6ecf6253697b2964e9afef9d000357d887221a2c";
-      sha256 = "sha256-.........................................."; # Run once, Nix will tell you the correct hash
+      sha256 = lib.fakeHash;
     };
   };
 in
