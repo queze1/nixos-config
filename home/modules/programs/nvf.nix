@@ -4,6 +4,18 @@
   pkgs,
   ...
 }:
+let
+  neovim-project = pkgs.vimUtils.buildVimPlugin {
+    name = "neovim-project";
+    src = pkgs.fetchFromGitHub {
+      owner = "coffebar";
+      repo = "neovim-project";
+      # Last updated 24/05/2026
+      rev = "6ecf6253697b2964e9afef9d000357d887221a2c";
+      sha256 = "sha256-.........................................."; # Run once, Nix will tell you the correct hash
+    };
+  };
+in
 {
   imports = [ inputs.nvf.homeManagerModules.default ];
 
@@ -87,9 +99,6 @@
         # Fuzzy finding
         telescope.enable = true;
 
-        # Session management
-        session.nvim-session-manager.enable = true;
-
         # File swapping
         navigation.harpoon = {
           enable = true;
@@ -147,12 +156,6 @@
         # Extra Plugins
         # ----------------------------------------
         extraPlugins = with pkgs.vimPlugins; {
-          # Move based on indentation
-          vim-indentwise = {
-            package = vim-indentwise;
-            setup = "";
-          };
-
           # Smooth scrolling
           neoscroll = {
             package = neoscroll-nvim;
@@ -179,6 +182,17 @@
                 vim.keymap.set(modes, key, func)
               end
             '';
+          };
+
+          neovim-project = {
+            package = neovim-project;
+            setup = "";
+          };
+
+          # Move based on indentation
+          vim-indentwise = {
+            package = vim-indentwise;
+            setup = "";
           };
         };
 
@@ -215,18 +229,18 @@
               end
             '';
           }
-          {
-            event = [ "User" ];
-            pattern = [
-              "DirenvLoaded"
-            ];
-            callback = lib.generators.mkLuaInline ''
-              function()
-                vim.cmd("lsp restart")
-                print("Direnv environment loaded!")
-              end
-            '';
-          }
+          # {
+          #   event = [ "User" ];
+          #   pattern = [
+          #     "DirenvLoaded"
+          #   ];
+          #   callback = lib.generators.mkLuaInline ''
+          #     function()
+          #       vim.cmd("lsp restart")
+          #       print("Direnv environment loaded!")
+          #     end
+          #   '';
+          # }
         ];
 
         keymaps = [
