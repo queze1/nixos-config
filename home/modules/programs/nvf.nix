@@ -140,6 +140,9 @@
           };
         };
 
+        # Direnv integration
+        utility.direnv.enable = true;
+
         # ----------------------------------------
         # Extra Plugins
         # ----------------------------------------
