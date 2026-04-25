@@ -10,9 +10,19 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "coffebar";
       repo = "neovim-project";
-      # Last updated 24/05/2026
+      # Last updated 25/04/2026
       rev = "6ecf6253697b2964e9afef9d000357d887221a2c";
       sha256 = "sha256-1SR/Pkzn1XWHJeGBiYd3hXArvVx7IgdlWDFdznl/gsw=";
+    };
+  };
+  plenary = pkgs.vimUtils.buildVimPlugin {
+    name = "plenary";
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-lua";
+      repo = "plenary.nvim";
+      # Last updated 26/04/2026
+      rev = "74b06c6c75e4eeb3108ec01852001636d85a932b";
+      sha256 = lib.fakeHash;
     };
   };
 in
@@ -184,8 +194,15 @@ in
             '';
           };
 
+          # Project history and switching
           neovim-project = {
             package = neovim-project;
+            setup = "";
+          };
+
+          # Lua helpers, required by neovim-project
+          plenary = {
+            package = plenary;
             setup = "";
           };
 
