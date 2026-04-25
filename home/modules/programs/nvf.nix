@@ -40,6 +40,16 @@
         };
         statusline.lualine.enable = true;
 
+        # Enable image support
+        utility.images.image-nvim = {
+          enable = true;
+          setupOpts = {
+            backend = "sixel";
+            only_render_image_at_cursor = true;
+            only_render_image_at_cursor_mode = "popup";
+          };
+        };
+
         # ----------------------------------------
         # Languages
         # ----------------------------------------
@@ -141,7 +151,7 @@
         };
 
         # ----------------------------------------
-        # Extra Plugins
+        # Extra Options
         # ----------------------------------------
         extraPlugins = with pkgs.vimPlugins; {
           # Move based on indentation
