@@ -19,7 +19,7 @@ input {
     workspace-auto-back-and-forth
 
     // Focus windows and outputs automatically when moving the mouse into them.
-    focus-follows-mouse max-scroll-amount="0%"
+    focus-follows-mouse max-scroll-amount="10%"
 }
 
 output "Virtual-1" {
