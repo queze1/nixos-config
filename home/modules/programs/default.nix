@@ -30,12 +30,14 @@
     fastfetch
     ffmpeg
     gemini-cli
+    imagemagick # Required for Sixel (image-nvim)
+    pkgs-stable.yt-dlp
     sshfs
     tree
+    ueberzugpp # Required to display images for yazi.nvim
     unzip
     wl-clipboard
     xclip
-    pkgs-stable.yt-dlp
 
     # Theming
     pywalfox-native
