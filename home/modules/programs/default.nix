@@ -64,10 +64,6 @@
       package = pkgs.jdk21;
     };
     nix-index-database.comma.enable = true;
-    vscode = {
-      enable = true;
-      package = pkgs.vscode.fhs;
-    };
   };
 
   services.syncthing = {

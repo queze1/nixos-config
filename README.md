@@ -5,7 +5,7 @@ My personal NixOS config.
 ## Software
 - Window manager: [niri](https://github.com/YaLTeR/niri)
 - Desktop shell: [Noctalia Shell](https://github.com/noctalia-dev/noctalia-shell)
-- Editor: [Visual Studio Code](https://code.visualstudio.com/)
+- Editor: [Neovim](https://neovim.io/)
 - Terminal: [foot](https://codeberg.org/dnkl/foot)
 - Shell: [Fish](https://fishshell.com/)
 
