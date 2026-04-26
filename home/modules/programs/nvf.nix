@@ -155,15 +155,6 @@
           copilot.enable = true;
           codecompanion-nvim = {
             enable = true;
-            setupOpts = {
-              adapters = {
-                tavily = ''
-                  function()
-                    return require("codecompanion.adapters.http.tavily")
-                  end,
-                '';
-              };
-            };
           };
         };
 
