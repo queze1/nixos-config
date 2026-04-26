@@ -159,7 +159,7 @@
               opts = {
                 log_level = "DEBUG";
               };
-              strategies = {
+              interactions = {
                 chat = {
                   adapter = "tavily";
                 };
@@ -171,21 +171,17 @@
                 };
               };
               adapters = lib.mkLuaInline ''
-                {
-                  ["tavily"] = function()
-                    return require("codecompanion.adapters.http").extend("tavily", {
+
+                http = {
+                  ollama = function()
+                    return require("codecompanion.adapters").extend("ollama", {
                       env = {
-                        -- vim.fn.expand: Expand env variables in agenix path
-                        -- io.input: Read the secret file
-                        -- gsub: Remove trailing whitespace
-                        api_key = function()
-                          print("TESTING")
-                          return io.input(vim.fn.expand("${config.age.secrets.tavily-api-key.path}")):read("*a"):gsub("%s+", "")
-                        end
-                      }
+                        api_key = "OLLAMA_API_KEY",
+                      },
                     })
                   end,
-                }
+                },
+
               '';
             };
           };
