@@ -157,7 +157,7 @@
             enable = false;
             setupOpts = {
               adapters = lib.mkLuaInline ''
-                tavily = function()
+                ["tavily"] = function()
                   return require("codecompanion.adapters.http").extend("tavily", {
                     env = {
                       api_key = "cmd:cat ${config.age.secrets.tavily-api-key.path}",
