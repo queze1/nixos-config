@@ -156,17 +156,15 @@
           codecompanion-nvim = {
             enable = true;
             setupOpts = {
-              adapters = lib.generators.toLua {
-                tavily = ''
-                  function()
-                    return require("codecompanion.adapters.http").extend("tavily", {
-                      env = {
-                        api_key = "cmd:cat ${config.age.secrets.tavily-api-key.path}",
-                      },
-                    })
-                  end,
-                '';
-              };
+              adapters = lib.mkLuaInline ''
+                tavily = function()
+                  return require("codecompanion.adapters.http").extend("tavily", {
+                    env = {
+                      api_key = "cmd:cat ${config.age.secrets.tavily-api-key.path}",
+                    },
+                  })
+                end,
+              '';
             };
           };
         };
