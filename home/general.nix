@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./modules/agenix.nix
     ./modules/desktop
     ./modules/programs
   ]
