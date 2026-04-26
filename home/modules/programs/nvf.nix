@@ -156,32 +156,18 @@
           codecompanion-nvim = {
             enable = true;
             setupOpts = {
-              opts = {
-                log_level = "DEBUG";
-              };
-              interactions = {
-                chat = {
-                  adapter = "tavily";
-                };
-                inline = {
-                  adapter = "tavily";
-                };
-                agent = {
-                  adapter = "tavily";
-                };
-              };
               adapters = lib.mkLuaInline ''
-
-                http = {
-                  ollama = function()
-                    return require("codecompanion.adapters").extend("ollama", {
-                      env = {
-                        api_key = "OLLAMA_API_KEY",
-                      },
-                    })
-                  end,
-                },
-
+                {
+                  ["http"]= {
+                    ["tavily"] = function()
+                      return require("codecompanion.adapters").extend("tavily", {
+                        env = {
+                          api_key = "cmd:cat ${config.age.secrets.tavily-api-key.path}",
+                        },
+                      })
+                    end,
+                  },
+                }
               '';
             };
           };
