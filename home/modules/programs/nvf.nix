@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   pkgs,
@@ -10,8 +11,12 @@
   home.sessionVariables = {
     # Set Neovim as default editor
     EDITOR = "nvim";
-    TAVILY_API_KEY = "your_real_tavily_api_key";
   };
+
+  # Set Tavily API key
+  programs.fish.envExtra = ''
+    export TAVILY_API_KEY="$(cat ${config.age.secrets.tavily-api-key.path})"
+  '';
 
   programs.nvf = {
     enable = true;

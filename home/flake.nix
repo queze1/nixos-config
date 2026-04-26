@@ -84,6 +84,7 @@
             imports = [
               ./${homeProfile}.nix
               inputs.nix-index-database.homeModules.default
+              inputs.agenix.homeManagerModules.default
             ];
           };
         };
