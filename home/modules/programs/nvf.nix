@@ -44,7 +44,11 @@
         # ----------------------------------------
         # Languages
         # ----------------------------------------
-        lsp.enable = true;
+        lsp = {
+          enable = true;
+          lspconfig.enable = true;
+          presets.ruff.enable = true;
+        };
         languages = {
           java.enable = true;
           markdown = {
