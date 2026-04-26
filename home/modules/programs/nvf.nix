@@ -47,6 +47,7 @@
         lsp = {
           enable = true;
           lspconfig.enable = true;
+          presets.ruff.enable = true;
         };
         languages = {
           java.enable = true;
@@ -55,10 +56,7 @@
             extensions.render-markdown-nvim.enable = true;
           };
           nix.enable = true;
-          python = {
-            enable = true;
-            format.type = "ruff";
-          };
+          python.enable = true;
           rust.enable = true;
           typescript.enable = true;
         };
