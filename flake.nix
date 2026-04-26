@@ -83,9 +83,10 @@
             # Home profile
             inputs.home-config.nixosModules.default
 
-            # My real name
             {
+              # My real name
               users.users.queze.description = inputs.my-secrets.realName;
+              environment.systemPackages = [ inputs.agenix.packages.${system}.default ];
             }
             inputs.disko.nixosModules.disko
             inputs.agenix.nixosModules.default
