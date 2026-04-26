@@ -156,6 +156,9 @@
           codecompanion-nvim = {
             enable = true;
             setupOpts = {
+              opts = {
+                log_level = "DEBUG";
+              };
               adapters = lib.mkLuaInline ''
                                 {
                 	        	  ["tavily"] = function()
