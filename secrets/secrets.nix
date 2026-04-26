@@ -10,4 +10,11 @@ in
     ];
     armor = true;
   };
+  "tavily-api-key.age" = {
+    publicKeys = [
+      utmVM
+      utmVMHost
+    ];
+    armor = true;
+  };
 }
