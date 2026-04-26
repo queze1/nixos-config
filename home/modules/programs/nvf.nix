@@ -154,7 +154,7 @@
         assistant = {
           copilot.enable = true;
           codecompanion-nvim = {
-            enable = true;
+            enable = false;
             setupOpts = {
               adapters = lib.mkLuaInline ''
                 tavily = function()
