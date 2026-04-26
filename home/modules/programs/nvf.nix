@@ -117,7 +117,13 @@
         };
 
         # Session and project management
-        session.nvim-session-manager.enable = true;
+        session.nvim-session-manager = {
+          enable = true;
+          mappings = {
+            loadSession = "<leader>ss";
+            loadLastSession = "<leader>sl";
+          };
+        };
         projects.project-nvim = {
           enable = true;
         };
