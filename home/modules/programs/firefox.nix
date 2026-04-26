@@ -19,7 +19,7 @@ in
 {
   programs.firefox = {
     enable = true;
-    configPath = "${config.xdg.configHome}/mozilla/firefox";
+    configPath = "${config.home.homeDirectory}/.mozilla/firefox";
     policies = {
       DisableTelemetry = true;
       GenerativeAI = false;
