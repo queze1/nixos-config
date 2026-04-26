@@ -238,7 +238,11 @@
             ];
             callback = lib.generators.mkLuaInline ''
               function()
-                vim.cmd("lsp restart")
+                -- Check if there is an LSP in the current buffer
+                local clients = vim.lsp.get_clients({bufnr=0})
+                if #clients > 0 then
+                  vim.cmd("lsp restart")
+                end
               end
             '';
           }
