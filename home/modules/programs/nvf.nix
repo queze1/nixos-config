@@ -7,9 +7,10 @@
 {
   imports = [ inputs.nvf.homeManagerModules.default ];
 
-  # Set Neovim as default editor
   home.sessionVariables = {
+    # Set Neovim as default editor
     EDITOR = "nvim";
+    TAVILY_API_KEY = "your_real_tavily_api_key";
   };
 
   programs.nvf = {
@@ -154,6 +155,15 @@
           copilot.enable = true;
           codecompanion-nvim = {
             enable = true;
+            setupOpts = {
+              adapters = {
+                tavily = ''
+                  function()
+                    return require("codecompanion.adapters.http.tavily")
+                  end,
+                '';
+              };
+            };
           };
         };
 
