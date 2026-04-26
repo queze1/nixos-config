@@ -116,6 +116,8 @@
           };
         };
 
+        # Session and project management
+        session.nvim-session-manager.enable = true;
         projects.project-nvim = {
           enable = true;
         };
