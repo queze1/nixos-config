@@ -32,6 +32,11 @@
       url = "github:stelcodes/bunny.yazi";
       flake = false;
     };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
