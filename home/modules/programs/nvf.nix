@@ -119,10 +119,12 @@
         # Session and project management
         session.nvim-session-manager = {
           enable = true;
-          mappings = {
-            loadSession = "<leader>ss";
-            loadLastSession = "<leader>sl";
-          };
+          # May cause confusion as both project.nvim and session-manager can open a selection menu for sessions/projects
+          # By default, loadSession is overwritten
+          # mappings = {
+          #   loadSession = "<leader>ss";
+          #   loadLastSession = "<leader>sl";
+          # };
         };
         projects.project-nvim = {
           enable = true;
