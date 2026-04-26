@@ -160,15 +160,15 @@
                 log_level = "DEBUG";
               };
               adapters = lib.mkLuaInline ''
-                                {
-                	        	  ["tavily"] = function()
-                                    return require("codecompanion.adapters.http").extend("tavily", {
-                                      env = {
-                                        api_key = io.input(${config.age.secrets.tavily-api-key.path}):read("*a"),
-                                      }
-                                    })
-                                  end,
-                         		}
+              {
+                ["tavily"] = function()
+                  return require("codecompanion.adapters.http").extend("tavily", {
+                    env = {
+                      api_key = io.input(vim.fn.expand("${config.age.secrets.tavily-api-key.path}")):read("*a"):gsub("%s+", ""),
+                    }
+                  })
+                end,
+              }
               '';
             };
           };
