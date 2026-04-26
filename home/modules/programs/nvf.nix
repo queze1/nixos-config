@@ -156,23 +156,6 @@
           codecompanion-nvim = {
             enable = true;
             setupOpts = {
-              opts = {
-                log_level = "DEBUG";
-              };
-              adapters = lib.mkLuaInline ''
-                {
-                  ["tavily"] = function()
-                    return require("codecompanion.adapters.http").extend("tavily", {
-                      env = {
-                        -- vim.fn.expand: Expand env variables in agenix path
-                        -- io.input: Read the secret file
-                        -- gsub: Remove trailing whitespace
-                        api_key = io.input(vim.fn.expand("${config.age.secrets.tavily-api-key.path}")):read("*a"):gsub("%s+", ""),
-                      }
-                    })
-                  end,
-                }
-              '';
             };
           };
         };
