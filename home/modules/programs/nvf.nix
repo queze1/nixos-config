@@ -77,7 +77,21 @@
         autopairs.nvim-autopairs.enable = true;
 
         # Autoformat on save
-        formatter.conform-nvim.enable = true;
+        formatter.conform-nvim = {
+          enable = true;
+          setupOpts = {
+            formatters_by_ft = {
+              python = [
+                # To fix auto-fixable lint errors.
+                "ruff_fix"
+                # To run the Ruff formatter.
+                "ruff_format"
+                # To organize the imports.
+                "ruff_organize_imports"
+              ];
+            };
+          };
+        };
         lsp.formatOnSave = true;
 
         # Paste images from system clipboard
