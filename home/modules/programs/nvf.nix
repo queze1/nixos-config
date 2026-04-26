@@ -13,11 +13,6 @@
     EDITOR = "nvim";
   };
 
-  # Set Tavily API key
-  programs.fish.envExtra = ''
-    export TAVILY_API_KEY="$(cat ${config.age.secrets.tavily-api-key.path})"
-  '';
-
   programs.nvf = {
     enable = true;
     settings = {
@@ -160,6 +155,17 @@
           copilot.enable = true;
           codecompanion-nvim = {
             enable = true;
+            setupOpts = {
+              adapters = lib.generators.toLua ''
+                tavily = function()
+                  return require("codecompanion.adapters.http").extend("tavily", {
+                    env = {
+                      api_key = "cmd:cat ${config.age.secrets.tavily-api-key.path}",
+                    },
+                  })
+                end,
+              '';
+            };
           };
         };
 
