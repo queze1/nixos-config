@@ -268,22 +268,29 @@
               end
             '';
           }
-          # Reload LSP after loading direnv (disabled due to lag)
-          # {
-          #   event = [ "User" ];
-          #   pattern = [
-          #     "DirenvLoaded"
-          #   ];
-          #   callback = lib.generators.mkLuaInline ''
-          #     function()
-          #       -- Check if there is an LSP in the current buffer
-          #       local clients = vim.lsp.get_clients({bufnr=0})
-          #       if #clients > 0 then
-          #         vim.cmd("lsp restart")
-          #       end
-          #     end
-          #   '';
-          # }
+          # Reload LSPs after loading direnv
+          {
+            event = [ "User" ];
+            pattern = [
+              "DirenvLoaded"
+            ];
+            callback = lib.generators.mkLuaInline ''
+              function()
+                local cwd = vim.fn.getcwd()
+                
+                -- Skip if we have already restarted the LSP for this directory
+                if vim.g.last_direnv_path == cwd then
+                  return
+                end
+
+                local clients = vim.lsp.get_clients()
+                if #clients > 0 then
+                  vim.cmd("lsp restart")
+                  vim.g.last_direnv_path = cwd
+                end
+              end
+            '';
+          }
         ];
 
         keymaps = [
