@@ -48,7 +48,6 @@
           enable = true;
           lspconfig.enable = true;
         };
-
         languages = {
           java.enable = true;
           markdown = {
@@ -63,7 +62,6 @@
           rust.enable = true;
           typescript.enable = true;
         };
-
         treesitter = {
           enable = true;
           context.enable = true;
@@ -72,8 +70,6 @@
             regex
           ];
         };
-
-        withPython3 = true;
 
         # ----------------------------------------
         # Editing
