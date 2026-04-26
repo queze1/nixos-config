@@ -164,7 +164,7 @@
                 	        	  ["tavily"] = function()
                                     return require("codecompanion.adapters.http").extend("tavily", {
                                       env = {
-                                        api_key = "cmd:cat ${config.age.secrets.tavily-api-key.path}",
+                                        api_key = io.input(${config.age.secrets.tavily-api-key.path}):read("*a"),
                                       }
                                     })
                                   end,
