@@ -156,6 +156,17 @@
           codecompanion-nvim = {
             enable = true;
             setupOpts = {
+              strategies = {
+                chat = {
+                  adapter = "tavily";
+                };
+                inline = {
+                  adapter = "tavily";
+                };
+                agent = {
+                  adapter = "tavily";
+                };
+              };
             };
           };
         };
