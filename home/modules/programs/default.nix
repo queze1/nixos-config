@@ -44,6 +44,7 @@
     nil
     nixfmt
     nodejs_22
+    ruff
     yarn
 
     # Force Audacity to use native Wayland
