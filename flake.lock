@@ -482,11 +482,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777269698,
-        "narHash": "sha256-Se7A+YiSH9NnFoz7C6lJmdgq9MXXa2lRtsYz4tsdYL4=",
+        "lastModified": 1777269858,
+        "narHash": "sha256-yDhWjq2/JSSxxLiB2bJt12HDWYm5vebF6NHYHy5Hcvs=",
         "owner": "queze1",
         "repo": "nix-on-droid-config",
-        "rev": "ad65c4492eb47b5e7612b66c4d97e53b2b44a6f7",
+        "rev": "beed0e681d14a05d09c52a296c072d65baffec27",
         "type": "github"
       },
       "original": {
