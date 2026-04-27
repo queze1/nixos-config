@@ -65,10 +65,8 @@
         treesitter = {
           enable = true;
           context.enable = true;
-          grammars = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
-            kdl
-            regex
-            python
+          grammars = with pkgs.vimPlugins.nvim-treesitter; [
+            withAllGrammars
           ];
         };
 
