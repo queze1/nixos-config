@@ -15,12 +15,13 @@
 
   home.packages = with pkgs; [
     # Apps
-    digikam
-    kdePackages.dolphin
-    keepassxc
     (obsidian.override {
       commandLineArgs = "--ozone-platform=x11";
     })
+    digikam
+    gnome-clocks
+    kdePackages.dolphin
+    keepassxc
     obs-studio
     pinta
     pkgs-stable.celluloid
