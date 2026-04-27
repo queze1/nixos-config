@@ -21,6 +21,8 @@
 
     nix-on-droid-repo = {
       url = "github:queze1/nix-on-droid-config";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
 
     # For build-time secrets
