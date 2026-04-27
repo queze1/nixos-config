@@ -24,11 +24,13 @@ let
     echo "Updating flake input(s): $@"
     nix flake update nix-on-droid-repo "$@"
 
-    # Commit the lock file
+    # Commit and push the lock file
     if ! git diff --quiet flake.lock; then
       echo "Committing lockfile..."
       git add flake.lock
       git commit -m "chore: update flake ($*)" -- flake.lock
+      echo "Pushing changes..."
+      git push
     else
       echo "flake.lock is already up to date. Skipping commit."
     fi
