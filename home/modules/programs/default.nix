@@ -30,7 +30,6 @@
     # CLI tools
     fastfetch
     ffmpeg
-    gemini-cli
     sshfs
     tree
     unzip
@@ -44,9 +43,6 @@
     # Development tools
     nil
     nixfmt
-    nodejs_22
-    ruff
-    yarn
 
     # Force Audacity to use native Wayland
     (symlinkJoin {
