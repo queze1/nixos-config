@@ -61,10 +61,6 @@
   ];
 
   programs = {
-    java = {
-      enable = true;
-      package = pkgs.jdk21;
-    };
     nix-index-database.comma.enable = true;
   };
 
