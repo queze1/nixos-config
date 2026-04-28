@@ -1,16 +1,5 @@
 { pkgs, ... }:
 let
-  # nixify: Initialise nix-direnv for shell.nix
-  nixify = pkgs.writeShellScriptBin "nixify" ''
-    if [ ! -f .envrc ]; then
-      echo "use nix" > .envrc
-      ${pkgs.direnv}/bin/direnv allow
-    elif ! grep -q "use nix" .envrc; then
-      echo "use nix" >> .envrc
-      ${pkgs.direnv}/bin/direnv allow
-    fi
-  '';
-
   # update-flake: Update and commit NixOS config flake
   update-flake = pkgs.writeShellScriptBin "update-flake" ''
     set -e
@@ -130,10 +119,10 @@ in
     nrb = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild boot";
     # Not portable at all, fix sometime
     noctalia-export = "noctalia-shell ipc call state all | nix run nixpkgs#jq .settings > ~/etc/nixos/home/modules/desktop/noctalia.json";
+    nix-direnv-init = "nix flake new -t github:nix-community/nix-direnv .";
   };
 
   home.packages = [
-    nixify
     update-flake
     deploy-nix-on-droid
   ];
