@@ -40,10 +40,6 @@
     # Theming
     pywalfox-native
 
-    # Development tools
-    nil
-    nixfmt
-
     # Force Audacity to use native Wayland
     (symlinkJoin {
       name = "audacity-wayland-fix";
