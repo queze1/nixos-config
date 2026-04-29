@@ -5,6 +5,9 @@
   pkgs,
   ...
 }:
+let
+  inherit (lib.generators) mkLuaInline;
+in
 {
   imports = [ inputs.nvf.homeManagerModules.default ];
 
@@ -44,11 +47,8 @@
         # ----------------------------------------
         # Languages
         # ----------------------------------------
-        lsp = {
-          enable = true;
-          lspconfig.enable = true;
-        };
         languages = {
+          enableDAP = true;
           java.enable = true;
           markdown = {
             enable = true;
@@ -57,11 +57,47 @@
           nix.enable = true;
           python = {
             enable = true;
-            format.type = "ruff";
+            # We manually configure Python formatting elsewhere
+            format.enable = false;
           };
           rust.enable = true;
           typescript.enable = true;
         };
+
+        lsp = {
+          enable = true;
+          lspconfig.enable = true;
+          formatOnSave = true;
+          servers = {
+            basedpyright = {
+              settings = {
+                basedpyright = {
+                  disableOrganizeImports = true;
+                };
+              };
+              # Remove commands created by nvf
+              # LspPyrightOrganizeImports: made redundant by ruff
+              # LspPyrightSetPythonPath: made redundant by direnv
+              on_attach = mkLuaInline "";
+            };
+          };
+        };
+
+        # Autoformat on save
+        formatter.conform-nvim = {
+          enable = true;
+          setupOpts = {
+            formatters_by_ft = {
+              # Uses ruff in PATH
+              python = [
+                "ruff_fix"
+                "ruff_format"
+                "ruff_organize_imports"
+              ];
+            };
+          };
+        };
+
         treesitter = {
           enable = true;
           context.enable = true;
@@ -76,24 +112,6 @@
         autocomplete.nvim-cmp.enable = true;
         utility.surround.enable = true;
         autopairs.nvim-autopairs.enable = true;
-
-        # Autoformat on save
-        formatter.conform-nvim = {
-          enable = true;
-          setupOpts = {
-            formatters_by_ft = {
-              python = [
-                # To fix auto-fixable lint errors.
-                "ruff_fix"
-                # To run the Ruff formatter.
-                "ruff_format"
-                # To organize the imports.
-                "ruff_organize_imports"
-              ];
-            };
-          };
-        };
-        lsp.formatOnSave = true;
 
         # Paste images from system clipboard
         utility.images.img-clip.enable = true;
