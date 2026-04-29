@@ -177,7 +177,9 @@ in
         # Open and close terminals easily
         terminal.toggleterm = {
           enable = true;
-          mappings.open = "<C-t>";
+          setupOpts = {
+            shell = lib.getExe pkgs.fish;
+          };
 
           lazygit.enable = true;
           lazygit.mappings.open = "<leader>gg";
