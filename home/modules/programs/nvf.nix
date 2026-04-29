@@ -300,7 +300,7 @@ in
                   return
                 end
 
-                local clients = vim.lsp.buf_get_clients()
+                local clients = vim.lsp.get_clients({ bufnr = 0 })
                 if #clients > 0 then
                   vim.cmd("lsp restart")
                   vim.g.last_direnv_path = cwd
