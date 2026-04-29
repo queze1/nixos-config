@@ -79,7 +79,7 @@ in
               # Replace commands created by nvf
               # LspPyrightOrganizeImports: made redundant by ruff
               # LspPyrightSetPythonPath: made redundant by direnv
-              on_attach = mkLuaInline ''
+              on_attach = lib.mkForce (mkLuaInline ''
                 function(client, bufnr)
                   vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightWriteBaseline', function()
                     vim.fn.jobstart({ "${lib.getExe pkgs.basedpyright}", "--writebaseline" }, {
@@ -94,7 +94,7 @@ in
                     })
                   end, { desc = 'Run basedpyright --writebaseline' })
                 end
-              '';
+              '');
             };
           };
         };
