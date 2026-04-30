@@ -63,7 +63,7 @@ in
           font = "Liberation Mono:size=12";
         };
         colors-dark = {
-          alpha = 0.9;
+          alpha = 0.92;
           blur = true;
 
           # https://github.com/catppuccin/foot/blob/main/themes/catppuccin-mocha.ini
