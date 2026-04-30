@@ -26,7 +26,7 @@
     };
 
     # For build-time secrets
-    my-secrets.url = "git+ssh://git@github.com/queze1/nixos-secrets.git";
+    # my-secrets.url = "git+ssh://git@github.com/queze1/nixos-secrets.git";
   };
 
   outputs =
@@ -86,8 +86,6 @@
             inputs.home-config.nixosModules.default
 
             {
-              # My real name
-              users.users.queze.description = inputs.my-secrets.realName;
               environment.systemPackages = [ inputs.agenix.packages.${system}.default ];
             }
             inputs.disko.nixosModules.disko
@@ -111,17 +109,6 @@
           homeProfile = "general";
           hypervisor = "utm";
           desktop = {
-            niri = true;
-            noctalia = true;
-          };
-        };
-        utm-vm-2 = {
-          system = "aarch64-linux";
-          user = "queze";
-          homeProfile = "general";
-          hypervisor = "utm";
-          desktop = {
-            plasma = true;
             niri = true;
             noctalia = true;
           };
