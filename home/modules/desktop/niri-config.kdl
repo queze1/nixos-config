@@ -150,6 +150,15 @@ window-rule {
     block-out-from "screen-capture"
 }
 
+// Blur behind terminal
+window-rule {
+    match app-id="foot"
+
+    background-effect {
+        blur true
+    }
+}
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     

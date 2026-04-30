@@ -62,6 +62,9 @@ in
           shell = "${pkgs.fish}/bin/fish";
           font = "Liberation Mono:size=12";
         };
+        colors = {
+          alpha = 0.8;
+        };
         colors-dark = {
           # https://github.com/catppuccin/foot/blob/main/themes/catppuccin-mocha.ini
           cursor = "11111b f5e0dc";
