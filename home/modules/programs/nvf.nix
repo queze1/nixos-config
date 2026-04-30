@@ -209,6 +209,18 @@ in
           codecompanion-nvim = {
             enable = true;
             setupOpts = {
+              interactions = {
+                chat = {
+                  adapter = {
+                    name = "copilot";
+                    model = "gpt-5.2-codex";
+                  };
+                };
+                inline = {
+                  adapter = "copilot";
+                  model = "gpt-5.2-codex";
+                };
+              };
               adapters = lib.mkLuaInline ''
                 {
                   ["http"]= {
