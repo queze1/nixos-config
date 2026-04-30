@@ -118,8 +118,8 @@ in
   };
 
   home.shellAliases = {
-    nrs = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild switch";
-    nrb = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild boot";
+    nrs = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild switch --flake ~/etc/nixos#";
+    nrb = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild boot --flake ~/etc/nixos#";
     # Not portable at all, fix sometime
     noctalia-export = "noctalia-shell ipc call state all | nix run nixpkgs#jq .settings > ~/etc/nixos/home/modules/desktop/noctalia.json";
     nix-direnv-init = "nix flake new -t github:nix-community/nix-direnv .";
