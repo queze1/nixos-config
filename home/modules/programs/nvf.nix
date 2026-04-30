@@ -39,6 +39,7 @@ in
         # ----------------------------------------
         theme = {
           enable = true;
+          transparent = true;
           name = "catppuccin";
           style = "mocha";
         };
