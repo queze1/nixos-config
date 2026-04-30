@@ -352,21 +352,6 @@ in
             silent = true;
             desc = "Save file";
           }
-          # Insert newline above or below without entering insert mode
-          {
-            key = "<leader>o";
-            mode = "n";
-            action = "o<Esc>";
-            silent = true;
-            desc = "Insert newline below";
-          }
-          {
-            key = "<leader>O";
-            mode = "n";
-            action = "O<Esc>";
-            silent = true;
-            desc = "Insert newline above";
-          }
           # H to go to start (^), L to go to end ($)
           {
             key = "H";
