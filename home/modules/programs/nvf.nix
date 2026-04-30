@@ -117,6 +117,7 @@ in
         treesitter = {
           enable = true;
           context.enable = true;
+          textobjects.enable = true;
           grammars = with pkgs.vimPlugins.nvim-treesitter; [
             withAllGrammars
           ];
