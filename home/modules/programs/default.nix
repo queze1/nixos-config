@@ -57,11 +57,6 @@
     nix-index-database.comma.enable = true;
   };
 
-  services.gammastep = {
-    enable = true;
-    provider = "geoclue2";
-  };
-
   services.syncthing = {
     enable = true;
     settings = {

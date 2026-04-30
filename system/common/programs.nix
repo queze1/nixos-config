@@ -5,7 +5,4 @@
 
   # Add binaries to PATH
   environment.localBinInPath = true;
-
-  services.geoclue2.enable = true;
-  location.provider = "geoclue2";
 }
