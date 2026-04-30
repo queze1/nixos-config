@@ -48,7 +48,6 @@ in
         # Languages
         # ----------------------------------------
         languages = {
-          enableDAP = true;
           java.enable = true;
           markdown = {
             enable = true;
