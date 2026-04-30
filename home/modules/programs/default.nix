@@ -28,7 +28,6 @@
     vesktop
 
     # CLI tools
-    btop
     fastfetch
     ffmpeg
     sshfs

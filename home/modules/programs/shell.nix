@@ -48,6 +48,12 @@ in
 {
   programs = {
     bash.enable = true;
+    btop = {
+      enable = true;
+      settings = {
+        theme_background = false;
+      };
+    };
     direnv = {
       enable = true;
       enableBashIntegration = true;
