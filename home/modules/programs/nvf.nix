@@ -204,9 +204,8 @@ in
         git.enable = true;
         utility.diffview-nvim.enable = true;
 
-        # Copilot integration
+        # LLM integration
         assistant = {
-          copilot.enable = true;
           codecompanion-nvim = {
             enable = true;
             setupOpts = {
