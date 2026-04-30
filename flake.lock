@@ -352,21 +352,6 @@
         "type": "github"
       }
     },
-    "my-secrets": {
-      "locked": {
-        "lastModified": 1775272826,
-        "narHash": "sha256-oAIsh9ap2vUI6qLR1cuNTM2Y21QKOB+Ha8jfV91KfJg=",
-        "ref": "refs/heads/main",
-        "rev": "708aead68c1d149cd9550e2e17f42c0aa7c88212",
-        "revCount": 3,
-        "type": "git",
-        "url": "ssh://git@github.com/queze1/nixos-secrets.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/queze1/nixos-secrets.git"
-      }
-    },
     "ndg": {
       "inputs": {
         "nixpkgs": [
@@ -717,7 +702,6 @@
         "deploy-rs": "deploy-rs",
         "disko": "disko",
         "home-config": "home-config",
-        "my-secrets": "my-secrets",
         "nix-on-droid-repo": "nix-on-droid-repo",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable"
