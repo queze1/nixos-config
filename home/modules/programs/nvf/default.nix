@@ -122,18 +122,7 @@ in
         treesitter = {
           enable = true;
           context.enable = true;
-          textobjects = {
-            enable = true;
-            setupOpts = {
-              select = {
-                enable = true;
-                keymaps = {
-                  af = "@function.outer";
-                };
-                lookahead = true;
-              };
-            };
-          };
+          textobjects.enable = true;
 
           grammars = with pkgs.vimPlugins.nvim-treesitter; [
             withAllGrammars
@@ -142,7 +131,7 @@ in
 
         # Needed as textobjects.setOpts is broken
         luaConfigRC.treesitter-textobjects = ''
-          require("nvim-treesitter-textobjects").setup {
+          require("nvim-treesitter.configs").setup {
             select = {
               enable = true,
               lookahead = true,
@@ -338,7 +327,6 @@ in
           # Move based on indentation
           vim-indentwise = {
             package = vim-indentwise;
-            setup = "";
           };
         };
       };
