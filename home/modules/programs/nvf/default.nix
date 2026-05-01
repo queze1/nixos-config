@@ -122,6 +122,7 @@ in
         treesitter = {
           enable = true;
           context.enable = true;
+          fold = true;
           grammars = with pkgs.vimPlugins.nvim-treesitter; [
             withAllGrammars
           ];
