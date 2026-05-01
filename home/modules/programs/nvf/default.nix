@@ -122,51 +122,10 @@ in
         treesitter = {
           enable = true;
           context.enable = true;
-          textobjects.enable = true;
-
           grammars = with pkgs.vimPlugins.nvim-treesitter; [
             withAllGrammars
           ];
         };
-
-        # Needed as textobjects.setOpts is broken
-        luaConfigRC.treesitter-textobjects = ''
-          require("nvim-treesitter.configs").setup {
-            select = {
-              enable = true,
-              lookahead = true,
-              keymaps = {
-                -- f: function
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                -- c: class
-                ["ac"] = "@class.outer",
-                ["ic"] = "@class.inner",
-                --: argument
-                ["aa"] = "@parameter.outer",
-                ["ia"] = "@parameter.inner",
-                -- l: loop
-                ["al"] = "@loop.outer",
-                ["il"] = "@loop.inner",
-                -- i: if-statement
-                ["ai"] = "@conditional.outer",
-                ["ii"] = "@conditional.inner",
-              },
-            },
-            move = {
-              enable = true,
-              set_jumps = true,
-              goto_next_start = {
-                ["]f"] = "@function.outer",
-                ["]c"] = "@class.outer",
-              },
-              goto_previous_start = {
-                ["[f"] = "@function.outer",
-                ["[c"] = "@class.outer",
-              },
-            },
-          }
-        '';
 
         # ----------------------------------------
         # Editing
@@ -320,8 +279,77 @@ in
             '';
           };
 
+          # Needed as treesitter.textobjects is broken
           nvim-treesitter-textobjects = {
             package = nvim-treesitter-textobjects;
+            setup = ''
+              require("nvim-treesitter-textobjects").setup({
+                select = {
+                  enable = true,
+                  -- Automatically jump forward to textobj, similar to targets.vim
+                  lookahead = true,
+
+                  selection_modes = {
+                    ['@parameter.outer'] = 'v', -- charwise
+                    ['@function.outer'] = 'V', -- linewise
+                  },
+
+                  -- If you set this to `true` (default is `false`) then any textobject is
+                  -- extended to include preceding or succeeding whitespace.
+                  include_surrounding_whitespace = false,
+                },
+              })
+
+              -- f: function
+              vim.keymap.set({ "x", "o" }, "af", function()
+                require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
+              end, { desc = "Around function" })
+
+              vim.keymap.set({ "x", "o" }, "if", function()
+                require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
+              end, { desc = "Inside function" })
+
+              -- c: class
+              vim.keymap.set({ "x", "o" }, "ac", function()
+                require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
+              end, { desc = "Around class" })
+
+              vim.keymap.set({ "x", "o" }, "ic", function()
+                require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
+              end, { desc = "Inside class" })
+
+              -- a: argument
+              vim.keymap.set({ "x", "o" }, "aa", function()
+                require("nvim-treesitter-textobjects.select").select_textobject("@parameter.outer", "textobjects")
+              end, { desc = "Around argument" })
+
+              vim.keymap.set({ "x", "o" }, "ia", function()
+                require("nvim-treesitter-textobjects.select").select_textobject("@parameter.inner", "textobjects")
+              end, { desc = "Inside argument" })
+
+              -- l: loop
+              vim.keymap.set({ "x", "o" }, "al", function()
+                require("nvim-treesitter-textobjects.select").select_textobject("@loop.outer", "textobjects")
+              end, { desc = "Around loop" })
+
+              vim.keymap.set({ "x", "o" }, "il", function()
+                require("nvim-treesitter-textobjects.select").select_textobject("@loop.inner", "textobjects")
+              end, { desc = "Inside loop" })
+
+              -- i: if-statement (conditional)
+              vim.keymap.set({ "x", "o" }, "ai", function()
+                require("nvim-treesitter-textobjects.select").select_textobject("@conditional.outer", "textobjects")
+              end, { desc = "Around conditional" })
+
+              vim.keymap.set({ "x", "o" }, "ii", function()
+                require("nvim-treesitter-textobjects.select").select_textobject("@conditional.inner", "textobjects")
+              end, { desc = "Inside conditional" })
+
+              -- s: (local) scope
+              vim.keymap.set({ "x", "o" }, "as", function()
+                require("nvim-treesitter-textobjects.select").select_textobject("@local.scope", "locals")
+              end, { desc = "Select language scope" })
+            '';
           };
 
           # Move based on indentation
