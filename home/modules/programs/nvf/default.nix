@@ -255,7 +255,18 @@ in
             setup = ''
               local cmp = require('cmp')
               cmp.setup.cmdline(':', {
-                mapping = cmp.mapping.preset.cmdline(),
+                mapping = cmp.mapping.preset.cmdline({
+                  -- Confirm completion on enter
+                  ['<CR>'] = {
+                    c = function(fallback)
+                      if cmp.visible() then
+                        cmp.confirm({ select = true })
+                      else
+                        fallback()
+                      end
+                    end
+                  }
+                }),
                 sources = cmp.config.sources({
                   { name = 'path' }
                 },
