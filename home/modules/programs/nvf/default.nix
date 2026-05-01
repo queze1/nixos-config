@@ -257,7 +257,7 @@ in
         # Extra Plugins
         # ----------------------------------------
         extraPlugins = with pkgs.vimPlugins; {
-          codecompanion-history = {
+          codecompanion-history-nvim = {
             package = codecompanion-history-nvim;
           };
 
