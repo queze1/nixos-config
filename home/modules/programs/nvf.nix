@@ -458,41 +458,19 @@ in
             "<leader>a" = lib.mkForce "Toggle CodeCompanion Chat";
             "<leader>m" = "Mark file [Harpoon]";
           };
-          setupOpts = {
-            spec = [
-              {
-                key = "*";
-                mode = "v";
-                desc = "Search selection forward";
-              }
-              {
-                key = "#";
-                mode = "v";
-                desc = "Search selection backward";
-              }
-              {
-                key = "@";
-                mode = "v";
-                desc = "Run macro on selection";
-              }
-              {
-                key = "Q";
-                mode = "v";
-                desc = "Repeat last macro on selection";
-              }
-              {
-                key = ";";
-                mode = "v";
-                desc = "Repeat char jump (forward)";
-              }
-              {
-                key = ",";
-                mode = "v";
-                desc = "Repeat char jump (backward)";
-              }
-            ];
-          };
         };
+
+        luaConfigRC.whichkey-visual = ''
+          local wk = require("which-key")
+          wk.add({
+            { "*", mode = "v", desc = "Search selection forward" },
+            { "#", mode = "v", desc = "Search selection backward" },
+            { "@", mode = "v", desc = "Run macro on selection" },
+            { "Q", mode = "v", desc = "Repeat last macro on selection" },
+            { ";", mode = "v", desc = "Repeat char jump (forward)" },
+            { ",", mode = "v", desc = "Repeat char jump (backward)" },
+          })
+        '';
       };
     };
   };
