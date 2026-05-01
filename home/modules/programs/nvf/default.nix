@@ -136,19 +136,19 @@ in
               enable = true,
               lookahead = true,
               keymaps = {
-                # f: function
+                -- f: function
                 ["af"] = "@function.outer",
                 ["if"] = "@function.inner",
-                # c: class
+                -- c: class
                 ["ac"] = "@class.outer",
                 ["ic"] = "@class.inner",
-                #: argument
+                --: argument
                 ["aa"] = "@parameter.outer",
                 ["ia"] = "@parameter.inner",
-                # l: loop
+                -- l: loop
                 ["al"] = "@loop.outer",
                 ["il"] = "@loop.inner",
-                # i: if-statement
+                -- i: if-statement
                 ["ai"] = "@conditional.outer",
                 ["ii"] = "@conditional.inner",
               },
