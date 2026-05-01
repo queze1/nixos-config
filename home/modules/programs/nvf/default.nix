@@ -318,12 +318,12 @@ in
                 require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
               end, { desc = "Inside class" })
 
-              -- a: argument
-              vim.keymap.set({ "x", "o" }, "aa", function()
+              -- p: parameter
+              vim.keymap.set({ "x", "o" }, "ap", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@parameter.outer", "textobjects")
               end, { desc = "Around argument" })
 
-              vim.keymap.set({ "x", "o" }, "ia", function()
+              vim.keymap.set({ "x", "o" }, "ip", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@parameter.inner", "textobjects")
               end, { desc = "Inside argument" })
 
