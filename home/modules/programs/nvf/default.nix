@@ -219,6 +219,7 @@ in
               extensions = {
                 history = {
                   enabled = true;
+                  callback = "codecompanion-history.extensions.codecompanion";
                 };
               };
               interactions = {
