@@ -216,6 +216,11 @@ in
           codecompanion-nvim = {
             enable = true;
             setupOpts = {
+              extensions = {
+                history = {
+                  enabled = true;
+                };
+              };
               interactions = {
                 chat = {
                   adapter = {
@@ -252,6 +257,10 @@ in
         # Extra Plugins
         # ----------------------------------------
         extraPlugins = with pkgs.vimPlugins; {
+          codecompanion-history = {
+            package = codecompanion-history-nvim;
+          };
+
           # Smooth scrolling
           neoscroll = {
             package = neoscroll-nvim;
