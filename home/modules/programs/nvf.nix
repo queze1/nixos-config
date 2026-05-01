@@ -452,10 +452,19 @@ in
           }
         ];
 
-        # Workaround for bugged Harpoon WhichKey
         binds.whichKey.register = {
+          # Workaround for bugged Harpoon WhichKey
           "<leader>a" = lib.mkForce "Toggle CodeCompanion Chat";
           "<leader>m" = "Mark file [Harpoon]";
+
+          v = {
+            "*" = "Search selection forward";
+            "#" = "Search selection backward";
+            "@" = "Run macro on selection";
+            "Q" = "Repeat last macro on selection";
+            ";" = "Repeat char jump (forward)";
+            "," = "Repeat char jump (backward)";
+          };
         };
       };
     };
