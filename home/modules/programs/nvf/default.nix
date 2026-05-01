@@ -216,12 +216,6 @@ in
           codecompanion-nvim = {
             enable = true;
             setupOpts = {
-              extensions = {
-                history = {
-                  enabled = true;
-                  callback = "codecompanion-history.extensions.codecompanion";
-                };
-              };
               interactions = {
                 chat = {
                   adapter = {
@@ -260,6 +254,17 @@ in
         extraPlugins = with pkgs.vimPlugins; {
           codecompanion-history = {
             package = codecompanion-history-nvim;
+            setup = ''
+              vim.schedule(function()
+                local ok, history = pcall(require, "codecompanion-history.extensions.codecompanion")
+                if ok then
+                  history.setup({
+                    dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
+                    auto_generate_title = true,
+                  })
+                end
+              end)
+            '';
           };
 
           # Smooth scrolling
