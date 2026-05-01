@@ -322,11 +322,11 @@ in
               -- p: parameter
               vim.keymap.set({ "x", "o" }, "ap", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@parameter.outer", "textobjects")
-              end, { desc = "argument [Treesitter]" })
+              end, { desc = "parameter [Treesitter]" })
 
               vim.keymap.set({ "x", "o" }, "ip", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@parameter.inner", "textobjects")
-              end, { desc = "argument [Treesitter]" })
+              end, { desc = "parameter [Treesitter]" })
 
               -- l: loop
               vim.keymap.set({ "x", "o" }, "al", function()
@@ -337,12 +337,12 @@ in
                 require("nvim-treesitter-textobjects.select").select_textobject("@loop.inner", "textobjects")
               end, { desc = "loop [Treesitter]" })
 
-              -- i: if-statement (conditional)
-              vim.keymap.set({ "x", "o" }, "ai", function()
+              -- c: conditional
+              vim.keymap.set({ "x", "o" }, "ac", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@conditional.outer", "textobjects")
               end, { desc = "conditional [Treesitter]" })
 
-              vim.keymap.set({ "x", "o" }, "ii", function()
+              vim.keymap.set({ "x", "o" }, "ic", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@conditional.inner", "textobjects")
               end, { desc = "conditional [Treesitter]" })
 
