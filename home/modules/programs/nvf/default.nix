@@ -36,6 +36,11 @@ in
           registers = "unnamedplus";
         };
 
+        # Open files unfolded initially
+        luaConfigRC.foldLevelStart = ''
+          vim.opt.foldlevelstart = 99
+        '';
+
         # ----------------------------------------
         # Appearance
         # ----------------------------------------
