@@ -257,9 +257,9 @@ in
         # Extra Plugins
         # ----------------------------------------
         extraPlugins = with pkgs.vimPlugins; {
-          # codecompanion-history = {
-          #   package = codecompanion-history-nvim;
-          # };
+          codecompanion-history = {
+            package = codecompanion-history-nvim;
+          };
 
           # Smooth scrolling
           neoscroll = {
