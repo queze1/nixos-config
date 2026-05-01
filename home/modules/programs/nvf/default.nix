@@ -313,52 +313,52 @@ in
               -- f: function
               vim.keymap.set({ "x", "o" }, "af", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
-              end, { desc = "Around function" })
+              end, { desc = "function [Treesitter]" })
 
               vim.keymap.set({ "x", "o" }, "if", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
-              end, { desc = "Inside function" })
+              end, { desc = "function [Treesitter]" })
 
               -- c: class
               vim.keymap.set({ "x", "o" }, "ac", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
-              end, { desc = "Around class" })
+              end, { desc = "class [Treesitter]" })
 
               vim.keymap.set({ "x", "o" }, "ic", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
-              end, { desc = "Inside class" })
+              end, { desc = "class [Treesitter]" })
 
               -- p: parameter
               vim.keymap.set({ "x", "o" }, "ap", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@parameter.outer", "textobjects")
-              end, { desc = "Around argument" })
+              end, { desc = "argument [Treesitter]" })
 
               vim.keymap.set({ "x", "o" }, "ip", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@parameter.inner", "textobjects")
-              end, { desc = "Inside argument" })
+              end, { desc = "argument [Treesitter]" })
 
               -- l: loop
               vim.keymap.set({ "x", "o" }, "al", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@loop.outer", "textobjects")
-              end, { desc = "Around loop" })
+              end, { desc = "loop [Treesitter]" })
 
               vim.keymap.set({ "x", "o" }, "il", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@loop.inner", "textobjects")
-              end, { desc = "Inside loop" })
+              end, { desc = "loop [Treesitter]" })
 
               -- i: if-statement (conditional)
               vim.keymap.set({ "x", "o" }, "ai", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@conditional.outer", "textobjects")
-              end, { desc = "Around conditional" })
+              end, { desc = "conditional [Treesitter]" })
 
               vim.keymap.set({ "x", "o" }, "ii", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@conditional.inner", "textobjects")
-              end, { desc = "Inside conditional" })
+              end, { desc = "conditional [Treesitter]" })
 
-              -- s: (local) scope
+              -- s: scope
               vim.keymap.set({ "x", "o" }, "as", function()
                 require("nvim-treesitter-textobjects.select").select_textobject("@local.scope", "locals")
-              end, { desc = "Select language scope" })
+              end, { desc = "scope [Treesitter]" })
             '';
           };
 
