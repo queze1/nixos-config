@@ -32,7 +32,6 @@ in
           enable = true;
           registers = "unnamedplus";
         };
-        binds.whichKey.enable = true;
 
         # ----------------------------------------
         # Appearance
@@ -452,18 +451,46 @@ in
           }
         ];
 
-        binds.whichKey.register = {
-          # Workaround for bugged Harpoon WhichKey
-          "<leader>a" = lib.mkForce "Toggle CodeCompanion Chat";
-          "<leader>m" = "Mark file [Harpoon]";
-
-          v = {
-            "*" = "Search selection forward";
-            "#" = "Search selection backward";
-            "@" = "Run macro on selection";
-            "Q" = "Repeat last macro on selection";
-            ";" = "Repeat char jump (forward)";
-            "," = "Repeat char jump (backward)";
+        binds.whichKey = {
+          enable = true;
+          register = {
+            # Workaround for bugged Harpoon WhichKey
+            "<leader>a" = lib.mkForce "Toggle CodeCompanion Chat";
+            "<leader>m" = "Mark file [Harpoon]";
+          };
+          setupOpts = {
+            spec = [
+              {
+                key = "*";
+                mode = "v";
+                desc = "Search selection forward";
+              }
+              {
+                key = "#";
+                mode = "v";
+                desc = "Search selection backward";
+              }
+              {
+                key = "@";
+                mode = "v";
+                desc = "Run macro on selection";
+              }
+              {
+                key = "Q";
+                mode = "v";
+                desc = "Repeat last macro on selection";
+              }
+              {
+                key = ";";
+                mode = "v";
+                desc = "Repeat char jump (forward)";
+              }
+              {
+                key = ",";
+                mode = "v";
+                desc = "Repeat char jump (backward)";
+              }
+            ];
           };
         };
       };
