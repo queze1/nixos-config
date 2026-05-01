@@ -224,6 +224,21 @@ in
                   adapter = "copilot";
                   model = "gpt-5.2-codex";
                 };
+                cli = {
+                  agent = "copilot";
+                  agents = {
+                    copilot = {
+                      cmd = "copilot";
+                      args = { };
+                      description = "Copilot CLI";
+                    };
+                    codex = {
+                      cmd = "codex";
+                      args = { };
+                      description = "OpenAI Codex CLI";
+                    };
+                  };
+                };
               };
               adapters = lib.mkLuaInline ''
                 {
