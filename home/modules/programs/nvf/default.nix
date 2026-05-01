@@ -249,6 +249,28 @@ in
         # Extra Plugins
         # ----------------------------------------
         extraPlugins = with pkgs.vimPlugins; {
+          # Autocomplete for command line
+          cmp-cmdline = {
+            package = cmp-cmdline;
+            setup = ''
+              local cmp = require('cmp')
+              cmp.setup.cmdline(':', {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = cmp.config.sources({
+                  { name = 'path' }
+                },
+                {
+                  {
+                    name = 'cmdline',
+                    option = {
+                      ignore_cmds = { 'Man', '!' }
+                    }
+                  }
+                })
+              })
+            '';
+          };
+
           # Smooth scrolling
           neoscroll = {
             package = neoscroll-nvim;
