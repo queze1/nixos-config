@@ -40,6 +40,10 @@
     # Theming
     pywalfox-native
 
+    # AI tools
+    codex
+    github-copilot-cli
+
     # Force Audacity to use native Wayland
     (symlinkJoin {
       name = "audacity-wayland-fix";
