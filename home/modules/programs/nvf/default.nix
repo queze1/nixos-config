@@ -216,11 +216,11 @@ in
           codecompanion-nvim = {
             enable = true;
             setupOpts = {
-              # extensions = {
-              #   history = {
-              #     enabled = true;
-              #   };
-              # };
+              extensions = {
+                history = {
+                  enabled = true;
+                };
+              };
               interactions = {
                 chat = {
                   adapter = {
