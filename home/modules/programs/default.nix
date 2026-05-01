@@ -9,7 +9,7 @@
     ./firefox.nix
     ./git.nix
     ./shell.nix
-    ./nvf.nix
+    ./nvf
     ./yazi.nix
   ];
 
