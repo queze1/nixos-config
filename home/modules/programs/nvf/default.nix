@@ -122,7 +122,18 @@ in
         treesitter = {
           enable = true;
           context.enable = true;
-          textobjects.enable = true;
+          textobjects = {
+            enable = true;
+            setupOpts = {
+              select = {
+                enable = true;
+                keymaps = {
+                  af = "@function.outer";
+                };
+                lookahead = true;
+              };
+            };
+          };
 
           grammars = with pkgs.vimPlugins.nvim-treesitter; [
             withAllGrammars
@@ -318,6 +329,10 @@ in
                 vim.keymap.set(modes, key, func)
               end
             '';
+          };
+
+          nvim-treesitter-textobjects = {
+            package = nvim-treesitter-textobjects;
           };
 
           # Move based on indentation
