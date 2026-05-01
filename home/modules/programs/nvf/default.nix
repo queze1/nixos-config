@@ -233,19 +233,19 @@ in
                   model = "gpt-5.2-codex";
                 };
               };
-              #          adapters = lib.mkLuaInline ''
-              #            {
-              #              ["http"]= {
-              #                ["tavily"] = function()
-              #                  return require("codecompanion.adapters").extend("tavily", {
-              #                    env = {
-              #                      api_key = "cmd:cat ${config.age.secrets.tavily-api-key.path}",
-              #                    },
-              #                  })
-              #                end,
-              #              },
-              #            }
-              #          '';
+              adapters = lib.mkLuaInline ''
+                {
+                  ["http"]= {
+                    ["tavily"] = function()
+                      return require("codecompanion.adapters").extend("tavily", {
+                        env = {
+                          api_key = "cmd:cat ${config.age.secrets.tavily-api-key.path}",
+                        },
+                      })
+                    end,
+                  },
+                }
+              '';
             };
           };
         };
@@ -257,9 +257,9 @@ in
         # Extra Plugins
         # ----------------------------------------
         extraPlugins = with pkgs.vimPlugins; {
-          codecompanion-history = {
-            package = codecompanion-history-nvim;
-          };
+          # codecompanion-history = {
+          #   package = codecompanion-history-nvim;
+          # };
 
           # Smooth scrolling
           neoscroll = {
