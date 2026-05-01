@@ -44,6 +44,9 @@ in
           style = "mocha";
         };
         statusline.lualine.enable = true;
+        visuals.indent-blankline = {
+          enable = true;
+        };
 
         # ----------------------------------------
         # Languages
