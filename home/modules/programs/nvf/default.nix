@@ -260,14 +260,7 @@ in
                   ['<CR>'] = {
                     c = function(fallback)
                       if cmp.visible() then
-                        local cmdline = vim.fn.getcmdline()
-                        vim.print(cmdline)
-                        local is_valid = vim.fn.exists(':' .. cmdline) == 2
-                        if is_valid then
-                          fallback()
-                        else
-                          cmp.confirm({ select = true })
-                        end
+                        cmp.confirm({ select = true })
                       else
                         fallback()
                       end
