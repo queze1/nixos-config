@@ -131,7 +131,7 @@ in
 
         # Needed as textobjects.setOpts is broken
         luaConfigRC.treesitter-textobjects = ''
-          require("nvim-treesitter-textobjects").setup({
+          require("nvim-treesitter-textobjects").setup {
             select = {
               enable = true,
               lookahead = true,
@@ -165,7 +165,7 @@ in
                 ["[c"] = "@class.outer",
               },
             },
-          })
+          }
         '';
 
         # ----------------------------------------
