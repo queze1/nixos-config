@@ -130,43 +130,43 @@ in
         };
 
         # Needed as textobjects.setOpts is broken
-        # luaConfigRC.treesitter-textobjects = ''
-        #   -- require("nvim-treesitter-textobjects").setup {
-        #     select = {
-        #       enable = true,
-        #       lookahead = true,
-        #       keymaps = {
-        #         # f: function
-        #         ["af"] = "@function.outer",
-        #         ["if"] = "@function.inner",
-        #         # c: class
-        #         ["ac"] = "@class.outer",
-        #         ["ic"] = "@class.inner",
-        #         #: argument
-        #         ["aa"] = "@parameter.outer",
-        #         ["ia"] = "@parameter.inner",
-        #         # l: loop
-        #         ["al"] = "@loop.outer",
-        #         ["il"] = "@loop.inner",
-        #         # i: if-statement
-        #         ["ai"] = "@conditional.outer",
-        #         ["ii"] = "@conditional.inner",
-        #       },
-        #     },
-        #     move = {
-        #       enable = true,
-        #       set_jumps = true,
-        #       goto_next_start = {
-        #         ["]f"] = "@function.outer",
-        #         ["]c"] = "@class.outer",
-        #       },
-        #       goto_previous_start = {
-        #         ["[f"] = "@function.outer",
-        #         ["[c"] = "@class.outer",
-        #       },
-        #     },
-        #   }
-        # '';
+        luaConfigRC.treesitter-textobjects = ''
+          require("nvim-treesitter-textobjects").setup({
+            select = {
+              enable = true,
+              lookahead = true,
+              keymaps = {
+                # f: function
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                # c: class
+                ["ac"] = "@class.outer",
+                ["ic"] = "@class.inner",
+                #: argument
+                ["aa"] = "@parameter.outer",
+                ["ia"] = "@parameter.inner",
+                # l: loop
+                ["al"] = "@loop.outer",
+                ["il"] = "@loop.inner",
+                # i: if-statement
+                ["ai"] = "@conditional.outer",
+                ["ii"] = "@conditional.inner",
+              },
+            },
+            move = {
+              enable = true,
+              set_jumps = true,
+              goto_next_start = {
+                ["]f"] = "@function.outer",
+                ["]c"] = "@class.outer",
+              },
+              goto_previous_start = {
+                ["[f"] = "@function.outer",
+                ["[c"] = "@class.outer",
+              },
+            },
+          })
+        '';
 
         # ----------------------------------------
         # Editing
