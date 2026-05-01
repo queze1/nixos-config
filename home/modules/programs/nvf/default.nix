@@ -227,15 +227,20 @@ in
                 cli = {
                   agent = "copilot";
                   agents = {
+                    codex = {
+                      cmd = "codex";
+                      args = { };
+                      description = "OpenAI Codex CLI";
+                    };
                     copilot = {
                       cmd = "copilot";
                       args = { };
                       description = "Copilot CLI";
                     };
-                    codex = {
-                      cmd = "codex";
+                    cursor = {
+                      cmd = "cursor";
                       args = { };
-                      description = "OpenAI Codex CLI";
+                      description = "Cursor CLI";
                     };
                   };
                 };

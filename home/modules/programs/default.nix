@@ -41,6 +41,7 @@
     pywalfox-native
 
     # AI tools
+    cursor-cli
     codex
     github-copilot-cli
 
