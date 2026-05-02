@@ -150,6 +150,13 @@ window-rule {
     block-out-from "screen-capture"
 }
 
+// Open yazi as full-screen by default
+window-rule {
+    match title=r#"^Yazi:.*"#
+    default-column-width { proportion 1.0; }
+}
+
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     
@@ -170,9 +177,11 @@ binds {
     XF86MonBrightnessDown { spawn "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
 
     // Application keybinds
-    Mod+T hotkey-overlay-title="Open a Terminal: foot" { spawn "foot"; }
-    Mod+N hotkey-overlay-title="Open Neovim: nvim" { spawn "foot" "nvim"; }
-    Mod+Y hotkey-overlay-title="Open Yazi: yazi" { spawn "foot" "yazi"; }
+    // TODO: Dynamically set overlay title depending on the default terminal/browser
+    Mod+T hotkey-overlay-title="Open a Terminal" { spawn "xdg-terminal-exec"; }
+    Mod+N hotkey-overlay-title="Open Neovim: nvim" { spawn "xdg-terminal-exec" "nvim"; }
+    Mod+Y hotkey-overlay-title="Open Yazi: yazi" { spawn "xdg-terminal-exec" "yazi"; }
+    Mod+B hotkey-overlay-title="Open Default Browser" { spawn "xdg-open" "https://"; }
 
     XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
     XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }

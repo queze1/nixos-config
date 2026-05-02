@@ -35,8 +35,8 @@
       }
       {
         on = [ "T" ];
-        run = "shell 'foot' --orphan";
-        desc = "Open foot in current directory";
+        run = "shell 'xdg-terminal-exec' --orphan";
+        desc = "Open terminal in current directory";
       }
     ];
   };
