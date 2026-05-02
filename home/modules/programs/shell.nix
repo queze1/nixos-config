@@ -109,6 +109,7 @@ in
         };
       };
     };
+    nix-index-database.comma.enable = true;
     zoxide = {
       enable = true;
       enableBashIntegration = true;

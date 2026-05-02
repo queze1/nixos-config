@@ -10,6 +10,7 @@
     ./modules/agenix.nix
     ./modules/desktop
     ./modules/programs
+    ./modules/services.nix
   ]
   ++ lib.optional (hypervisor == "vmware") ./modules/vmware-audio-workaround.nix;
 
