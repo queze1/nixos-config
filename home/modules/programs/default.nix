@@ -30,20 +30,21 @@
     # CLI tools
     fastfetch
     ffmpeg
+    pkgs-stable.yt-dlp
+    pywalfox-native
     sshfs
     tree
     unzip
     wl-clipboard
     xclip
-    pkgs-stable.yt-dlp
-
-    # Theming
-    pywalfox-native
 
     # AI tools
     cursor-cli
     codex
     github-copilot-cli
+
+    # Libraries
+    libsecret
 
     # Force Audacity to use native Wayland
     (symlinkJoin {
@@ -56,4 +57,6 @@
       '';
     })
   ];
+
+  programs.seahorse.enable = true;
 }
