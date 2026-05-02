@@ -152,8 +152,8 @@ window-rule {
 
 // Open yazi as full-screen by default
 window-rule {
-    match title=r#"^Yazi:.*"#
-    default-column-width { proportion 1; }
+    match app-id="foot" title=r#"^Yazi:.*"#
+    default-column-width { proportion 1.0; }
 }
 
 
@@ -180,7 +180,7 @@ binds {
     // TODO: Dynamically set overlay title depending on the default terminal
     Mod+T hotkey-overlay-title="Open a Terminal" { spawn "xdg-terminal-exec"; }
     Mod+N hotkey-overlay-title="Open Neovim: nvim" { spawn "xdg-terminal-exec" "nvim"; }
-    Mod+Y hotkey-overlay-title="Open Yazi: yazi" { spawn "xdg-terminal-exec" "yazi"; }
+    Mod+Y hotkey-overlay-title="Open Yazi: yazi" { spawn "foot" "--title" "Yazi: ~/" "yazi"; }
     Mod+B hotkey-overlay-title="Open Default Browser" { spawn "xdg-open" "https://"; }
 
     XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
