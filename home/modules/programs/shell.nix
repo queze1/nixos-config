@@ -39,7 +39,7 @@ let
     cd ~/etc/nixos
 
     echo "Rebuilding system..."
-    sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild switch
+    sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild switch --flake ~/etc/nixos#
 
     echo "Deploying to server..."
     nix run github:serokell/deploy-rs -- --targets '.#nix-on-droid-server' -- --impure
