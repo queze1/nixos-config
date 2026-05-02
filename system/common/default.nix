@@ -8,7 +8,7 @@
     ./desktop.nix
     ./docker.nix
     ./fonts.nix
-    ./p2p-vpn.nix
+    ./network.nix
     ./programs.nix
     ./remote-builder.nix
     ./sound.nix
