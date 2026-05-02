@@ -57,6 +57,4 @@
       '';
     })
   ];
-
-  programs.seahorse.enable = true;
 }
