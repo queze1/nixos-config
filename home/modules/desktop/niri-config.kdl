@@ -177,7 +177,7 @@ binds {
     XF86MonBrightnessDown { spawn "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
 
     // Application keybinds
-    // TODO: Dynamically set overlay title depending on the default terminal
+    // TODO: Dynamically set overlay title depending on the default terminal/browser when porting to Nix
     Mod+T hotkey-overlay-title="Open a Terminal" { spawn "xdg-terminal-exec"; }
     Mod+N hotkey-overlay-title="Open Neovim: nvim" { spawn "xdg-terminal-exec" "nvim"; }
     Mod+Y hotkey-overlay-title="Open Yazi: yazi" { spawn "foot" "--title" "Yazi: ~/" "yazi"; }
