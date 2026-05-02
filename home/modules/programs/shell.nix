@@ -11,7 +11,7 @@ let
 
     # Update flake inputs 
     echo "Updating flake input(s): $@"
-    nix flake update nix-on-droid-repo "$@"
+    nix flake update "$@"
 
     # Commit and push the lock file
     if ! git diff --quiet flake.lock; then
