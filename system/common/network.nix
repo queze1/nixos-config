@@ -16,7 +16,7 @@
   boot.initrd.systemd.network.wait-online.enable = false;
 
   # https://discourse.nixos.org/t/how-to-configure-and-use-proton-vpn-on-nixos/65837
-  networking.firewall.checkReversePath = false;
+  networking.firewall.checkReversePath = "loose";
   environment.systemPackages = with pkgs; [
     wireguard-tools
     proton-vpn
