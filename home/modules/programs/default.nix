@@ -25,7 +25,6 @@
     obs-studio
     pinta
     pkgs-stable.celluloid
-    proton-vpn
     vesktop
 
     # CLI tools
