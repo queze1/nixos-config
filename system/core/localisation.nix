@@ -23,8 +23,4 @@
 
   # Console keymap
   console.keyMap = "us";
-
-  # Use Geoclue for location
-  services.geoclue2.enable = true;
-  location.provider = "geoclue2";
 }
