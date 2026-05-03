@@ -70,7 +70,6 @@ in
         };
         colors-dark = {
           alpha = 0.92;
-          blur = true;
 
           # https://github.com/catppuccin/foot/blob/main/themes/catppuccin-mocha.ini
           cursor = "11111b f5e0dc";
