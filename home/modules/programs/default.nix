@@ -28,6 +28,7 @@
     vesktop
 
     # CLI tools
+    clipboard-jh
     fastfetch
     ffmpeg
     pkgs-stable.yt-dlp
