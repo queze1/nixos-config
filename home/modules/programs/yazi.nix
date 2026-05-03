@@ -4,6 +4,7 @@
     enable = true;
     shellWrapperName = "y";
     plugins.bunny = "${inputs.bunny-yazi}";
+    plugins.system-clipboard = "${inputs.system-clipboard-yazi}";
     initLua = ''
       require("bunny"):setup({
         hops = {
@@ -37,6 +38,11 @@
         on = [ "T" ];
         run = "shell 'xdg-terminal-exec' --orphan";
         desc = "Open terminal in current directory";
+      }
+      {
+        on = "<C-y>";
+        run = "plugin system-clipboard";
+        desc = "Copy to system clipboard";
       }
     ];
   };
