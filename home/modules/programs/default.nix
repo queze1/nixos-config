@@ -25,6 +25,7 @@
     obs-studio
     pinta
     pkgs-stable.celluloid
+    qalculate-qt
     vesktop
 
     # CLI tools
