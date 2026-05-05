@@ -21,7 +21,9 @@
     digikam
     gnome-clocks
     kdePackages.dolphin
+    kdePackages.okular
     keepassxc
+    libreoffice
     obs-studio
     pinta
     pkgs-stable.celluloid
