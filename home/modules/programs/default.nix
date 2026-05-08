@@ -27,12 +27,14 @@
     pinta
     pkgs-stable.celluloid
     qalculate-qt
+    pkgs-stable.qimgv
     vesktop
 
     # CLI tools
     clipboard-jh
     fastfetch
     ffmpeg
+    libsecret
     pkgs-stable.yt-dlp
     pywalfox-native
     sshfs
@@ -45,9 +47,6 @@
     cursor-cli
     codex
     github-copilot-cli
-
-    # Libraries
-    libsecret
 
     # Force Audacity to use native Wayland
     (symlinkJoin {
