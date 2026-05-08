@@ -16,12 +16,12 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "image/jpeg" = [ "swayimg.desktop" ];
-      "image/png" = [ "swayimg.desktop" ];
-      "image/gif" = [ "swayimg.desktop" ];
-      "image/webp" = [ "swayimg.desktop" ];
-      "image/bmp" = [ "swayimg.desktop" ];
-      "image/tiff" = [ "swayimg.desktop" ];
+      "image/jpeg" = [ "imv.desktop" ];
+      "image/png" = [ "imv.desktop" ];
+      "image/gif" = [ "imv.desktop" ];
+      "image/webp" = [ "imv.desktop" ];
+      "image/bmp" = [ "imv.desktop" ];
+      "image/tiff" = [ "imv.desktop" ];
     };
   };
 
@@ -32,6 +32,7 @@
     })
     digikam
     gnome-clocks
+    imv
     kdePackages.dolphin
     kdePackages.okular
     keepassxc
@@ -40,7 +41,6 @@
     pkgs-stable.celluloid
     pkgs-stable.qimgv
     qalculate-qt
-    swayimg
     vesktop
 
     # CLI tools
