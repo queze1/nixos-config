@@ -4,21 +4,24 @@
     enable = true;
     shellWrapperName = "y";
 
-    # Open images in a slideshow with imv
+    # Allow changing images in imv
     settings = {
       opener = {
-        view = [
+        imv = [
           {
             run = ''imv -n "$1" .'';
-            desc = "View folder in imv";
+            desc = "View image in imv";
           }
         ];
       };
       open = {
-        rules = [
+        prepend_rules = [
           {
-            name = "*.{jpg,jpeg,png,gif,webp,svg}";
-            use = "view";
+            mime = "image/*";
+            use = [
+              "imv"
+              "view"
+            ];
           }
         ];
       };
