@@ -40,7 +40,6 @@
     pkgs-stable.celluloid
     pkgs-stable.qimgv
     qalculate-qt
-    swayimg
     vesktop
 
     # CLI tools
@@ -72,4 +71,37 @@
       '';
     })
   ];
+
+  programs.swayimg = {
+    enable = true;
+    settings = {
+      # Vi-style keybinds
+      "keys.viewer" = {
+        h = "prev_file";
+        l = "next_file";
+        j = "move_down";
+        k = "move_up";
+        g = "first_file";
+        G = "last_file";
+        q = "exit";
+      };
+
+      "keys.gallery" = {
+        h = "left";
+        l = "right";
+        j = "down";
+        k = "up";
+        g = "first";
+        G = "last";
+        q = "exit";
+      };
+
+      "keys.slideshow" = {
+        h = "prev_file";
+        l = "next_file";
+        q = "exit";
+        "0" = "reset";
+      };
+    };
+  };
 }
