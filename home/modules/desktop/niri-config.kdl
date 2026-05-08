@@ -156,10 +156,10 @@ window-rule {
     default-column-width { proportion 1.0; }
 }
 
-// Open images larger
+// Open images in full screen
 window-rule {
     match app-id="imv"
-    default-column-width { proportion 0.8; }
+    default-column-width { proportion 1.0; }
 }
 
 binds {
