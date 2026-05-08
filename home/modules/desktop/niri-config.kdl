@@ -156,6 +156,11 @@ window-rule {
     default-column-width { proportion 1.0; }
 }
 
+// Open images larger
+window-rule {
+    match app-id="imv"
+    default-column-width { proportion 0.8; }
+}
 
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
