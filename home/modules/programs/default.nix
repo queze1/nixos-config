@@ -16,12 +16,12 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "image/jpeg" = [ "qimgv.desktop" ];
-      "image/png" = [ "qimgv.desktop" ];
-      "image/gif" = [ "qimgv.desktop" ];
-      "image/webp" = [ "qimgv.desktop" ];
-      "image/bmp" = [ "qimgv.desktop" ];
-      "image/tiff" = [ "qimgv.desktop" ];
+      "image/jpeg" = [ "swayimg.desktop" ];
+      "image/png" = [ "swayimg.desktop" ];
+      "image/gif" = [ "swayimg.desktop" ];
+      "image/webp" = [ "swayimg.desktop" ];
+      "image/bmp" = [ "swayimg.desktop" ];
+      "image/tiff" = [ "swayimg.desktop" ];
     };
   };
 
