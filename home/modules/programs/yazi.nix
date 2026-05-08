@@ -3,6 +3,27 @@
   programs.yazi = {
     enable = true;
     shellWrapperName = "y";
+
+    # Open images in a slideshow with imv
+    settings = {
+      opener = {
+        view = [
+          {
+            run = ''imv -n "$1" .'';
+            desc = "View folder in imv";
+          }
+        ];
+      };
+      open = {
+        rules = [
+          {
+            name = "*.{jpg,jpeg,png,gif,webp,svg}";
+            use = "view";
+          }
+        ];
+      };
+    };
+
     plugins.bunny = "${inputs.bunny-yazi}";
     plugins.system-clipboard = "${inputs.system-clipboard-yazi}";
     initLua = ''
@@ -28,6 +49,7 @@
         fuzzy_cmd = "fzf", -- Fuzzy searching command, default is "fzf"
       })
     '';
+
     keymap.mgr.prepend_keymap = [
       {
         on = ";";

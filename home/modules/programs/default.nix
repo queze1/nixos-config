@@ -32,7 +32,6 @@
     })
     digikam
     gnome-clocks
-    imv
     kdePackages.dolphin
     kdePackages.okular
     keepassxc
@@ -72,4 +71,21 @@
       '';
     })
   ];
+
+  programs.imv = {
+    enable = true;
+    settings = {
+      binds = {
+        # Navigate with Vim keys
+        h = "prev";
+        l = "next";
+
+        # Pan with arrow keys
+        "<Left>" = "pan 50 0";
+        "<Right>" = "pan -50 0";
+        "<Up>" = "pan 0 50";
+        "<Down>" = "pan 0 -50";
+      };
+    };
+  };
 }
