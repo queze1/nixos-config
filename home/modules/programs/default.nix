@@ -13,6 +13,18 @@
     ./yazi.nix
   ];
 
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "image/jpeg" = [ "qimgv.desktop" ];
+      "image/png" = [ "qimgv.desktop" ];
+      "image/gif" = [ "qimgv.desktop" ];
+      "image/webp" = [ "qimgv.desktop" ];
+      "image/bmp" = [ "qimgv.desktop" ];
+      "image/tiff" = [ "qimgv.desktop" ];
+    };
+  };
+
   home.packages = with pkgs; [
     # Apps
     (obsidian.override {
