@@ -38,8 +38,9 @@
     obs-studio
     pinta
     pkgs-stable.celluloid
-    qalculate-qt
     pkgs-stable.qimgv
+    qalculate-qt
+    swayimg
     vesktop
 
     # CLI tools
