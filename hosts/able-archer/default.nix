@@ -13,7 +13,7 @@
     "${self}/system/disko/vda-swap.nix"
   ];
 
-  networking.hostName = "utm-vm";
+  networking.hostName = "able-archer";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

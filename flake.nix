@@ -94,7 +94,7 @@
         };
 
       hosts = {
-        vmware-vm = {
+        nifty-nugget = {
           system = "aarch64-linux";
           user = "queze";
           homeProfile = "general";
@@ -103,7 +103,7 @@
             plasma = true;
           };
         };
-        utm-vm = {
+        able-archer = {
           system = "aarch64-linux";
           user = "queze";
           homeProfile = "general";

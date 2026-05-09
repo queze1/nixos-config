@@ -12,7 +12,7 @@
     "${self}/system/vm"
   ];
 
-  networking.hostName = "vmware-vm";
+  networking.hostName = "nifty-nugget";
 
   # Don't touch with disko
   disko.enableConfig = false;
