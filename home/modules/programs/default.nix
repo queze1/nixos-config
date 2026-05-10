@@ -8,8 +8,9 @@
   imports = [
     ./firefox.nix
     ./git.nix
-    ./shell.nix
     ./nvf
+    ./qutebrowser
+    ./shell.nix
     ./yazi.nix
   ];
 
