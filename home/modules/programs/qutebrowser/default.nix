@@ -14,5 +14,8 @@
         "<Esc>" = "jseval -q document.activeElement.blur()";
       };
     };
+    settings = {
+      "input.insert_mode.auto_load" = true;
+    };
   };
 }
