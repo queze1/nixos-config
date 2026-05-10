@@ -1,5 +1,8 @@
 { ... }:
 {
+  # Sync browser profiles
+  services.psd.enable = true;
+
   services.syncthing = {
     enable = true;
     settings = {
