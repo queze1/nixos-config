@@ -17,5 +17,11 @@
     settings = {
       "input.insert_mode.auto_load" = true;
     };
+
+    perDomainSettings = {
+      "accounts.google.com" = {
+        content.headers.user_agent = "Mozilla/5.0 (X11; Linux x86_64; rv:150.0) Gecko/20100101 Firefox/150.0";
+      };
+    };
   };
 }
