@@ -35,6 +35,7 @@
           { key = "/",          path = "/",                                      },
           { key = "~",          path = "~",                                      },
           { key = "t",          path = "/tmp",                                   },
+          { key = ".",          path = "~/.config",                              },
           { key = "n",          path = "/nix/store",         desc = "Nix store"  },
           { key = "c",          path = "~/etc/nixos",        desc = "Nix config" },
           { key = "C",          path = "~/Coding",           desc = "Coding"     },
