@@ -15,22 +15,5 @@ My personal NixOS config.
 - [disko](https://github.com/nix-community/disko) - for declarative disk management
 
 ## Project Structure
-```bash
-.
-├── home
-│   └── modules
-│       ├── desktop
-│       ├── programs
-├── hosts
-│   ├── utm-vm
-│   ├── utm-vm-2
-│   └── vmware-vm
-├── secrets
-├── system
-│   ├── common
-│   ├── core
-│   ├── disko
-│   └── vm
-└── users
-    └── queze.nix
-```
+TBD
+
