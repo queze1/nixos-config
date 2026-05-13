@@ -32,9 +32,12 @@
       };
     };
 
-    plugins.bunny = "${inputs.bunny-yazi}";
-    plugins.system-clipboard = "${inputs.system-clipboard-yazi}";
-    plugins.recycle-bin = "${inputs.recycle-bin-yazi}";
+    plugins = {
+      bunny = "${inputs.bunny-yazi}";
+      system-clipboard = "${inputs.system-clipboard-yazi}";
+      recycle-bin = "${pkgs.yaziPlugins.recycle-bin}";
+    };
+
     initLua = ''
       require("bunny"):setup({
         hops = {
