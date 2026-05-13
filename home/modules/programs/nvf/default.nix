@@ -128,9 +128,10 @@ in
           enable = true;
           context.enable = true;
           fold = true;
-          grammars = with pkgs.vimPlugins.nvim-treesitter; [
-            withAllGrammars
-          ];
+          # Add grammars manually when needed
+          # grammars = with pkgs.vimPlugins.nvim-treesitter; [
+          #   withAllGrammars
+          # ];
         };
 
         # ----------------------------------------
