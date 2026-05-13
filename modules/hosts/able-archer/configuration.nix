@@ -4,7 +4,9 @@
     { ... }:
     {
       imports = [
-        self.nixosModules.ableArcherHardware
+        self.nixosModules.queze
+        self.nixosModules.agenix
+        self.nixosModules.openssh
       ];
 
       networking.hostName = "able-archer";
