@@ -39,6 +39,8 @@
     };
 
     initLua = ''
+      require("recycle-bin"):setup({})
+
       require("bunny"):setup({
         hops = {
           { key = "/",          path = "/",                                      },
