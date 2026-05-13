@@ -2,7 +2,7 @@
 {
   flake.nixosConfigurations.able-archer = inputs.nixpkgs.lib.nixosSystem {
     modules = [
-      self.nixosModules.able-archer-configuration
+      self.nixosModules.ableArcherConfiguration
     ];
   };
 }

@@ -1,9 +1,13 @@
-{ ... }:
+{ self, ... }:
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  flake.nixosModules.ableArcherConfiguration =
+    { ... }:
+    {
+      imports = [
+        self.nixosModules.ableArcherHardware
+      ];
 
-  networking.hostName = "able-archer";
-  system.stateVersion = "25.11";
+      networking.hostName = "able-archer";
+      system.stateVersion = "25.11";
+    };
 }
