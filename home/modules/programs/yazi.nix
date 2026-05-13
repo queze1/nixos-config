@@ -1,5 +1,10 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    # Required for recycle-bin plugin
+    trash-cli
+  ];
+
   programs.yazi = {
     enable = true;
     shellWrapperName = "y";
