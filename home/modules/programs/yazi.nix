@@ -29,6 +29,7 @@
 
     plugins.bunny = "${inputs.bunny-yazi}";
     plugins.system-clipboard = "${inputs.system-clipboard-yazi}";
+    plugins.recycle-bin = "${inputs.recycle-bin-yazi}";
     initLua = ''
       require("bunny"):setup({
         hops = {
@@ -69,6 +70,14 @@
         on = "<C-y>";
         run = "plugin system-clipboard";
         desc = "Copy to system clipboard";
+      }
+      {
+        on = [
+          "R"
+          "b"
+        ];
+        run = "plugin recycle-bin";
+        desc = "Open Recycle Bin menu";
       }
     ];
   };

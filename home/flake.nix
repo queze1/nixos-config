@@ -37,6 +37,10 @@
       url = "github:orhnk/system-clipboard.yazi";
       flake = false;
     };
+    recycle-bin-yazi = {
+      url = "github:uhs-robert/recycle-bin.yazi";
+      flake = false;
+    };
 
     agenix = {
       url = "github:ryantm/agenix";
