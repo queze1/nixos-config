@@ -5,12 +5,15 @@
       hostOptions
 
       # /core
-      agenix
       boot
       localisation
       networking
       nix
       swap
+
+      # /lib
+      agenix
+      disko
     ];
   };
 }
