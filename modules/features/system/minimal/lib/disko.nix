@@ -12,9 +12,9 @@
         profile = lib.mkOption {
           type = lib.types.enum [
             "simple-efi"
-            # TODO: Create disko config for impermanence
+            "hybrid-tmpfs-on-root"
           ];
-          default = "simple-efi";
+          default = "hybrid-tmpfs-on-root";
           description = "Select disk config";
         };
         device = lib.mkOption {
@@ -30,9 +30,10 @@
       };
 
       config = lib.mkMerge [
+        # Simple filesystem, no swap
         (lib.mkIf (cfg.profile == "simple-efi") {
           disko.devices.disk.main = {
-            device = config.customOptions.disko.device;
+            device = cfg.device;
             type = "disk";
             content = {
               type = "gpt";
@@ -54,6 +55,77 @@
                     type = "filesystem";
                     format = "ext4";
                     mountpoint = "/";
+                  };
+                };
+              };
+            };
+          };
+        })
+
+        # Mostly copied from https://www.vimjoyer.com/vid89-impermanent/disko
+        (lib.mkIf (cfg.profile == "hybrid-tmpfs-on-root") {
+          fileSystems."/persistent".neededForBoot = true;
+
+          disko.devices.nodev = {
+            "/" = {
+              fsType = "tmpfs";
+              mountOptions = [
+                "size=25%"
+                "mode=755"
+              ];
+            };
+          };
+
+          disko.devices.disk.main = {
+            device = cfg.device;
+            type = "disk";
+            content.type = "gpt";
+
+            content.partitions.boot = {
+              name = "boot";
+              size = "1M";
+              type = "EF02";
+            };
+
+            content.partitions.esp = {
+              name = "ESP";
+              size = "1G";
+              type = "EF00";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+              };
+            };
+
+            content.partitions.swap = {
+              size = "4G";
+              content = {
+                type = "swap";
+                resumeDevice = true;
+              };
+            };
+
+            content.partitions.root = {
+              name = "root";
+              size = "100%";
+              content = {
+                type = "btrfs";
+                extraArgs = [ "-f" ];
+                subvolumes = {
+                  "/persistent" = {
+                    mountOptions = [
+                      "subvol=persistent"
+                      "noatime"
+                    ];
+                    mountpoint = "/persistent";
+                  };
+                  "/nix" = {
+                    mountOptions = [
+                      "subvol=nix"
+                      "noatime"
+                    ];
+                    mountpoint = "/nix";
                   };
                 };
               };
