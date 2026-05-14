@@ -16,4 +16,8 @@
       disko
     ];
   };
+
+  flake.homeModules.allFeatures = {
+    imports = with self.homeModules; [ xdgUserDirs ];
+  };
 }
