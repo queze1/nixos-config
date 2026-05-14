@@ -52,7 +52,7 @@
         {
           # Integrate with Home Manager
           home-manager.sharedModules = [
-            self.homeModules.hypervisor
+            self.homeModules.xdgUserDirs
           ];
         }
 
@@ -121,21 +121,28 @@
       ];
     };
 
-  # Modify XDG user directories if using shared folder for that
-  flake.homeModules.hypervisor =
+  # Modify XDG user directories if needed
+  flake.homeModules.xdgUserDirs =
     { config, lib, ... }:
     let
       cfg = config.host.hypervisor;
+      basePath =
+        if cfg.useForXDGUserDirs && cfg.sharedFolder != null then
+          cfg.sharedFolder
+        else
+          "${config.users.homeDirectory}";
     in
     lib.mkIf (cfg.useForXDGUserDirs && cfg.sharedFolder != null) {
       xdg.userDirs = {
         enable = true;
-        createDirectories = true; # create if missing
-        download = "${cfg.sharedFolder}/Downloads";
-        documents = "${cfg.sharedFolder}/Documents";
-        pictures = "${cfg.sharedFolder}/Pictures";
-        videos = "${cfg.sharedFolder}/Videos";
-        music = "${cfg.sharedFolder}/Music";
+        # Only create missing dirs if using a shared folder, where those dirs may not already exist
+        createDirectories = cfg.useForXDGUserDirs;
+
+        download = "${basePath}/Downloads";
+        documents = "${basePath}/Documents";
+        pictures = "${basePath}/Pictures";
+        videos = "${basePath}/Videos";
+        music = "${basePath}/Music";
       };
     };
 }
