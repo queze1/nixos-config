@@ -4,12 +4,13 @@
     imports = with self.nixosModules; [
       hostOptions
 
-      # /core
+      # /system
       boot
       localisation
       networking
       nix
       swap
+      virtualisation
 
       # /lib
       agenix
