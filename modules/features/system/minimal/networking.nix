@@ -13,7 +13,7 @@
           networking.networkmanager.enable = true;
         }
 
-        (lib.mkIf (profile == "personal-machine") {
+        (lib.mkIf (profile == "personal-computer") {
           # https://wiki.nixos.org/wiki/Tailscale
           services.tailscale.enable = true;
           networking.nftables.enable = true;

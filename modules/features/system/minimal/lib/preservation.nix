@@ -1,8 +1,9 @@
+{ inputs, ... }:
 {
   flake.nixosModules.preservation =
-    { config, inputs, ... }:
+    { config, ... }:
     {
-      imports = [ inputs.preservation.nixosModules.defaul ];
+      imports = [ inputs.preservation.nixosModules.default ];
 
       # TODO: Check if a persistence disko config is on
       boot.tmp.cleanOnBoot = true;

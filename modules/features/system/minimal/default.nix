@@ -7,6 +7,7 @@
       inputs.home-manager.nixosModules.home-manager
       self.nixosModules.agenix
       self.nixosModules.disko
+      self.nixosModules.preservation
 
       {
         home-manager.useGlobalPkgs = true;

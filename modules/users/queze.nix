@@ -17,57 +17,47 @@ in
         ];
       };
 
-      # persistence = {
-      #   users.${username} = {
-      #     commonMountOptions = [
-      #       "x-gvfs-hide"
-      #     ];
-      #     directories = [
-      #       {
-      #         directory = ".ssh";
-      #         mode = "0700";
-      #       }
-      #       ".config/syncthing"
-      #       ".local/share/direnv"
-      #       ".local/share/fish"
-      #       ".local/state/nix"
-      #       ".local/state/nvim"
-      #       ".local/state/wireplumber"
-      #       ".mozilla"
-      #     ];
-      #   };
-      #   root = {
-      #     home = "/root";
-      #     directories = [
-      #       {
-      #         directory = ".ssh";
-      #         mode = "0700";
-      #       }
-      #     ];
-      #   };
-      # };
+      preservation.preserveAt."/persistent".users.${username} = {
+        commonMountOptions = [
+          "x-gvfs-hide"
+        ];
+        directories = [
+          {
+            directory = ".ssh";
+            mode = "0700";
+          }
+          ".config/syncthing"
+          ".local/share/direnv"
+          ".local/share/fish"
+          ".local/state/nix"
+          ".local/state/nvim"
+          ".local/state/wireplumber"
+          ".mozilla"
+        ];
+      };
 
-      # systemd.tmpfiles.settings.preservation = {
-      #   "/home/${username}/.config".d = {
-      #     user = username;
-      #     group = "users";
-      #     mode = "0755";
-      #   };
-      #   "/home/${username}/.local".d = {
-      #     user = username;
-      #     group = "users";
-      #     mode = "0755";
-      #   };
-      #   "/home/${username}/.local/share".d = {
-      #     user = username;
-      #     group = "users";
-      #     mode = "0755";
-      #   };
-      #   "/home/${username}/.local/state".d = {
-      #     user = username;
-      #     group = "users";
-      #     mode = "0755";
-      #   };
-      # };
+      # TODO: Check if preservation is on
+      systemd.tmpfiles.settings.preservation = {
+        "/home/${username}/.config".d = {
+          user = username;
+          group = "users";
+          mode = "0755";
+        };
+        "/home/${username}/.local".d = {
+          user = username;
+          group = "users";
+          mode = "0755";
+        };
+        "/home/${username}/.local/share".d = {
+          user = username;
+          group = "users";
+          mode = "0755";
+        };
+        "/home/${username}/.local/state".d = {
+          user = username;
+          group = "users";
+          mode = "0755";
+        };
+      };
     };
 }
