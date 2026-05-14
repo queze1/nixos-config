@@ -1,6 +1,8 @@
 {
+  # TODO: Import inputs from a /inputs folder
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
