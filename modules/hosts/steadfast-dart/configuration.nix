@@ -1,12 +1,12 @@
 { self, ... }:
 {
-  flake.nixosModules.ableArcherConfiguration = {
+  flake.nixosModules.steadfastDartConfiguration = {
     imports = [
       self.nixosModules.allFeatures
       self.nixosModules.queze
     ];
 
-    networking.hostName = "able-archer";
+    networking.hostName = "steadfast-dart";
     system.stateVersion = "25.11";
   };
 }
