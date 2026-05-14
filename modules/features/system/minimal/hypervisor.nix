@@ -51,9 +51,9 @@
       config = lib.mkMerge [
         {
           # Integrate with Home Manager
-          home-manager.sharedModules = [
-            self.homeModules.xdgUserDirs
-          ];
+          # home-manager.sharedModules = [
+          #   self.homeModules.xdgUserDirs
+          # ];
         }
 
         (lib.mkIf (cfg.type == "utm") {
