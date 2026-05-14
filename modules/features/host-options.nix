@@ -53,32 +53,4 @@
         };
       };
     };
-
-  flake.homeModules.configureXDGUserDirs =
-    { config, ... }:
-    let
-      cfg = config.host.hypervisor;
-      basePath =
-        if cfg.useSharedFolderForDestinations && cfg.sharedFolder != null then
-          cfg.sharedFolder
-        else
-          "${config.users.homeDirectory}";
-    in
-    {
-      xdg.userDirs = {
-        enable = true;
-        createDirectories = true; # create if missing
-
-        download = "${basePath}/Downloads";
-        documents = "${basePath}/Documents";
-        pictures = "${basePath}/Pictures";
-        videos = "${basePath}/Videos";
-        music = "${basePath}/Music";
-        extraConfig = {
-          XDG_OBSIDIAN_DIR = "${basePath}/Documents/obsidian";
-          # Use home directory even if shared directory was prefered, to avoid overhead
-          XDG_CODING_DIR = "${config.users.homeDirectory}/Coding";
-        };
-      };
-    };
 }
