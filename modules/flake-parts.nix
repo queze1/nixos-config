@@ -1,7 +1,8 @@
 { inputs, ... }:
 {
-  # Import home-manager's flake module
   imports = [
+    # Integrate home-manager with flake-parts
+    # Defines flake.homeModules and flake.homeConfigurations
     inputs.home-manager.flakeModules.home-manager
   ];
 

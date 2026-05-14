@@ -1,9 +1,8 @@
-{ self, ... }:
+{ inputs, ... }:
 {
   flake.nixosModules.minimalSystem =
     {
       config,
-      inputs,
       lib,
       ...
     }:
@@ -50,9 +49,9 @@
 
       config = lib.mkMerge [
         {
-          # Integrate with Home Manager
+          # Import helper HM module
           home-manager.sharedModules = [
-            self.homeModules.xdgUserDirs
+            inputs.self.homeModules.xdgUserDirs
           ];
         }
 
@@ -123,9 +122,13 @@
 
   # Modify XDG user directories if using shared folder for that
   flake.homeModules.xdgUserDirs =
-    { config, lib, ... }:
+    {
+      lib,
+      osConfig,
+      ...
+    }:
     let
-      cfg = config.host.hypervisor;
+      cfg = osConfig.host.hypervisor;
     in
     lib.mkIf (cfg.useForXDGUserDirs && cfg.sharedFolder != null) {
       xdg.userDirs = {
