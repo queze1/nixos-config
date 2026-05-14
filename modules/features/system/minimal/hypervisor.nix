@@ -1,3 +1,4 @@
+{ self, ... }:
 {
   flake.nixosModules.minimalSystem =
     {
@@ -50,8 +51,8 @@
       config = lib.mkMerge [
         {
           # Integrate with Home Manager
-          inputs.home-manager.sharedModules = [
-            inputs.self.homeModules.hypervisor
+          home-manager.sharedModules = [
+            self.homeModules.hypervisor
           ];
         }
 
