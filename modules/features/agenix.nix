@@ -1,6 +1,7 @@
 { inputs, moduleWithSystem, ... }:
 {
   flake.nixosModules.agenix = moduleWithSystem (
+    # inputs': inputs, but with system preselected
     { inputs', ... }:
     { ... }:
     {
