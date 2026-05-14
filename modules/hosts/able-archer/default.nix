@@ -5,5 +5,9 @@
       self.nixosModules.ableArcherConfiguration
       self.nixosModules.ableArcherHardware
     ];
+
+    specialArgs = {
+      hostProfile = "personal-computer";
+    };
   };
 }

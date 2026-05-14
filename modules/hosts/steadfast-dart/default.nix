@@ -6,5 +6,9 @@
       self.nixosModules.steadfastDartConfiguration
       self.nixosModules.steadfastDartHardware
     ];
+
+    specialArgs = {
+      hostProfile = "home-server";
+    };
   };
 }

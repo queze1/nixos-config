@@ -5,7 +5,6 @@
       self.nixosModules.standardSystem
       self.nixosModules.queze
     ];
-    host.profile = "personal-computer";
     host.hypervisor.type = "utm";
 
     networking.hostName = "able-archer";

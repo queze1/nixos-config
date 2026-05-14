@@ -5,5 +5,9 @@
       self.nixosModules.steadfastDefenderConfiguration
       self.nixosModules.steadfastDefenderHardware
     ];
+
+    specialArgs = {
+      hostProfile = "home-server";
+    };
   };
 }

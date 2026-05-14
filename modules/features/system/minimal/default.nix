@@ -4,7 +4,6 @@
     imports = [
       self.nixosModules.agenix
       self.nixosModules.disko
-      self.nixosModules.hostOptions
     ];
   };
 }
