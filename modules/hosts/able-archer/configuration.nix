@@ -3,7 +3,7 @@
   flake.nixosModules.ableArcherConfiguration = {
     imports = [
       self.nixosModules.standardSystem
-      self.nixosModules.queze
+      self.nixosModules.quezeUser
     ];
     host.hypervisor.type = "utm";
 
