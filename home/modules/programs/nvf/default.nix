@@ -27,8 +27,8 @@ in
         # General
         # ----------------------------------------
         opts = {
-          shiftwidth = 4;
-          tabstop = 4;
+          shiftwidth = 2;
+          tabstop = 2;
         };
         # Yank into system keyboard
         clipboard = {
