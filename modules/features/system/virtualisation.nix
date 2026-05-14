@@ -12,6 +12,9 @@
       ];
 
       virtualisation.vmVariant = {
+        users.mutableUsers = false;
+        users.users.root.password = "root";
+
         # Share host keys with VM
         virtualisation.sharedDirectories = {
           ssh-keys = {
