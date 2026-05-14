@@ -9,4 +9,6 @@
       environment.systemPackages = [ inputs'.agenix.packages.default ];
     }
   );
+
+  # TODO: Inject keys for rebuild-vm
 }
