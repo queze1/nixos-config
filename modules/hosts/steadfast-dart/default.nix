@@ -8,7 +8,7 @@
     ];
 
     specialArgs = {
-      hostProfile = "home-server";
+      profile = "home-server";
     };
   };
 }

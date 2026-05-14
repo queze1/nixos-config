@@ -4,7 +4,7 @@
       config,
       lib,
       pkgs,
-      hostProfile,
+      profile,
       ...
     }:
     {
@@ -13,7 +13,7 @@
           networking.networkmanager.enable = true;
         }
 
-        (lib.mkIf (hostProfile == "personal-machine") {
+        (lib.mkIf (profile == "personal-machine") {
           # https://wiki.nixos.org/wiki/Tailscale
           services.tailscale.enable = true;
           networking.nftables.enable = true;
@@ -36,7 +36,7 @@
           ];
         })
 
-        (lib.mkIf (hostProfile == "home-server") {
+        (lib.mkIf (profile == "home-server") {
           # TODO: Firewall, Tailscale SSH, hardening
         })
       ];

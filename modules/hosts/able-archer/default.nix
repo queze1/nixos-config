@@ -7,7 +7,7 @@
     ];
 
     specialArgs = {
-      hostProfile = "personal-computer";
+      profile = "personal-computer";
     };
   };
 }
