@@ -2,6 +2,7 @@
   flake.nixosModules.minimalSystem =
     {
       config,
+      inputs,
       lib,
       ...
     }:
@@ -47,6 +48,13 @@
       };
 
       config = lib.mkMerge [
+        {
+          # Integrate with Home Manager
+          inputs.home-manager.sharedModules = [
+            inputs.self.homeModules.hypervisor
+          ];
+        }
+
         (lib.mkIf (cfg.type == "utm") {
           services.spice-vdagentd.enable = true;
           services.qemuGuest.enable = true;
@@ -110,5 +118,23 @@
           ];
         })
       ];
+    };
+
+  # Modify XDG user directories if using shared folder for that
+  flake.homeModules.hypervisor =
+    { config, lib, ... }:
+    let
+      cfg = config.host.hypervisor;
+    in
+    lib.mkIf (cfg.useForXDGUserDirs && cfg.sharedFolder != null) {
+      xdg.userDirs = {
+        enable = true;
+        createDirectories = true; # create if missing
+        download = "${cfg.sharedFolder}/Downloads";
+        documents = "${cfg.sharedFolder}/Documents";
+        pictures = "${cfg.sharedFolder}/Pictures";
+        videos = "${cfg.sharedFolder}/Videos";
+        music = "${cfg.sharedFolder}/Music";
+      };
     };
 }
