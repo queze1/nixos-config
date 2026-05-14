@@ -9,13 +9,6 @@
 
       environment.systemPackages = [ inputs'.agenix.packages.default ];
 
-      virtualisation.sharedDirectories = {
-        ssh-keys = {
-          source = "/etc/ssh";
-          target = "/etc/ssh";
-        };
-      };
-
       age = {
         identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
       };

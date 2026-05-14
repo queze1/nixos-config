@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.virtualisation =
+  flake.nixosModules.standardSystem =
     {
       config,
       lib,

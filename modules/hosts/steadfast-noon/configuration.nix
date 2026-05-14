@@ -3,7 +3,7 @@
   # For home server with medium speed
   flake.nixosModules.steadfastNoonConfiguration = {
     imports = [
-      self.nixosModules.allFeatures
+      self.nixosModules.minimalSystem
       self.nixosModules.queze
     ];
     host.profile = "home-server";

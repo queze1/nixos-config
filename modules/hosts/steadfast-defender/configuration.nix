@@ -3,7 +3,7 @@
   # For ThinkPad home server
   flake.nixosModules.steadfastDefenderConfiguration = {
     imports = [
-      self.nixosModules.allFeatures
+      self.nixosModules.minimalSystem
       self.nixosModules.queze
     ];
     host.profile = "home-server";

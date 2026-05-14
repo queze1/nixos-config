@@ -2,7 +2,7 @@
 {
   flake.nixosModules.ableArcherConfiguration = {
     imports = [
-      self.nixosModules.allFeatures
+      self.nixosModules.standardSystem
       self.nixosModules.queze
     ];
     host.profile = "personal-computer";

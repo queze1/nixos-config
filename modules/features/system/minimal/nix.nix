@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.nix = {
+  flake.nixosModules.minimalSystem = {
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
