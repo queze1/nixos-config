@@ -1,5 +1,6 @@
 { self, ... }:
 {
+  # TODO: Define Home Manager configuration for queze and import it from the NixOS module queze
   flake.nixosModules.queze =
     { config, ... }:
     {
