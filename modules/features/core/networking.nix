@@ -1,7 +1,10 @@
 {
-  flake.nixosModules.openssh =
+  flake.nixosModules.networking =
     { ... }:
     {
+      # TODO: Handle firewall, Tailscale SSH, depending on profile
+      networking.networkmanager.enable = true;
+
       services.openssh = {
         enable = true;
         settings = {

@@ -1,9 +1,16 @@
 { self, ... }:
 {
   flake.nixosModules.allFeatures = {
-    imports = [
-      self.nixosModules.agenix
-      self.nixosModules.openssh
+    imports = with self.nixosModules; [
+      hostOptions
+
+      # /core
+      agenix
+      boot
+      localisation
+      networking
+      nix
+      swap
     ];
   };
 }
