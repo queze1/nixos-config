@@ -51,9 +51,9 @@
       config = lib.mkMerge [
         {
           # Integrate with Home Manager
-          # home-manager.sharedModules = [
-          #   self.homeModules.xdgUserDirs
-          # ];
+          home-manager.sharedModules = [
+            self.homeModules.xdgUserDirs
+          ];
         }
 
         (lib.mkIf (cfg.type == "utm") {
@@ -121,28 +121,21 @@
       ];
     };
 
-  # Modify XDG user directories if needed
+  # Modify XDG user directories if using shared folder for that
   flake.homeModules.xdgUserDirs =
     { config, lib, ... }:
     let
       cfg = config.host.hypervisor;
-      basePath =
-        if cfg.useForXDGUserDirs && cfg.sharedFolder != null then
-          cfg.sharedFolder
-        else
-          "${config.users.homeDirectory}";
     in
     lib.mkIf (cfg.useForXDGUserDirs && cfg.sharedFolder != null) {
       xdg.userDirs = {
         enable = true;
-        # Only create missing dirs if using a shared folder, where those dirs may not already exist
-        createDirectories = cfg.useForXDGUserDirs;
-
-        download = "${basePath}/Downloads";
-        documents = "${basePath}/Documents";
-        pictures = "${basePath}/Pictures";
-        videos = "${basePath}/Videos";
-        music = "${basePath}/Music";
+        createDirectories = true; # create if missing
+        download = "${cfg.sharedFolder}/Downloads";
+        documents = "${cfg.sharedFolder}/Documents";
+        pictures = "${cfg.sharedFolder}/Pictures";
+        videos = "${cfg.sharedFolder}/Videos";
+        music = "${cfg.sharedFolder}/Music";
       };
     };
 }
