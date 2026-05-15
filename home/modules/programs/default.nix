@@ -47,6 +47,7 @@
     clipboard-jh
     fastfetch
     ffmpeg
+    imagemagick
     libsecret
     pkgs-stable.yt-dlp
     pywalfox-native
