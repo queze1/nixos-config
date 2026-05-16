@@ -13,6 +13,7 @@
     {
       imports = [
         self.homeModules.firefox
+        self.homeModules.foot
         self.homeModules.imv
         self.homeModules.qutebrowser
         self.homeModules.vesktop
