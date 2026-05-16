@@ -36,6 +36,9 @@ in
         ];
       };
 
+      # By default, missing parent directories are always created with ownership
+      # `root:root` and mode `0755`, as described in {manpage}`tmpfiles.d(5)`.
+      # tmpfiles is the recommended way of fixing this
       systemd.tmpfiles.settings.preservation = {
         "/home/${username}/.config".d = {
           user = username;
