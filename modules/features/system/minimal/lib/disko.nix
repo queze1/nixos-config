@@ -1,7 +1,7 @@
-{ inputs, lib, ... }:
+{ inputs, ... }:
 {
   flake.nixosModules.disko =
-    { config, ... }:
+    { config, lib, ... }:
     let
       cfg = config.host.disko;
     in
