@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.minimalSystem =
+  flake.nixosModules.networking =
     { config, ... }:
     {
       # TODO: Options for Tailscale SSH, hardening

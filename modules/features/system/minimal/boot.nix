@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.minimalSystem =
+  flake.nixosModules.boot =
     { pkgs, ... }:
     {
       boot.loader.systemd-boot.enable = true;

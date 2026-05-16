@@ -9,6 +9,11 @@
       self.nixosModules.disko
       self.nixosModules.preservation
 
+      self.nixosModules.boot
+      self.nixosModules.hypervisor
+      self.nixosModules.localisation
+      self.nixosModules.networking
+      self.nixosModules.nix
       self.nixosModules.shellAliases
     ];
 
@@ -30,5 +35,8 @@
           mv "$filename" "$filename.$extension"
       fi
     '';
+
+    # Compress RAM to save memory
+    zramSwap.enable = true;
   };
 }

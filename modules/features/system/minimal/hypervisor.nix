@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.nixosModules.minimalSystem =
+  flake.nixosModules.hypervisor =
     {
       config,
       lib,
