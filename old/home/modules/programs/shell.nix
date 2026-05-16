@@ -48,12 +48,6 @@ in
 {
   programs = {
     bash.enable = true;
-    btop = {
-      enable = true;
-      settings = {
-        theme_background = false;
-      };
-    };
     direnv = {
       enable = true;
       enableBashIntegration = true;
@@ -61,6 +55,13 @@ in
       nix-direnv.enable = true;
     };
     nix-index-database.comma.enable = true;
+  };
+
+  xdg.terminal-exec = {
+    enable = true;
+    settings = {
+      default = [ "foot.desktop" ];
+    };
   };
 
   home.shellAliases = {

@@ -12,6 +12,7 @@
     { pkgs, ... }:
     {
       imports = [
+        self.homeModules.btop
         self.homeModules.firefox
         self.homeModules.foot
         self.homeModules.imv
@@ -81,5 +82,7 @@
         unzip
         wl-clipboard
       ];
+
+      programs.nix-index-database.comma.enable = true;
     };
 }
