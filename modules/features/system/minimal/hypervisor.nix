@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ self, ... }:
 {
   flake.nixosModules.minimalSystem =
     {
@@ -51,7 +51,7 @@
         {
           # Import helper HM module
           home-manager.sharedModules = [
-            inputs.self.homeModules.xdgUserDirs
+            self.homeModules.xdgUserDirs
           ];
         }
 

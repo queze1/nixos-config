@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ self, ... }:
 {
   flake.nixosModules.standardSystem = {
     services.pulseaudio.enable = false;
@@ -11,7 +11,7 @@
     };
 
     home-manager.sharedModules = [
-      inputs.self.homeModules.sound
+      self.homeModules.sound
     ];
   };
 
