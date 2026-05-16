@@ -6,9 +6,5 @@
       self.nixosModules.steadfastDartConfiguration
       self.nixosModules.steadfastDartHardware
     ];
-
-    specialArgs = {
-      profile = "home-server";
-    };
   };
 }

@@ -5,9 +5,5 @@
       self.nixosModules.steadfastDefenderConfiguration
       self.nixosModules.steadfastDefenderHardware
     ];
-
-    specialArgs = {
-      profile = "home-server";
-    };
   };
 }

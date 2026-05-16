@@ -5,9 +5,5 @@
       self.nixosModules.steadfastNoonConfiguration
       self.nixosModules.steadfastNoonHardware
     ];
-
-    specialArgs = {
-      profile = "home-server";
-    };
   };
 }

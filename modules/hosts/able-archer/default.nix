@@ -5,9 +5,5 @@
       self.nixosModules.ableArcherConfiguration
       self.nixosModules.ableArcherHardware
     ];
-
-    specialArgs = {
-      profile = "personal-computer";
-    };
   };
 }
