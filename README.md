@@ -17,3 +17,5 @@ My personal NixOS config.
 ## Project Structure
 TBD
 
+NOTE: All Home Manager modules are imported with home-manager.sharedModules so NixOS modules can import Home Manager modules without knowing about users. This means that all users will have the same Home Manager configuration.
+
