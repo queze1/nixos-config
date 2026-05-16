@@ -16,6 +16,7 @@
         self.homeModules.firefox
         self.homeModules.foot
         self.homeModules.imv
+        self.homeModules.nvf
         self.homeModules.qutebrowser
         self.homeModules.vesktop
         self.homeModules.yazi
@@ -73,7 +74,6 @@
     {
       imports = [
         self.homeModules.git
-        self.homeModules.nvf
       ];
 
       home.packages = with pkgs; [
@@ -84,5 +84,11 @@
       ];
 
       programs.nix-index-database.comma.enable = true;
+      programs.direnv = {
+        enable = true;
+        enableBashIntegration = true;
+        enableFishIntegration = true;
+        nix-direnv.enable = true;
+      };
     };
 }

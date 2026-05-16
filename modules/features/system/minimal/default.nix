@@ -8,6 +8,8 @@
       self.nixosModules.agenix
       self.nixosModules.disko
       self.nixosModules.preservation
+
+      self.nixosModules.shellAliases
     ];
 
     home-manager.useGlobalPkgs = true;
