@@ -1,9 +1,9 @@
-{ self, ... }:
+{ inputs, self, ... }:
 let
   username = "queze";
 in
 {
-  flake.nixosModules.quezeUser =
+  flake.nixosModules.${username} =
     { config, ... }:
     {
       age.secrets."${username}-password".file = "${self}/secrets/${username}-password.age";
@@ -74,7 +74,7 @@ in
       };
     };
 
-  flake.homeConfigurations.quezeUser = {
+  flake.homeConfigurations.${username} = inputs.home-manager.lib.homeManagerConfiguration {
     home.username = username;
     home.homeDirectory = "/home/${username}";
 

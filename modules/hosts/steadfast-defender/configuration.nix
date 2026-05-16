@@ -4,7 +4,7 @@
   flake.nixosModules.steadfastDefenderConfiguration = {
     imports = [
       self.nixosModules.minimalSystem
-      self.nixosModules.quezeUser
+      self.nixosModules.queze
     ];
 
     networking.hostName = "steadfast-defender";
