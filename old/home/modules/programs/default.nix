@@ -41,7 +41,6 @@
     pkgs-stable.celluloid
     pkgs-stable.qimgv
     qalculate-qt
-    vesktop
 
     # CLI tools
     clipboard-jh
