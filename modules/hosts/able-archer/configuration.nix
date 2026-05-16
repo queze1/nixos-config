@@ -8,7 +8,12 @@
       self.nixosModules.standardSystem
     ];
 
-    host.hypervisor.type = "utm";
+    host = {
+      hypervisor.type = "utm";
+      disko.profile = "hybrid-tmpfs-on-root";
+      preservation.enable = true;
+    };
+
     networking.hostName = "able-archer";
     system.stateVersion = "25.11";
 
