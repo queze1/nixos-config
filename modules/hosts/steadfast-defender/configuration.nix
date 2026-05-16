@@ -4,6 +4,7 @@
   flake.nixosModules.steadfastDefenderConfiguration = {
     imports = [
       self.nixosModules.minimalSystem
+      self.nixosModules.minimalPrograms
       self.nixosModules.commander
     ];
 

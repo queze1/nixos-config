@@ -4,6 +4,7 @@
   flake.nixosModules.steadfastNoonConfiguration = {
     imports = [
       self.nixosModules.minimalSystem
+      self.nixosModules.minimalPrograms
       self.nixosModules.commander
     ];
 

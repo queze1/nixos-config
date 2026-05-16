@@ -3,7 +3,8 @@
   flake.nixosModules.steadfastDartConfiguration = {
     imports = [
       self.nixosModules.minimalSystem
-      self.nixosModules.queze
+      self.nixosModules.minimalPrograms
+      self.nixosModules.commander
     ];
 
     networking.hostName = "steadfast-dart";
