@@ -9,6 +9,7 @@
 
   flake.homeModules.allPrograms = {
     imports = [
+      self.homeModules.firefox
       self.homeModules.vesktop
       self.homeModules.qutebrowser
     ];
