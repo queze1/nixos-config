@@ -7,6 +7,9 @@
       systemd.network.wait-online.enable = false; # unnecessary if network manager is enabled
       boot.initrd.systemd.network.wait-online.enable = false;
 
+      # Use nftables instead of iptables
+      networking.nftables.enable = true;
+
       # Configure Tailscale
       services.tailscale = {
         enable = true;
