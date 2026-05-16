@@ -3,18 +3,18 @@
   flake.nixosModules.disko =
     { config, ... }:
     let
-      cfg = config.disko;
+      cfg = config.host.disko;
     in
     {
       imports = [ inputs.disko.nixosModules.default ];
 
-      options.disko = {
+      options.host.disko = {
         profile = lib.mkOption {
           type = lib.types.enum [
             "simple-efi"
             "hybrid-tmpfs-on-root"
           ];
-          default = "hybrid-tmpfs-on-root";
+          default = "simple-efi";
           description = "Select disk config";
         };
         device = lib.mkOption {

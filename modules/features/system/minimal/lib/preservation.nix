@@ -1,54 +1,62 @@
 { inputs, ... }:
 {
   flake.nixosModules.preservation =
-    { config, ... }:
+    { config, lib, ... }:
+    let
+      cfg = config.host.preservation;
+    in
     {
       imports = [ inputs.preservation.nixosModules.default ];
 
-      # TODO: Check if a persistence disko config is on
-      boot.tmp.cleanOnBoot = true;
+      options.host.preservation = {
+        enable = lib.mkEnableOption "impermanence with preservation";
+      };
 
-      preservation = {
-        enable = true;
+      config = {
+        boot.tmp.cleanOnBoot = cfg.enable;
 
-        preserveAt."/persistent" = {
-          directories = [
-            "/etc/NetworkManager/system-connections"
-            "/tmp" # prevent running out of memory from temp files
-            "/var/lib/fwupd"
-            "/var/lib/libvirt"
-            "/var/lib/systemd/coredump"
-            "/var/lib/systemd/rfkill"
-            "/var/lib/systemd/timers"
-            "/var/log"
-            {
-              directory = "/var/lib/nixos";
-              inInitrd = true;
-            }
-          ];
+        preservation = {
+          enable = cfg.enable;
 
-          files = [
-            {
-              file = "/etc/machine-id";
-              inInitrd = true;
-            }
-            {
-              file = "/etc/ssh/ssh_host_rsa_key";
-              how = "symlink";
-              configureParent = true;
-            }
-            {
-              file = "/etc/ssh/ssh_host_ed25519_key";
-              how = "symlink";
-              configureParent = true;
-            }
-            {
-              file = "/var/lib/systemd/random-seed";
-              how = "symlink";
-              inInitrd = true;
-              configureParent = true;
-            }
-          ];
+          preserveAt."/persistent" = {
+            directories = [
+              "/etc/NetworkManager/system-connections"
+              "/tmp" # prevent running out of memory from temp files
+              "/var/lib/fwupd"
+              "/var/lib/libvirt"
+              "/var/lib/systemd/coredump"
+              "/var/lib/systemd/rfkill"
+              "/var/lib/systemd/timers"
+              "/var/log"
+              {
+                directory = "/var/lib/nixos";
+                inInitrd = true;
+              }
+            ];
+
+            files = [
+              {
+                file = "/etc/machine-id";
+                inInitrd = true;
+              }
+              {
+                file = "/etc/ssh/ssh_host_rsa_key";
+                how = "symlink";
+                configureParent = true;
+              }
+              {
+                file = "/etc/ssh/ssh_host_ed25519_key";
+                how = "symlink";
+                configureParent = true;
+              }
+              {
+                file = "/var/lib/systemd/random-seed";
+                how = "symlink";
+                inInitrd = true;
+                configureParent = true;
+              }
+            ];
+          };
         };
       };
     };

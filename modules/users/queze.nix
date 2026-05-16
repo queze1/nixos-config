@@ -36,7 +36,6 @@ in
         ];
       };
 
-      # TODO: Check if preservation is on
       systemd.tmpfiles.settings.preservation = {
         "/home/${username}/.config".d = {
           user = username;
