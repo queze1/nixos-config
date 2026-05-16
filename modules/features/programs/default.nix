@@ -17,5 +17,5 @@
     home-manager.sharedModules = [ self.homeModules.minimalPrograms ];
   };
 
-  flake.homeModules.minimalPrograms = { };
+  flake.homeModules.minimalPrograms = [ self.homeModules.git ];
 }
