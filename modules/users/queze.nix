@@ -27,12 +27,22 @@ in
             mode = "0700";
           }
           ".config/syncthing"
+          ".copilot"
           ".local/share/direnv"
           ".local/share/fish"
           ".local/state/nix"
           ".local/state/nvim"
           ".local/state/wireplumber"
           ".mozilla"
+
+          # User directories
+          "Coding"
+          "Desktop"
+          "Documents"
+          "Downloads"
+          "Music"
+          "Videos"
+          "etc/nixos"
         ];
       };
 
