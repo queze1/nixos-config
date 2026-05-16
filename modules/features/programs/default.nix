@@ -1,4 +1,4 @@
-{ self, ... }:
+{ inputs, self, ... }:
 {
   flake.nixosModules.allPrograms = {
     # Extend minimalPrograms
@@ -73,6 +73,7 @@
     { pkgs, ... }:
     {
       imports = [
+        inputs.nix-index-database.homeModules.default
         self.homeModules.git
       ];
 
@@ -83,12 +84,12 @@
         wl-clipboard
       ];
 
-      programs.nix-index-database.comma.enable = true;
       programs.direnv = {
         enable = true;
         enableBashIntegration = true;
         enableFishIntegration = true;
         nix-direnv.enable = true;
       };
+      programs.nix-index-database.comma.enable = true;
     };
 }
