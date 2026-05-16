@@ -4,7 +4,7 @@
   flake.nixosModules.steadfastNoonConfiguration = {
     imports = [
       self.nixosModules.minimalSystem
-      self.nixosModules.queze
+      self.nixosModules.commander
     ];
 
     networking.hostName = "steadfast-noon";
