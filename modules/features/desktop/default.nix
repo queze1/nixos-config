@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.standardSystem = {
+  flake.nixosModules.desktop = {
     services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;

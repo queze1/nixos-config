@@ -2,8 +2,10 @@
 {
   flake.nixosModules.ableArcherConfiguration = {
     imports = [
-      self.nixosModules.standardSystem
+      self.nixosModules.allPrograms
+      self.nixosModules.desktop
       self.nixosModules.queze
+      self.nixosModules.standardSystem
     ];
     host.hypervisor.type = "utm";
 
