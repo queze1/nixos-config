@@ -21,5 +21,8 @@
     home-manager.sharedModules = [ self.homeModules.minimalPrograms ];
   };
 
-  flake.homeModules.minimalPrograms = [ self.homeModules.git ];
+  flake.homeModules.minimalPrograms = [
+    self.homeModules.git
+    self.homeModules.nvf
+  ];
 }
