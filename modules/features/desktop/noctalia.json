@@ -130,7 +130,7 @@
     "screenOverrides": []
   },
   "general": {
-    "avatarImage": "/mnt/utm/Pictures/Art/pfps/pfp.png",
+    "avatarImage": "~/.face",
     "dimmerOpacity": 0.3,
     "showScreenCorners": false,
     "forceBlackScreenCorners": false,
@@ -304,7 +304,7 @@
     "position": "center",
     "pinnedApps": [],
     "sortByMostUsed": true,
-    "terminalCommand": "foot -e",
+    "terminalCommand": "xdg-terminal-exec",
     "customLaunchPrefixEnabled": false,
     "customLaunchPrefix": "",
     "viewMode": "list",
