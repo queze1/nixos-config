@@ -1,44 +1,22 @@
 {
   flake.nixosModules.minimalSystem =
+    { config, ... }:
     {
-      config,
-      lib,
-      pkgs,
-      profile,
-      ...
-    }:
-    {
-      config = lib.mkMerge [
-        {
-          networking.networkmanager.enable = true;
-        }
+      # TODO: Options for Tailscale SSH, hardening
+      networking.networkmanager.enable = true;
+      systemd.network.wait-online.enable = false; # unnecessary if network manager is enabled
+      boot.initrd.systemd.network.wait-online.enable = false;
 
-        (lib.mkIf (profile == "personal-computer") {
-          # https://wiki.nixos.org/wiki/Tailscale
-          services.tailscale.enable = true;
-          networking.nftables.enable = true;
-          networking.firewall = {
-            enable = true;
-            trustedInterfaces = [ "tailscale0" ];
-            allowedUDPPorts = [ config.services.tailscale.port ];
-          };
-          systemd.services.tailscaled.serviceConfig.Environment = [
-            "TS_DEBUG_FIREWALL_MODE=nftables"
-          ];
-          systemd.network.wait-online.enable = false;
-          boot.initrd.systemd.network.wait-online.enable = false;
-
-          # https://discourse.nixos.org/t/how-to-configure-and-use-proton-vpn-on-nixos/65837
-          networking.firewall.checkReversePath = "loose";
-          environment.systemPackages = with pkgs; [
-            wireguard-tools
-            proton-vpn
-          ];
-        })
-
-        (lib.mkIf (profile == "home-server") {
-          # TODO: Firewall, Tailscale SSH, hardening
-        })
+      # Configure Tailscale
+      services.tailscale = {
+        enable = true;
+        openFirewall = true;
+      };
+      systemd.services.tailscaled.serviceConfig.Environment = [
+        "TS_DEBUG_FIREWALL_MODE=nftables"
       ];
+      networking.firewall = {
+        trustedInterfaces = [ "tailscale0" ];
+      };
     };
 }
