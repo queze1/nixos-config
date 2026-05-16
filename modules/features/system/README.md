@@ -1,2 +1,2 @@
-Anything which keeps the system operational, if not functional.
+Anything which keeps the system operational, and is depended on by features.
 
