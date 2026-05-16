@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
   flake.nixosModules.standardSystem = {
     services.pulseaudio.enable = false;
@@ -8,6 +9,10 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+
+    home-manager.sharedModules = [
+      inputs.self.homeModules.sound
+    ];
   };
 
   flake.homeModules.sound =
