@@ -17,9 +17,14 @@
         self.homeModules.nvfKeybinds
       ];
 
+      # Set Neovim as default editor
       home.sessionVariables = {
-        # Set Neovim as default editor
         EDITOR = "nvim";
+      };
+
+      # Configure secrets
+      age.secrets = {
+        tavily-api-key.file = "${self}/secrets/tavily-api-key.age";
       };
 
       programs.nvf = {
