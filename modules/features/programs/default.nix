@@ -8,7 +8,10 @@
   };
 
   flake.homeModules.allPrograms = {
-    imports = [ self.homeModules.vesktop ];
+    imports = [
+      self.homeModules.vesktop
+      self.homeModules.qutebrowser
+    ];
   };
 
   flake.nixosModules.minimalPrograms = {
