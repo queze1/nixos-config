@@ -10,8 +10,10 @@
   flake.homeModules.allPrograms = {
     imports = [
       self.homeModules.firefox
-      self.homeModules.vesktop
+      self.homeModules.imv
       self.homeModules.qutebrowser
+      self.homeModules.vesktop
+      self.homeModules.yazi
     ];
   };
 

@@ -30,6 +30,16 @@
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Yazi plugins
+    bunny-yazi = {
+      url = "github:stelcodes/bunny.yazi";
+      flake = false;
+    };
+    system-clipboard-yazi = {
+      url = "github:orhnk/system-clipboard.yazi";
+      flake = false;
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
