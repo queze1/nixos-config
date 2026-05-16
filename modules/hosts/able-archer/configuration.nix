@@ -3,7 +3,7 @@
   flake.nixosModules.ableArcherConfiguration = {
     imports = [
       self.nixosModules.allPrograms
-      self.nixosModules.desktop
+      self.nixosModules.niriNoctalia
       self.nixosModules.queze
       self.nixosModules.standardSystem
     ];
