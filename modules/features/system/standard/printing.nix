@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.standardSystem =
+  flake.nixosModules.printing =
     { config, lib, ... }:
     {
       config = lib.mkIf (config.host.hypervisor.isGuest == false) {
