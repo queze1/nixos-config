@@ -58,8 +58,9 @@
     xclip
 
     # AI tools
-    cursor-cli
     codex
+    cursor-cli
+    gemini-cli
     github-copilot-cli
 
     # Force Audacity to use native Wayland
