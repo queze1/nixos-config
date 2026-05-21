@@ -61,6 +61,11 @@
         codex
         github-copilot-cli
       ];
+
+      services.mullvad-vpn = {
+        enable = true;
+        package = pkgs.mullvad-vpn;
+      };
     };
 
   flake.nixosModules.minimalPrograms = {
