@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
-  # update-flake: Update and commit NixOS config flake
-  update-flake = pkgs.writeShellScriptBin "update-flake" ''
+  # flake-update: Update and commit NixOS config flake
+  flake-update = pkgs.writeShellScriptBin "update-flake" ''
     set -e
     cd ~/etc/nixos
 
@@ -34,7 +34,7 @@ let
   deploy-nix-on-droid = pkgs.writeShellScriptBin "deploy-nix-on-droid" ''
     set -e
 
-    ${update-flake}/bin/update-flake nix-on-droid-repo
+    ${flake-update}/bin/update-flake nix-on-droid-repo
 
     cd ~/etc/nixos
 
@@ -132,7 +132,7 @@ in
   };
 
   home.packages = [
-    update-flake
+    flake-update
     deploy-nix-on-droid
   ];
 }
