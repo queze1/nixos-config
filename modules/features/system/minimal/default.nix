@@ -17,7 +17,7 @@
     ];
 
     home-manager.sharedModules = [
-      self.nixosModules.shellAliases
+      self.homeModules.shellAliases
     ];
 
     home-manager.useGlobalPkgs = true;
