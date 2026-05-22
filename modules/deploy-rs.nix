@@ -6,7 +6,8 @@ let
     inputs.deploy-rs.lib.aarch64-linux.activate.custom configuration.activationPackage "${configuration.activationPackage}/activate";
 in
 {
-  deploy.nodes.nix-on-droid-server = {
+  # Will only work on aarch64 unless handling is added for building with QEMU on non-aarch64
+  flake.deploy.nodes.nix-on-droid-server = {
     hostname = "poco-x3-pro";
     profiles.system = {
       sshUser = "nix-on-droid";
