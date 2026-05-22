@@ -6,12 +6,16 @@ in
   flake.nixosModules.${username} =
     { config, ... }:
     {
-      # TODO: Make this user loginable with SSH only
       users.users.${username} = {
         isNormalUser = true;
         extraGroups = [
           "networkmanager"
           "wheel"
+        ];
+
+        openssh.authorizedKeys.keys = [
+          # able-archer
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINC3vA0PnFXyFRgitP7U8PL+SlTvqvE6eY73rpW5Rj4y"
         ];
       };
     };
