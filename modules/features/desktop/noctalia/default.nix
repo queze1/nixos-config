@@ -5,6 +5,23 @@
 {
   flake.homeModules.noctalia =
     { config, ... }:
+    let
+      settings = builtins.fromJSON (builtins.readFile ./settings.json);
+
+      # TODO: Swap to XDG pictures
+      modifiedSettings = settings // {
+        wallpaper = {
+          directory = "/mnt/utm/Pictures/Wallpapers";
+          monitorDirectories = [
+            {
+              directory = "/home/queze/Pictures/Wallpapers";
+              name = "Virtual-1";
+              wallpaper = "";
+            }
+          ];
+        };
+      };
+    in
     {
       imports = [
         inputs.noctalia.homeModules.default
@@ -21,8 +38,8 @@
 
       programs.noctalia-shell = {
         enable = true;
-        # TODO: Use Home Manager to set default profile picture & wallpaper
-        settings = builtins.fromJSON (builtins.readFile ./noctalia.json);
+        # TODO: Use Home Manager to add default profile picture & wallpaper
+        settings = modifiedSettings;
       };
     };
 }
