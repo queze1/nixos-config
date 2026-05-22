@@ -14,6 +14,9 @@
       self.nixosModules.localisation
       self.nixosModules.networking
       self.nixosModules.nix
+    ];
+
+    home-manager.sharedModules = [
       self.nixosModules.shellAliases
     ];
 
