@@ -1,4 +1,3 @@
-{ inputs, ... }:
 let
   username = "commander";
 in
@@ -13,6 +12,13 @@ in
           "wheel"
         ];
 
+        home-manager.users.${username} = {
+          home.username = username;
+          home.homeDirectory = "/home/${username}";
+          home.stateVersion = "25.11";
+          programs.home-manager.enable = true;
+        };
+
         openssh.authorizedKeys.keys = [
           # able-archer
           # TODO: Store SSH keys as variables in a file to avoid magic strings
@@ -20,12 +26,4 @@ in
         ];
       };
     };
-
-  flake.homeConfigurations.${username} = inputs.home-manager.lib.homeManagerConfiguration {
-    home.username = username;
-    home.homeDirectory = "/home/${username}";
-
-    home.stateVersion = "25.11";
-    programs.home-manager.enable = true;
-  };
 }

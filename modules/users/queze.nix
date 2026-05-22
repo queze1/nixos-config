@@ -1,4 +1,4 @@
-{ inputs, self, ... }:
+{ self, ... }:
 let
   username = "queze";
 in
@@ -15,6 +15,13 @@ in
           "networkmanager"
           "wheel"
         ];
+      };
+
+      home-manager.users.${username} = {
+        home.username = username;
+        home.homeDirectory = "/home/${username}";
+        home.stateVersion = "25.11";
+        programs.home-manager.enable = true;
       };
 
       preservation.preserveAt."/persistent".users.${username} = {
@@ -73,12 +80,4 @@ in
         };
       };
     };
-
-  flake.homeConfigurations.${username} = inputs.home-manager.lib.homeManagerConfiguration {
-    home.username = username;
-    home.homeDirectory = "/home/${username}";
-
-    home.stateVersion = "25.11";
-    programs.home-manager.enable = true;
-  };
 }
