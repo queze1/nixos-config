@@ -11,6 +11,8 @@
 
     nix.settings = {
       substituters = [
+        # For use in China
+        "https://mirror.sjtu.edu.cn/nix-channels/store"
         "https://nix-on-droid.cachix.org"
         "https://noctalia.cachix.org"
       ];
