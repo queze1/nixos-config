@@ -71,6 +71,7 @@
               enable = true;
               extensions.render-markdown-nvim.enable = true;
             };
+            # TODO: Use nixd instead of nil
             nix.enable = true;
             python = {
               enable = true;
