@@ -15,6 +15,7 @@ in
 
         openssh.authorizedKeys.keys = [
           # able-archer
+          # TODO: Store SSH keys as variables in a file to avoid magic strings
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINC3vA0PnFXyFRgitP7U8PL+SlTvqvE6eY73rpW5Rj4y"
         ];
       };
