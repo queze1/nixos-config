@@ -1,6 +1,6 @@
 {
   flake.nixosModules.localisation = {
-    time.timeZone = "Asia/Shanghai";
+    time.timeZone = "Australia/Sydney";
 
     i18n.defaultLocale = "en_GB.UTF-8";
     i18n.extraLocaleSettings = {
