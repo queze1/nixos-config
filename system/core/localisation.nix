@@ -1,6 +1,6 @@
 { ... }:
 {
-  time.timeZone = "Asia/Shanghai";
+  time.timeZone = "Bejing/China";
 
   i18n.defaultLocale = "en_GB.UTF-8";
   i18n.extraLocaleSettings = {
