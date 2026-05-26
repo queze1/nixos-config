@@ -32,6 +32,7 @@
     # (obsidian.override {
     #   commandLineArgs = "--ozone-platform=x11";
     # })
+    calibre
     digikam
     gnome-clocks
     kdePackages.dolphin
