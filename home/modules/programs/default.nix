@@ -28,9 +28,10 @@
 
   home.packages = with pkgs; [
     # Apps
-    (obsidian.override {
-      commandLineArgs = "--ozone-platform=x11";
-    })
+    obsidian
+    # (obsidian.override {
+    #   commandLineArgs = "--ozone-platform=x11";
+    # })
     digikam
     gnome-clocks
     kdePackages.dolphin
