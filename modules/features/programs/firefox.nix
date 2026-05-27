@@ -29,8 +29,8 @@
 
           search = {
             force = true;
-            default = "google";
-            privateDefault = "google";
+            default = "ddg";
+            privateDefault = "ddg";
 
             engines = {
               "Nix Packages" = {
