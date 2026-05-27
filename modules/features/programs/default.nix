@@ -1,11 +1,18 @@
 { inputs, self, ... }:
 {
-  flake.nixosModules.allPrograms = {
-    # Extend minimalPrograms
-    imports = [ self.nixosModules.minimalPrograms ];
+  flake.nixosModules.allPrograms =
+    { pkgs, ... }:
+    {
+      # Extend minimalPrograms
+      imports = [ self.nixosModules.minimalPrograms ];
 
-    home-manager.sharedModules = [ self.homeModules.allPrograms ];
-  };
+      services.mullvad-vpn = {
+        enable = true;
+        package = pkgs.mullvad-vpn;
+      };
+
+      home-manager.sharedModules = [ self.homeModules.allPrograms ];
+    };
 
   # TODO: Configure pkgs-stable
   flake.homeModules.allPrograms =
@@ -61,11 +68,6 @@
         codex
         github-copilot-cli
       ];
-
-      services.mullvad-vpn = {
-        enable = true;
-        package = pkgs.mullvad-vpn;
-      };
     };
 
   flake.nixosModules.minimalPrograms = {
