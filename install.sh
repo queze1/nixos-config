@@ -40,7 +40,7 @@ if [ ! -f "$HOST_KEY_PATH" ]; then
     echo "Public key:"
     cat "${HOST_KEY_PATH}.pub"
     echo
-    echo "Add the public key to secrets/secrets.nix, then re-encrypt the secrets:"
+    echo "Add the public key to ssh-keys.nix, then re-encrypt the secrets:"
     shopt -s nullglob
     AGE_FILES=(secrets/*.age)
     shopt -u nullglob
