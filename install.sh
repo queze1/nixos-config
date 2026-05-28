@@ -46,6 +46,9 @@ if [ ! -f "$HOST_KEY_PATH" ]; then
     else
         echo "No .age files found in secrets/"
     fi
+    echo
+    echo "When you run install.sh again, it will copy the host key and clean up $TMP_DIR."
+    echo "To clean up manually: rm -rf $TMP_DIR"
     exit 0
 fi
 
