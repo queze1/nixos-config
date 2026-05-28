@@ -4,7 +4,7 @@
 }:
 {
   flake.homeModules.noctalia =
-    { config, ... }:
+    { config, self, ... }:
     let
       settings = builtins.fromJSON (builtins.readFile ./settings.json);
 
@@ -34,6 +34,7 @@
 
       home.file.profilePicture = {
         target = "${config.home.homeDirectory}/.face";
+        source = "${self}/assets/pfp.png";
       };
 
       programs.noctalia-shell = {
