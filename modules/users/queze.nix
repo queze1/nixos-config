@@ -1,7 +1,6 @@
 { self, ... }:
 let
   username = "queze";
-  sshKeys = import "${self}/ssh-keys.nix";
 in
 {
   flake.nixosModules.${username} =
@@ -11,8 +10,7 @@ in
 
       users.users.${username} = {
         isNormalUser = true;
-        initialPassword = "nixos";
-        # hashedPasswordFile = config.age.secrets."${username}-password".path;
+        hashedPasswordFile = config.age.secrets."${username}-password".path;
         extraGroups = [
           "networkmanager"
           "wheel"
