@@ -55,6 +55,11 @@
                     type = "filesystem";
                     format = "ext4";
                     mountpoint = "/";
+                    # Identify root partition without UUIDs
+                    extraArgs = [
+                      "-L"
+                      "nixos"
+                    ];
                   };
                 };
               };
@@ -111,7 +116,12 @@
               size = "100%";
               content = {
                 type = "btrfs";
-                extraArgs = [ "-f" ];
+                extraArgs = [
+                  # Identify root partition without UUIDs
+                  "-L"
+                  "nixos"
+                  "-f"
+                ];
                 subvolumes = {
                   "/persistent" = {
                     mountOptions = [
