@@ -69,8 +69,8 @@ nix run github:nix-community/nixos-anywhere -- \
     --flake ".#$HOSTNAME" \
     --extra-files "$TMP_DIR" \
     --build-on remote \
-    "root@$TARGET_IP"
+    "root@$TARGET_IP" &&
 
-# Clean up after a successful installation
+# Clean up if installation succeeds 
 run_cmd "rm -rf \"$TMP_DIR\""
 
