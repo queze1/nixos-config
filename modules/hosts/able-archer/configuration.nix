@@ -2,10 +2,9 @@
 {
   flake.nixosModules.ableArcherConfiguration = {
     imports = [
-      self.nixosModules.allPrograms
-      self.nixosModules.niriNoctalia
+      self.nixosModules.minimalPrograms
       self.nixosModules.queze
-      self.nixosModules.standardSystem
+      self.nixosModules.minimalSystem
     ];
 
     host = {
