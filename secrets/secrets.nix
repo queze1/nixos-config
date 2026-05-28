@@ -1,6 +1,5 @@
-{ self, ... }:
 let
-  sshKeys = import "${self}/ssh-keys.nix";
+  sshKeys = import ../ssh-keys.nix;
 in
 {
   "queze-password.age" = {
