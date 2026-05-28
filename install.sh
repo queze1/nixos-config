@@ -48,8 +48,7 @@ if [ ! -f "$HOST_KEY_PATH" ]; then
         echo "No .age files found in secrets/"
     fi
     echo
-    echo "When you run install.sh again, it will copy the host key and clean up $TMP_DIR."
-    echo "To clean up manually: rm -rf $TMP_DIR"
+    echo "When you run install.sh again, it will use this host key."
     exit 0
 fi
 
@@ -71,7 +70,6 @@ nix run github:nix-community/nixos-anywhere -- \
     --extra-files "$STAGING_DIR" \
     --build-on remote \
     "root@$TARGET_IP" &&
-
-# Clean up if installation succeeds 
-run_cmd "rm -rf \"$TMP_DIR\""
+echo &&
+echo "To clean up the key, run: rm -rf $TMP_DIR"
 
