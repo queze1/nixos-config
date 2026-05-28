@@ -17,6 +17,6 @@ HOSTNAME=${2:-$DEFAULT_HOSTNAME}
 nix run github:nix-community/nixos-anywhere -- \
     --flake "$REPO_URL#$HOSTNAME" \
     --copy-host-keys \
-    --build-on-remote \
+    --build-on remote \
     "root@$TARGET_IP"
 
