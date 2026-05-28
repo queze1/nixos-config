@@ -32,9 +32,6 @@
 
       home.packages = with pkgs; [
         # TODO: Use overlay
-        (obsidian.override {
-          commandLineArgs = "--ozone-platform=x11";
-        })
         # Force Audacity to use native Wayland
         (symlinkJoin {
           name = "audacity-wayland-fix";
@@ -46,11 +43,13 @@
           '';
         })
 
+        calibre
         digikam
         gnome-clocks
         kdePackages.okular
         keepassxc
         obs-studio
+        obsidian
         pinta
         # pkgs-stable.celluloid
         # pkgs-stable.qimgv
