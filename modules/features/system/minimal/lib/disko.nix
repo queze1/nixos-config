@@ -117,9 +117,6 @@
               content = {
                 type = "btrfs";
                 extraArgs = [
-                  # Identify root partition without UUIDs
-                  "-L"
-                  "nixos"
                   "-f"
                 ];
                 subvolumes = {
