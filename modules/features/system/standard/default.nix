@@ -8,7 +8,6 @@
       self.nixosModules.fonts
       self.nixosModules.printing
       self.nixosModules.sound
-      self.nixosModules.virtualisation
     ];
 
     # Run unpackaged binaries
