@@ -10,6 +10,7 @@
         enable = true;
         package = pkgs.mullvad-vpn;
       };
+      programs.seahorse.enable = true;
 
       home-manager.sharedModules = [ self.homeModules.allPrograms ];
     };

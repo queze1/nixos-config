@@ -7,10 +7,6 @@
     };
 
     programs.niri.enable = true;
-
-    # Keyring support
-    services.gnome.gnome-keyring.enable = true;
-    programs.seahorse.enable = true;
   };
 
   flake.nixosModules.niriNoctalia = {
