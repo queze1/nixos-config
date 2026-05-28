@@ -17,7 +17,8 @@ HOST_KEY_PATH=${3:-$DEFAULT_HOST_KEY_PATH}
 HOST_KEY_NAME=$(basename "$HOST_KEY_PATH")
 HOST_KEY_DIR=$(dirname "$HOST_KEY_PATH")
 TMP_DIR="secrets/tmp"
-STAGING_ETC_SSH_DIR="$TMP_DIR/etc/ssh"
+STAGING_DIR="$TMP_DIR/staging"
+STAGING_ETC_SSH_DIR="$STAGING_DIR/etc/ssh"
 
 # Helper to echo a command and then execute it
 run_cmd() {
@@ -59,7 +60,7 @@ run_cmd "cp \"$HOST_KEY_PATH\" \"$STAGING_ETC_SSH_DIR/$HOST_KEY_NAME\""
 cat <<EOF
 Running: nix run github:nix-community/nixos-anywhere -- \\
     --flake \".#$HOSTNAME\" \\
-    --extra-files \"$TMP_DIR\" \\
+    --extra-files \"$STAGING_DIR\" \\
     --build-on remote \\
     \"root@$TARGET_IP\"
 
@@ -67,7 +68,7 @@ EOF
 
 nix run github:nix-community/nixos-anywhere -- \
     --flake ".#$HOSTNAME" \
-    --extra-files "$TMP_DIR" \
+    --extra-files "$STAGING_DIR" \
     --build-on remote \
     "root@$TARGET_IP" &&
 
