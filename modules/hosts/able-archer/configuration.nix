@@ -2,7 +2,7 @@
 {
   flake.nixosModules.ableArcherConfiguration = {
     imports = [
-      self.nixosModules.minimalPrograms
+      self.nixosModules.allPrograms
       self.nixosModules.queze
       self.nixosModules.minimalSystem
     ];
