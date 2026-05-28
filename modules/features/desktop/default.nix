@@ -5,8 +5,6 @@
       enable = true;
       wayland.enable = true;
     };
-
-    programs.niri.enable = true;
   };
 
   flake.nixosModules.niriNoctalia = {

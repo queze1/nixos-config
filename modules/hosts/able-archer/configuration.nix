@@ -5,7 +5,7 @@
       self.nixosModules.allPrograms
       self.nixosModules.queze
       self.nixosModules.standardSystem
-      self.nixosModules.desktop
+      self.nixosModules.niriNoctalia
     ];
 
     host = {
