@@ -30,6 +30,7 @@ run_cmd() {
 if [ ! -f "$HOST_KEY_PATH" ]; then
     run_cmd "mkdir -p \"$HOST_KEY_DIR\""
     run_cmd "ssh-keygen -t ed25519 -f \"$HOST_KEY_PATH\" -N \"\" -C \"$HOSTNAME\""
+    echo
     echo "Public key:"
     cat "${HOST_KEY_PATH}.pub"
     echo
@@ -38,8 +39,9 @@ if [ ! -f "$HOST_KEY_PATH" ]; then
     AGE_FILES=(secrets/*.age)
     shopt -u nullglob
     if [ ${#AGE_FILES[@]} -gt 0 ]; then
+        echo "cd secrets"
         for age_file in "${AGE_FILES[@]}"; do
-            echo "nix run github:ryantm/agenix -- -e $age_file"
+            echo "nix run github:ryantm/agenix -- -e $(basename "$age_file")"
         done
     else
         echo "No .age files found in secrets/"
