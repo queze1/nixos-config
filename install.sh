@@ -39,7 +39,7 @@ if [ ! -f "$HOST_KEY_PATH" ]; then
     shopt -u nullglob
     if [ ${#AGE_FILES[@]} -gt 0 ]; then
         for age_file in "${AGE_FILES[@]}"; do
-            echo "agenix -e $age_file"
+            echo "nix run github:ryantm/agenix -- -e $age_file"
         done
     else
         echo "No .age files found in secrets/"
