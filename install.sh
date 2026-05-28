@@ -2,7 +2,6 @@
 
 set -e
 
-REPO_URL="github:queze1/nix-on-droid-config"
 DEFAULT_HOSTNAME="able-archer"
 
 if [ -z "$1" ]; then
@@ -15,7 +14,7 @@ TARGET_IP=$1
 HOSTNAME=${2:-$DEFAULT_HOSTNAME}
 
 nix run github:nix-community/nixos-anywhere -- \
-    --flake "$REPO_URL#$HOSTNAME" \
+    --flake ".#$HOSTNAME" \
     --copy-host-keys \
     --build-on remote \
     "root@$TARGET_IP"
