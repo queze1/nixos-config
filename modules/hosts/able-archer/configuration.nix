@@ -5,6 +5,7 @@
       self.nixosModules.allPrograms
       self.nixosModules.queze
       self.nixosModules.standardSystem
+      self.nixosModules.desktop
     ];
 
     host = {
