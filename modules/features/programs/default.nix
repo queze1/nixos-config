@@ -15,9 +15,8 @@
       home-manager.sharedModules = [ self.homeModules.allPrograms ];
     };
 
-  # TODO: Configure pkgs-stable
   flake.homeModules.allPrograms =
-    { pkgs, ... }:
+    { pkgs, pkgs-stable, ... }:
     {
       imports = [
         self.homeModules.btop
@@ -51,15 +50,15 @@
         obs-studio
         obsidian
         pinta
-        # pkgs-stable.celluloid
-        # pkgs-stable.qimgv
+        pkgs-stable.celluloid
+        pkgs-stable.qimgv
         qalculate-qt
 
         # CLI tools
         clipboard-jh
         fastfetch
         ffmpeg
-        # pkgs-stable.yt-dlp
+        pkgs-stable.yt-dlp
         pywalfox-native
         xclip # for X11-Wayland sync on VMs
 
