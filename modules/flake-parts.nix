@@ -12,4 +12,14 @@
     "aarch64-linux"
     "aarch64-darwin"
   ];
+
+  perSystem =
+    { system, ... }:
+    {
+      # pkgs-stable: Nixpkgs at the latest LTS version
+      legacyPackages.pkgs-stable = import inputs.nixpkgs-stable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    };
 }

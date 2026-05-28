@@ -1,9 +1,21 @@
-{ self, inputs, ... }:
 {
-  flake.nixosConfigurations.able-archer = inputs.nixpkgs.lib.nixosSystem {
-    modules = [
-      self.nixosModules.ableArcherConfiguration
-      self.nixosModules.ableArcherHardware
-    ];
-  };
+  self,
+  inputs,
+  withSystem,
+  ...
+}:
+{
+  flake.nixosConfigurations.able-archer = withSystem "aarch64-linux" (
+    { self', ... }:
+    inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        pkgs-stable = self'.legacyPackages.pkgs-stable;
+      };
+
+      modules = [
+        self.nixosModules.ableArcherConfiguration
+        self.nixosModules.ableArcherHardware
+      ];
+    }
+  );
 }
