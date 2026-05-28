@@ -3,12 +3,9 @@
   flake.nixosModules.desktop = {
     services.displayManager.sddm = {
       enable = true;
-      wayland.enable = false;
+      wayland.enable = true;
     };
 
-    services.xserver.enable = true;
-
-    # For testing only
     programs.niri.enable = true;
   };
 
