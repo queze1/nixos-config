@@ -65,6 +65,7 @@
           #   MESA_GLSL_VERSION_OVERRIDE = "330";
           # };
 
+          # Needed for shared directory
           boot.initrd.availableKernelModules = [
             "9p"
             "9pnet_virtio"
@@ -97,8 +98,8 @@
 
           # DNS workaround
           networking.networkmanager.insertNameservers = [
-            "8.8.8.8"
             "1.1.1.1"
+            "8.8.8.8"
           ];
 
           systemd.tmpfiles.rules = [
