@@ -20,6 +20,7 @@ Running: nix run github:nix-community/nixos-anywhere -- \\
     --copy-host-keys \\
     --build-on remote \\
     "root@$TARGET_IP"
+
 EOF
 
 nix run github:nix-community/nixos-anywhere -- \
