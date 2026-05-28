@@ -1,6 +1,7 @@
 { self, ... }:
 let
   username = "queze";
+  sshKeys = import "${self}/ssh-keys.nix";
 in
 {
   flake.nixosModules.${username} =
@@ -15,6 +16,9 @@ in
           "networkmanager"
           "wheel"
         ];
+
+        # Delete after testing
+        openssh.authorizedKeys.keys = sshKeys.allKeys;
       };
 
       home-manager.users.${username} = {
