@@ -10,8 +10,8 @@
 
     host = {
       hypervisor.type = "utm";
-      # disko.profile = "hybrid-tmpfs-on-root";
-      # preservation.enable = true;
+      disko.profile = "hybrid-tmpfs-on-root";
+      preservation.enable = true;
     };
 
     networking.hostName = "able-archer";
