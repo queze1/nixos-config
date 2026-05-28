@@ -11,14 +11,12 @@ in
 
       users.users.${username} = {
         isNormalUser = true;
-        hashedPasswordFile = config.age.secrets."${username}-password".path;
+        initialPassword = "nixos";
+        # hashedPasswordFile = config.age.secrets."${username}-password".path;
         extraGroups = [
           "networkmanager"
           "wheel"
         ];
-
-        # Delete after testing
-        openssh.authorizedKeys.keys = sshKeys.allKeys;
       };
 
       home-manager.users.${username} = {
