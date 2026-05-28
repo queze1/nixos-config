@@ -2,6 +2,7 @@
 {
   flake.nixosModules.homeManager = {
     imports = [
+      # Allow Home Manager options in NixOS
       inputs.home-manager.nixosModules.home-manager
     ];
 
