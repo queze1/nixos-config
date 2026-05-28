@@ -4,7 +4,7 @@
     imports = [
       self.nixosModules.allPrograms
       self.nixosModules.queze
-      self.nixosModules.minimalSystem
+      self.nixosModules.standardSystem
     ];
 
     host = {
