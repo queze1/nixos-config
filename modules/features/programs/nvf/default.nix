@@ -1,9 +1,15 @@
 { inputs, self, ... }:
 {
+  flake.nixosModules.nvf = {
+    age.secrets.tavily-api-key.file = "${self}/secrets/tavily-api-key.age";
+
+    home-manager.sharedModules = [ self.homeModules.nvf ];
+  };
+
   # TODO: Wrap with wrapper module
   flake.homeModules.nvf =
     {
-      config,
+      osConfig,
       lib,
       pkgs,
       ...
@@ -20,11 +26,6 @@
       # Set Neovim as default editor
       home.sessionVariables = {
         EDITOR = "nvim";
-      };
-
-      # Configure secrets
-      age.secrets = {
-        tavily-api-key.file = "${self}/secrets/tavily-api-key.age";
       };
 
       programs.nvf = {
@@ -259,7 +260,7 @@
                       ["tavily"] = function()
                         return require("codecompanion.adapters").extend("tavily", {
                           env = {
-                            api_key = "cmd:cat ${config.age.secrets.tavily-api-key.path}",
+                            api_key = "cmd:cat ${osConfig.age.secrets.tavily-api-key.path}",
                           },
                         })
                       end,

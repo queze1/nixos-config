@@ -3,27 +3,32 @@
   flake.nixosModules.allPrograms =
     { pkgs, ... }:
     {
-      # Extend minimalPrograms
-      imports = [ self.nixosModules.minimalPrograms ];
+      imports = [
+        self.nixosModules.minimalPrograms
+
+        self.nixosModules.fish
+        self.nixosModules.nvf
+      ];
+
+      home-manager.sharedModules = [ self.homeModules.allPrograms ];
 
       services.mullvad-vpn = {
         enable = true;
         package = pkgs.mullvad-vpn;
       };
       programs.seahorse.enable = true;
-
-      home-manager.sharedModules = [ self.homeModules.allPrograms ];
     };
 
   flake.homeModules.allPrograms =
     { pkgs, pkgs-stable, ... }:
     {
       imports = [
+        inputs.nix-index-database.homeModules.default
+
         self.homeModules.btop
         self.homeModules.firefox
         self.homeModules.foot
         self.homeModules.imv
-        self.homeModules.nvf
         self.homeModules.qutebrowser
         self.homeModules.vesktop
         self.homeModules.yazi
@@ -67,28 +72,6 @@
         codex
         github-copilot-cli
       ];
-    };
-
-  flake.nixosModules.minimalPrograms = {
-    imports = [ self.nixosModules.fish ];
-
-    home-manager.sharedModules = [ self.homeModules.minimalPrograms ];
-  };
-
-  flake.homeModules.minimalPrograms =
-    { pkgs, ... }:
-    {
-      imports = [
-        inputs.nix-index-database.homeModules.default
-        self.homeModules.git
-      ];
-
-      home.packages = with pkgs; [
-        sshfs
-        tree
-        unzip
-        wl-clipboard
-      ];
 
       programs.direnv = {
         enable = true;
@@ -97,6 +80,34 @@
         nix-direnv.enable = true;
       };
       programs.nix-index-database.comma.enable = true;
-      programs.zoxide.enable = true;
+    };
+
+  flake.nixosModules.minimalPrograms =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = with pkgs; [
+        sshfs
+        tree
+        unzip
+        wl-clipboard
+      ];
+
+      programs.git = {
+        enable = true;
+        config = {
+          user.name = "queze1";
+          user.email = "52340127+queze1@users.noreply.github.com";
+          init.defaultBranch = "main";
+          push = {
+            autoSetupRemote = "true";
+          };
+          alias = {
+            ca = "commit -a --amend";
+            cm = "commit -m";
+            co = "checkout";
+            s = "status";
+          };
+        };
+      };
     };
 }
