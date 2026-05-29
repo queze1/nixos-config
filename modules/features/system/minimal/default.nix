@@ -2,8 +2,6 @@
 {
   flake.nixosModules.minimalSystem = {
     imports = [
-      self.nixosModules.homeManager
-
       # Libraries
       self.nixosModules.agenix
       self.nixosModules.disko
@@ -11,14 +9,10 @@
 
       # Features
       self.nixosModules.boot
-      self.nixosModules.hypervisor
       self.nixosModules.localisation
       self.nixosModules.networking
       self.nixosModules.nix
-    ];
-
-    home-manager.sharedModules = [
-      self.homeModules.shellAliases
+      self.nixosModules.shellAliases
     ];
 
     # Compress RAM to save memory
