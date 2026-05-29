@@ -32,30 +32,13 @@ run_cmd() {
     eval "$cmd"
 }
 
-# If host key is not found, generate a host key and prompt user to set it up 
+# If host key is not found, ask the user to generate it first
 if [ ! -f "$HOST_KEY_PATH" ]; then
-    run_cmd "mkdir -p \"$HOST_KEY_DIR\""
-    run_cmd "ssh-keygen -t ed25519 -f \"$HOST_KEY_PATH\" -N \"\" -C \"$HOSTNAME\""
-    echo
-    echo "Public key:"
-    cat "${HOST_KEY_PATH}.pub"
-    echo
-    echo "Add the public key to ssh-keys.nix, then re-encrypt the secrets:"
-    shopt -s nullglob
-    AGE_FILES=(secrets/*.age)
-    shopt -u nullglob
-    if [ ${#AGE_FILES[@]} -gt 0 ]; then
-        echo "cd secrets"
-        for age_file in "${AGE_FILES[@]}"; do
-            echo "nix run github:ryantm/agenix -- -e $(basename "$age_file")"
-        done
-    else
-        echo "No .age files found in secrets/"
-    fi
-    echo
-    echo "When you run install.sh again, it will use this host key."
-    exit 0
+    echo "Host key not found at $HOST_KEY_PATH."
+    echo "Please run ./gen-host-key.sh to generate it, then re-run install.sh."
+    exit 1
 fi
+
 
 run_cmd "mkdir -p \"$STAGING_ETC_SSH_DIR\""
 run_cmd "cp \"$HOST_KEY_PATH\" \"$STAGING_ETC_SSH_DIR/$HOST_KEY_NAME\""
@@ -81,5 +64,5 @@ nix run github:nix-community/nixos-anywhere -- \
     --build-on remote \
     "root@$TARGET_IP" &&
 echo &&
-echo "To clean up the key, run: rm -rf $TMP_DIR"
+echo "To clean up the key, run: ./gen-host-key.sh --delete"
 
