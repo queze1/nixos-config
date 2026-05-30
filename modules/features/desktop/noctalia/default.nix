@@ -12,13 +12,6 @@
       modifiedSettings = settings // {
         wallpaper = {
           directory = "/mnt/utm/Pictures/Wallpapers";
-          monitorDirectories = [
-            {
-              directory = "/home/queze/Pictures/Wallpapers";
-              name = "Virtual-1";
-              wallpaper = "";
-            }
-          ];
         };
       };
     in
@@ -26,6 +19,11 @@
       imports = [
         inputs.noctalia.homeModules.default
       ];
+
+      programs.noctalia-shell = {
+        enable = true;
+        settings = modifiedSettings;
+      };
 
       home.shellAliases = {
         # TODO: Get the directory of this file and then put the result in that directory
@@ -37,10 +35,10 @@
         source = "${self}/assets/pfp.png";
       };
 
-      programs.noctalia-shell = {
-        enable = true;
-        # TODO: Use Home Manager to add default profile picture & wallpaper
-        settings = modifiedSettings;
+      home.file.".cache/noctalia/wallpapers.json" = {
+        text = builtins.toJSON {
+          defaultWallpaper = "${self}/assets/laine-chinensy-temptation-v6.png";
+        };
       };
     };
 }
