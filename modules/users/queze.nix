@@ -30,6 +30,7 @@ in
             directory = ".ssh";
             mode = "0700";
           }
+          ".config/obsidian"
           ".config/syncthing"
           ".copilot"
           ".local/share/direnv"
