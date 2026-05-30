@@ -34,18 +34,21 @@ in
           ".copilot"
           ".local/share/direnv"
           ".local/share/fish"
+          ".local/state/lazygit"
           ".local/state/nix"
           ".local/state/nvim"
           ".local/state/wireplumber"
           ".mozilla"
 
           # User directories
-          "Coding"
           "Desktop"
           "Documents"
           "Downloads"
           "Music"
           "Videos"
+
+          # Other
+          "Coding"
           "etc/nixos"
         ];
       };
