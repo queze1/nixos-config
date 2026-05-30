@@ -32,9 +32,11 @@ in
           }
           ".config/obsidian"
           ".config/syncthing"
+          ".config/vesktop"
           ".copilot"
           ".local/share/direnv"
           ".local/share/fish"
+          ".local/share/nvf"
           ".local/state/lazygit"
           ".local/state/nix"
           ".local/state/nvf"
