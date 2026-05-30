@@ -6,6 +6,10 @@ in
     publicKeys = sshKeys.allKeys;
     armor = true;
   };
+  "queze-ssh-config.age" = {
+    publicKeys = sshKeys.allKeys;
+    armor = true;
+  };
   "tavily-api-key.age" = {
     publicKeys = sshKeys.allKeys;
     armor = true;
