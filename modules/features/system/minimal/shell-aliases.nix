@@ -3,7 +3,7 @@
     { pkgs, ... }:
     let
       # flake-update: Update and commit NixOS config flake
-      flake-update = pkgs.writeShellScriptBin "update-flake" ''
+      flake-update = pkgs.writeShellScriptBin "flake-update" ''
         set -e
         cd ~/etc/nixos
 
