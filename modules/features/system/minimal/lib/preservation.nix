@@ -55,6 +55,9 @@
             ];
           };
         };
+
+        # Prevent conflict with preservation
+        systemd.services.systemd-machine-id-commit.enable = false;
       };
     };
 }
