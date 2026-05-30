@@ -5,9 +5,7 @@
     {
       imports = [
         self.nixosModules.minimalPrograms
-
         self.nixosModules.fish
-        self.nixosModules.nvf
       ];
 
       home-manager.sharedModules = [ self.homeModules.allPrograms ];
@@ -29,6 +27,7 @@
         self.homeModules.firefox
         self.homeModules.foot
         self.homeModules.imv
+        self.homeModules.nvf
         self.homeModules.qutebrowser
         self.homeModules.vesktop
         self.homeModules.yazi

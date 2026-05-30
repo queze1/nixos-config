@@ -1,11 +1,5 @@
 { inputs, self, ... }:
 {
-  flake.nixosModules.nvf = {
-    age.secrets.tavily-api-key.file = "${self}/secrets/tavily-api-key.age";
-
-    home-manager.sharedModules = [ self.homeModules.nvf ];
-  };
-
   # TODO: Wrap with wrapper module
   flake.homeModules.nvf =
     {

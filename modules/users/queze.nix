@@ -1,4 +1,3 @@
-{ self, ... }:
 let
   username = "queze";
 in
@@ -6,8 +5,6 @@ in
   flake.nixosModules.${username} =
     { config, ... }:
     {
-      age.secrets."${username}-password".file = "${self}/secrets/${username}-password.age";
-
       users.users.${username} = {
         isNormalUser = true;
         hashedPasswordFile = config.age.secrets."${username}-password".path;
