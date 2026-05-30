@@ -212,7 +212,14 @@
           utility.diffview-nvim.enable = true;
 
           # LLM integration
+
           assistant = {
+            copilot = {
+              enable = true;
+              setupOpts = {
+                suggestion.enabled = false;
+              };
+            };
             codecompanion-nvim = {
               enable = true;
               setupOpts = {
