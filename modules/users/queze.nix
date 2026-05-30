@@ -30,6 +30,7 @@ in
             directory = ".ssh";
             mode = "0700";
           }
+          ".config/keepassxc"
           ".config/obsidian"
           ".config/syncthing"
           ".config/vesktop"
