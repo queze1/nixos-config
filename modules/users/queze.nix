@@ -36,7 +36,7 @@ in
           ".local/share/fish"
           ".local/state/lazygit"
           ".local/state/nix"
-          ".local/state/nvim"
+          ".local/state/nvf"
           ".local/state/wireplumber"
           ".mozilla"
 
