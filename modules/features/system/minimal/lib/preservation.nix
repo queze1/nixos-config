@@ -13,15 +13,12 @@
       };
 
       config = {
-        boot.tmp.cleanOnBoot = cfg.enable;
-
         preservation = {
           enable = cfg.enable;
 
           preserveAt."/persistent" = {
             directories = [
               "/etc/NetworkManager/system-connections"
-              "/tmp" # prevent running out of memory from temp files
               "/var/lib/fwupd"
               "/var/lib/libvirt"
               "/var/lib/systemd/coredump"
