@@ -19,6 +19,12 @@ in
         home.homeDirectory = "/home/${username}";
         home.stateVersion = "25.11";
         programs.home-manager.enable = true;
+
+        # Use secret SSH config file to avoid leaking info
+        home.file.ssh-config = {
+          target = "~/.ssh/config";
+          source = config.age.secrets."${username}-ssh-config".path;
+        };
       };
 
       preservation.preserveAt."/persistent".users.${username} = {

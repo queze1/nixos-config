@@ -21,6 +21,7 @@
       # Set where secrets will be decrypted
       age.secrets = {
         queze-password.file = "${self}/secrets/queze-password.age";
+        queze-ssh-config.file = "${self}/secrets/queze-ssh-config.age";
         tavily-api-key.file = "${self}/secrets/tavily-api-key.age";
       };
     }
