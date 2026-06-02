@@ -76,7 +76,7 @@
           ];
 
           systemd.tmpfiles.rules = [
-            "d ${cfg.sharedFolder} 777 root root -"
+            "d ${cfg.sharedFolder} 755 root root -"
           ];
 
           # Mount shared directory
@@ -89,6 +89,7 @@
               "rw"
               "_netdev"
               "nofail"
+              "access=any"
             ];
           };
         })
