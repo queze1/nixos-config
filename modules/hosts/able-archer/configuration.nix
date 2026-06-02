@@ -20,6 +20,7 @@
     # Sync with phone home server
     services.syncthing = {
       enable = true;
+      user = "queze";
       settings = {
         devices = {
           "poco-x3-pro" = {
