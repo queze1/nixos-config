@@ -24,9 +24,12 @@
               "/var/lib/systemd/coredump"
               "/var/lib/systemd/rfkill"
               "/var/lib/systemd/timers"
-              "/var/lib/tailscale"
               "/var/lib/syncthing"
               "/var/log"
+              {
+                directory = "/var/lib/tailscale";
+                mode = "0700";
+              }
               {
                 directory = "/var/lib/nixos";
                 inInitrd = true;
@@ -57,6 +60,10 @@
             ];
           };
         };
+
+        # Ensure tailscale waits for preservation
+        systemd.services.tailscaled.after = [ "preservation.target" ];
+        systemd.services.tailscaled.wants = [ "preservation.target" ];
 
         # Prevent conflict with preservation
         systemd.services.systemd-machine-id-commit.enable = false;
