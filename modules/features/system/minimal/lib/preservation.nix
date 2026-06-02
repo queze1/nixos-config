@@ -25,6 +25,7 @@
               "/var/lib/systemd/rfkill"
               "/var/lib/systemd/timers"
               "/var/lib/tailscale"
+              "/var/lib/syncthing"
               "/var/log"
               {
                 directory = "/var/lib/nixos";
