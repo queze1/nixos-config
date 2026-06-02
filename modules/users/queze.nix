@@ -27,6 +27,9 @@ in
             devices = {
               "poco-x3-pro" = {
                 id = "CGN4GSA-JX3232W-WM5XXI6-RKU3W6F-RVAZH7N-YPOCAF3-52SRDUO-HHRFFQI";
+                addresses = [
+                  "tcp://100.102.46.127:22000"
+                ];
               };
             };
             folders = {
