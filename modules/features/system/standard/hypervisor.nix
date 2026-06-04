@@ -75,8 +75,9 @@
             "9pnet_virtio"
           ];
 
+          # Unideal because hardcoded
           systemd.tmpfiles.rules = [
-            "d ${cfg.sharedFolder} 777 root root -"
+            "d ${cfg.sharedFolder} 755 queze users -"
           ];
 
           # Mount shared directory
