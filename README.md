@@ -15,22 +15,8 @@ My personal NixOS config.
 - [disko](https://github.com/nix-community/disko) - for declarative disk management
 
 ## Project Structure
-```bash
-.
-├── home
-│   └── modules
-│       ├── desktop
-│       ├── programs
-├── hosts
-│   ├── utm-vm
-│   ├── utm-vm-2
-│   └── vmware-vm
-├── secrets
-├── system
-│   ├── common
-│   ├── core
-│   ├── disko
-│   └── vm
-└── users
-    └── queze.nix
-```
+TBD
+
+NOTE: All Home Manager modules are imported with home-manager.sharedModules so NixOS modules can import Home Manager modules without knowing about users. This means that all users will have the same Home Manager configuration.
+This could be changed if instead, there was a collector NixOS module which only imported NixOS modules which also import helper Home Manager modules, and a separate Home Manager collector which individual users import.
+
