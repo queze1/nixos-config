@@ -57,18 +57,20 @@ in
             directory = ".ssh";
             mode = "0700";
           }
+          ".cache/keepassxc" # save last opened database
           ".config/keepassxc"
           ".config/obsidian"
-          ".config/syncthing"
           ".config/vesktop"
-          ".copilot"
-          ".local/share/direnv"
-          ".local/share/fish"
-          ".local/share/nvf"
-          ".local/state/lazygit"
-          ".local/state/nix"
-          ".local/state/nvf"
+          ".local/share/direnv" # preserve direnv allow
+          ".local/share/fish" # preserve fish command history
+          ".local/share/nvf" # preserve nvim plugin state
+          ".local/state/lazygit" # stop showing welcome message
+          ".local/state/nix" # preserve nix repl history and others
+          ".local/state/nvf" # preserve nvim state
           ".local/state/wireplumber"
+          ".local/state/syncthing"
+
+          ".copilot"
           ".mozilla"
 
           # User directories
@@ -81,6 +83,9 @@ in
           # Other
           "Coding"
           "etc/nixos"
+        ];
+        files = [
+          ".cache/noctalia/shell-state.json" # stop showing welcome message
         ];
       };
 
