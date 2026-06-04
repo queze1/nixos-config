@@ -58,6 +58,7 @@ in
             mode = "0700";
           }
           ".cache/keepassxc" # save last opened database
+          ".cache/noctalia" # stop showing welcome message
           ".config/keepassxc"
           ".config/obsidian"
           ".config/vesktop"
@@ -83,9 +84,6 @@ in
           # Other
           "Coding"
           "etc/nixos"
-        ];
-        files = [
-          ".cache/noctalia/shell-state.json" # stop showing welcome message
         ];
       };
 
