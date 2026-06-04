@@ -89,7 +89,14 @@
               "rw"
               "_netdev"
               "nofail"
-              "access=any"
+
+              # Let NixOS do the access check
+              "access=client"
+              "uid=1000"
+              "gid=100"
+
+              # Set maximum message size to 512 KiB
+              "msize=524288"
             ];
           };
         })
