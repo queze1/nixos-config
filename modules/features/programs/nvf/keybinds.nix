@@ -145,18 +145,6 @@
         }
       ];
 
-      # ----------------------------------------
-      # WhichKey
-      # ----------------------------------------
-      binds.whichKey = {
-        enable = true;
-        register = {
-          # Workaround for bugged Harpoon WhichKey
-          "<leader>a" = lib.mkForce "Toggle CodeCompanion Chat";
-          "<leader>m" = "Mark file [Harpoon]";
-        };
-      };
-
       luaConfigRC.whichkey-visual = ''
         local wk = require("which-key")
         wk.add({
