@@ -47,6 +47,11 @@
         # Make LSP look nicer
         lsp.lspsaga = {
           enable = true;
+          setupOpts = {
+            lightbulb = {
+              enable = false;
+            };
+          };
         };
 
         treesitter = {
