@@ -3,12 +3,12 @@
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
-        "image/jpeg" = [ "imv.desktop" ];
-        "image/png" = [ "imv.desktop" ];
-        "image/gif" = [ "imv.desktop" ];
-        "image/webp" = [ "imv.desktop" ];
-        "image/bmp" = [ "imv.desktop" ];
-        "image/tiff" = [ "imv.desktop" ];
+        "image/jpeg" = ["imv.desktop"];
+        "image/png" = ["imv.desktop"];
+        "image/gif" = ["imv.desktop"];
+        "image/webp" = ["imv.desktop"];
+        "image/bmp" = ["imv.desktop"];
+        "image/tiff" = ["imv.desktop"];
       };
     };
 

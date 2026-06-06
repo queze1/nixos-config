@@ -1,5 +1,4 @@
-{ self, ... }:
-{
+{self, ...}: {
   # For ThinkPad home server
   flake.nixosModules.steadfastDefenderConfiguration = {
     imports = [

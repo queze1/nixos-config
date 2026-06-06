@@ -1,5 +1,4 @@
-{ self, ... }:
-{
+{self, ...}: {
   flake.nixosModules.desktop = {
     services.displayManager.sddm = {
       enable = true;

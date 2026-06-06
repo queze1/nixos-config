@@ -1,5 +1,8 @@
-{ self, inputs, ... }:
 {
+  self,
+  inputs,
+  ...
+}: {
   # TODO: Use nix-factor for home servers
   flake.nixosConfigurations.steadfast-defender = inputs.nixpkgs.lib.nixosSystem {
     modules = [

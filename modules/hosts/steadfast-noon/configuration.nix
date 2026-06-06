@@ -1,5 +1,4 @@
-{ self, ... }:
-{
+{self, ...}: {
   # For home server with medium speed
   flake.nixosModules.steadfastNoonConfiguration = {
     imports = [

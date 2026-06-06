@@ -1,5 +1,4 @@
-{ self, ... }:
-{
+{self, ...}: {
   flake.nixosModules.sound = {
     services.pulseaudio.enable = false;
     security.rtkit.enable = true;
@@ -15,8 +14,11 @@
     ];
   };
 
-  flake.homeModules.sound =
-    { lib, osConfig, ... }:
+  flake.homeModules.sound = {
+    lib,
+    osConfig,
+    ...
+  }:
     lib.mkIf (osConfig.host.hypervisor == "vmware") {
       # https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Troubleshooting#stuttering-audio-in-virtual-machine
       xdg.configFile."wireplumber/wireplumber.conf.d/50-alsa-config.conf".text = ''

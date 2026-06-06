@@ -1,5 +1,4 @@
-{ self, ... }:
-{
+{self, ...}: {
   flake.nixosModules.ableArcherConfiguration = {
     imports = [
       self.nixosModules.allPrograms
@@ -16,6 +15,5 @@
 
     networking.hostName = "able-archer";
     system.stateVersion = "25.11";
-
   };
 }
