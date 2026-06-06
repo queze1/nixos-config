@@ -122,66 +122,6 @@
         git.enable = true;
         utility.diffview-nvim.enable = true;
 
-        # LLM integration
-        assistant = {
-          copilot = {
-            enable = true;
-            setupOpts = {
-              suggestion.enabled = false;
-            };
-          };
-          codecompanion-nvim = {
-            enable = true;
-            setupOpts = {
-              interactions = {
-                chat = {
-                  adapter = {
-                    name = "copilot";
-                    model = "gpt-5.2-codex";
-                  };
-                };
-                inline = {
-                  adapter = "copilot";
-                  model = "gpt-5.2-codex";
-                };
-                cli = {
-                  agent = "copilot";
-                  agents = {
-                    codex = {
-                      cmd = "codex";
-                      args = {};
-                      description = "OpenAI Codex CLI";
-                    };
-                    copilot = {
-                      cmd = "copilot";
-                      args = {};
-                      description = "Copilot CLI";
-                    };
-                    cursor = {
-                      cmd = "cursor";
-                      args = {};
-                      description = "Cursor CLI";
-                    };
-                  };
-                };
-              };
-              adapters = lib.mkLuaInline ''
-                {
-                  ["http"]= {
-                    ["tavily"] = function()
-                      return require("codecompanion.adapters").extend("tavily", {
-                        env = {
-                          api_key = "cmd:cat ${osConfig.age.secrets.tavily-api-key.path}",
-                        },
-                      })
-                    end,
-                  },
-                }
-              '';
-            };
-          };
-        };
-
         # Direnv integration
         utility.direnv.enable = true;
 
