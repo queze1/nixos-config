@@ -143,14 +143,6 @@
           desc = "Find old files [Telescope]";
           silent = true;
         }
-        # Open external terminal in current working directory
-        {
-          key = "<Leader>tt";
-          mode = "n";
-          action = "<cmd>lua vim.fn.jobstart({'xdg-terminal-exec', vim.fn.getcwd()}, {detach=true})<CR>";
-          silent = true;
-          desc = "Open external terminal (cwd)";
-        }
       ];
 
       # ----------------------------------------

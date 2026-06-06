@@ -1,6 +1,5 @@
 {inputs, ...}: {
   flake.homeModules.nvf = {
-    osConfig,
     lib,
     pkgs,
     ...
