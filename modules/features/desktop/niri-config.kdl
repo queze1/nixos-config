@@ -186,7 +186,7 @@ binds {
     // TODO: Dynamically set overlay title depending on the default terminal/browser when porting to Nix
     Mod+T hotkey-overlay-title="Open a Terminal" { spawn "xdg-terminal-exec"; }
     Mod+N hotkey-overlay-title="Open Neovim: nvim" { spawn "xdg-terminal-exec" "nvim"; }
-    Mod+Y hotkey-overlay-title="Open Yazi: yazi" { spawn "xdg-terminal-exec" "--title" "Yazi: ~/" "yazi"; }
+    Mod+Y hotkey-overlay-title="Open Yazi: yazi" { spawn "foot" "--title" "Yazi: ~/" "yazi"; }
     Mod+B hotkey-overlay-title="Open Default Browser" { spawn "xdg-open" "https://"; }
 
     XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
