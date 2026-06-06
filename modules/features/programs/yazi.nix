@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   # TODO: Wrap with wrapper module
   flake.homeModules.yazi = {
     programs.yazi = {
@@ -38,9 +37,10 @@
             { key = "/",          path = "/",                                      },
             { key = "~",          path = "~",                                      },
             { key = "t",          path = "/tmp",                                   },
-            { key = ".",          path = "~/.config",                              },
-            { key = "n",          path = "/nix/store",         desc = "Nix store"  },
-            { key = "c",          path = "~/etc/nixos",        desc = "Nix config" },
+            { key = "c",          path = "~/.config",                              },
+            { key = "s",          path = "~/.local",                              },
+            { key = "ns",          path = "/nix/store",         desc = "Nix store"  },
+            { key = "nc",          path = "~/etc/nixos",        desc = "Nix config" },
             { key = "C",          path = "~/Coding",           desc = "Coding"     },
             { key = "m",          path = "/mnt/utm/Music",                         },
             { key = "d",          path = "/mnt/utm/Downloads",                     },
@@ -64,7 +64,7 @@
           desc = "Start bunny.yazi";
         }
         {
-          on = [ "T" ];
+          on = ["T"];
           run = "shell 'xdg-terminal-exec' --orphan";
           desc = "Open terminal in current directory";
         }
