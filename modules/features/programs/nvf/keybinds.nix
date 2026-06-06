@@ -1,5 +1,5 @@
 {
-  flake.homeModules.nvfKeybinds =
+  flake.homeModules.nvf =
     { lib, ... }:
     {
       programs.nvf.settings.vim = {

@@ -1,6 +1,5 @@
-{ inputs, self, ... }:
+{ inputs, ... }:
 {
-  # TODO: Wrap with wrapper module
   flake.homeModules.nvf =
     {
       osConfig,
@@ -8,13 +7,9 @@
       pkgs,
       ...
     }:
-    let
-      inherit (lib.generators) mkLuaInline;
-    in
     {
       imports = [
         inputs.nvf.homeManagerModules.default
-        self.homeModules.nvfKeybinds
       ];
 
       # Set Neovim as default editor
