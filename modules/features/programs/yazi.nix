@@ -1,6 +1,7 @@
 {inputs, ...}: {
-  # TODO: Wrap with wrapper module
-  flake.homeModules.yazi = {
+  flake.homeModules.yazi = {config, ...}: let
+    cfg = config.xdg.userDirs;
+  in {
     programs.yazi = {
       enable = true;
       shellWrapperName = "y";
@@ -34,20 +35,21 @@
       initLua = ''
         require("bunny"):setup({
           hops = {
-            { key = "/",          path = "/",                                      },
-            { key = "~",          path = "~",                                      },
-            { key = "t",          path = "/tmp",                                   },
-            { key = "c",          path = "~/.config",                              },
-            { key = "s",          path = "~/.local",                              },
-            { key = "ns",          path = "/nix/store",         desc = "Nix store"  },
-            { key = "nc",          path = "~/etc/nixos",        desc = "Nix config" },
-            { key = "C",          path = "~/Coding",           desc = "Coding"     },
-            { key = "m",          path = "/mnt/utm/Music",                         },
-            { key = "d",          path = "/mnt/utm/Downloads",                     },
-            { key = "D",          path = "/mnt/utm/Documents",                     },
-            { key = "p",          path = "/mnt/utm/Pictures",                      },
-            { key = "v",          path = "/mnt/utm/Videos",                        },
-            { key = "o",          path = "/mnt/utm/Documents/obsidian",            },
+            { key = "/",          path = "/",                                                 },
+            { key = "t",          path = "/tmp",                                              },
+            { key = "n",          path = "/nix/store",         desc = "Nix store"             },
+            { key = "~",          path = "~",                                                 },
+            { key = "c",          path = "~/.config",          desc = "Config files"          },
+            { key = { "l", "s" }, path = "~/.local/share",     desc = "Local share"           },
+            { key = { "l", "b" }, path = "~/.local/bin",       desc = "Local bin"             },
+            { key = { "l", "t" }, path = "~/.local/state",     desc = "Local state"           },
+            { key = "C",          path = "~/Coding",           desc = "Coding"                },
+            { key = "m",          path = "${cfg.music}",       desc = "Music"                 },
+            { key = "d",          path = "${cfg.downloads}",   desc = "Downloads"             },
+            { key = "D",          path = "${cfg.documents}",   desc = "Documents"             },
+            { key = "p",          path = "${cfg.pictures}",    desc = "Pictures"              },
+            { key = "v",          path = "${cfg.videos}",      desc = "Videos"                },
+            { key = "o",          path = "${cfg.documents}/obsidian", desc = "Obsidian vault" },
           },
           desc_strategy = "path", -- If desc isn't present, use "path" or "filename", default is "path"
           ephemeral = true, -- Enable ephemeral hops, default is true
