@@ -160,7 +160,7 @@
           }
           {
             key = "ga";
-            mode = [ "v" ];
+            mode = "v";
             action = "<cmd>CodeCompanionChat Add<cr>";
             silent = true;
             desc = "Add selected text to CodeCompanion Chat";
@@ -174,7 +174,7 @@
           # Additional Telescope keybinds
           {
             key = "<Leader>fo";
-            mode = [ "v" ];
+            mode = "n";
             action = "<cmd>Telescope oldfiles<CR>";
             desc = "Find old files [Telescope]";
             silent = true;
