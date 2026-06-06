@@ -31,7 +31,6 @@
 
       plugins.bunny = "${inputs.bunny-yazi}";
       plugins.system-clipboard = "${inputs.system-clipboard-yazi}";
-      # TODO: The recommended way to get [XDG user directories] is via the xdg-user-dir command or by processing $XDG_CONFIG_HOME/user-dirs.dirs directly in your application.
       initLua = ''
         require("bunny"):setup({
           hops = {
@@ -45,7 +44,7 @@
             { key = { "l", "t" }, path = "~/.local/state",     desc = "Local state"           },
             { key = "C",          path = "~/Coding",           desc = "Coding"                },
             { key = "m",          path = "${cfg.music}",       desc = "Music"                 },
-            { key = "d",          path = "${cfg.downloads}",   desc = "Downloads"             },
+            { key = "d",          path = "${cfg.download}",   desc = "Downloads"             },
             { key = "D",          path = "${cfg.documents}",   desc = "Documents"             },
             { key = "p",          path = "${cfg.pictures}",    desc = "Pictures"              },
             { key = "v",          path = "${cfg.videos}",      desc = "Videos"                },
