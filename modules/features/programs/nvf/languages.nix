@@ -1,12 +1,14 @@
 {
   flake.homeModules.nvf = {
+    config,
     lib,
-    pkgs,
     osConfig,
+    pkgs,
     ...
   }: let
     inherit (lib.generators) mkLuaInline;
     hostName = osConfig.networking.hostName;
+    flakePath = "${config.home.homeDirectory}/etc/nixos";
   in {
     programs.nvf.settings.vim = {
       languages = {
@@ -79,23 +81,23 @@
             settings = {
               nixd = {
                 nixpkgs = {
-                  expr = "(builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs";
+                  expr = "(builtins.getFlake \"${flakePath}\").inputs.nixpkgs";
                 };
                 formatting = {
                   command = ["${lib.getExe pkgs.alejandra}"];
                 };
                 options = {
                   nixos = {
-                    expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostName}.options";
+                    expr = "(builtins.getFlake \"${flakePath}\").nixosConfigurations.${hostName}.options";
                   };
                   home_manager = {
-                    expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostName}.options.home-manager.users.type.getSubOptions []";
+                    expr = "(builtins.getFlake \"${flakePath}\").nixosConfigurations.${hostName}.options.home-manager.users.type.getSubOptions []";
                   };
                   flake_parts = {
-                    expr = "(builtins.getFlake (builtins.toString ./.)).debug.options";
+                    expr = "(builtins.getFlake \"${flakePath}\").debug.options";
                   };
                   flake_parts2 = {
-                    expr = "(builtins.getFlake (builtins.toString ./.)).currentSystem.options";
+                    expr = "(builtins.getFlake \"${flakePath}\").currentSystem.options";
                   };
                 };
               };
