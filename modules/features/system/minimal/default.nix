@@ -1,5 +1,4 @@
-{ self, ... }:
-{
+{self, ...}: {
   flake.nixosModules.minimalSystem = {
     imports = [
       # Libraries
@@ -17,5 +16,11 @@
 
     # Compress RAM to save memory
     zramSwap.enable = true;
+
+    # Set Vim as default editor
+    environment.variables = {
+      EDITOR = "vim";
+      VISUAL = "vim";
+    };
   };
 }
