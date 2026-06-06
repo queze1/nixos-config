@@ -171,6 +171,14 @@
             action = "CodeCompanion";
             silent = true;
           }
+          # Additional Telescope keybinds
+          {
+            key = "<Leader>fo";
+            mode = [ "v" ];
+            action = "<cmd>Telescope oldfiles<CR>";
+            desc = "Find old files [Telescope]";
+            silent = true;
+          }
           # Open external terminal in current working directory
           {
             key = "<Leader>tt";

@@ -155,19 +155,6 @@
           # Fuzzy finding
           telescope.enable = true;
 
-          # File swapping
-          navigation.harpoon = {
-            enable = true;
-            mappings = {
-              markFile = "<leader>m";
-              listMarks = "<leader>e";
-              file1 = "<leader>1";
-              file2 = "<leader>2";
-              file3 = "<leader>3";
-              file4 = "<leader>4";
-            };
-          };
-
           # File navigation
           utility.yazi-nvim = {
             enable = true;
@@ -209,7 +196,6 @@
           utility.diffview-nvim.enable = true;
 
           # LLM integration
-
           assistant = {
             copilot = {
               enable = true;
