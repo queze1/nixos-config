@@ -1,10 +1,11 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   imports = [
     # Integrate home-manager with flake-parts
     # Defines flake.homeModules and flake.homeConfigurations
     inputs.home-manager.flakeModules.home-manager
   ];
+
+  debug = true;
 
   systems = [
     "x86_64-linux"
@@ -13,13 +14,11 @@
     "aarch64-darwin"
   ];
 
-  perSystem =
-    { system, ... }:
-    {
-      # pkgs-stable: Nixpkgs at the latest LTS version
-      legacyPackages.pkgs-stable = import inputs.nixpkgs-stable {
-        inherit system;
-        config.allowUnfree = true;
-      };
+  perSystem = {system, ...}: {
+    # pkgs-stable: Nixpkgs at the latest LTS version
+    legacyPackages.pkgs-stable = import inputs.nixpkgs-stable {
+      inherit system;
+      config.allowUnfree = true;
     };
+  };
 }
