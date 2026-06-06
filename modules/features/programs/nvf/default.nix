@@ -44,6 +44,11 @@
           enable = true;
         };
 
+        # Make LSP look nicer
+        lsp.lspsaga = {
+          enable = true;
+        };
+
         treesitter = {
           enable = true;
           context.enable = true;
