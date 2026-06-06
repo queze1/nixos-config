@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.homeModules.nvf = {
     lib,
     pkgs,
@@ -79,23 +79,23 @@
             settings = {
               nixd = {
                 nixpkgs = {
-                  expr = "(builtins.getFlake \"${self}\").inputs.nixpkgs";
+                  expr = "(builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs";
                 };
                 formatting = {
                   command = ["${lib.getExe pkgs.alejandra}"];
                 };
                 options = {
                   nixos = {
-                    expr = "(builtins.getFlake \"${self}\").nixosConfigurations.${hostName}.options";
+                    expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostName}.options";
                   };
                   home_manager = {
-                    expr = "(builtins.getFlake \"${self}\").nixosConfigurations.${hostName}.options.home-manager.users.type.getSubOptions []";
+                    expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostName}.options.home-manager.users.type.getSubOptions []";
                   };
                   flake_parts = {
-                    expr = "(builtins.getFlake \"${self}\").debug.options";
+                    expr = "(builtins.getFlake (builtins.toString ./.)).debug.options";
                   };
                   flake_parts2 = {
-                    expr = "(builtins.getFlake \"${self}\").currentSystem.options";
+                    expr = "(builtins.getFlake (builtins.toString ./.)).currentSystem.options";
                   };
                 };
               };
