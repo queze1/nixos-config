@@ -44,6 +44,13 @@
           silent = true;
           desc = "Lspsaga: Peek Definition";
         }
+        {
+          key = "gO";
+          mode = "n";
+          action = ":Lspsaga outline<CR>";
+          silent = true;
+          desc = "Lspsaga: Outline";
+        }
       ];
     };
   };
