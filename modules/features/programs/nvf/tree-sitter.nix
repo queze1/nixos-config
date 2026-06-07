@@ -1,8 +1,6 @@
 {
   flake.homeModules.nvf = {pkgs, ...}: {
-    home.packages = [
-      pkgs.luaPackages.tree-sitter-cli
-    ];
+    home.packages = [pkgs.luaPackages.tree-sitter-cli];
 
     programs.nvf.settings.vim = {
       treesitter = {

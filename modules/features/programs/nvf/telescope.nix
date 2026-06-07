@@ -1,5 +1,7 @@
 {
   flake.homeModules.nvf = {pkgs, ...}: {
+    home.packages = [pkgs.ripgrep];
+
     programs.nvf.settings.vim = {
       telescope = {
         enable = true;
