@@ -1,12 +1,17 @@
 {
   flake.homeModules.nvf = {
     programs.nvf.settings.vim = {
-      lsp.lspsaga = {
-        enable = true;
-        setupOpts = {
-          lightbulb = {
-            enable = false;
+      lsp = {
+        lspsaga = {
+          enable = true;
+          setupOpts = {
+            lightbulb.enable = false;
           };
+        };
+        # Overwrite with Lspsaga
+        mappings = {
+          hover = null;
+          codeAction = null;
         };
       };
 
