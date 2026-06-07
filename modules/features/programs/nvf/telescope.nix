@@ -9,7 +9,17 @@
           {
             name = "live_grep_args";
             packages = [pkgs.vimPlugins.telescope-live-grep-args-nvim];
-            setup.live_grep_args = {};
+            setup.live_grep_args = {
+              auto_quoting = true;
+              additional_args = ["--smart-case" "--hidden"];
+              mappings = {
+                i = {
+                  "<C-k>" = "lga_actions.quote_prompt()";
+                  # Freeze the current list and start a fuzzy search in the frozen list
+                  "<C-space>" = "lga_actions.to_fuzzy_refine";
+                };
+              };
+            };
           }
         ];
       };
