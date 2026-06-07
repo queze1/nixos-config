@@ -63,7 +63,19 @@
         utility.motion.flash-nvim.enable = true;
 
         # Fuzzy finding
-        telescope.enable = true;
+        telescope = {
+          enable = true;
+          extensions = [
+            {
+              name = "live_grep_args";
+              packages = [pkgs.vimPlugins.telescope-live-grep-args-nvim];
+              setup = {
+                live_grep_args = {
+                };
+              };
+            }
+          ];
+        };
 
         # File navigation
         utility.yazi-nvim = {
