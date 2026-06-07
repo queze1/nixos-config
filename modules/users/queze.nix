@@ -81,6 +81,7 @@ in {
         # Other
         "Coding"
         "etc/nixos"
+        "cs3231"
       ];
     };
 
