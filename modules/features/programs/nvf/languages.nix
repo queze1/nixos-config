@@ -18,7 +18,11 @@
           enable = true;
           extensions.render-markdown-nvim.enable = true;
         };
-        make.enable = true;
+        make = {
+          enable = true;
+          format.enable = true;
+          extraDiagnostics.enable = true;
+        };
         nix = {
           enable = true;
           lsp.servers = ["nixd"];
