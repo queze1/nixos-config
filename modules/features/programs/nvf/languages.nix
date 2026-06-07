@@ -12,6 +12,7 @@
   in {
     programs.nvf.settings.vim = {
       languages = {
+        clang.enable = true;
         java.enable = true;
         markdown = {
           enable = true;
