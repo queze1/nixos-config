@@ -18,6 +18,7 @@
           enable = true;
           extensions.render-markdown-nvim.enable = true;
         };
+        make.enable = true;
         nix = {
           enable = true;
           lsp.servers = ["nixd"];
