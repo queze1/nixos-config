@@ -135,14 +135,6 @@
           silent = true;
           desc = "Clear search highlights";
         }
-        # Additional Telescope keybinds
-        {
-          key = "<Leader>fo";
-          mode = "n";
-          action = "<cmd>Telescope oldfiles<CR>";
-          desc = "Find old files [Telescope]";
-          silent = true;
-        }
       ];
 
       luaConfigRC.whichkey-visual = ''
