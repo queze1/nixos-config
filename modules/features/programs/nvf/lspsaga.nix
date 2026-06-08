@@ -11,6 +11,7 @@
         };
         # Overwrite with Lspsaga
         mappings = {
+          format = null;
           hover = null;
           codeAction = null;
           renameSymbol = null;
@@ -80,6 +81,13 @@
           action = ":Lspsaga outline<CR>";
           silent = true;
           desc = "Lspsaga: Outline";
+        }
+        {
+          key = "<leader>lf";
+          mode = "n";
+          action = ":Lspsaga finder<CR>";
+          silent = true;
+          desc = "Lspsaga: Finder";
         }
       ];
     };
