@@ -31,6 +31,7 @@
     };
     nvf = {
       url = "github:notashelf/nvf";
+      # url = "github:queze1/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database = {
