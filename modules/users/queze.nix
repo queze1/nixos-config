@@ -59,6 +59,7 @@ in {
         ".config/keepassxc"
         ".config/obsidian"
         ".config/vesktop"
+        ".config/github-copilot" # preserve Copilot.nvim token
         ".local/share/direnv" # preserve direnv allow
         ".local/share/fish" # preserve fish command history
         ".local/share/nvf" # preserve nvim plugin state
