@@ -32,8 +32,10 @@
         };
       };
 
-      # Additional Telescope keybinds
-      keymaps = [
+      # Hack to add Telescope keybinds using internal interface
+      # Telescope is lazy loaded, regular keymaps won't trigger a load
+      # Use lib.mkAfter to override default keybinds
+      lazy.plugins.telescope.keys = lib.mkAfter [
         {
           key = "<Leader>fo";
           mode = "n";
@@ -44,8 +46,7 @@
         {
           key = "<Leader>fg";
           mode = "n";
-          # Hack to force load Telescope
-          action = "<cmd>lua require('lz.n').load('telescope')<CR><cmd>Telescope live_grep_args<CR>";
+          action = "<cmd>Telescope live_grep_args<CR>";
           desc = "Live Grep (args) [Telescope]";
           silent = true;
         }
