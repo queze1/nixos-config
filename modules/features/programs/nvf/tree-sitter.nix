@@ -7,6 +7,10 @@
         enable = true;
         context.enable = true;
         fold = true;
+        grammars = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+          kdl
+          nix
+        ];
       };
 
       extraPlugins = with pkgs.vimPlugins; {
