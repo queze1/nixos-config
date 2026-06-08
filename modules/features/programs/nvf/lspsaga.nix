@@ -6,6 +6,7 @@
           enable = true;
           setupOpts = {
             lightbulb.enable = false;
+            symbol_in_winbar.enable = false;
           };
         };
         # Overwrite with Lspsaga
