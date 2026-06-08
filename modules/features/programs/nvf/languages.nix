@@ -6,7 +6,6 @@
     pkgs,
     ...
   }: let
-    inherit (lib.generators) mkLuaInline;
     hostName = osConfig.networking.hostName;
     flakePath = "${config.home.homeDirectory}/etc/nixos";
   in {
@@ -65,7 +64,7 @@
             # Replace commands created by nvf
             # LspPyrightOrganizeImports: made redundant by ruff
             # LspPyrightSetPythonPath: made redundant by direnv
-            on_attach = lib.mkForce (mkLuaInline ''
+            on_attach = lib.mkForce (lib.mkLuaInline ''
               function(client, bufnr)
                 vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightWriteBaseline', function()
                   vim.fn.jobstart({ "${lib.getExe pkgs.basedpyright}", "--writebaseline" }, {

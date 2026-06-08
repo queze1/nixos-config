@@ -1,5 +1,9 @@
 {
-  flake.homeModules.nvf = {pkgs, ...}: {
+  flake.homeModules.nvf = {
+    lib,
+    pkgs,
+    ...
+  }: {
     home.packages = [pkgs.ripgrep];
 
     programs.nvf.settings.vim = {
@@ -9,15 +13,17 @@
           {
             name = "live_grep_args";
             packages = [pkgs.vimPlugins.telescope-live-grep-args-nvim];
-            setup.live_grep_args = {
-              auto_quoting = true;
-              additional_args = ["--smart-case" "--hidden"];
-              mappings = {
-                i = {
-                  "<C-k>" = "lga_actions.quote_prompt()";
-                  # Freeze the current list and start a fuzzy search in the frozen list
-                  "<C-space>" = "lga_actions.to_fuzzy_refine";
-                };
+            setup = {
+              live_grep_args = {
+                auto_quoting = true;
+                additional_args = ["--smart-case" "--hidden"];
+                mappings = lib.mkLuaInline ''
+                  {
+                    i = {
+                      ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+                    },
+                  },
+                '';
               };
             };
           }
