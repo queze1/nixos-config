@@ -14,17 +14,15 @@
             name = "live_grep_args";
             packages = [pkgs.vimPlugins.telescope-live-grep-args-nvim];
             setup = {
-              live_grep_args = {
-                auto_quoting = true;
-                additional_args = ["--smart-case" "--hidden"];
-                mappings = lib.mkLuaInline ''
-                  {
-                    i = {
-                      ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
-                    },
+              auto_quoting = true;
+              additional_args = ["--smart-case" "--hidden"];
+              mappings = lib.mkLuaInline ''
+                {
+                  i = {
+                    ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
                   },
-                '';
-              };
+                },
+              '';
             };
           }
         ];
