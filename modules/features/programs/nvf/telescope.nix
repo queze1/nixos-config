@@ -24,6 +24,7 @@
                 {
                   i = {
                     ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+                    ["<C-w>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = ' --word-regexp' }),
                   },
                 }
               '';
@@ -47,7 +48,14 @@
           key = "<Leader>fg";
           mode = "n";
           action = "<cmd>Telescope live_grep_args<CR>";
-          desc = "Live Grep (args) [Telescope]";
+          desc = "Live grep (args) [Telescope]";
+          silent = true;
+        }
+        {
+          key = "<Leader>gc";
+          mode = "n";
+          action = "<cmd>lua require('telescope-live-grep-args.shortcuts').grep_word_under_cursor()<CR>";
+          desc = "Grep word under cursor [Telescope]";
           silent = true;
         }
       ];
