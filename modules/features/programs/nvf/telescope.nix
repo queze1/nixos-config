@@ -44,7 +44,8 @@
         {
           key = "<Leader>fg";
           mode = "n";
-          action = "<cmd>Telescope live_grep_args<CR>";
+          # Hack to force load Telescope
+          action = "<cmd>lua require('lz.n').load('telescope')<CR><cmd>Telescope live_grep_args<CR>";
           desc = "Live Grep (args) [Telescope]";
           silent = true;
         }
