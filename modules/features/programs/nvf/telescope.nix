@@ -20,20 +20,10 @@
             live_grep_args = {
               auto_quoting = true;
               additional_args = ["--smart-case" "--hidden"];
-              mappings = lib.mkLuaInline ''
-                {
-                  i = {
-                    ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
-                  },
-                }
-              '';
-            };
-          };
-          defaults = {
-            mappings = {
-              # Prevent clashing with live_grep_args keybinds
-              i = {
-                "<C-k>" = lib.mkLuaInline "false";
+              mappings = {
+                i = {
+                  "C-K" = lib.mkLuaInline ''require("telescope-live-grep-args.actions").quote_prompt()'';
+                };
               };
             };
           };
