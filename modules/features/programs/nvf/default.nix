@@ -109,6 +109,10 @@
         # Extra Plugins
         # ----------------------------------------
         extraPlugins = with pkgs.vimPlugins; {
+          auto-save = {
+            package = auto-save-nvim;
+          };
+
           # Autocomplete for command line
           cmp-cmdline = {
             package = cmp-cmdline;
