@@ -7,6 +7,12 @@
           setupOpts = {
             lightbulb.enable = false;
             symbol_in_winbar.enable = false;
+            definition = {
+              keys = {
+                # Always use 'o' for editing
+                edit = "o";
+              };
+            };
           };
         };
         # Overwrite with Lspsaga
