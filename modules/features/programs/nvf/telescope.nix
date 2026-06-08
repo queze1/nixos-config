@@ -29,14 +29,6 @@
               '';
             };
           };
-          defaults = {
-            mappings = {
-              # Prevent clashing with live_grep_args keybinds
-              i = {
-                "<C-k>" = lib.mkLuaInline "false";
-              };
-            };
-          };
         };
       };
 
