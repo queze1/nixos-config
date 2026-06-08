@@ -111,6 +111,10 @@
         extraPlugins = with pkgs.vimPlugins; {
           auto-save = {
             package = auto-save-nvim;
+            setup = ''
+              local autosave = require("auto-save")
+              autosave.setup({})
+            '';
           };
 
           # Autocomplete for command line
