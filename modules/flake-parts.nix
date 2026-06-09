@@ -1,8 +1,9 @@
 {inputs, ...}: {
   imports = [
     # Integrate home-manager with flake-parts
-    # Defines flake.homeModules and flake.homeConfigurations
     inputs.home-manager.flakeModules.home-manager
+
+    inputs.flake-parts.flakeModules.easyOverlay
   ];
 
   # For nixd hints
@@ -27,7 +28,7 @@
     };
 
     overlayAttrs = {
-      # Force Audacity to use wayland
+      # Force Audacity to use Wayland
       audacity = pkgs.symlinkJoin {
         name = "audacity-wayland-fix";
         paths = [pkgs.audacity];
