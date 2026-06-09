@@ -15,11 +15,28 @@
     "aarch64-darwin"
   ];
 
-  perSystem = {system, ...}: {
+  perSystem = {
+    pkgs,
+    system,
+    ...
+  }: {
     # pkgs-stable: Nixpkgs at the latest LTS version
     legacyPackages.pkgs-stable = import inputs.nixpkgs-stable {
       inherit system;
       config.allowUnfree = true;
+    };
+
+    overlayAttrs = {
+      # Force Audacity to use wayland
+      audacity = pkgs.symlinkJoin {
+        name = "audacity-wayland-fix";
+        paths = [pkgs.audacity];
+        nativeBuildInputs = [pkgs.makeWrapper];
+        postBuild = ''
+          wrapProgram $out/bin/audacity \
+            --set GDK_BACKEND wayland
+        '';
+      };
     };
   };
 }

@@ -37,18 +37,7 @@
     ];
 
     home.packages = with pkgs; [
-      # TODO: Use overlay
-      # Force Audacity to use native Wayland
-      (symlinkJoin {
-        name = "audacity-wayland-fix";
-        paths = [audacity];
-        nativeBuildInputs = [makeWrapper];
-        postBuild = ''
-          wrapProgram $out/bin/audacity \
-            --set GDK_BACKEND wayland
-        '';
-      })
-
+      audacity
       calibre
       digikam
       gnome-clocks
