@@ -35,6 +35,8 @@
         typescript.enable = true;
       };
 
+      debugger.nvim-dap.enable = true;
+
       # Autoformat on save
       formatter.conform-nvim = {
         enable = true;
