@@ -35,7 +35,44 @@
         typescript.enable = true;
       };
 
-      debugger.nvim-dap.enable = true;
+      debugger.nvim-dap = {
+        enable = true;
+        sources = {
+          os161-debugger = ''
+            dap.adapters.cppdbg = {
+              type = 'executable',
+              id = 'cppdbg',
+              command = '${pkgs.vscode-extensions.ms-vscode.cpptools}/share/vscode/extensions/ms-vscode.cpptools/debugAdapters/bin/OpenDebugAD7',
+            }
+
+            dap.configurations.cpp = {
+              {
+                name = 'OS161 Debug',
+                type = 'cppdbg',
+                request = 'launch',
+                program = vim.env.HOME .. '/cs3231/root/kernel',
+                args = {},
+                stopAtEntry = false,
+                cwd = vim.env.HOME .. '/cs3231/root',
+                environment = {},
+                externalConsole = false,
+                MIMode = 'gdb',
+                miDebuggerServerAddress = 'unix:.sockets/gdb',
+                miDebuggerPath = vim.fn.exepath('os161-gdb'),
+                setupCommands = {
+                  {
+                    description = 'Enable pretty-printing for gdb',
+                    text = '-enable-pretty-printing',
+                    ignoreFailures = true,
+                  },
+                },
+              },
+            }
+
+            dap.configurations.c = dap.configurations.cpp
+          '';
+        };
+      };
 
       # Autoformat on save
       formatter.conform-nvim = {
