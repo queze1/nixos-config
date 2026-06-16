@@ -37,6 +37,7 @@
 
       debugger.nvim-dap = {
         enable = true;
+        ui.enable = true;
         sources = {
           os161-debugger = ''
             dap.adapters.cppdbg = {
@@ -58,7 +59,7 @@
                 externalConsole = false,
                 MIMode = 'gdb',
                 miDebuggerServerAddress = 'unix:.sockets/gdb',
-                miDebuggerPath = vim.fn.exepath('os161-gdb'),
+                miDebuggerPath = '/nix/store/j7hn67w0n3v13ifzys24qmszxm432cwk-os161-gdb-7.8/bin/os161-gdb',
                 setupCommands = {
                   {
                     description = 'Enable pretty-printing for gdb',
