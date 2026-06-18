@@ -4,12 +4,14 @@
     lib,
     ...
   }: let
-    cfg = config.host.profiles.server;
+    isServer = config.host.profiles.server.enable;
   in {
-    networking.networkmanager.enable = true;
-    systemd.network.wait-online.enable = false;
-    boot.initrd.systemd.network.wait-online.enable = false;
+    networking.networkmanager.enable = ! isServer;
     networking.nftables.enable = true;
+
+    # Don't wait for network to come online on desktops
+    systemd.network.wait-online.enable = ! isServer;
+    boot.initrd.systemd.network.wait-online.enable = ! isServer;
 
     # Tailscale
     services.tailscale = {
@@ -23,15 +25,27 @@
       trustedInterfaces = ["tailscale0"];
     };
 
-    # OpenSSH for servers
-    # TODO: Set up Tailscale SSH
-    services.openssh = lib.mkIf cfg.enable {
+    # OpenSSH
+    services.openssh = lib.mkIf isServer {
       enable = true;
       settings = {
         KbdInteractiveAuthentication = false;
         PasswordAuthentication = false;
         PermitRootLogin = "no";
         UsePAM = false;
+      };
+    };
+
+    # Server wifi
+    networking.wireless = {
+      enable = isServer;
+      # TODO: Use agenix secret
+      secretsFile = "/var/lib/secrets/wireless.env";
+
+      networks = {
+        "wlan-5G" = {
+          authDefs = "ext:wlan-5G";
+        };
       };
     };
   };
