@@ -7,6 +7,8 @@
       self.nixosModules.commander
     ];
 
+    hardware.facter.reportPath = ./facter.json;
+
     host = {
       profiles.server.enable = true;
       disko.profile = "hybrid-tmpfs-on-root";
