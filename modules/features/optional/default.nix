@@ -10,6 +10,7 @@
       self.nixosModules.fonts
       self.nixosModules.hypervisor
       self.nixosModules.printing
+      self.nixosModules.shellAliases
       self.nixosModules.sound
     ];
   };
