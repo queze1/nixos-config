@@ -136,6 +136,7 @@
     xdg.userDirs = {
       enable = true;
       createDirectories = true; # create if missing
+      setSessionVariables = false;
       download = "${xdgUserHome}/Downloads";
       documents = "${xdgUserHome}/Documents";
       pictures = "${xdgUserHome}/Pictures";
