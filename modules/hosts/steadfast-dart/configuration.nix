@@ -1,7 +1,7 @@
 {self, ...}: {
   flake.nixosModules.steadfastDartConfiguration = {
     imports = [
-      self.nixosModules.minimalSystem
+      self.nixosModules.coreFeatures
       self.nixosModules.minimalPrograms
       self.nixosModules.commander
     ];

@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.minimalSystem = {
+  flake.nixosModules.coreFeatures = {
     imports = [
       # Libraries
       self.nixosModules.agenix

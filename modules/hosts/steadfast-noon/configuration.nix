@@ -2,7 +2,7 @@
   # For home server with medium speed
   flake.nixosModules.steadfastNoonConfiguration = {
     imports = [
-      self.nixosModules.minimalSystem
+      self.nixosModules.coreFeatures
       self.nixosModules.minimalPrograms
       self.nixosModules.commander
     ];

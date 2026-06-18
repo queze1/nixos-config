@@ -1,8 +1,6 @@
 {self, ...}: {
-  flake.nixosModules.standardSystem = {
+  flake.nixosModules.optionalFeatures = {
     imports = [
-      self.nixosModules.minimalSystem
-
       # Home Manager
       self.nixosModules.homeManager
 
