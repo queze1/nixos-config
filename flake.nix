@@ -16,12 +16,20 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    deploy-rs.url = "github:serokell/deploy-rs";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     preservation.url = "github:nix-community/preservation";
+
+    # Deployment
+    colmena.url = "github:zhaofengli/colmena";
+    deploy-rs.url = "github:serokell/deploy-rs";
+    nix-on-droid-repo = {
+      url = "github:queze1/nix-on-droid-config";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs-unstable.follows = "nixpkgs";
+    };
 
     # Applications
     noctalia = {
@@ -46,13 +54,6 @@
     system-clipboard-yazi = {
       url = "github:orhnk/system-clipboard.yazi";
       flake = false;
-    };
-
-    # Other
-    nix-on-droid-repo = {
-      url = "github:queze1/nix-on-droid-config";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-      inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
   };
 }
