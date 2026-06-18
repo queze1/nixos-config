@@ -56,18 +56,19 @@ in {
         }
         ".cache/keepassxc" # save last opened database
         ".cache/noctalia" # stop showing welcome message
+        ".config/calibre"
+        ".config/github-copilot" # preserve copilot.nvim token
         ".config/keepassxc"
         ".config/obsidian"
         ".config/vesktop"
-        ".config/github-copilot" # preserve Copilot.nvim token
         ".local/share/direnv" # preserve direnv allow
         ".local/share/fish" # preserve fish command history
         ".local/share/nvf" # preserve nvim plugin state
         ".local/state/lazygit" # stop showing welcome message
         ".local/state/nix" # preserve nix repl history and others
         ".local/state/nvf" # preserve nvim state
-        ".local/state/wireplumber"
         ".local/state/syncthing"
+        ".local/state/wireplumber"
 
         ".copilot"
         ".mozilla"
