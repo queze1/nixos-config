@@ -13,6 +13,7 @@ My personal NixOS config.
 - [agentix](https://github.com/ryantm/agenix) - to securely manage secrets
 - [nixos-anywhere](https://github.com/nix-community/nixos-anywhere) - to remotely install NixOS with a single CLI command
 - [disko](https://github.com/nix-community/disko) - for declarative disk management
+- [preservation](https://github.com/nix-community/preservation) - for an "erase your darlings" setup.
 
 ## Project Structure
 TBD
