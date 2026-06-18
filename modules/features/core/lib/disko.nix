@@ -5,6 +5,7 @@
     ...
   }: let
     cfg = config.host.disko;
+    hypervisorType = lib.attrByPath ["host" "hypervisor" "type"] null config;
   in {
     imports = [inputs.disko.nixosModules.default];
 
@@ -20,9 +21,9 @@
       device = lib.mkOption {
         type = lib.types.str;
         default =
-          if config.host.hypervisor.type == "utm"
+          if hypervisorType == "utm"
           then "/dev/vda"
-          else if config.host.hypervisor.type == "vmware"
+          else if hypervisorType == "vmware"
           then "/dev/sda"
           else "/dev/nvme0n1";
       };
