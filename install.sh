@@ -51,10 +51,10 @@ fi
 # Remember to update this whenever the command is updated
 cat <<EOF
 Running: nix run github:nix-community/nixos-anywhere -- \\
-    --flake \".#$HOSTNAME\" \\
-    --extra-files \"$STAGING_DIR\" \\
+    --flake ".#$HOSTNAME" \\
+    --extra-files "$STAGING_DIR" \\
     --build-on remote \\
-    \"root@$TARGET_IP\"
+    "root@$TARGET_IP"
 
 EOF
 
