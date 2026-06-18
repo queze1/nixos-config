@@ -92,15 +92,5 @@ echo "Public key:"
 cat "${HOST_KEY_PATH}.pub"
 echo
 echo "Add the public key to ssh-keys.nix, then re-encrypt the secrets:"
-shopt -s nullglob
-AGE_FILES=(secrets/*.age)
-shopt -u nullglob
-if [ ${#AGE_FILES[@]} -gt 0 ]; then
-    echo "cd secrets"
-    for age_file in "${AGE_FILES[@]}"; do
-        echo "nix run github:ryantm/agenix -- -e $(basename "$age_file")"
-    done
-else
-    echo "No .age files found in secrets/"
-fi
+echo "agenix --rekey"
 
