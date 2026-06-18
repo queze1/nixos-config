@@ -53,6 +53,7 @@ cat <<EOF
 Running: nix run github:nix-community/nixos-anywhere -- \\
     --flake ".#$HOSTNAME" \\
     --extra-files "$STAGING_DIR" \\
+    --generate-hardware-config nixos-facter "./modules/hosts/$HOSTNAME/facter.json" \\
     --build-on remote \\
     "root@$TARGET_IP"
 
@@ -61,6 +62,7 @@ EOF
 nix run github:nix-community/nixos-anywhere -- \
     --flake ".#$HOSTNAME" \
     --extra-files "$STAGING_DIR" \
+    --generate-hardware-config nixos-facter "./modules/hosts/$HOSTNAME/facter.json" \
     --build-on remote \
     "root@$TARGET_IP" &&
 echo &&
