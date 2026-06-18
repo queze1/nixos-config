@@ -26,7 +26,6 @@
     imports = [
       inputs.nix-index-database.homeModules.default
 
-      self.homeModules.btop
       self.homeModules.firefox
       self.homeModules.foot
       self.homeModules.imv
@@ -64,6 +63,12 @@
       github-copilot-cli
     ];
 
+    programs.btop = {
+      enable = true;
+      settings = {
+        theme_background = false;
+      };
+    };
     programs.direnv = {
       enable = true;
       enableBashIntegration = true;

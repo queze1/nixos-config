@@ -5,7 +5,6 @@
     pkgs,
     ...
   }: {
-    # TODO: Wrap with wrapper module
     programs.firefox = {
       enable = true;
       configPath = "${config.home.homeDirectory}/.mozilla/firefox";

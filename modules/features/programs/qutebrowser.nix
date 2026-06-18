@@ -1,6 +1,5 @@
 {
   flake.homeModules.qutebrowser = {
-    # TODO: Wrap with wrapper modules
     programs.qutebrowser = {
       enable = true;
       searchEngines = {
