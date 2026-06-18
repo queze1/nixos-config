@@ -13,4 +13,8 @@ in {
     publicKeys = [sshKeys.ableArcher];
     armor = true;
   };
+  "commander-password.age" = {
+    publicKeys = sshKeys.allKeys;
+    armor = true;
+  };
 }

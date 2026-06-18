@@ -25,6 +25,7 @@
           mode = "600";
         };
         tavily-api-key.file = "${self}/secrets/tavily-api-key.age";
+        commander-password.file = "${self}/secrets/commander-password.age";
       };
     }
   );
