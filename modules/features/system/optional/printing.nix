@@ -4,7 +4,7 @@
     lib,
     ...
   }: {
-    config = lib.mkIf (config.host.hypervisor.isGuest == false) {
+    config = lib.mkIf (! config.host.hypervisor.isGuest) {
       services.printing.enable = true;
       services.avahi = {
         enable = true;

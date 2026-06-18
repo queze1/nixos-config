@@ -11,7 +11,6 @@
       self.nixosModules.localisation
       self.nixosModules.networking
       self.nixosModules.nix
-      self.nixosModules.shellAliases
     ];
 
     # Compress RAM to save memory

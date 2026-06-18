@@ -7,6 +7,7 @@
       self.nixosModules.homeManager
 
       # Features
+      self.nixosModules.caches
       self.nixosModules.docker
       self.nixosModules.fonts
       self.nixosModules.hypervisor
