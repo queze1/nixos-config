@@ -37,11 +37,9 @@
     };
 
     # Server wifi
-    networking.wireless = {
-      enable = isServer;
+    networking.wireless = lib.mkIf isServer {
       # TODO: Use agenix secret
       secretsFile = "/var/lib/secrets/wireless.env";
-
       networks = {
         "wlan-5G" = {
           authDefs = "ext:wlan-5G";
