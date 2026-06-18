@@ -1,14 +1,17 @@
 {
-  flake.nixosModules.networking = {config, ...}: {
-    # TODO: Options for Tailscale SSH, hardening
+  flake.nixosModules.networking = {
+    config,
+    lib,
+    ...
+  }: let
+    cfg = config.host.profiles.server;
+  in {
     networking.networkmanager.enable = true;
-    systemd.network.wait-online.enable = false; # unnecessary if network manager is enabled
+    systemd.network.wait-online.enable = false;
     boot.initrd.systemd.network.wait-online.enable = false;
-
-    # Use nftables instead of iptables
     networking.nftables.enable = true;
 
-    # Configure Tailscale
+    # Tailscale
     services.tailscale = {
       enable = true;
       openFirewall = true;
@@ -18,6 +21,18 @@
     ];
     networking.firewall = {
       trustedInterfaces = ["tailscale0"];
+    };
+
+    # OpenSSH for servers
+    # TODO: Set up Tailscale SSH
+    services.openssh = lib.mkIf cfg.enable {
+      enable = true;
+      settings = {
+        KbdInteractiveAuthentication = false;
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+        UsePAM = false;
+      };
     };
   };
 }

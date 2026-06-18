@@ -2,14 +2,14 @@
   username = "commander";
   sshKeys = import "${self}/ssh-keys.nix";
 in {
-  flake.nixosModules.${username} = {config, ...}: {
+  flake.nixosModules.${username} = {
     users.users.${username} = {
       isNormalUser = true;
       extraGroups = [
         "networkmanager"
         "wheel"
       ];
-      openssh.authorizedKeys.keys = sshKeys.allKeys;
+      openssh.authorizedKeys.keys = sshKeys.ableArcher;
     };
   };
 }

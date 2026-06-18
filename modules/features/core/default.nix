@@ -1,5 +1,13 @@
 {self, ...}: {
-  flake.nixosModules.coreFeatures = {
+  flake.nixosModules.coreFeatures = {lib, ...}: {
+    options.host.profiles.server = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Whether to configure this machine as a headless server.";
+      };
+    };
+
     imports = [
       # Libraries
       self.nixosModules.agenix

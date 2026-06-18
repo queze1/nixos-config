@@ -7,6 +7,12 @@
       self.nixosModules.commander
     ];
 
+    host = {
+      profile.server = true;
+      disko.profile = "hybrid-tmpfs-on-root";
+      preservation.enable = true;
+    };
+
     networking.hostName = "steadfast-noon";
     system.stateVersion = "25.11";
   };
