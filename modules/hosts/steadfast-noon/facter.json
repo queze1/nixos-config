@@ -1428,7 +1428,7 @@
           "[13]",
           "[14]"
         ],
-        "bogo": 4191,
+        "bogo": 4192,
         "cache": 512,
         "units": 8,
         "page_size": 4096,
@@ -2244,9 +2244,9 @@
           "hex": "cdd6",
           "value": 52694
         },
-        "sysfs_id": "/devices/platform/AMDI0010:01/i2c-0/i2c-DELL0A12:00/0018:06CB:CDD6.0001/input/input154",
+        "sysfs_id": "/devices/platform/AMDI0010:01/i2c-0/i2c-DELL0A12:00/0018:06CB:CDD6.0001/input/input14",
         "unix_device_names": [
-          "/dev/input/event8",
+          "/dev/input/event9",
           "/dev/input/ + handler"
         ]
       }
@@ -2507,47 +2507,6 @@
     "network_interface": [
       {
         "index": 53,
-        "attached_to": 12,
-        "class_list": [
-          "network_interface"
-        ],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0001",
-          "name": "Ethernet",
-          "value": 1
-        },
-        "model": "Ethernet network interface",
-        "sysfs_id": "/class/net/wlp3s0",
-        "sysfs_device_link": "/devices/pci0000:00/0000:00:01.7/0000:03:00.0",
-        "unix_device_names": [
-          "wlp3s0"
-        ],
-        "resources": [
-          {
-            "type": "hwaddr",
-            "address": 55
-          },
-          {
-            "type": "phwaddr",
-            "address": 55
-          }
-        ],
-        "driver": "ath10k_pci",
-        "driver_module": "ath10k_pci",
-        "drivers": [
-          "ath10k_pci"
-        ],
-        "driver_modules": [
-          "ath10k_pci"
-        ]
-      },
-      {
-        "index": 54,
         "attached_to": 18,
         "class_list": [
           "network_interface"
@@ -2588,7 +2547,7 @@
         ]
       },
       {
-        "index": 55,
+        "index": 54,
         "attached_to": 0,
         "class_list": [
           "network_interface"
@@ -2607,6 +2566,47 @@
         "sysfs_id": "/class/net/lo",
         "unix_device_names": [
           "lo"
+        ]
+      },
+      {
+        "index": 55,
+        "attached_to": 12,
+        "class_list": [
+          "network_interface"
+        ],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0001",
+          "name": "Ethernet",
+          "value": 1
+        },
+        "model": "Ethernet network interface",
+        "sysfs_id": "/class/net/wlp3s0",
+        "sysfs_device_link": "/devices/pci0000:00/0000:00:01.7/0000:03:00.0",
+        "unix_device_names": [
+          "wlp3s0"
+        ],
+        "resources": [
+          {
+            "type": "hwaddr",
+            "address": 55
+          },
+          {
+            "type": "phwaddr",
+            "address": 55
+          }
+        ],
+        "driver": "ath10k_pci",
+        "driver_module": "ath10k_pci",
+        "drivers": [
+          "ath10k_pci"
+        ],
+        "driver_modules": [
+          "ath10k_pci"
         ]
       }
     ],
