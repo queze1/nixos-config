@@ -9,7 +9,7 @@ in {
         "networkmanager"
         "wheel"
       ];
-      openssh.authorizedKeys.keys = sshKeys.ableArcher;
+      openssh.authorizedKeys.keys = [sshKeys.ableArcher];
     };
   };
 }

@@ -7,7 +7,7 @@
     ];
 
     host = {
-      profile.server = true;
+      profiles.server.enable = true;
       disko.profile = "hybrid-tmpfs-on-root";
       preservation.enable = true;
     };

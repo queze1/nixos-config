@@ -21,13 +21,15 @@
       self.nixosModules.nix
     ];
 
-    # Compress RAM to save memory
-    zramSwap.enable = true;
+    config = {
+      # Compress RAM to save memory
+      zramSwap.enable = true;
 
-    # Set Vim as default editor
-    environment.variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
+      # Set Vim as default editor
+      environment.variables = {
+        EDITOR = "vim";
+        VISUAL = "vim";
+      };
     };
   };
 }
