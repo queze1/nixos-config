@@ -2,15 +2,15 @@ let
   sshKeys = import ../ssh-keys.nix;
 in {
   "queze-password.age" = {
-    publicKeys = [sshKeys.ableArcher];
+    publicKeys = sshKeys.ableArcherKeys;
     armor = true;
   };
   "queze-ssh-config.age" = {
-    publicKeys = [sshKeys.ableArcher];
+    publicKeys = sshKeys.ableArcherKeys;
     armor = true;
   };
   "tavily-api-key.age" = {
-    publicKeys = [sshKeys.ableArcher];
+    publicKeys = sshKeys.ableArcherKeys;
     armor = true;
   };
   "commander-password.age" = {
