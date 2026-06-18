@@ -35,7 +35,7 @@
     deploy-nix-on-droid = pkgs.writeShellScriptBin "deploy-nix-on-droid" ''
       set -e
 
-      ${flake-update}/bin/update-flake nix-on-droid-repo
+      ${flake-update}/bin/flake-update nix-on-droid-repo
 
       cd ~/etc/nixos
 
