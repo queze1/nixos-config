@@ -2,10 +2,17 @@
   self,
   inputs,
   ...
-}: {
-  flake.nixosConfigurations.steadfast-defender = inputs.nixpkgs.lib.nixosSystem {
-    modules = [
-      self.nixosModules.steadfastDefenderConfiguration
-    ];
+}: let
+  hostname = "steadfast-defender";
+in {
+  # ThinkPad home server
+  flake.nixosModules.steadfastDefenderConfiguration = {
+    imports = [self.nixosModules.steadfastBase];
+    hardware.facter.reportPath = ./facter.json;
+    networking.hostName = "${hostname}";
+  };
+
+  flake.nixosConfigurations.${hostname} = inputs.nixpkgs.lib.nixosSystem {
+    modules = [self.nixosModules.steadfastDefenderConfiguration];
   };
 }

@@ -1,13 +1,11 @@
 {self, ...}: {
-  # For ThinkPad home server
-  flake.nixosModules.steadfastDefenderConfiguration = {
+  # Base configuration for home servers
+  flake.nixosModules.steadfastBase = {
     imports = [
       self.nixosModules.coreFeatures
       self.nixosModules.minimalPrograms
       self.nixosModules.commander
     ];
-
-    hardware.facter.reportPath = ./facter.json;
 
     host = {
       profiles.server.enable = true;
@@ -15,7 +13,6 @@
       preservation.enable = true;
     };
 
-    networking.hostName = "steadfast-defender";
     system.stateVersion = "25.11";
   };
 }
