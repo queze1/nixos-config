@@ -11,7 +11,7 @@ in {
       ];
 
       hashedPasswordFile = config.age.secrets."${username}-password".path; # fallback in case SSH fails
-      openssh.authorizedKeys.keys = [sshKeys.ableArcher];
+      openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
     };
   };
 }
