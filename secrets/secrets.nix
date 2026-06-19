@@ -17,4 +17,8 @@ in {
     publicKeys = sshKeys.allKeys;
     armor = true;
   };
+  "tailscale-auth-key.age" = {
+    publicKeys = sshKeys.allKeys;
+    armor = true;
+  };
 }

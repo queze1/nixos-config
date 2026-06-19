@@ -15,7 +15,7 @@
         "/persistent/etc/ssh/ssh_host_ed25519_key"
       ];
 
-      # Set where secrets will be decrypted
+      # Specify where secrets are
       age.secrets = {
         queze-password.file = "${self}/secrets/queze-password.age";
         queze-ssh-config = {
@@ -26,6 +26,7 @@
         };
         tavily-api-key.file = "${self}/secrets/tavily-api-key.age";
         commander-password.file = "${self}/secrets/commander-password.age";
+        tailscale-auth-key.file = "${self}/secrets/tailscale-auth-key.age";
       };
     }
   );

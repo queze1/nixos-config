@@ -17,6 +17,7 @@
     services.tailscale = {
       enable = true;
       openFirewall = true;
+      authKeyFile = lib.mkIf isServer config.age.secrets.tailscale-auth-key.path;
     };
     systemd.services.tailscaled.serviceConfig.Environment = [
       "TS_DEBUG_FIREWALL_MODE=nftables"
