@@ -12,7 +12,7 @@ in {
     networking.hostName = "${hostname}";
   };
 
-  flake.nixosConfigurations.${hostname} = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.${hostname} = inputs.nixpkgs-stable.lib.nixosSystem {
     modules = [self.nixosModules.steadfastDartConfiguration];
   };
 }
