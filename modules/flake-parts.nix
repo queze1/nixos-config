@@ -2,8 +2,6 @@
   imports = [
     # Integrate home-manager with flake-parts
     inputs.home-manager.flakeModules.home-manager
-
-    inputs.flake-parts.flakeModules.easyOverlay
   ];
 
   # For nixd hints
@@ -16,28 +14,11 @@
     "aarch64-darwin"
   ];
 
-  perSystem = {
-    pkgs,
-    system,
-    ...
-  }: {
+  perSystem = {system, ...}: {
     # pkgs-stable: Nixpkgs at the latest LTS version
     legacyPackages.pkgs-stable = import inputs.nixpkgs-stable {
       inherit system;
       config.allowUnfree = true;
-    };
-
-    overlayAttrs = {
-      # Force Audacity to use Wayland
-      audacity = pkgs.symlinkJoin {
-        name = "audacity-wayland-fix";
-        paths = [pkgs.audacity];
-        nativeBuildInputs = [pkgs.makeWrapper];
-        postBuild = ''
-          wrapProgram $out/bin/audacity \
-            --set GDK_BACKEND wayland
-        '';
-      };
     };
   };
 }
