@@ -81,6 +81,7 @@
     environment.systemPackages = with pkgs; [
       iwd
       tree
+      unzip
     ];
 
     programs.git = {
