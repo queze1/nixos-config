@@ -38,7 +38,6 @@
     home.packages = with pkgs; [
       audacity
       calibre
-      digikam
       gnome-clocks
       kdePackages.okular
       keepassxc
@@ -54,7 +53,7 @@
       fastfetch
       ffmpeg
       pkgs-stable.yt-dlp
-      pywalfox-native
+      wl-clipboard
       xclip # for X11-Wayland sync on VMs
 
       # AI tools
@@ -80,10 +79,8 @@
 
   flake.nixosModules.minimalPrograms = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
-      sshfs
+      iwd
       tree
-      unzip
-      wl-clipboard
     ];
 
     programs.git = {
