@@ -7,6 +7,10 @@
     isServer = config.host.profiles.server.enable;
   in {
     networking.networkmanager.enable = ! isServer;
+
+    # Use iwctl to connect on headless servers
+    networking.wireless.iwd.enable = isServer;
+
     networking.nftables.enable = true;
 
     # Don't wait for network to come online on desktops
@@ -34,17 +38,6 @@
         PasswordAuthentication = false;
         PermitRootLogin = "no";
         UsePAM = false;
-      };
-    };
-
-    # Server wifi
-    networking.wireless = lib.mkIf isServer {
-      # TODO: Use agenix secret
-      secretsFile = "/var/lib/secrets/wireless.env";
-      networks = {
-        "wlan-5G" = {
-          authDefs = "ext:wlan-5G";
-        };
       };
     };
   };
