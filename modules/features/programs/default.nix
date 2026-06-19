@@ -79,7 +79,6 @@
 
   flake.nixosModules.minimalPrograms = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
-      iwd
       tree
       unzip
     ];
