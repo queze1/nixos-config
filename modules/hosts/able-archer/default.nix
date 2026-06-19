@@ -15,14 +15,6 @@
         modules = [
           self.nixosModules.ableArcherConfiguration
           self.nixosModules.ableArcherHardware
-
-          inputs.nixpkgs.nixosModules.readOnlyPkgs
-          ({config, ...}: {
-            nixpkgs.pkgs = withSystem config.nixpkgs.hostPlatform.system (
-              {pkgs, ...}:
-                pkgs
-            );
-          })
         ];
       }
   );

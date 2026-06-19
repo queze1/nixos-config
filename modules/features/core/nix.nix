@@ -1,5 +1,11 @@
-{
+{inputs, ...}: {
   flake.nixosModules.nix = {
+    # Allow unfree packages
+    nixpkgs.config.allowUnfree = true;
+
+    # Activate overlays
+    nixpkgs.overlays = [inputs.self.overlays.default];
+
     # Enable flakes
     nix.settings.experimental-features = [
       "nix-command"

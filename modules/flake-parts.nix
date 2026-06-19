@@ -2,6 +2,7 @@
   imports = [
     # Integrate home-manager with flake-parts
     inputs.home-manager.flakeModules.home-manager
+
     inputs.flake-parts.flakeModules.easyOverlay
   ];
 
@@ -20,16 +21,9 @@
     system,
     ...
   }: {
-    _module.args.pkgs = import inputs.nixpkgs {
-      inherit system;
-      overlays = [inputs.self.overlays.default];
-      config.allowUnfree = true;
-    };
-
     # pkgs-stable: Nixpkgs at the latest LTS version
     legacyPackages.pkgs-stable = import inputs.nixpkgs-stable {
       inherit system;
-      overlays = [inputs.self.overlays.default];
       config.allowUnfree = true;
     };
 
