@@ -1,14 +1,14 @@
 let
   username = "queze";
 in {
-  flake.nixosModules.${username} = {config, ...}: {
+  flake.nixosModules.${username} = {
     users.users.${username} = {
       isNormalUser = true;
-      hashedPasswordFile = config.age.secrets."${username}-password".path;
       extraGroups = [
         "networkmanager"
         "wheel"
       ];
+      initialHashedPassword = "$y$j9T$.1ZgO3bCug1Pmc3BId1xD0$Cl9wLx9Ur24CdX6klxO9A4ErtEnRnz0j5wYjnFZRZm.";
     };
 
     home-manager.users.${username} = {

@@ -1,10 +1,6 @@
 let
   sshKeys = import ../ssh-keys.nix;
 in {
-  "queze-password.age" = {
-    publicKeys = sshKeys.ableArcherKeys;
-    armor = true;
-  };
   "queze-ssh-config.age" = {
     publicKeys = sshKeys.ableArcherKeys;
     armor = true;

@@ -17,7 +17,6 @@
 
       # Specify where secrets are
       age.secrets = {
-        queze-password.file = "${self}/secrets/queze-password.age";
         queze-ssh-config = {
           file = "${self}/secrets/queze-ssh-config.age";
           path = "/home/queze/.ssh/config";
