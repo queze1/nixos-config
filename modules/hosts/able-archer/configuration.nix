@@ -2,8 +2,7 @@
   flake.nixosModules.ableArcherConfiguration = {lib, ...}: {
     imports = [
       self.nixosModules.sharedModules
-      self.nixosModules.personalCore
-      self.nixosModules.personalOptional
+      self.nixosModules.personalBase
 
       self.nixosModules.allPrograms
       self.nixosModules.niriNoctalia
