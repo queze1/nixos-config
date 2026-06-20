@@ -5,6 +5,7 @@
     ...
   }: let
     cfg = config.host.disko;
+    # Fail gracefully if hypervisor module not imported
     hypervisorType = lib.attrByPath ["host" "hypervisor" "type"] null config;
   in {
     imports = [inputs.disko.nixosModules.default];
@@ -107,7 +108,6 @@
             size = "4G";
             content = {
               type = "swap";
-              resumeDevice = true;
             };
           };
 

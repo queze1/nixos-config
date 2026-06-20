@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.nixosModules.hypervisor = {
     config,
     lib,
@@ -22,15 +22,23 @@
         readOnly = true;
       };
 
-      sharedFolder = lib.mkOption {
-        type = lib.types.nullOr lib.types.str;
-        default =
-          if config.host.hypervisor.type == "utm"
-          then "/mnt/utm"
-          else if config.host.hypervisor.type == "vmware"
-          then "/mnt/hgfs"
-          else null;
-        description = "Where to mount the shared folder";
+      sharedFolder = {
+        enable = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = "Whether to enable the shared folder mount";
+        };
+
+        path = lib.mkOption {
+          type = lib.types.str;
+          default =
+            if config.host.hypervisor.type == "utm"
+            then "/mnt/utm"
+            else if config.host.hypervisor.type == "vmware"
+            then "/mnt/hgfs"
+            else "/mnt/shared";
+          description = "Where to mount the shared folder";
+        };
       };
 
       useForXDGUserDirs = lib.mkOption {
@@ -41,22 +49,9 @@
     };
 
     config = lib.mkMerge [
-      {
-        # Import helper HM module
-        home-manager.sharedModules = [
-          self.homeModules.xdgUserDirs
-        ];
-      }
-
       (lib.mkIf (cfg.type == "utm") {
         services.spice-vdagentd.enable = true;
         services.qemuGuest.enable = true;
-
-        # Pretend to support OpenGL 3.3
-        # environment.sessionVariables = {
-        #   MESA_GL_VERSION_OVERRIDE = "3.3";
-        #   MESA_GLSL_VERSION_OVERRIDE = "330";
-        # };
 
         # Needed for shared directory
         boot.initrd.availableKernelModules = [
@@ -69,29 +64,31 @@
         ];
 
         # Unideal because hardcoded
-        systemd.tmpfiles.rules = [
-          "d ${cfg.sharedFolder} 755 queze users -"
+        systemd.tmpfiles.rules = lib.mkIf cfg.sharedFolder.enable [
+          "d ${cfg.sharedFolder.path} 755 queze users -"
         ];
 
         # Mount shared directory
-        fileSystems."/mnt/utm" = {
-          device = "share";
-          fsType = "9p";
-          options = [
-            "trans=virtio"
-            "version=9p2000.L"
-            "rw"
-            "_netdev"
-            "nofail"
+        fileSystems = lib.mkIf cfg.sharedFolder.enable {
+          ${cfg.sharedFolder.path} = {
+            device = "share";
+            fsType = "9p";
+            options = [
+              "trans=virtio"
+              "version=9p2000.L"
+              "rw"
+              "_netdev"
+              "nofail"
 
-            # Let NixOS do the access check
-            "access=client"
-            "uid=1000"
-            "gid=100"
+              # Let NixOS do the access check
+              "access=client"
+              "uid=1000"
+              "gid=100"
 
-            # Set maximum message size to 512 KiB
-            "msize=524288"
-          ];
+              # Set maximum message size to 512 KiB
+              "msize=524288"
+            ];
+          };
         };
       })
 
@@ -104,15 +101,15 @@
           "8.8.8.8"
         ];
 
-        systemd.tmpfiles.rules = [
-          "d ${cfg.sharedFolder} 755 root root -"
+        systemd.tmpfiles.rules = lib.mkIf cfg.sharedFolder.enable [
+          "d ${cfg.sharedFolder.path} 755 root root -"
         ];
 
         # Mount shared directory
-        systemd.mounts = [
+        systemd.mounts = lib.mkIf cfg.sharedFolder.enable [
           {
             what = ".host:/";
-            where = "/mnt/hgfs";
+            where = cfg.sharedFolder.path;
             type = "fuse./run/current-system/sw/bin/vmhgfs-fuse";
             options = "allow_other,uid=1000";
             wantedBy = ["multi-user.target"];
@@ -127,13 +124,13 @@
   flake.homeModules.xdgUserDirs = {osConfig, ...}: let
     cfg = osConfig.host.hypervisor;
     xdgUserHome =
-      if cfg.useForXDGUserDirs && cfg.sharedFolder != null
-      then cfg.sharedFolder
+      if cfg.useForXDGUserDirs && cfg.sharedFolder.enable
+      then cfg.sharedFolder.path
       else "~";
   in {
     xdg.userDirs = {
       enable = true;
-      createDirectories = true; # create if missing
+      createDirectories = true;
       setSessionVariables = false;
       download = "${xdgUserHome}/Downloads";
       documents = "${xdgUserHome}/Documents";

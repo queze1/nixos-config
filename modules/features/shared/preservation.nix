@@ -12,10 +12,9 @@
       enable = lib.mkEnableOption "impermanence with preservation";
     };
 
-    config = {
+    config = lib.mkIf cfg.enable {
       preservation = {
-        enable = cfg.enable;
-
+        enable = true;
         preserveAt."/persistent" = {
           directories = [
             "/etc/NetworkManager/system-connections"

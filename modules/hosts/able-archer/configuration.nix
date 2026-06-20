@@ -1,8 +1,9 @@
 {self, ...}: {
-  flake.nixosModules.ableArcherConfiguration = {
+  flake.nixosModules.ableArcherConfiguration = {lib, ...}: {
     imports = [
-      self.nixosModules.coreFeatures
-      self.nixosModules.optionalFeatures
+      self.nixosModules.sharedModules
+      self.nixosModules.personalCore
+      self.nixosModules.personalOptional
 
       self.nixosModules.allPrograms
       self.nixosModules.niriNoctalia
@@ -30,6 +31,10 @@
         };
       })
     ];
+
+    # Save space
+    nix.gc.options = lib.mkForce "--delete-older-than 7d";
+    boot.loader.systemd-boot.configurationLimit = lib.mkForce 10;
 
     networking.hostName = "able-archer";
     system.stateVersion = "25.11";
