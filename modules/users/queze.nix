@@ -11,6 +11,11 @@ in {
       initialHashedPassword = "$y$j9T$.1ZgO3bCug1Pmc3BId1xD0$Cl9wLx9Ur24CdX6klxO9A4ErtEnRnz0j5wYjnFZRZm.";
     };
 
+    # Add to trusted users for devenv
+    nix.settings = {
+      trusted-users = ["${username}"];
+    };
+
     home-manager.users.${username} = {
       home.username = username;
       home.homeDirectory = "/home/${username}";

@@ -5,3 +5,14 @@ result
 # Used by install.sh to temporarily store private keys before they are bootstrapped with secrets
 /secrets/tmp
 
+
+# Devenv
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
