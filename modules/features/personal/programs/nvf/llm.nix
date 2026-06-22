@@ -8,13 +8,13 @@
       # LLM integration
       assistant = {
         copilot = {
-          enable = true;
+          enable = false;
           setupOpts = {
             suggestion.enabled = false;
           };
         };
         codecompanion-nvim = {
-          enable = true;
+          enable = false;
           setupOpts = {
             interactions = {
               chat = {
