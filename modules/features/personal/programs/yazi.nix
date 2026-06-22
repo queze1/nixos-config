@@ -15,6 +15,12 @@
               desc = "View image in imv";
             }
           ];
+          pinta = [
+            {
+              run = ''pinta "$1"'';
+              desc = "Edit image with pinta";
+            }
+          ];
         };
         open = {
           prepend_rules = [
@@ -22,6 +28,7 @@
               mime = "image/*";
               use = [
                 "imv"
+                "pinta"
                 "view"
               ];
             }
