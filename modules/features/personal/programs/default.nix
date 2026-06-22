@@ -37,7 +37,7 @@
 
     home.packages = with pkgs; [
       audacity
-      calibre
+      # calibre
       gnome-clocks
       kdePackages.okular
       keepassxc
