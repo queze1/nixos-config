@@ -50,6 +50,7 @@
 
       # CLI tools
       clipboard-jh
+      devenv
       fastfetch
       ffmpeg
       pkgs-stable.yt-dlp
