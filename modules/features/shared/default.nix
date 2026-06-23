@@ -2,7 +2,6 @@
   flake.nixosModules.sharedModules = {
     imports = [
       self.nixosModules.agenix
-      self.nixosModules.disko
       self.nixosModules.preservation
 
       self.nixosModules.boot

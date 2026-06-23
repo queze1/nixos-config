@@ -3,12 +3,15 @@
   flake.nixosModules.steadfastBase = {
     imports = [
       self.nixosModules.sharedModules
+
+      (self.factory.diskoTmpfsOnRoot
+        {device = "/dev/nvme0n1";})
+
       self.nixosModules.serverNetworking
       self.nixosModules.commander
     ];
 
     host = {
-      disko.profile = "hybrid-tmpfs-on-root";
       preservation.enable = true;
     };
 

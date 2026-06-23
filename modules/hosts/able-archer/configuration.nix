@@ -4,6 +4,9 @@
       self.nixosModules.sharedModules
       self.nixosModules.personalBase
 
+      (self.factory.diskoTmpfsOnRoot
+        {device = "/dev/vda";})
+
       self.nixosModules.allPrograms
       self.nixosModules.niriNoctalia
 
@@ -12,12 +15,12 @@
 
     host = {
       hypervisor.type = "utm";
-      disko.profile = "hybrid-tmpfs-on-root";
       preservation.enable = true;
     };
 
     # Force Audacity to use Wayland
     nixpkgs.overlays = [
+      # deadnix: skip
       (final: prev: {
         audacity = prev.symlinkJoin {
           name = "audacity-wayland-fix";
