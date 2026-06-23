@@ -4,6 +4,5 @@
     commitizen.enable = true;
     deadnix.enable = true;
     flake-checker.enable = true;
-    # test
   };
 }
