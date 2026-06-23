@@ -6,6 +6,7 @@
     my-flake-checker = {
       enable = true;
       entry = "nix flake check";
+      pass_filenames = false;
     };
   };
 }
