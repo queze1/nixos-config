@@ -68,8 +68,10 @@ in {
         ".config/obsidian"
         ".config/vesktop"
         ".local/share/direnv" # preserve direnv allow
+        ".local/share/devenv"
         ".local/share/fish" # preserve fish command history
         ".local/share/nvf" # preserve nvim plugin state
+        ".local/share/zoxide"
         ".local/state/lazygit" # stop showing welcome message
         ".local/state/nix" # preserve nix repl history and others
         ".local/state/nvf" # preserve nvim state
