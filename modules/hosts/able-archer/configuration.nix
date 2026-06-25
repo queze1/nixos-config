@@ -13,15 +13,25 @@
       # UTM VM
       self.nixosModules.utm
 
-      self.nixosModules.personalBase
+      # System components
+      self.nixosModules.deploy-nix-on-droid
+      self.nixosModules.fonts
+      self.nixosModules.networkmanager
+      self.nixosModules.shellAliases
+      self.nixosModules.sound
 
-      self.nixosModules.allPrograms
+      # Desktop environment
       self.nixosModules.niriNoctalia
+
+      # Programs
+      self.nixosModules.allPrograms
 
       # Services
       self.nixosModules.docker
       self.nixosModules.tailscale
 
+      # User related stuff
+      self.nixosModules.homeManager
       self.nixosModules.queze
     ];
 
