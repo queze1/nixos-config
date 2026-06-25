@@ -11,7 +11,7 @@
     };
 
     environment.systemPackages = [
-      self.packages.${pkgs.system}.deploy-nix-on-droid
+      self.packages.${pkgs.stdenv.hostPlatform.system}.deploy-nix-on-droid
     ];
   };
 }

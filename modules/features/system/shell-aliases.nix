@@ -9,7 +9,7 @@
     };
 
     environment.systemPackages = [
-      self.packages.${pkgs.system}.flake-update
+      self.packages.${pkgs.stdenv.hostPlatform.system}.flake-update
     ];
   };
 }
