@@ -1,12 +1,10 @@
-{self, ...}: {
-  flake.nixosModules.syncthing = {
-    my.preservation.extraUserDirectories = [
-      ".local/state/syncthing"
-    ];
-    home-manager.sharedModules = [self.homeModules.syncthing];
-  };
-
-  flake.homeModules.syncthing = {
+{
+  flake.nixosModules.syncthing = {config, ...}: {
     services.syncthing.enable = true;
+
+    my.preservation.extraDirectories = [
+      config.services.syncthing.dataDir
+      config.services.syncthing.configDir
+    ];
   };
 }
