@@ -1,5 +1,9 @@
 {inputs, ...}: {
-  flake.nixosModules.preservation = {config, ...}: {
+  flake.nixosModules.preservation = {
+    config,
+    lib,
+    ...
+  }: {
     imports = [
       inputs.preservation.nixosModules.default
     ];
@@ -48,8 +52,12 @@
       };
     };
 
-    # Prevent conflict with preservation
-    systemd.services.systemd-machine-id-commit.enable = false;
+    systemd.services = lib.mkMerge [
+      config.my.preservation.systemdServices
+      {
+        systemd-machine-id-commit.enable = false;
+      }
+    ];
   };
 
   flake.factory.preservationForUser = {username}: {config, ...}: {

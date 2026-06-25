@@ -12,11 +12,11 @@
         mode = "0700";
       }
     ];
-  };
 
-  flake.nixosModules.preservation = {
     # Ensure Tailscale waits for preservation
-    systemd.services.tailscaled.after = ["preservation.target"];
-    systemd.services.tailscaled.wants = ["preservation.target"];
+    my.preservation.systemdServices.tailscaled = {
+      after = ["preservation.target"];
+      wants = ["preservation.target"];
+    };
   };
 }
