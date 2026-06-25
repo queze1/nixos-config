@@ -7,7 +7,10 @@ in {
   };
 
   flake.factory.utmMountSharedDir = {username}: {config, ...}: let
-    uid = config.users.users.${username}.uid;
+    uid =
+      if config.users.users.${username}.uid == null
+      then 1000
+      else config.users.users.${username}.uid;
   in {
     # Load required kernel modules
     boot.initrd.availableKernelModules = [
@@ -37,7 +40,7 @@ in {
 
           # Let NixOS do the access check
           "access=client"
-          "uid=${uid}"
+          "uid=${toString uid}"
           "gid=100"
 
           # Set maximum message size to 512 KiB
