@@ -2,8 +2,13 @@
   flake.nixosModules.ableArcherConfiguration = {lib, ...}: {
     imports = [
       self.nixosModules.myOptions
+
+      # Basic libraries
+      self.nixosModules.agenix
+      self.nixosModules.preservation
       (self.factory.diskoTmpfsOnRoot
         {device = "/dev/vda";})
+
       self.nixosModules.utm
 
       self.nixosModules.sharedModules

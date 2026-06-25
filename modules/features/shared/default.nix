@@ -1,9 +1,6 @@
 {self, ...}: {
   flake.nixosModules.sharedModules = {
     imports = [
-      self.nixosModules.agenix
-      self.nixosModules.preservation
-
       self.nixosModules.boot
       self.nixosModules.localisation
       self.nixosModules.nix

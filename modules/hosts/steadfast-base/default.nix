@@ -3,11 +3,14 @@
   flake.nixosModules.steadfastBase = {
     imports = [
       self.nixosModules.myOptions
-      self.nixosModules.sharedModules
 
+      # Basic libraries
+      self.nixosModules.agenix
+      self.nixosModules.preservation
       (self.factory.diskoTmpfsOnRoot
-        {device = "/dev/nvme0n1";})
+        {device = "/dev/vda";})
 
+      self.nixosModules.sharedModules
       self.nixosModules.serverNetworking
       self.nixosModules.commander
     ];
