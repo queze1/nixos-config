@@ -38,12 +38,8 @@
       self.nixosModules.${mainUser}
       (self.factory.preservationForUser {username = "${mainUser}";})
       (self.factory.utmMountSharedDir {username = "${mainUser}";})
+      (self.factory.utmHMIntegration {username = "${mainUser}";})
     ];
-
-    home-manager.users.${mainUser} = {
-      # UTM-specific tweaks
-      imports = [self.homeModules.utm];
-    };
 
     # Sync this PC with phone home server
     services.syncthing = {

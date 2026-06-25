@@ -31,6 +31,12 @@ in {
     ];
   };
 
+  flake.factory.vmwareHMIntegration = {username}: {
+    home-manager.users.${username} = {
+      imports = [self.homeModules.vmware];
+    };
+  };
+
   flake.homeModules.vmware = {
     imports = [
       (self.factory.setXdgUserDirs {homeDir = "${sharedDirPath}";})

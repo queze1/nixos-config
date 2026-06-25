@@ -50,6 +50,12 @@ in {
     };
   };
 
+  flake.factory.utmHMIntegration = {username}: {
+    home-manager.users.${username} = {
+      imports = [self.homeModules.utm];
+    };
+  };
+
   flake.homeModules.utm = {
     imports = [
       (self.factory.setXdgUserDirs {homeDir = "${sharedDirPath}";})
