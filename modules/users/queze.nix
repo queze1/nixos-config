@@ -1,7 +1,11 @@
-let
+{self, ...}: let
   username = "queze";
 in {
   flake.nixosModules.${username} = {
+    imports = [
+      (self.factory.preservationForUser {inherit username;})
+    ];
+
     users.users.${username} = {
       isNormalUser = true;
       extraGroups = [
@@ -51,75 +55,32 @@ in {
       };
     };
 
-    preservation.preserveAt."/persistent".users.${username} = {
-      commonMountOptions = [
-        "x-gvfs-hide"
-      ];
-      directories = [
-        {
-          directory = ".ssh";
-          mode = "0700";
-        }
-        ".cache/keepassxc" # save last opened database
-        ".cache/noctalia" # stop showing welcome message
-        ".config/calibre"
-        ".config/github-copilot" # preserve copilot.nvim token
-        ".config/keepassxc"
-        ".config/obsidian"
-        ".config/vesktop"
-        ".local/share/direnv" # preserve direnv allow
-        ".local/share/devenv"
-        ".local/share/fish" # preserve fish command history
-        ".local/share/nvf" # preserve nvim plugin state
-        ".local/share/zoxide"
-        ".local/state/lazygit" # stop showing welcome message
-        ".local/state/nix" # preserve nix repl history and others
-        ".local/state/nvf" # preserve nvim state
-        ".local/state/syncthing"
-        ".local/state/wireplumber"
+    my.preservation.extraUserDirectories = [
+      ".cache/keepassxc" # save last opened database
+      ".cache/noctalia" # stop showing welcome message
+      ".config/calibre"
+      ".config/github-copilot" # preserve copilot.nvim token
+      ".config/keepassxc"
+      ".config/obsidian"
+      ".config/vesktop"
+      ".local/share/direnv" # preserve direnv allow
+      ".local/share/devenv"
+      ".local/share/fish" # preserve fish command history
+      ".local/share/nvf" # preserve nvim plugin state
+      ".local/share/zoxide"
+      ".local/state/lazygit" # stop showing welcome message
+      ".local/state/nix" # preserve nix repl history and others
+      ".local/state/nvf" # preserve nvim state
+      ".local/state/syncthing"
+      ".local/state/wireplumber"
 
-        ".copilot"
-        ".mozilla"
+      ".copilot"
+      ".mozilla"
 
-        # User directories
-        "Desktop"
-        "Documents"
-        "Downloads"
-        "Music"
-        "Videos"
-
-        # Other
-        "Coding"
-        "etc/nixos"
-        "cs3231"
-      ];
-    };
-
-    # Harmless if preservation is disabled
-    # By default, missing parent directories are always created with ownership
-    # `root:root` and mode `0755`, as described in {manpage}`tmpfiles.d(5)`.
-    # tmpfiles is the recommended way of fixing this
-    systemd.tmpfiles.settings.preservation = {
-      "/home/${username}/.config".d = {
-        user = username;
-        group = "users";
-        mode = "0755";
-      };
-      "/home/${username}/.local".d = {
-        user = username;
-        group = "users";
-        mode = "0755";
-      };
-      "/home/${username}/.local/share".d = {
-        user = username;
-        group = "users";
-        mode = "0755";
-      };
-      "/home/${username}/.local/state".d = {
-        user = username;
-        group = "users";
-        mode = "0755";
-      };
-    };
+      # Other
+      "Coding"
+      "etc/nixos"
+      "cs3231"
+    ];
   };
 }
