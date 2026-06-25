@@ -4,6 +4,7 @@
       self.nixosModules.sharedModules
       self.nixosModules.personalBase
 
+      self.nixosModules.myOptions
       (self.factory.diskoTmpfsOnRoot
         {device = "/dev/vda";})
 

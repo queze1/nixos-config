@@ -2,6 +2,7 @@
   # Base configuration for home servers
   flake.nixosModules.steadfastBase = {
     imports = [
+      self.nixosModules.myOptions
       self.nixosModules.sharedModules
 
       (self.factory.diskoTmpfsOnRoot

@@ -1,7 +1,5 @@
-{self, ...}: {
+{
   flake.nixosModules.tailscale = {
-    imports = [self.nixosModules.preservationInterface];
-
     services.tailscale = {
       # Could use the "Modern Setup" in the wiki
       # But would rather not do things I don't understand
