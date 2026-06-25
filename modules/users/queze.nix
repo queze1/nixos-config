@@ -2,11 +2,6 @@
   username = "queze";
 in {
   flake.nixosModules.${username} = {
-    imports = [
-      (self.factory.preservationForUser {inherit username;})
-      (self.factory.utmMountSharedDir {inherit username;})
-    ];
-
     users.users.${username} = {
       isNormalUser = true;
       extraGroups = [

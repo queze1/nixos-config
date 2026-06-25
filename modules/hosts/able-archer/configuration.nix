@@ -1,5 +1,7 @@
 {self, ...}: {
-  flake.nixosModules.ableArcherConfiguration = {lib, ...}: {
+  flake.nixosModules.ableArcherConfiguration = {lib, ...}: let
+    mainUser = "queze";
+  in {
     imports = [
       self.nixosModules.myOptions
       self.nixosModules.sharedModules
@@ -32,7 +34,9 @@
 
       # User related stuff
       self.nixosModules.homeManager
-      self.nixosModules.queze
+      (self.factory.preservationForUser {username = "${mainUser}";})
+      (self.factory.utmMountSharedDir {username = "${mainUser}";})
+      self.nixosModules.${mainUser}
     ];
 
     # Force Audacity to use Wayland
