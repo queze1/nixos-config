@@ -1,7 +1,12 @@
-let
+{self, ...}: let
   username = "queze";
 in {
   flake.nixosModules.${username} = {
+    imports = [
+      # Activate Home Manager for this user
+      (self.factory.homeConfiguration {inherit username;})
+    ];
+
     users.users.${username} = {
       isNormalUser = true;
       extraGroups = [
@@ -15,13 +20,6 @@ in {
     # Add to trusted users for devenv
     nix.settings = {
       trusted-users = ["${username}"];
-    };
-
-    home-manager.users.${username} = {
-      home.username = username;
-      home.homeDirectory = "/home/${username}";
-      home.stateVersion = "25.11";
-      programs.home-manager.enable = true;
     };
 
     my.preservation.extraUserDirectories = [

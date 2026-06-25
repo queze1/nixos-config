@@ -41,9 +41,10 @@
     ];
 
     home-manager.users.${mainUser} = {
+      # UTM-specific tweaks
       imports = [self.homeModules.utm];
 
-      # Sync with phone home server
+      # Sync this PC with phone home server
       services.syncthing = {
         settings = {
           devices = {
