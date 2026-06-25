@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.deploy-nix-on-droid = {pkgs, ...}: {
+  flake.nixosModules.deployNixOnDroid = {pkgs, ...}: {
     # Add substituter to build a Nix-on-Droid configuration
     nix.settings = {
       substituters = [
