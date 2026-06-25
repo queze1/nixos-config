@@ -45,6 +45,8 @@
     services.syncthing = {
       user = "${mainUser}";
       group = "users";
+      dataDir = "/home/${mainUser}/.local/share/syncthing";
+      configDir = "/home/${mainUser}/.config/syncthing";
       settings = {
         devices = {
           "poco-x3-pro" = {
