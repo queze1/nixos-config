@@ -11,10 +11,6 @@
       self.nixosModules.commander
     ];
 
-    host = {
-      preservation.enable = true;
-    };
-
     system.stateVersion = "25.11";
   };
 }

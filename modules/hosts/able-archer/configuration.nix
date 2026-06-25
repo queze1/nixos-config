@@ -15,7 +15,6 @@
 
     host = {
       hypervisor.type = "utm";
-      preservation.enable = true;
     };
 
     # Force Audacity to use Wayland
