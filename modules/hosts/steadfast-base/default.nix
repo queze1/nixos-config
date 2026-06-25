@@ -8,7 +8,7 @@
       self.nixosModules.agenix
       self.nixosModules.preservation
       (self.factory.diskoTmpfsOnRoot
-        {device = "/dev/vda";})
+        {device = "/dev/nvme0n1";})
 
       self.nixosModules.sharedModules
       self.nixosModules.serverNetworking
