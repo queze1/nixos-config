@@ -25,7 +25,7 @@
               inInitrd = true;
             }
           ]
-          ++ config.my.preservation.extraDirectories;
+          ++ lib.unique config.my.preservation.extraDirectories;
 
         files = [
           {
@@ -60,7 +60,11 @@
     ];
   };
 
-  flake.factory.preservationForUser = {username}: {config, ...}: {
+  flake.factory.preservationForUser = {username}: {
+    config,
+    lib,
+    ...
+  }: {
     preservation.preserveAt."/persistent".users.${username} = {
       commonMountOptions = [
         "x-gvfs-hide"
@@ -79,7 +83,7 @@
           "Music"
           "Videos"
         ]
-        ++ config.my.preservation.extraUserDirectories;
+        ++ lib.unique config.my.preservation.extraUserDirectories;
     };
 
     # By default, missing parent directories are always created with ownership
