@@ -4,6 +4,7 @@ in {
   flake.nixosModules.${username} = {
     imports = [
       (self.factory.preservationForUser {inherit username;})
+      (self.factory.utmMountSharedDir {inherit username;})
     ];
 
     users.users.${username} = {
@@ -22,6 +23,8 @@ in {
     };
 
     home-manager.users.${username} = {
+      imports = [self.homeModules.utm];
+
       home.username = username;
       home.homeDirectory = "/home/${username}";
       home.stateVersion = "25.11";

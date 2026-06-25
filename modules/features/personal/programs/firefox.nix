@@ -1,7 +1,6 @@
 {
   flake.homeModules.firefox = {
     config,
-    osConfig,
     pkgs,
     ...
   }: {
@@ -21,7 +20,6 @@
           "sidebar.verticalTabs" = true;
           "sidebar.main.tools" = "browser-extension@anonaddy,{bd97f89b-17ba-4539-9fec-06852d07f917}";
           "widget.use-xdg-desktop-portal.file-picker" = 1;
-          "gfx.canvas.accelerated" = !osConfig.host.hypervisor.isGuest; # breaks VMs
           "gfx.font_rendering.fontconfig.max_generic_substitution" = 127;
         };
 

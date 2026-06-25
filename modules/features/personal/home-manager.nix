@@ -33,10 +33,5 @@
           mv "$filename" "$filename.$extension"
       fi
     '';
-
-    # Import helper modules in /shared (which does not include Home Manager)
-    home-manager.sharedModules = [
-      self.homeModules.xdgUserDirs
-    ];
   };
 }

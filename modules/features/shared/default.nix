@@ -5,7 +5,6 @@
       self.nixosModules.preservation
 
       self.nixosModules.boot
-      self.nixosModules.hypervisor
       self.nixosModules.localisation
       self.nixosModules.nix
     ];

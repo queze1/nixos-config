@@ -1,22 +1,19 @@
 {self, ...}: {
   flake.nixosModules.ableArcherConfiguration = {lib, ...}: {
     imports = [
-      self.nixosModules.sharedModules
-      self.nixosModules.personalBase
-
       self.nixosModules.myOptions
       (self.factory.diskoTmpfsOnRoot
         {device = "/dev/vda";})
+      self.nixosModules.utm
+
+      self.nixosModules.sharedModules
+      self.nixosModules.personalBase
 
       self.nixosModules.allPrograms
       self.nixosModules.niriNoctalia
 
       self.nixosModules.queze
     ];
-
-    host = {
-      hypervisor.type = "utm";
-    };
 
     # Force Audacity to use Wayland
     nixpkgs.overlays = [

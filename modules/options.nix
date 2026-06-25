@@ -18,11 +18,11 @@
         default = [];
         description = "Extra user directories to preserve.";
       };
-    };
-    systemdServices = lib.mkOption {
-      type = lib.types.attrsOf lib.types.anything;
-      default = {};
-      description = "Systemd service configurations to apply ONLY if preservation is active.";
+      systemdServices = lib.mkOption {
+        type = lib.types.attrsOf lib.types.anything;
+        default = {};
+        description = "Systemd service configurations to apply ONLY if preservation is active.";
+      };
     };
   };
 }
