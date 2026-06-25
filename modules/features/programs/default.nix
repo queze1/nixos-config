@@ -76,6 +76,7 @@
       nix-direnv.enable = true;
     };
     programs.nix-index-database.comma.enable = true;
+    programs.zoxide.enable = true;
   };
 
   flake.nixosModules.minimalPrograms = {pkgs, ...}: {

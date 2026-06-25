@@ -1,0 +1,22 @@
+{
+  flake.nixosModules.tailscale = {
+    services.tailscale = {
+      # Could use the "Modern Setup" in the wiki
+      # But would rather not do things I don't understand
+      enable = true;
+    };
+
+    my.preservation.extraDirectories = [
+      {
+        directory = "/var/lib/tailscale";
+        mode = "0700";
+      }
+    ];
+
+    # Ensure Tailscale waits for preservation
+    my.preservation.systemdServices.tailscaled = {
+      after = ["preservation.target"];
+      wants = ["preservation.target"];
+    };
+  };
+}

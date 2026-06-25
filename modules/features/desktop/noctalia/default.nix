@@ -1,17 +1,31 @@
-{inputs, ...}: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.noctalia = {
+    # Use Noctalia's binary cache
+    nix.settings = {
+      extra-substituters = ["https://noctalia.cachix.org"];
+      extra-trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
+    };
+
+    home-manager.sharedModules = [
+      self.homeModules.noctalia
+    ];
+  };
+
   flake.homeModules.noctalia = {
     config,
     self,
     ...
   }: let
     settings = builtins.fromJSON (builtins.readFile ./settings.json);
-
-    # TODO: Swap to XDG pictures
     modifiedSettings =
       settings
       // {
         wallpaper = {
-          directory = "/mnt/utm/Pictures/Wallpapers";
+          directory = "${config.xdg.userDirs.pictures}/Wallpapers";
         };
       };
   in {

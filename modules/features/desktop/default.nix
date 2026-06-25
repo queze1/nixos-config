@@ -10,10 +10,7 @@
     imports = [
       self.nixosModules.desktop
       self.nixosModules.niri
-    ];
-
-    home-manager.sharedModules = [
-      self.homeModules.noctalia
+      self.nixosModules.noctalia
     ];
   };
 }
