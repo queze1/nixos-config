@@ -7,6 +7,7 @@
     ];
 
     config = {
+      networking.nftables.enable = true;
       zramSwap.enable = true;
     };
   };
