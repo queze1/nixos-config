@@ -87,8 +87,6 @@
               "ruff_format"
               "ruff_organize_imports"
             ];
-            # Hack for assignment
-            clangd.on_attach = lib.mkLuaInline "function(c) c.server_capabilities.documentFormattingProvider = false end";
           };
         };
       };
@@ -96,7 +94,7 @@
       lsp = {
         enable = true;
         lspconfig.enable = true;
-        formatOnSave = true;
+        formatOnSave = false;
         servers = {
           basedpyright = {
             settings = {
