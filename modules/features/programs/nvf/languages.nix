@@ -39,6 +39,7 @@
         enable = true;
         ui.enable = true;
         sources = {
+          # Hack for assignment
           os161-debugger = ''
             dap.adapters.cppdbg = {
               type = 'executable',
@@ -86,6 +87,8 @@
               "ruff_format"
               "ruff_organize_imports"
             ];
+            # Hack for assignment
+            clangd.on_attach = lib.mkLuaInline "function(c) c.server_capabilities.documentFormattingProvider = false end";
           };
         };
       };
