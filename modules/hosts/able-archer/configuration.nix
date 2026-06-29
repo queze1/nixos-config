@@ -41,6 +41,12 @@
       (self.factory.utmHMIntegration {username = "${mainUser}";})
     ];
 
+    # Auto-update from Github repo
+    system.autoUpgrade = {
+      enable = true;
+      flake = "github:queze/nixos-config";
+    };
+
     # Sync this PC with phone home server
     services.syncthing = {
       user = "${mainUser}";
