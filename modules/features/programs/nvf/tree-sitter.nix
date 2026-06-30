@@ -53,14 +53,14 @@
               require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
             end, { desc = "class [Treesitter]" })
 
-            -- m: method
-            vim.keymap.set({ "x", "o" }, "am", function()
+            -- a: argument
+            vim.keymap.set({ "x", "o" }, "aa", function()
               require("nvim-treesitter-textobjects.select").select_textobject("@parameter.outer", "textobjects")
-            end, { desc = "method [Treesitter]" })
+            end, { desc = "argument [Treesitter]" })
 
-            vim.keymap.set({ "x", "o" }, "im", function()
+            vim.keymap.set({ "x", "o" }, "ia", function()
               require("nvim-treesitter-textobjects.select").select_textobject("@parameter.inner", "textobjects")
-            end, { desc = "method [Treesitter]" })
+            end, { desc = "argument [Treesitter]" })
 
             -- l: loop
             vim.keymap.set({ "x", "o" }, "al", function()
