@@ -1,18 +1,20 @@
 {
   flake.nixosModules.fonts = {pkgs, ...}: {
-    fonts.fontconfig = {
-      enable = true;
-      # For high DPI screens
-      hinting = {
-        enable = false;
+    fonts = {
+      enableDefaultPackages = true;
+
+      packages = with pkgs; [
+        corefonts
+        nerd-fonts.fira-code
+        nerd-fonts.droid-sans-mono
+      ];
+
+      fontconfig = {
+        enable = true;
+        hinting = {
+          enable = false;
+        };
       };
     };
-
-    fonts.enableDefaultPackages = true;
-
-    fonts.packages = with pkgs; [
-      nerd-fonts.fira-code
-      nerd-fonts.droid-sans-mono
-    ];
   };
 }
