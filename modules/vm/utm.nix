@@ -50,10 +50,10 @@ in {
     };
   };
 
-  flake.factory.utmHMIntegration = {username}: {
-    home-manager.users.${username} = {
-      imports = [self.homeModules.utm];
-    };
+  flake.nixosModules.utmHMIntegration = {
+    home-manager.sharedModules = [
+      self.homeModules.utm
+    ];
   };
 
   flake.homeModules.utm = {

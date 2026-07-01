@@ -35,10 +35,10 @@
 
       # User related stuff
       self.nixosModules.homeManager
+      self.nixosModules.utmHMIntegration
       self.nixosModules.${mainUser}
       (self.factory.preservationForUser {username = "${mainUser}";})
       (self.factory.utmMountSharedDir {username = "${mainUser}";})
-      (self.factory.utmHMIntegration {username = "${mainUser}";})
     ];
 
     # Auto-update from Github repo
