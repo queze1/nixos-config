@@ -19,7 +19,7 @@
           extensions = {
             live_grep_args = {
               auto_quoting = true;
-              additional_args = ["--smart-case" "--hidden"];
+              additional_args = ["--smart-case"];
               mappings = lib.mkLuaInline ''
                 {
                   i = {
