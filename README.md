@@ -36,5 +36,31 @@ sudo passwd root
 
 
 ## Project Structure
-TBD
-
+```
+.
+├── assets                     # profile picture, default wallpaper, etc.
+├── flake.nix                  # imports everything in /modules
+├── gen-host-key.sh
+├── install.sh                 # script to bootstrap a machine with nixos-anywhere
+├── modules
+│   ├── features
+│   │   ├── desktop            # desktop environments (e.g. niri)
+│   │   ├── programs           # user programs (e.g. firefox)
+│   │   ├── services           # system services (e.g. tailscale)
+│   │   ├── shared             # config which every machine needs
+│   │   └── system             # system configuration
+│   ├── flake-parts.nix
+│   ├── hosts                  # host definitions
+│   │   ├── able-archer        # - personal machine
+│   │   ├── steadfast-base     # - shared home server config
+│   │   ├── steadfast-[...]    # - home servers
+│   ├── lib                    # helper libraries
+│   ├── options.nix            # shared options
+│   ├── users                  # user definitions
+│   │   ├── commander.nix
+│   │   └── queze.nix
+│   └── vm                     # workarounds for VMs
+├── README.md
+├── secrets
+└── ssh-keys.nix
+```
