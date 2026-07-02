@@ -8,5 +8,9 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+
+    my.preservation.extraUserDirectories = [
+      ".local/state/wireplumber"
+    ];
   };
 }

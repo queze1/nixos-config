@@ -30,7 +30,6 @@ in {
 
     my.preservation.extraUserDirectories = [
       ".local/state/nix" # preserve nix repl history and others
-      ".local/state/wireplumber"
 
       ".copilot"
 
