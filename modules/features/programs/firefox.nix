@@ -98,21 +98,6 @@
               icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               definedAliases = ["@nw"];
             };
-            "NVF Options" = {
-              urls = [
-                {
-                  template = "https://nvf.notashelf.dev/search.html";
-                  params = [
-                    {
-                      name = "q";
-                      value = "{searchTerms}";
-                    }
-                  ];
-                }
-              ];
-              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-              definedAliases = ["@nvf"];
-            };
           };
         };
       };
