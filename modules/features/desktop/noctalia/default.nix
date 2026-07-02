@@ -10,6 +10,11 @@
       extra-trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
     };
 
+    # Stop showing welcome message
+    my.preservation.extraUserDirectories = [
+      ".cache/noctalia"
+    ];
+
     home-manager.sharedModules = [
       self.homeModules.noctalia
     ];
@@ -39,8 +44,7 @@
     };
 
     home.shellAliases = {
-      # TODO: Get the directory of this file and then put the result in that directory
-      noctalia-export = "noctalia-shell ipc call state all | nix run nixpkgs#jq .settings > ~/etc/nixos/home/modules/desktop/noctalia.json";
+      noctalia-export = "noctalia-shell ipc call state all | nix run nixpkgs#jq .settings > ~/etc/nixos/modules/features/desktop/noctalia/noctalia.json";
     };
 
     home.file.profilePicture = {

@@ -24,7 +24,6 @@ in {
 
     my.preservation.extraUserDirectories = [
       ".cache/keepassxc" # save last opened database
-      ".cache/noctalia" # stop showing welcome message
       ".config/keepassxc"
       ".config/obsidian"
       ".local/share/direnv" # preserve direnv allow
