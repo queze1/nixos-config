@@ -2,18 +2,17 @@
 
 set -e
 
-DEFAULT_HOSTNAME="able-archer"
 DEFAULT_HOST_KEY_PATH="secrets/tmp/ssh_host_ed25519_key"
 DEFAULT_COPY_TO_PERSISTENT=1
 
-if [ -z "$1" ]; then
-    echo "Usage: $0 <target-ip> [hostname] [ssh-host-key-path] [copy-to-persistent]"
-    echo "Example: $0 192.168.1.100 $DEFAULT_HOSTNAME $DEFAULT_HOST_KEY_PATH $DEFAULT_COPY_TO_PERSISTENT"
+if [ -z "$2" ]; then
+    echo "Usage: $0 <target-ip> <hostname> [ssh-host-key-path] [copy-to-persistent]"
+    echo "Example: $0 192.168.1.100 able-archer $DEFAULT_HOST_KEY_PATH $DEFAULT_COPY_TO_PERSISTENT"
     exit 1
 fi
 
 TARGET_IP=$1
-HOSTNAME=${2:-$DEFAULT_HOSTNAME}
+HOSTNAME=$2
 HOST_KEY_PATH=${3:-$DEFAULT_HOST_KEY_PATH}
 COPY_TO_PERSISTENT=${4:-$DEFAULT_COPY_TO_PERSISTENT}
 HOST_KEY_NAME=$(basename "$HOST_KEY_PATH")
