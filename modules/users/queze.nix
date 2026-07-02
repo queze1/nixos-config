@@ -22,13 +22,13 @@ in {
 
     home-manager.users.${username} = {
       imports = [
+        self.homeModules.direnv
         self.homeModules.keepassxc
         self.homeModules.obsidian
       ];
     };
 
     my.preservation.extraUserDirectories = [
-      ".local/share/direnv" # preserve direnv allow
       ".local/share/zoxide"
       ".local/state/nix" # preserve nix repl history and others
       ".local/state/wireplumber"

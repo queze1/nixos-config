@@ -66,12 +66,6 @@
         theme_background = false;
       };
     };
-    programs.direnv = {
-      enable = true;
-      enableBashIntegration = true;
-      enableFishIntegration = true;
-      nix-direnv.enable = true;
-    };
     programs.nix-index-database.comma.enable = true;
     programs.zoxide.enable = true;
   };
