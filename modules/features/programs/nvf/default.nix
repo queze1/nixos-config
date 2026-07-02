@@ -8,6 +8,12 @@
       inputs.nvf.homeManagerModules.default
     ];
 
+    my.home.preservation.extraDirectories = [
+      ".local/state/nvf" # preserve nvim state
+      ".local/share/nvf" # preserve nvim plugin state
+      ".local/state/lazygit" # stop showing welcome message
+    ];
+
     programs.nvf = {
       enable = true;
       settings.vim = {

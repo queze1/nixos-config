@@ -7,6 +7,11 @@
   };
 
   flake.homeModules.fish = {
+    # Preserve fish command history
+    my.home.preservation.extraDirectories = [
+      ".local/share/fish"
+    ];
+
     programs.fish = {
       enable = true;
       # TODO: Refactor into a devenv module which installs devenv and does this

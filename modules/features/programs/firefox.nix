@@ -4,6 +4,10 @@
     pkgs,
     ...
   }: {
+    my.home.preservation.extraDirectories = [
+      ".mozilla"
+    ];
+
     programs.firefox = {
       enable = true;
       configPath = "${config.home.homeDirectory}/.mozilla/firefox";

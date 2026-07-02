@@ -15,6 +15,10 @@
     themeNames);
 in {
   flake.homeModules.vesktop = {
+    my.home.preservation.extraDirectories = [
+      ".config/vesktop"
+    ];
+
     programs.vesktop = {
       enable = true;
       vencord = {
@@ -22,9 +26,5 @@ in {
         themes = themeSet;
       };
     };
-
-    my.home.preservation.extraDirectories = [
-      ".config/vesktop"
-    ];
   };
 }

@@ -4,6 +4,10 @@
     lib,
     ...
   }: {
+    my.home.preservation.extraDirectories = [
+      ".config/github-copilot" # preserve copilot.nvim token
+    ];
+
     programs.nvf.settings.vim = {
       # LLM integration
       assistant = {

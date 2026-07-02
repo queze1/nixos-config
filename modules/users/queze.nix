@@ -25,23 +25,15 @@ in {
     my.preservation.extraUserDirectories = [
       ".cache/keepassxc" # save last opened database
       ".cache/noctalia" # stop showing welcome message
-      ".config/calibre"
-      ".config/github-copilot" # preserve copilot.nvim token
       ".config/keepassxc"
       ".config/obsidian"
-      ".config/vesktop"
       ".local/share/direnv" # preserve direnv allow
       ".local/share/devenv"
-      ".local/share/fish" # preserve fish command history
-      ".local/share/nvf" # preserve nvim plugin state
       ".local/share/zoxide"
-      ".local/state/lazygit" # stop showing welcome message
       ".local/state/nix" # preserve nix repl history and others
-      ".local/state/nvf" # preserve nvim state
       ".local/state/wireplumber"
 
       ".copilot"
-      ".mozilla"
 
       # Other
       "Coding"
