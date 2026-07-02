@@ -5,6 +5,9 @@ in {
     imports = [
       # Activate Home Manager for this user
       (self.factory.homeConfiguration {inherit username;})
+
+      # Programs
+      (self.factory.devenv {inherit username;})
     ];
 
     users.users.${username} = {
@@ -17,17 +20,11 @@ in {
       hashedPasswordFile = "/persistent/passwd"; # sudo sh -c 'mkpasswd -m yescrypt > /persistent/passwd'
     };
 
-    # Add to trusted users for devenv
-    nix.settings = {
-      trusted-users = ["${username}"];
-    };
-
     my.preservation.extraUserDirectories = [
       ".cache/keepassxc" # save last opened database
       ".config/keepassxc"
       ".config/obsidian"
       ".local/share/direnv" # preserve direnv allow
-      ".local/share/devenv"
       ".local/share/zoxide"
       ".local/state/nix" # preserve nix repl history and others
       ".local/state/wireplumber"

@@ -14,10 +14,6 @@
 
     programs.fish = {
       enable = true;
-      # TODO: Refactor into a devenv module which installs devenv and does this
-      interactiveShellInit = ''
-        devenv hook fish | source
-      '';
     };
   };
 }
