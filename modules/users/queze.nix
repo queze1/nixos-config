@@ -29,7 +29,6 @@ in {
     };
 
     my.preservation.extraUserDirectories = [
-      ".local/share/zoxide"
       ".local/state/nix" # preserve nix repl history and others
       ".local/state/wireplumber"
 
