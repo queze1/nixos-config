@@ -22,5 +22,9 @@ in {
         themes = themeSet;
       };
     };
+
+    my.home.preservation.extraDirectories = [
+      ".config/vesktop"
+    ];
   };
 }
