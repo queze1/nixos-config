@@ -102,11 +102,5 @@
         };
       };
     };
-
-    # Set Vim as default editor
-    environment.variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-    };
   };
 }
