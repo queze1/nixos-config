@@ -17,13 +17,13 @@
       # Specify where secrets are
       age.secrets = {
         queze-ssh-config = {
-          file = "${inputs.secrets}/secrets/queze-ssh-config.age";
+          file = "${inputs.secrets}/queze-ssh-config.age";
           path = "/home/queze/.ssh/config";
           owner = "queze";
           mode = "600";
         };
-        tavily-api-key.file = "${inputs.secrets}/secrets/tavily-api-key.age";
-        tailscale-auth-key.file = "${inputs.secrets}/secrets/tailscale-auth-key.age";
+        tavily-api-key.file = "${inputs.secrets}/tavily-api-key.age";
+        tailscale-auth-key.file = "${inputs.secrets}/tailscale-auth-key.age";
       };
     }
   );
