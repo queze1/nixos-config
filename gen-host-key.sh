@@ -92,5 +92,6 @@ echo "Public key:"
 cat "${HOST_KEY_PATH}.pub"
 echo
 echo "Add the public key to ssh-keys.nix, then re-encrypt the secrets:"
+echo "cd secrets"
 echo "agenix --rekey"
 
