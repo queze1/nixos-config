@@ -42,7 +42,6 @@
       kdePackages.okular
       keepassxc
       obs-studio
-      obsidian
       pinta
       pkgs-stable.celluloid
       pkgs-stable.qimgv

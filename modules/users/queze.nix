@@ -20,10 +20,13 @@ in {
       hashedPasswordFile = "/persistent/passwd"; # sudo sh -c 'mkpasswd -m yescrypt > /persistent/passwd'
     };
 
+    home-manager.users.${username} = {
+      imports = [self.homeModules.obsidian];
+    };
+
     my.preservation.extraUserDirectories = [
       ".cache/keepassxc" # save last opened database
       ".config/keepassxc"
-      ".config/obsidian"
       ".local/share/direnv" # preserve direnv allow
       ".local/share/zoxide"
       ".local/state/nix" # preserve nix repl history and others
