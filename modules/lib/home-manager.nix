@@ -20,6 +20,9 @@
         ;
     };
 
+    # Import shared options
+    home-manager.sharedModules = [self.homeModules.myOptions];
+
     # Backup with an incrementing number
     home-manager.backupCommand = ''
       filename="$1"
