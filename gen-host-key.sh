@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-DEFAULT_HOST_KEY_PATH="secrets/tmp/ssh_host_ed25519_key"
+DEFAULT_HOST_KEY_PATH=".tmp/ssh_host_ed25519_key"
 
 show_usage() {
     cat <<EOF

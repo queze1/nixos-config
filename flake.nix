@@ -7,6 +7,12 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     home-manager.url = "github:nix-community/home-manager";
 
+    # Secrets
+    secrets = {
+      url = "git+ssh://git@github.com/queze1/nixos-secrets.git";
+      flake = false;
+    };
+
     # Flake frameworks
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";

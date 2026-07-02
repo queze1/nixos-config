@@ -756,6 +756,7 @@
         "noctalia": "noctalia",
         "nvf": "nvf",
         "preservation": "preservation",
+        "secrets": "secrets",
         "system-clipboard-yazi": "system-clipboard-yazi"
       }
     },
@@ -773,6 +774,22 @@
         "owner": "andreymatin",
         "repo": "scss-reset",
         "type": "github"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782983876,
+        "narHash": "sha256-ZdQwywcI7hlm1eNbT15q4xvRpIbMQro+ZRW//iciqGA=",
+        "ref": "refs/heads/main",
+        "rev": "386f2e03e86fbc68f9c66e479f4ef7e830f20829",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@github.com/queze1/nixos-secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/queze1/nixos-secrets.git"
       }
     },
     "stable": {

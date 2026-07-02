@@ -19,7 +19,7 @@ HOST_KEY_NAME=$(basename "$HOST_KEY_PATH")
 HOST_KEY_DIR=$(dirname "$HOST_KEY_PATH")
 
 # Temporary directories
-TMP_DIR="secrets/tmp"
+TMP_DIR=".tmp"
 STAGING_DIR="$TMP_DIR/staging"
 STAGING_ETC_SSH_DIR="$STAGING_DIR/etc/ssh"
 STAGING_PERSISTENT_ETC_SSH_DIR="$STAGING_DIR/persistent/etc/ssh"

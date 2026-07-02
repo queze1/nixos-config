@@ -1,7 +1,6 @@
 {
   inputs,
   moduleWithSystem,
-  self,
   ...
 }: {
   flake.nixosModules.agenix = moduleWithSystem (
@@ -18,13 +17,13 @@
       # Specify where secrets are
       age.secrets = {
         queze-ssh-config = {
-          file = "${self}/secrets/queze-ssh-config.age";
+          file = "${inputs.secrets}/secrets/queze-ssh-config.age";
           path = "/home/queze/.ssh/config";
           owner = "queze";
           mode = "600";
         };
-        tavily-api-key.file = "${self}/secrets/tavily-api-key.age";
-        tailscale-auth-key.file = "${self}/secrets/tailscale-auth-key.age";
+        tavily-api-key.file = "${inputs.secrets}/secrets/tavily-api-key.age";
+        tailscale-auth-key.file = "${inputs.secrets}/secrets/tailscale-auth-key.age";
       };
     }
   );

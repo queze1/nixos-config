@@ -3,8 +3,7 @@ result
 .Trash-1000
 
 # Used by install.sh to temporarily store private keys before they are bootstrapped with secrets
-/secrets/tmp
-
+.tmp
 
 # Devenv
 .devenv*

@@ -1,6 +1,6 @@
-{self, ...}: let
+{inputs, ...}: let
   username = "commander";
-  sshKeys = import "${self}/ssh-keys.nix";
+  sshKeys = import "${inputs.secrets}/ssh-keys.nix";
 in {
   flake.nixosModules.${username} = {
     users.users.${username} = {
