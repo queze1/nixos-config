@@ -28,7 +28,7 @@
 
   flake.homeModules.myOptions = {lib, ...}: {
     options.my.home.preservation = {
-      directories = lib.mkOption {
+      extraDirectories = lib.mkOption {
         type = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
         default = [];
         description = "Extra user directories to preserve.";

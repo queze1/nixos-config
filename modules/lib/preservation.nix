@@ -69,7 +69,7 @@
     # Extract directories added with Home Manager
     hmDirectories =
       if hmUserConfig != null
-      then hmUserConfig.my.home.preservation.directories or []
+      then hmUserConfig.my.home.preservation.extraDirectories or []
       else [];
   in {
     preservation.preserveAt."/persistent".users.${username} = {
