@@ -15,6 +15,26 @@ My personal NixOS config.
 - [disko](https://github.com/nix-community/disko) - for declarative disk management
 - [preservation](https://github.com/nix-community/preservation) - for an "erase your darlings" setup.
 
+## Installation
+1. Flash the NixOS graphical installer ISO onto a USB stick.
+2. Boot the target machine with the USB stick.
+3. On the target machine, run:
+```
+ip addr
+sudo passwd root
+```
+4. On your source machine, run:
+```
+./gen-host-key.sh
+
+# Rekey secrets if needed...
+
+./install.sh <target-machine-ip> <hostname>
+
+# Enter "root" password
+```
+
+
 ## Project Structure
 TBD
 
