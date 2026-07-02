@@ -16,10 +16,20 @@
           }
         ];
         setupOpts = {
+          defaults.vimgrep_arguments = lib.mkForce [
+            "${pkgs.ripgrep}/bin/rg"
+            "--color=never"
+            "--no-heading"
+            "--with-filename"
+            "--line-number"
+            "--column"
+            "--smart-case"
+            "--hidden"
+          ];
+
           extensions = {
             live_grep_args = {
               auto_quoting = true;
-              additional_args = ["--smart-case"];
               mappings = lib.mkLuaInline ''
                 {
                   i = {
