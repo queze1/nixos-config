@@ -64,7 +64,14 @@
     config,
     lib,
     ...
-  }: {
+  }: let
+    hmUserConfig = config.home-manager.users.${username} or null;
+    # Extract directories added with Home Manager
+    hmDirectories =
+      if hmUserConfig != null
+      then hmUserConfig.my.home.preservation.directories or []
+      else [];
+  in {
     preservation.preserveAt."/persistent".users.${username} = {
       commonMountOptions = [
         "x-gvfs-hide"
@@ -83,7 +90,8 @@
           "Music"
           "Videos"
         ]
-        ++ lib.unique config.my.preservation.extraUserDirectories;
+        # Merge directories added with NixOS and Home Manager
+        ++ lib.unique (config.my.preservation.extraUserDirectories ++ hmDirectories);
     };
 
     # By default, missing parent directories are always created with ownership
