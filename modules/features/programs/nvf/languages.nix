@@ -11,7 +11,10 @@
   in {
     programs.nvf.settings.vim = {
       languages = {
-        clang.enable = true;
+        clang = {
+          enable = true;
+          format.enable = false;
+        };
         java.enable = true;
         markdown = {
           enable = true;
@@ -87,8 +90,6 @@
               "ruff_format"
               "ruff_organize_imports"
             ];
-            # Hack for assignment
-            clangd.on_attach = lib.mkLuaInline "function(c) c.server_capabilities.documentFormattingProvider = false end";
           };
         };
       };
