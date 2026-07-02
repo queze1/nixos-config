@@ -40,7 +40,6 @@
       # calibre
       gnome-clocks
       kdePackages.okular
-      keepassxc
       obs-studio
       pinta
       pkgs-stable.celluloid
