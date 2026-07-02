@@ -2,7 +2,7 @@
   username = "commander";
   sshKeys = import "${self}/ssh-keys.nix";
 in {
-  flake.nixosModules.${username} = {config, ...}: {
+  flake.nixosModules.${username} = {
     users.users.${username} = {
       isNormalUser = true;
       extraGroups = [
@@ -10,7 +10,7 @@ in {
         "wheel"
       ];
 
-      hashedPasswordFile = config.age.secrets."${username}-password".path; # fallback in case SSH fails
+      initialHashedPassword = "$y$j9T$nS.BeshWf5D0S1Y0vwHcL/$d3284XHsMtupMdPZDZFtDEyKR/GVEWHkEE.z2T5R4i8";
       openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
     };
   };

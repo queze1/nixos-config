@@ -9,10 +9,6 @@ in {
     publicKeys = sshKeys.ableArcherKeys;
     armor = true;
   };
-  "commander-password.age" = {
-    publicKeys = sshKeys.allKeys;
-    armor = true;
-  };
   "tailscale-auth-key.age" = {
     publicKeys = sshKeys.allKeys;
     armor = true;
