@@ -31,10 +31,10 @@ in {
     ];
   };
 
-  flake.factory.vmwareHMIntegration = {username}: {
-    home-manager.users.${username} = {
-      imports = [self.homeModules.vmware];
-    };
+  flake.nixosModules.vmwareHMIntegration = {
+    home-manager.sharedModules = [
+      self.homeModules.vmware
+    ];
   };
 
   flake.homeModules.vmware = {
