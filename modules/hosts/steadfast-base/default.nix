@@ -18,7 +18,15 @@
       self.nixosModules.commander
     ];
 
-    networking.wireless.iwd.enable = true;
+    # Wifi config
+    networking.wireless = {
+      enable = true;
+      networks = {
+        wlan-5G.psk = "ext:psk_wlan";
+      };
+      secretsFile = config.age.secrets.wireless-conf.path;
+    };
+
     services.tailscale = {
       authKeyFile = config.age.secrets.tailscale-auth-key.path;
     };

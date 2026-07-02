@@ -24,6 +24,7 @@
         };
         tavily-api-key.file = "${inputs.secrets}/tavily-api-key.age";
         tailscale-auth-key.file = "${inputs.secrets}/tailscale-auth-key.age";
+        wireless-conf.file = "${inputs.secrets}/wireless-conf.age";
       };
     }
   );
