@@ -20,18 +20,10 @@ in {
       hashedPasswordFile = "/persistent/passwd"; # sudo sh -c 'mkpasswd -m yescrypt > /persistent/passwd'
     };
 
-    # Set git identity
-    programs.git.config = {
-      user.name = "queze1";
-      user.email = "52340127+queze1@users.noreply.github.com";
-      commit.gpgsign = true;
-      gpg.format = "ssh";
-      user.signingkey = "~/.ssh/id_ed25519.pub";
-    };
-
     home-manager.users.${username} = {
       imports = [
         self.homeModules.direnv
+        self.homeModules.git
         self.homeModules.keepassxc
         self.homeModules.obsidian
       ];
