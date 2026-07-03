@@ -3,7 +3,7 @@
     programs.git = {
       enable = true;
       signing = {
-        key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
+        key = "${config.home.homeDirectory}/.ssh/id_ed25519_github_sign.pub";
         signByDefault = true;
         format = "ssh";
       };
