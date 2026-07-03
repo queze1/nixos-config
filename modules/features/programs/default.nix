@@ -5,7 +5,6 @@
 }: {
   flake.nixosModules.allPrograms = {pkgs, ...}: {
     imports = [
-      self.nixosModules.minimalPrograms
       self.nixosModules.fish
     ];
 
@@ -51,6 +50,8 @@
       fastfetch
       ffmpeg
       pkgs-stable.yt-dlp
+      tree
+      unzip
       wl-clipboard
       xclip # for X11-Wayland sync on VMs
 
@@ -67,12 +68,5 @@
       };
     };
     programs.nix-index-database.comma.enable = true;
-  };
-
-  flake.nixosModules.minimalPrograms = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [
-      tree
-      unzip
-    ];
   };
 }
