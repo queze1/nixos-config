@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.nix = {
+  flake.nixosModules.sharedModules = {
     nixpkgs.config.allowUnfree = true;
     nix.settings.experimental-features = ["nix-command" "flakes"];
 

@@ -15,6 +15,22 @@
         VISUAL = "vim";
       };
 
+      programs.git = {
+        enable = true;
+        config = {
+          init.defaultBranch = "main";
+          push = {
+            autoSetupRemote = "true";
+          };
+          alias = {
+            ca = "commit -a --amend";
+            cm = "commit -m";
+            co = "checkout";
+            s = "status";
+          };
+        };
+      };
+
       zramSwap.enable = true;
     };
   };
