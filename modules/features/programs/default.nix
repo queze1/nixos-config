@@ -36,7 +36,6 @@
 
     home.packages = with pkgs; [
       audacity
-      # calibre
       gnome-clocks
       kdePackages.okular
       obs-studio
