@@ -2,7 +2,7 @@
   flake.homeModules.git = {
     programs.git = {
       enable = true;
-      config = {
+      settings = {
         user.name = "queze1";
         user.email = "52340127+queze1@users.noreply.github.com";
 
