@@ -10,10 +10,6 @@
 
     home-manager.sharedModules = [self.homeModules.allPrograms];
 
-    environment.systemPackages = [
-      inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
-
     services.mullvad-vpn = {
       enable = true;
       package = pkgs.mullvad-vpn;
@@ -57,6 +53,10 @@
       pkgs-stable.celluloid
       pkgs-stable.qimgv
       qalculate-qt
+
+      # Nix-related CLI tools
+      inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
+      inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
 
       # CLI tools
       clipboard-jh
