@@ -2060,7 +2060,7 @@
           },
           {
             "type": "hwaddr",
-            "address": 49
+            "address": 98
           }
         ],
         "detail": {
@@ -2183,7 +2183,7 @@
         "resources": [
           {
             "type": "hwaddr",
-            "address": 49
+            "address": 98
           }
         ],
         "driver": "cdc_mbim",
