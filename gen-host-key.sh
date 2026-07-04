@@ -44,7 +44,7 @@ done
 
 HOST_KEY_PATH=${POSITIONAL[0]:-$DEFAULT_HOST_KEY_PATH}
 HOST_KEY_DIR=$(dirname "$HOST_KEY_PATH")
-TMP_DIR="secrets/tmp"
+TMP_DIR=".tmp"
 
 # Helper to echo a command and then execute it
 run_cmd() {
@@ -91,7 +91,6 @@ echo
 echo "Public key:"
 cat "${HOST_KEY_PATH}.pub"
 echo
-echo "Add the public key to ssh-keys.nix, then re-encrypt the secrets:"
-echo "cd secrets"
+echo "In your secrets repo, add the public key to ssh-keys.nix, then re-encrypt the secrets:"
 echo "agenix --rekey"
 
