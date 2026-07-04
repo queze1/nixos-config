@@ -25,17 +25,27 @@
     imports = [
       inputs.nix-index-database.homeModules.default
 
-      self.homeModules.firefox
+      # Development
+      self.homeModules.devenv
+      self.homeModules.direnv
+      self.homeModules.git
+      self.homeModules.llmTools
+
+      # CLI apps
       self.homeModules.foot
       self.homeModules.imv
+      self.homeModules.yazi
       self.homeModules.nvf
+
+      # GUI apps
+      self.homeModules.firefox
+      self.homeModules.keepassxc
+      self.homeModules.obsidian
       self.homeModules.qutebrowser
       self.homeModules.vesktop
-      self.homeModules.yazi
     ];
 
     home.packages = with pkgs; [
-      audacity
       gnome-clocks
       kdePackages.okular
       obs-studio
@@ -52,12 +62,6 @@
       tree
       unzip
       wl-clipboard
-      xclip # for X11-Wayland sync on VMs
-
-      # AI tools
-      cursor-cli
-      codex
-      github-copilot-cli
     ];
 
     programs.btop = {

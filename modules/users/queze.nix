@@ -5,10 +5,12 @@ in {
     imports = [
       # Activate Home Manager for this user
       (self.factory.homeConfiguration {inherit username;})
-
-      # Programs
-      (self.factory.devenv {inherit username;})
     ];
+
+    # Required for devenv
+    nix.settings = {
+      trusted-users = ["${username}"];
+    };
 
     users.users.${username} = {
       isNormalUser = true;
@@ -18,15 +20,6 @@ in {
       ];
       initialHashedPassword = "$y$j9T$.1ZgO3bCug1Pmc3BId1xD0$Cl9wLx9Ur24CdX6klxO9A4ErtEnRnz0j5wYjnFZRZm.";
       hashedPasswordFile = "/persistent/passwd"; # sudo sh -c 'mkpasswd -m yescrypt > /persistent/passwd'
-    };
-
-    home-manager.users.${username} = {
-      imports = [
-        self.homeModules.direnv
-        self.homeModules.git
-        self.homeModules.keepassxc
-        self.homeModules.obsidian
-      ];
     };
 
     my.preservation.extraUserDirectories = [
