@@ -1,4 +1,10 @@
-{self, ...}: {
+{
+  inputs,
+  self,
+  ...
+}: let
+  sshKeys = import "${inputs.secrets}/ssh-keys.nix";
+in {
   # Base configuration for home servers
   flake.nixosModules.steadfastBase = {config, ...}: {
     imports = [
@@ -18,6 +24,9 @@
 
       self.nixosModules.commander
     ];
+
+    # Allow Colmena to SSH into root
+    users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
 
     services.tailscale = {
       authKeyFile = config.age.secrets.tailscale-auth-key.path;

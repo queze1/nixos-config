@@ -20,7 +20,7 @@
       deployment = {
         targetHost = "steadfast-defender";
         targetPort = 22;
-        targetUser = "commander";
+        targetUser = "root";
       };
     };
 
