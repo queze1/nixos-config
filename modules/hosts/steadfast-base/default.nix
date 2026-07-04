@@ -37,6 +37,7 @@ in {
     # Don't sleep on lid close
     services.logind.settings.Login = {
       HandleLidSwitch = "ignore";
+      HandleLidSwitchExternalPower = "ignore";
     };
 
     system.stateVersion = "25.11";
