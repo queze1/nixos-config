@@ -10,9 +10,9 @@
       };
     };
 
-    steadfast-dart = {
-      imports = [self.nixosModules.steadfastDartConfiguration];
-    };
+    # steadfast-dart = {
+    #   imports = [self.nixosModules.steadfastDartConfiguration];
+    # };
 
     steadfast-defender = {
       imports = [self.nixosModules.steadfastDefenderConfiguration];
@@ -25,8 +25,8 @@
       };
     };
 
-    steadfast-noon = {
-      imports = [self.nixosModules.steadfastNoonConfiguration];
-    };
+    # steadfast-noon = {
+    #   imports = [self.nixosModules.steadfastNoonConfiguration];
+    # };
   };
 }
