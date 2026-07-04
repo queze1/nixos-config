@@ -10,6 +10,10 @@
 
     home-manager.sharedModules = [self.homeModules.allPrograms];
 
+    environment.systemPackages = [
+      inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ];
+
     services.mullvad-vpn = {
       enable = true;
       package = pkgs.mullvad-vpn;
