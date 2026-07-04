@@ -16,6 +16,12 @@
 
     steadfast-defender = {
       modules = [self.nixosModules.steadfastDefenderConfiguration];
+
+      deployment = {
+        targetHost = "steadfast-defender";
+        targetPort = 22;
+        targetUser = "commander";
+      };
     };
 
     steadfast-noon = {
