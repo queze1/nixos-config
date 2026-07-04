@@ -10,19 +10,21 @@
       };
     };
 
+    defaults = {config, ...}: {
+      deployment = {
+        targetHost = config.networking.hostName;
+        targetPort = 22;
+        targetUser = "root";
+        buildOnTarget = true;
+      };
+    };
+
     # steadfast-dart = {
     #   imports = [self.nixosModules.steadfastDartConfiguration];
     # };
 
     steadfast-defender = {
       imports = [self.nixosModules.steadfastDefenderConfiguration];
-
-      deployment = {
-        targetHost = "steadfast-defender";
-        targetPort = 22;
-        targetUser = "root";
-        buildOnTarget = true;
-      };
     };
 
     # steadfast-noon = {
