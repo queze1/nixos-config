@@ -2244,9 +2244,9 @@
           "hex": "cdd6",
           "value": 52694
         },
-        "sysfs_id": "/devices/platform/AMDI0010:01/i2c-0/i2c-DELL0A12:00/0018:06CB:CDD6.0001/input/input14",
+        "sysfs_id": "/devices/platform/AMDI0010:01/i2c-0/i2c-DELL0A12:00/0018:06CB:CDD6.0003/input/input18",
         "unix_device_names": [
-          "/dev/input/event9",
+          "/dev/input/event10",
           "/dev/input/ + handler"
         ]
       }
@@ -2548,28 +2548,6 @@
       },
       {
         "index": 54,
-        "attached_to": 0,
-        "class_list": [
-          "network_interface"
-        ],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Loopback",
-          "value": 0
-        },
-        "model": "Loopback network interface",
-        "sysfs_id": "/class/net/lo",
-        "unix_device_names": [
-          "lo"
-        ]
-      },
-      {
-        "index": 55,
         "attached_to": 12,
         "class_list": [
           "network_interface"
@@ -2607,6 +2585,28 @@
         ],
         "driver_modules": [
           "ath10k_pci"
+        ]
+      },
+      {
+        "index": 55,
+        "attached_to": 0,
+        "class_list": [
+          "network_interface"
+        ],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_names": [
+          "lo"
         ]
       }
     ],
