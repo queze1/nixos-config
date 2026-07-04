@@ -11,11 +11,11 @@
     };
 
     steadfast-dart = {
-      modules = [self.nixosModules.steadfastDartConfiguration];
+      imports = [self.nixosModules.steadfastDartConfiguration];
     };
 
     steadfast-defender = {
-      modules = [self.nixosModules.steadfastDefenderConfiguration];
+      imports = [self.nixosModules.steadfastDefenderConfiguration];
 
       deployment = {
         targetHost = "steadfast-defender";
@@ -25,7 +25,7 @@
     };
 
     steadfast-noon = {
-      modules = [self.nixosModules.steadfastNoonConfiguration];
+      imports = [self.nixosModules.steadfastNoonConfiguration];
     };
   };
 }
