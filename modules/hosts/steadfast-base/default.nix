@@ -25,7 +25,7 @@ in {
       self.nixosModules.commander
     ];
 
-    # Allow Colmena to SSH into root
+    # Allow SSH into root
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
 
     # Automatically auth into Tailscale as a server
@@ -33,6 +33,10 @@ in {
     services.tailscale = {
       authKeyFile = config.age.secrets.tailscale-auth-key.path;
     };
+
+    # Only allow SSH via Tailscale
+    services.openssh.openFirewall = false;
+    networking.firewall.interfaces."${config.services.tailscale.interfaceName}".allowedTCPPorts = config.services.openssh.ports;
 
     # Don't sleep on lid close
     services.logind.settings.Login = {
