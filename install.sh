@@ -2,7 +2,7 @@
 
 set -e
 
-DEFAULT_HOST_KEY_PATH="secrets/tmp/ssh_host_ed25519_key"
+DEFAULT_HOST_KEY_PATH=".tmp/ssh_host_ed25519_key"
 DEFAULT_COPY_TO_PERSISTENT=1
 
 if [ -z "$2" ]; then
