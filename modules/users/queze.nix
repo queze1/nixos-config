@@ -23,11 +23,6 @@ in {
     };
 
     my.preservation.extraUserDirectories = [
-      ".local/state/nix" # preserve nix repl history and others
-
-      ".copilot"
-
-      # Other
       "Coding"
       "etc/nixos"
       "cs3231"
