@@ -1,12 +1,15 @@
-{
+{inputs, ...}: {
   flake.homeModules.nvf = {
-    osConfig,
+    config,
     lib,
     ...
   }: {
+    # Preserve copilot.nvim token
     my.home.preservation.extraDirectories = [
-      ".config/github-copilot" # preserve copilot.nvim token
+      ".config/github-copilot"
     ];
+
+    age.secrets.tavily-api-key.file = "${inputs.secrets}/tavily-api-key.age";
 
     programs.nvf.settings.vim = {
       # LLM integration
@@ -56,7 +59,7 @@
                   ["tavily"] = function()
                     return require("codecompanion.adapters").extend("tavily", {
                       env = {
-                        api_key = "cmd:cat ${osConfig.age.secrets.tavily-api-key.path}",
+                        api_key = "cmd:cat ${config.age.secrets.tavily-api-key.path}",
                       },
                     })
                   end,

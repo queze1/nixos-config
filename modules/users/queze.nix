@@ -1,4 +1,8 @@
-{self, ...}: let
+{
+  inputs,
+  self,
+  ...
+}: let
   username = "queze";
 in {
   flake.nixosModules.${username} = {
@@ -20,6 +24,13 @@ in {
       ];
       initialHashedPassword = "$y$j9T$.1ZgO3bCug1Pmc3BId1xD0$Cl9wLx9Ur24CdX6klxO9A4ErtEnRnz0j5wYjnFZRZm.";
       hashedPasswordFile = "/persistent/passwd"; # sudo sh -c 'mkpasswd -m yescrypt > /persistent/passwd'
+    };
+
+    age.secrets."${username}-ssh-config" = {
+      file = "${inputs.secrets}/${username}-ssh-config.age";
+      path = "/home/${username}/.ssh/config";
+      owner = "${username}";
+      mode = "600";
     };
 
     my.preservation.extraUserDirectories = [

@@ -13,18 +13,13 @@
         "/etc/ssh/ssh_host_ed25519_key"
         "/persistent/etc/ssh/ssh_host_ed25519_key"
       ];
-
-      # Specify where secrets are
-      age.secrets = {
-        queze-ssh-config = {
-          file = "${inputs.secrets}/queze-ssh-config.age";
-          path = "/home/queze/.ssh/config";
-          owner = "queze";
-          mode = "600";
-        };
-        tavily-api-key.file = "${inputs.secrets}/tavily-api-key.age";
-        tailscale-auth-key.file = "${inputs.secrets}/tailscale-auth-key.age";
-      };
     }
   );
+
+  flake.nixosModules.agenixForHM = {
+    home-manager.sharedModules = [
+      inputs.agenix.homeManagerModules.default
+      {age.identityPaths = ["~/.ssh/id_ed25519"];}
+    ];
+  };
 }

@@ -35,6 +35,7 @@
 
       # User related stuff
       self.nixosModules.homeManager
+      self.nixosModules.agenixForHM
       self.nixosModules.utmHMIntegration
       self.nixosModules.${mainUser}
       (self.factory.preservationForUser {username = "${mainUser}";})

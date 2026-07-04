@@ -28,6 +28,8 @@ in {
     # Allow Colmena to SSH into root
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
 
+    # Automatically auth into Tailscale as a server
+    age.secrets.tailscale-auth-key.file = "${inputs.secrets}/tailscale-auth-key.age";
     services.tailscale = {
       authKeyFile = config.age.secrets.tailscale-auth-key.path;
     };
