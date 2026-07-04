@@ -6,7 +6,6 @@
         KbdInteractiveAuthentication = false;
         PasswordAuthentication = false;
         PermitRootLogin = "prohibit-password";
-        UsePAM = true;
       };
     };
   };
