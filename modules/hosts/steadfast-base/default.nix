@@ -34,6 +34,11 @@ in {
       authKeyFile = config.age.secrets.tailscale-auth-key.path;
     };
 
+    # Don't sleep on lid close
+    services.logind.settings.Login = {
+      HandleLidSwitch = "ignore";
+    };
+
     system.stateVersion = "25.11";
   };
 }
