@@ -92,5 +92,7 @@ echo "Public key:"
 cat "${HOST_KEY_PATH}.pub"
 echo
 echo "In your secrets repo, add the public key to ssh-keys.nix, then re-encrypt the secrets:"
-echo "agenix --rekey"
+echo "agenix -r"
+echo "To apply the changes, run:"
+echo "flake-update secrets"
 
