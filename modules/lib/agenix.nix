@@ -1,6 +1,7 @@
 {
   inputs,
   moduleWithSystem,
+  self,
   ...
 }: {
   flake.nixosModules.agenix = moduleWithSystem (
@@ -16,10 +17,19 @@
     }
   );
 
-  flake.nixosModules.agenixForHM = {
+  flake.nixosModules.agenixWithHM = {
     home-manager.sharedModules = [
+      self.homeModules.agenix
+    ];
+  };
+
+  flake.homeModules.agenix = {config, ...}: {
+    imports = [
       inputs.agenix.homeManagerModules.default
-      {age.identityPaths = ["~/.ssh/id_ed25519"];}
+    ];
+
+    age.identityPaths = [
+      "${config.home.homeDirectory}/.ssh/id_ed25519"
     ];
   };
 }
