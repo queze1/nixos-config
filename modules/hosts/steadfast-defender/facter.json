@@ -1750,7 +1750,7 @@
         },
         "sysfs_id": "/devices/platform/i8042/serio1/input/input20",
         "unix_device_names": [
-          "/dev/input/event1",
+          "/dev/input/event11",
           "/dev/input/ + handler"
         ]
       }
@@ -2060,7 +2060,7 @@
           },
           {
             "type": "hwaddr",
-            "address": 99
+            "address": 49
           }
         ],
         "detail": {
@@ -2119,65 +2119,6 @@
     "network_interface": [
       {
         "index": 44,
-        "attached_to": 35,
-        "class_list": [
-          "network_interface"
-        ],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0001",
-          "name": "Ethernet",
-          "value": 1
-        },
-        "model": "Ethernet network interface",
-        "sysfs_id": "/class/net/wwp0s20f0u6i12",
-        "sysfs_device_link": "/devices/pci0000:00/0000:00:14.0/usb1/1-6/1-6:1.12",
-        "unix_device_names": [
-          "wwp0s20f0u6i12"
-        ],
-        "resources": [
-          {
-            "type": "hwaddr",
-            "address": 99
-          }
-        ],
-        "driver": "cdc_mbim",
-        "driver_module": "cdc_mbim",
-        "drivers": [
-          "cdc_mbim"
-        ],
-        "driver_modules": [
-          "cdc_mbim"
-        ]
-      },
-      {
-        "index": 45,
-        "attached_to": 0,
-        "class_list": [
-          "network_interface"
-        ],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Loopback",
-          "value": 0
-        },
-        "model": "Loopback network interface",
-        "sysfs_id": "/class/net/lo",
-        "unix_device_names": [
-          "lo"
-        ]
-      },
-      {
-        "index": 46,
         "attached_to": 23,
         "class_list": [
           "network_interface"
@@ -2215,6 +2156,65 @@
         ],
         "driver_modules": [
           "iwlwifi"
+        ]
+      },
+      {
+        "index": 45,
+        "attached_to": 35,
+        "class_list": [
+          "network_interface"
+        ],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0001",
+          "name": "Ethernet",
+          "value": 1
+        },
+        "model": "Ethernet network interface",
+        "sysfs_id": "/class/net/wwp0s20f0u6i12",
+        "sysfs_device_link": "/devices/pci0000:00/0000:00:14.0/usb1/1-6/1-6:1.12",
+        "unix_device_names": [
+          "wwp0s20f0u6i12"
+        ],
+        "resources": [
+          {
+            "type": "hwaddr",
+            "address": 49
+          }
+        ],
+        "driver": "cdc_mbim",
+        "driver_module": "cdc_mbim",
+        "drivers": [
+          "cdc_mbim"
+        ],
+        "driver_modules": [
+          "cdc_mbim"
+        ]
+      },
+      {
+        "index": 46,
+        "attached_to": 0,
+        "class_list": [
+          "network_interface"
+        ],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_names": [
+          "lo"
         ]
       },
       {
