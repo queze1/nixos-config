@@ -21,6 +21,7 @@
         targetHost = "steadfast-defender";
         targetPort = 22;
         targetUser = "root";
+        buildOnTarget = true;
       };
     };
 
