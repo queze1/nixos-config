@@ -13,7 +13,6 @@
       preserveAt."/persistent" = {
         directories =
           [
-            "/etc/NetworkManager/system-connections"
             "/var/lib/fwupd"
             "/var/lib/libvirt"
             "/var/lib/systemd/coredump"

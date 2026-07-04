@@ -4,6 +4,7 @@
     imports = [
       self.nixosModules.myOptions
       self.nixosModules.sharedModules
+      self.nixosModules.networkmanager
 
       # Basic libraries
       self.nixosModules.agenix
@@ -17,16 +18,6 @@
 
       self.nixosModules.commander
     ];
-
-    # Wifi config
-    networking.wireless = {
-      enable = true;
-      networks = {
-        wlan-5G.psk = "ext:psk_wlan";
-      };
-      secretsFile = config.age.secrets.wireless-conf.path;
-    };
-
     services.tailscale = {
       authKeyFile = config.age.secrets.tailscale-auth-key.path;
     };
