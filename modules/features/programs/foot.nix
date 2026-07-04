@@ -8,6 +8,10 @@
       };
     };
 
+    home.shellAliases = {
+      foot-opaque = "foot -o colors-dark.alpha=1.0";
+    };
+
     programs.foot = {
       enable = true;
       settings = {
