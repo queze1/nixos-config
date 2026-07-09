@@ -13,6 +13,7 @@
 
     services.caddy = {
       enable = true;
+      openFirewall = true; # open ports 80 and 443
       package = pkgs.caddy.withPlugins {
         plugins = [
           "github.com/caddy-dns/cloudflare@v0.2.4"
@@ -47,8 +48,9 @@
       virtualHosts = {
         "new.navidrome.osipol.uk" = {
           extraConfig = ''
-            import tailscale_auth
-            reverse_proxy localhost:4533
+            # import tailscale_auth
+            respond "Hello world!"
+            # reverse_proxy localhost:4533
             tls {
               resolvers 1.1.1.1
             }
