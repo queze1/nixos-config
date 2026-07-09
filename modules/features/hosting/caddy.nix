@@ -1,6 +1,7 @@
 {inputs, ...}: {
   flake.nixosModules.caddy = {
     config,
+    lib,
     pkgs,
     ...
   }: {
@@ -18,6 +19,8 @@
         ];
         hash = "sha256-hEHgAG0F0ozHRAPuxEqLyTATBrE+pajeXDiSNwniorg=";
       };
+
+      logFormat = lib.mkForce "level INFO";
 
       globalConfig = ''
         acme_dns cloudflare {file.${config.age.secrets.osipol-cloudflare-api-token.path}}
