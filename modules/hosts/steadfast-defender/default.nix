@@ -10,7 +10,7 @@ in {
     imports = [
       self.nixosModules.steadfastBase
 
-      # Server services
+      # Self-hosted apps
       self.nixosModules.caddy
       self.nixosModules.navidrome
     ];
