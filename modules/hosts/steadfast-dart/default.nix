@@ -7,7 +7,13 @@
 in {
   # Fastest home server
   flake.nixosModules.steadfastDartConfiguration = {
-    imports = [self.nixosModules.steadfastBase];
+    imports = [
+      self.nixosModules.steadfastBase
+
+      # Self-hosted apps
+      self.nixosModules.caddy
+      self.nixosModules.navidrome
+    ];
     hardware.facter.reportPath = ./facter.json;
     networking.hostName = "${hostname}";
   };

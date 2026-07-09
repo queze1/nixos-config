@@ -9,10 +9,6 @@ in {
   flake.nixosModules.steadfastDefenderConfiguration = {
     imports = [
       self.nixosModules.steadfastBase
-
-      # Self-hosted apps
-      self.nixosModules.caddy
-      self.nixosModules.navidrome
     ];
 
     hardware.facter.reportPath = ./facter.json;
