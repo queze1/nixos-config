@@ -4,7 +4,11 @@
     pkgs,
     ...
   }: {
-    age.secrets.osipol-cloudflare-api-token.file = "${inputs.secrets}/osipol-cloudflare-api-token.age";
+    age.secrets.osipol-cloudflare-api-token = {
+      file = "${inputs.secrets}/osipol-cloudflare-api-token.age";
+      owner = config.services.caddy.user;
+      group = config.services.caddy.group;
+    };
 
     services.caddy = {
       enable = true;
@@ -14,9 +18,12 @@
         ];
         hash = "sha256-hEHgAG0F0ozHRAPuxEqLyTATBrE+pajeXDiSNwniorg=";
       };
+
       globalConfig = ''
         acme_dns cloudflare {file.${config.age.secrets.osipol-cloudflare-api-token.path}}
+      '';
 
+      extraConfig = ''
         (tailscale_auth) {
           forward_auth unix//run/tailscale.nginx-auth.sock {
             uri /auth
