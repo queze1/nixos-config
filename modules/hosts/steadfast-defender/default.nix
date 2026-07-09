@@ -7,18 +7,13 @@
 in {
   # ThinkPad home server
   flake.nixosModules.steadfastDefenderConfiguration = {
-    imports = [self.nixosModules.steadfastBase];
+    imports = [
+      self.nixosModules.steadfastBase
 
-    # Services
-    services.caddy = {
-      enable = true;
-    };
-    services.navidrome = {
-      enable = true;
-      settings = {
-        "Scanner.Schedule" = "0 * * * *";
-      };
-    };
+      # Server services
+      self.nixosModules.caddy
+      self.nixosModules.navidrome
+    ];
 
     hardware.facter.reportPath = ./facter.json;
     networking.hostName = "${hostname}";
