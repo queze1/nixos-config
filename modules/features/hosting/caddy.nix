@@ -46,6 +46,9 @@
           extraConfig = ''
             import tailscale_auth
             reverse_proxy localhost:4533
+            tls {
+              resolvers 1.1.1.1
+            }
           '';
         };
       };
