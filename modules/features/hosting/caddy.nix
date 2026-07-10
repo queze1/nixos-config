@@ -68,5 +68,15 @@
     # Required to authenticate requests with Tailscale
     services.tailscaleAuth.enable = true;
     users.users.caddy.extraGroups = ["tailscale-nginx-auth"];
+
+    # Preserve Caddy data
+    my.preservation.extraDirectories = [
+      {
+        directory = config.services.caddy.dataDir;
+        user = config.services.caddy.user;
+        group = config.services.caddy.group;
+        mode = "0700";
+      }
+    ];
   };
 }
