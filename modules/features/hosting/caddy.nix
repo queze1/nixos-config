@@ -18,7 +18,8 @@
         (cloudflare_dns) {
           tls {
           	dns cloudflare {file.${config.age.secrets.osipol-cloudflare-api-token.path}}
-            resolvers 1.1.1.1
+            propagation_timeout -1
+            propagation_delay 15s
           }
         }
 
