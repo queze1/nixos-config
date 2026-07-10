@@ -93,8 +93,9 @@ in {
       virtualisation.oci-containers = {
         containers.yubal = {
           image = "ghcr.io/guillevc/yubal:latest";
-          autoStart = true;
           ports = ["${toString cfg.port}:8000"];
+          autoStart = true;
+          podman.user = "yubal";
 
           environment = {
             PUID = toString cfg.uid;
