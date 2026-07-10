@@ -15,9 +15,8 @@ in {
 
       # Self-hosted apps
       self.nixosModules.caddy
-      self.nixosModules.navidrome
+      self.nixosModules.musicStack
       self.nixosModules.sillytavern
-      self.nixosModules.yubal
     ];
 
     hardware.facter.reportPath = ./facter.json;
