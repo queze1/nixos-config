@@ -4,16 +4,6 @@
     pkgs,
     ...
   }: {
-    age.secrets.osipol-cloudflare-api-token = {
-      file = "${inputs.secrets}/osipol-cloudflare-api-token.age";
-      owner = config.services.caddy.user;
-      group = config.services.caddy.group;
-    };
-
-    # Required to authenticate requests with Tailscale
-    services.tailscaleAuth.enable = true;
-    users.users.caddy.extraGroups = ["tailscale-nginx-auth"];
-
     services.caddy = {
       enable = true;
       openFirewall = true; # open ports 80 and 443
@@ -67,5 +57,15 @@
         };
       };
     };
+
+    age.secrets.osipol-cloudflare-api-token = {
+      file = "${inputs.secrets}/osipol-cloudflare-api-token.age";
+      owner = config.services.caddy.user;
+      group = config.services.caddy.group;
+    };
+
+    # Required to authenticate requests with Tailscale
+    services.tailscaleAuth.enable = true;
+    users.users.caddy.extraGroups = ["tailscale-nginx-auth"];
   };
 }
