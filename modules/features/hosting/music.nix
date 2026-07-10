@@ -100,7 +100,7 @@ in {
             PUID = toString cfg.uid;
             PGID = toString musicGid;
             YUBAL_SCHEDULER_CRON = "0 0 * * *";
-            YUBAL_DOWNLOAD_UGC = "false";
+            YUBAL_DOWNLOAD_UGC = "true";
             YUBAL_TZ = "UTC";
           };
 
