@@ -2,7 +2,7 @@
   musicDir = "/srv/music";
   musicGid = 981;
 in {
-  flake.nixosModules.musicStack = {config, ...}: {
+  flake.nixosModules.musicStack = {
     imports = [
       self.nixosModules.navidrome
       self.nixosModules.yubal
@@ -12,8 +12,8 @@ in {
     users.groups.music = {
       gid = musicGid;
     };
+    services.navidrome.group = "music";
     users.users.yubal.extraGroups = ["music"];
-    users.users.${config.services.navidrome.user}.extraGroups = ["music"];
 
     # Preserve music directory
     my.preservation.extraDirectories = [
@@ -67,7 +67,7 @@ in {
       uid = lib.mkOption {
         type = lib.types.int;
         default = 980;
-        description = "UID for the yubal system user.";
+        description = "User ID under which yubal runs.";
       };
     };
 
