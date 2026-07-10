@@ -5,7 +5,6 @@ in {
   flake.nixosModules.musicStack = {
     imports = [
       self.nixosModules.navidrome
-      self.nixosModules.onTheSpot
       self.nixosModules.yubal
     ];
 
@@ -114,67 +113,5 @@ in {
     };
   };
 
-  flake.nixosModules.onTheSpot = {
-    config,
-    lib,
-    ...
-  }: let
-    cfg = config.services.onthespot;
-  in {
-    options.services.onthespot = {
-      port = lib.mkOption {
-        type = lib.types.int;
-        default = 8083;
-        description = "Port to run OnTheSpot on.";
-      };
-      configDir = lib.mkOption {
-        type = lib.types.str;
-        default = "/var/lib/onthespot";
-        description = "Directory where OnTheSpot stores its config.";
-      };
-      uid = lib.mkOption {
-        type = lib.types.int;
-        default = 981;
-        description = "User ID under which OnTheSpot runs.";
-      };
-    };
-
-    config = {
-      # Create a system user for OnTheSpot
-      users.users.onthespot = {
-        isSystemUser = true;
-        uid = cfg.uid;
-        group = "music";
-      };
-
-      # Preserve OnTheSpot data
-      my.preservation.extraDirectories = [
-        {
-          directory = cfg.configDir;
-          user = "onthespot";
-          group = "music";
-          mode = "0700";
-        }
-      ];
-
-      # Run dockerised OnTheSpot through Podman
-      virtualisation.oci-containers = {
-        containers.onthespot = {
-          image = "ghcr.io/jayrez/onthespot-docker:latest";
-          autoStart = true;
-          ports = ["${toString cfg.port}:5000"];
-
-          environment = {
-            HOME = "/config";
-            OTS_CONFIG_PATH = "/config";
-          };
-
-          volumes = [
-            "${musicDir}:/downloads" # download into shared music dir
-            "${cfg.configDir}:/config"
-          ];
-        };
-      };
-    };
-  };
+  # TODO: Add MeTube
 }

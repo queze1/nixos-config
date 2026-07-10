@@ -56,13 +56,6 @@
             # reverse_proxy localhost:${toString config.services.sillytavern.port}
           '';
         };
-        "onthespot.osipol.uk" = {
-          extraConfig = ''
-            import cloudflare_dns
-            import tailscale_auth
-            reverse_proxy localhost:${toString config.services.onthespot.port}
-          '';
-        };
         "yubal.osipol.uk" = {
           extraConfig = ''
             import cloudflare_dns
@@ -102,7 +95,6 @@
       domains = [
         "new.navidrome.osipol.uk"
         "new.sillytavern.osipol.uk"
-        "onthespot.osipol.uk"
         "yubal.osipol.uk"
       ];
       passwordFile = config.age.secrets.osipol-cloudflare-api-token.path;
