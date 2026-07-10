@@ -6,7 +6,11 @@
   sshKeys = import "${inputs.secrets}/ssh-keys.nix";
 in {
   # Base configuration for home servers
-  flake.nixosModules.steadfastBase = {config, ...}: {
+  flake.nixosModules.steadfastBase = {
+    config,
+    pkgs,
+    ...
+  }: {
     imports = [
       self.nixosModules.myOptions
       self.nixosModules.sharedModules
@@ -23,6 +27,12 @@ in {
       self.nixosModules.tailscale
 
       self.nixosModules.commander
+    ];
+
+    # Convenience programs
+    environment.systemPackages = [
+      pkgs.htop
+      pkgs.tree
     ];
 
     # Allow SSH into root
