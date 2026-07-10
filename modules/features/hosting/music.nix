@@ -12,8 +12,6 @@ in {
     users.groups.music = {
       gid = musicGid;
     };
-    services.navidrome.group = "music";
-    users.users.yubal.extraGroups = ["music"];
 
     # Preserve music directory
     my.preservation.extraDirectories = [
@@ -29,6 +27,7 @@ in {
   flake.nixosModules.navidrome = {config, ...}: {
     services.navidrome = {
       enable = true;
+      group = "music";
       settings = {
         "MusicFolder" = musicDir;
         "Scanner.Schedule" = "0 * * * *";
