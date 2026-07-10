@@ -24,11 +24,14 @@
         hash = "sha256-hEHgAG0F0ozHRAPuxEqLyTATBrE+pajeXDiSNwniorg=";
       };
 
-      globalConfig = ''
-        acme_dns cloudflare {file.${config.age.secrets.osipol-cloudflare-api-token.path}}
-      '';
-
       extraConfig = ''
+        (cloudflare_dns) {
+          tls {
+          	dns cloudflare {file.${config.age.secrets.osipol-cloudflare-api-token.path}}
+            resolvers 1.1.1.1
+          }
+        }
+
         (tailscale_auth) {
           forward_auth unix//${config.services.tailscaleAuth.socketPath} {
             uri /auth
@@ -49,12 +52,14 @@
       virtualHosts = {
         "new.navidrome.osipol.uk" = {
           extraConfig = ''
+            import cloudflare_dns
             import tailscale_auth
             reverse_proxy localhost:${toString config.services.navidrome.settings.Port}
           '';
         };
         "new.sillytavern.osipol.uk" = {
           extraConfig = ''
+            import cloudflare_dns
             import tailscale_auth
             reverse_proxy localhost:${toString config.services.sillytavern.port}
           '';
