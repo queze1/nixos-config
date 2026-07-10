@@ -1,5 +1,5 @@
 {self, ...}: let
-  musicDir = "srv/music";
+  musicDir = "/srv/music";
 in {
   flake.nixosModules.musicStack = {config, ...}: {
     imports = [
