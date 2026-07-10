@@ -14,10 +14,7 @@
       gid = yubalGid;
     };
 
-    # Allow Navidrome to access files downloaded by Yubal
-    users.users.${config.services.navidrome.user}.extraGroups = "yubal";
-
-    # Create & preserve yubal directory
+    # Preserve yubal data
     my.preservation.extraDirectories = [
       {
         directory = yubalDir;
@@ -27,6 +24,16 @@
       }
     ];
 
+    # Create yubal directories
+    systemd.tmpfiles.rules = [
+      "d ${yubalDir}/data   0750 yubal yubal -"
+      "d ${yubalDir}/config 0750 yubal yubal -"
+    ];
+
+    # Allow Navidrome to access files downloaded by Yubal
+    users.users.${config.services.navidrome.user}.extraGroups = ["yubal"];
+
+    # Run Yubal through Podman
     virtualisation.oci-containers = {
       backend = "podman";
       containers.yubal = {
