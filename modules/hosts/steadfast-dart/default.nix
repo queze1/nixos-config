@@ -13,6 +13,7 @@ in {
       # Self-hosted apps
       self.nixosModules.caddy
       self.nixosModules.navidrome
+      self.nixosModules.sillytavern
     ];
     hardware.facter.reportPath = ./facter.json;
     networking.hostName = "${hostname}";
