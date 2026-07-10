@@ -65,7 +65,7 @@
         containers.yubal = {
           image = "ghcr.io/guillevc/yubal:latest";
           autoStart = true;
-          ports = ["${cfg.port}:8000"];
+          ports = ["${toString cfg.port}:8000"];
 
           environment = {
             PUID = toString cfg.uid;
