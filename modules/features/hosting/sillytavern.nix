@@ -4,8 +4,10 @@
       enable = true;
       port = 8045;
       listen = false;
-      listenAddressIPv4 = "127.0.0.1";
-      listenAddressIPv6 = "::1";
+
+      # https://tailscale.com/docs/reference/reserved-ip-addresses
+      listenAddressIPv4 = "100.64.0.0/10";
+      listenAddressIPv6 = "fd7a:115c:a1e0::/48";
     };
   };
 }
