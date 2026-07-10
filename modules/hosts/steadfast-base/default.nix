@@ -38,6 +38,9 @@ in {
     services.openssh.openFirewall = false;
     networking.firewall.interfaces."${config.services.tailscale.interfaceName}".allowedTCPPorts = config.services.openssh.ports;
 
+    # Use Cloudflare DNS
+    networking.nameservers = ["1.1.1.1" "1.0.0.1"];
+
     # Don't sleep on lid close
     services.logind.settings.Login = {
       HandleLidSwitch = "ignore";
