@@ -1,5 +1,32 @@
 {
-  flake.nixosModules.yubal = {
+  flake.nixosModules.yubal = {config, ...}: let
+    yubalUid = 980;
+    yubalGid = 980;
+    yubalDir = "/var/lib/yubal";
+  in {
+    # Create a system user and group for yubal
+    users.users.yubal = {
+      isSystemUser = true;
+      uid = yubalUid;
+      group = "yubal";
+    };
+    users.groups.yubal = {
+      gid = yubalGid;
+    };
+
+    # Allow Navidrome to access files downloaded by Yubal
+    users.users.${config.services.navidrome.user}.extraGroups = "yubal";
+
+    # Create & preserve yubal directory
+    my.preservation.extraDirectories = [
+      {
+        directory = yubalDir;
+        user = "yubal";
+        group = "yubal";
+        mode = "0750";
+      }
+    ];
+
     virtualisation.oci-containers = {
       backend = "podman";
       containers.yubal = {
@@ -8,16 +35,16 @@
         ports = ["8000:8000"];
 
         environment = {
-          PUID = "1000";
-          PGID = "1000";
+          PUID = toString yubalUid;
+          PGID = toString yubalGid;
           YUBAL_SCHEDULER_CRON = "0 0 * * *"; # every midnight
           YUBAL_DOWNLOAD_UGC = "false";
           YUBAL_TZ = "UTC";
         };
 
         volumes = [
-          "/var/lib/yubal/data:/app/data"
-          "/var/lib/yubal/config:/app/config"
+          "${yubalDir}/data:/app/data"
+          "${yubalDir}/config:/app/config"
         ];
       };
     };
