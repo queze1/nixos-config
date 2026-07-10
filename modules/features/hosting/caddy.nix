@@ -61,7 +61,8 @@
           extraConfig = ''
             import cloudflare_dns
             import tailscale_auth
-            reverse_proxy localhost:${toString config.services.sillytavern.port}
+            respond "Not yet implemented"
+            # reverse_proxy localhost:${toString config.services.sillytavern.port}
           '';
         };
       };
