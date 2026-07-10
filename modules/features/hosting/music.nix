@@ -76,6 +76,7 @@ in {
         isSystemUser = true;
         uid = cfg.uid;
         group = "music";
+        linger = true;
       };
 
       # Preserve yubal data
