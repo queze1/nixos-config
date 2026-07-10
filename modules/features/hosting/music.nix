@@ -1,5 +1,6 @@
 {self, ...}: let
   musicDir = "/srv/music";
+  musicGid = 981;
 in {
   flake.nixosModules.musicStack = {config, ...}: {
     imports = [
@@ -8,7 +9,9 @@ in {
     ];
 
     # Create group with shared access to the music directory
-    users.groups.music = {};
+    users.groups.music = {
+      gid = musicGid;
+    };
     users.users.yubal.extraGroups = ["music"];
     users.users.${config.services.navidrome.user}.extraGroups = ["music"];
 
@@ -66,22 +69,14 @@ in {
         default = 980;
         description = "UID for the yubal system user.";
       };
-      gid = lib.mkOption {
-        type = lib.types.int;
-        default = 980;
-        description = "GID for the yubal system group.";
-      };
     };
 
     config = {
-      # Create a system user and group for yubal
+      # Create a system user for yubal
       users.users.yubal = {
         isSystemUser = true;
         uid = cfg.uid;
-        group = "yubal";
-      };
-      users.groups.yubal = {
-        gid = cfg.gid;
+        group = "music";
       };
 
       # Preserve yubal data
@@ -89,7 +84,7 @@ in {
         {
           directory = cfg.configDir;
           user = "yubal";
-          group = "yubal";
+          group = "music";
           mode = "0700";
         }
       ];
@@ -104,7 +99,7 @@ in {
 
           environment = {
             PUID = toString cfg.uid;
-            PGID = toString cfg.gid;
+            PGID = toString musicGid;
             YUBAL_SCHEDULER_CRON = "0 0 * * *";
             YUBAL_DOWNLOAD_UGC = "false";
             YUBAL_TZ = "UTC";
