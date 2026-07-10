@@ -50,7 +50,16 @@
         "new.navidrome.osipol.uk" = {
           extraConfig = ''
             import tailscale_auth
-            reverse_proxy localhost:4533
+            reverse_proxy localhost:${toString config.services.navidrome.settings.Port}
+            tls {
+              resolvers 1.1.1.1
+            }
+          '';
+        };
+        "new.sillytavern.osipol.uk" = {
+          extraConfig = ''
+            import tailscale_auth
+            reverse_proxy localhost:${toString config.services.sillytavern.port}
             tls {
               resolvers 1.1.1.1
             }
