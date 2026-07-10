@@ -48,6 +48,13 @@
             reverse_proxy localhost:${toString config.services.navidrome.settings.Port}
           '';
         };
+        "new.yubal.osipol.uk" = {
+          extraConfig = ''
+            import cloudflare_dns
+            import tailscale_auth
+            reverse_proxy localhost:${toString config.services.yubal.port}
+          '';
+        };
         "new.sillytavern.osipol.uk" = {
           extraConfig = ''
             import cloudflare_dns
