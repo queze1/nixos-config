@@ -48,7 +48,7 @@
             reverse_proxy localhost:${toString config.services.navidrome.settings.Port}
           '';
         };
-        "new.yubal.osipol.uk" = {
+        "yubal.osipol.uk" = {
           extraConfig = ''
             import cloudflare_dns
             import tailscale_auth
@@ -94,7 +94,7 @@
       zone = "osipol.uk";
       domains = [
         "new.navidrome.osipol.uk"
-        "new.yubal.osipol.uk"
+        "yubal.osipol.uk"
         "new.sillytavern.osipol.uk"
       ];
       passwordFile = config.age.secrets.osipol-cloudflare-api-token.path;
