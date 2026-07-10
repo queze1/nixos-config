@@ -10,11 +10,16 @@ in {
     imports = [
       self.nixosModules.steadfastBase
 
+      # Services
+      self.nixosModules.podman
+
       # Self-hosted apps
       self.nixosModules.caddy
       self.nixosModules.navidrome
       self.nixosModules.sillytavern
+      self.nixosModules.yubal
     ];
+
     hardware.facter.reportPath = ./facter.json;
     networking.hostName = "${hostname}";
   };
