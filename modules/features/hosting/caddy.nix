@@ -48,6 +48,13 @@
             reverse_proxy localhost:${toString config.services.navidrome.settings.Port}
           '';
         };
+        "onthespot.osipol.uk" = {
+          extraConfig = ''
+            import cloudflare_dns
+            import tailscale_auth
+            reverse_proxy localhost:${toString config.services.yubal.port}
+          '';
+        };
         "yubal.osipol.uk" = {
           extraConfig = ''
             import cloudflare_dns
@@ -94,6 +101,7 @@
       zone = "osipol.uk";
       domains = [
         "new.navidrome.osipol.uk"
+        "onthespot.osipol.uk"
         "yubal.osipol.uk"
         "new.sillytavern.osipol.uk"
       ];
