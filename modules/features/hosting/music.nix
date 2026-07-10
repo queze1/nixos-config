@@ -90,7 +90,6 @@ in {
 
       # Run Yubal through Podman
       virtualisation.oci-containers = {
-        backend = "podman";
         containers.yubal = {
           image = "ghcr.io/guillevc/yubal:latest";
           autoStart = true;
