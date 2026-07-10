@@ -9,9 +9,7 @@ in {
   flake.nixosModules.steadfastDartConfiguration = {
     imports = [
       self.nixosModules.steadfastBase
-
-      # Services
-      self.nixosModules.podman
+      self.nixosModules.podmanContainers
 
       # Self-hosted apps
       self.nixosModules.caddy
