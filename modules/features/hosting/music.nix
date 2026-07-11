@@ -77,9 +77,22 @@ in {
         uid = cfg.uid;
         group = "music";
         linger = true;
-        autoSubUidGidRange = true;
         createHome = true;
         home = cfg.configDir;
+
+        # https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md
+        subUidRanges = [
+          {
+            startUid = 100000;
+            count = 65536;
+          }
+        ];
+        subGidRanges = [
+          {
+            startGid = 100000;
+            count = 65536;
+          }
+        ];
       };
 
       # Preserve yubal data
@@ -101,8 +114,10 @@ in {
           podman.user = "yubal";
 
           environment = {
-            PUID = toString cfg.uid;
-            PGID = toString musicGid;
+            # "If your container runs with the root user, then root in the container is actually your user on the host."
+            PUID = "0";
+            PGID = "0";
+
             YUBAL_SCHEDULER_CRON = "0 0 * * *";
             YUBAL_DOWNLOAD_UGC = "true";
             YUBAL_TZ = "UTC";
