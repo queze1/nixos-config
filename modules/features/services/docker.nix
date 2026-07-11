@@ -11,7 +11,6 @@
             "1.1.1.1"
             "8.8.8.8"
           ];
-          firewall-backend = "nftables";
           registry-mirrors = ["https://mirror.gcr.io"];
         };
       };
