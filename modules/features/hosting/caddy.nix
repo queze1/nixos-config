@@ -41,6 +41,13 @@
       '';
 
       virtualHosts = {
+        "http://ark-rp-visualisation.osipol.uk" = {
+          extraConfig = ''
+            # Only listen to localhost (e.g. Cloudflared tunnel)
+            bind 127.0.0.1
+            reverse_proxy localhost:8050
+          '';
+        };
         "new.navidrome.osipol.uk" = {
           extraConfig = ''
             import cloudflare_dns
@@ -74,6 +81,9 @@
       owner = config.services.caddy.user;
       group = config.services.caddy.group;
     };
+    age.secrets.osipol-cloudflare-creds = {
+      file = "${inputs.secrets}/osipol-cloudflare-creds.age";
+    };
 
     # Required to authenticate requests with Tailscale
     services.tailscaleAuth.enable = true;
@@ -102,6 +112,19 @@
       ];
       passwordFile = config.age.secrets.osipol-cloudflare-api-token.path;
       username = "token";
+    };
+
+    services.cloudflared = {
+      enable = true;
+      tunnels = {
+        "b6ce003f-d222-4d1c-8e67-56ac678280ba" = {
+          credentialsFile = "${config.age.secrets.osipol-cloudflare-creds.path}";
+          ingress = {
+            "ark-rp-visualisation.osipol.uk" = "http://localhost:80"; # to Caddy
+          };
+          default = "http_status:404";
+        };
+      };
     };
   };
 }
