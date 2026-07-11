@@ -23,7 +23,7 @@
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
-        ExecStart = "${inputs.ark-rp-visualisation.packages.${pkgs.system}.default}/bin/ark-rp-visualisation";
+        ExecStart = "${inputs.ark-rp-visualisation.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/ark-rp-visualisation";
         EnvironmentFile = config.age.secrets.ark-rp-visualisation-env.path;
         User = "ark-rp-viz";
         Group = "ark-rp-viz";
