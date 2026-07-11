@@ -71,12 +71,15 @@ in {
     };
 
     config = {
-      # Create a system user for yubal
+      # Create a system user to run yubal
       users.users.yubal = {
         isSystemUser = true;
         uid = cfg.uid;
         group = "music";
         linger = true;
+        autoSubUidGidRange = true;
+        createHome = true;
+        home = cfg.configDir;
       };
 
       # Preserve yubal data
@@ -89,7 +92,7 @@ in {
         }
       ];
 
-      # Run Yubal through Podman
+      # Run yubal with rootless Podman
       virtualisation.oci-containers = {
         containers.yubal = {
           image = "ghcr.io/guillevc/yubal:latest";
@@ -107,7 +110,7 @@ in {
 
           volumes = [
             "${musicDir}:/app/data" # download into shared music dir
-            "${cfg.configDir}:/app/config"
+            "${cfg.configDir}/config:/app/config"
           ];
         };
       };
