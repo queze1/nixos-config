@@ -36,6 +36,10 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
       inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
+    ark-rp-visualisation = {
+      url = "github:queze1/ark-rp-visualisation";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Applications
     noctalia = {

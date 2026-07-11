@@ -12,6 +12,7 @@ in {
       self.nixosModules.podmanContainers
 
       # Self-hosted apps
+      self.nixosModules.arkRpVisualisation
       self.nixosModules.caddy
       self.nixosModules.musicStack
       self.nixosModules.sillytavern

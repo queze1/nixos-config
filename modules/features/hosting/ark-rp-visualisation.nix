@@ -1,28 +1,38 @@
 {inputs, ...}: {
-  flake.nixosModules.arkRpVisualisation = {config, ...}: {
-    # Create a system user and group
+  flake.nixosModules.arkRpVisualisation = {
+    config,
+    pkgs,
+    ...
+  }: {
     users.users.ark-rp-viz = {
       isSystemUser = true;
       group = "ark-rp-viz";
-      linger = true;
     };
     users.groups.ark-rp-viz = {};
 
     age.secrets.ark-rp-visualisation-env = {
       file = "${inputs.secrets}/ark-rp-visualisation-env.age";
-      user = "ark-rp-viz";
+      owner = "ark-rp-viz";
       group = "ark-rp-viz";
     };
 
-    virtualisation.oci-containers = {
-      containers.ark-rp-viz = {
-        # TODO: Pull in the repo as an input and build the Docker image
-        image = "ark-rp-visualisation:latest";
-        ports = ["127.0.0.1:8050:8050"];
-        autoStart = true;
-        podman.user = "ark-rp-viz";
+    systemd.services.ark-rp-viz = {
+      description = "ARK D&D Campaign Dashboard";
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-        environmentFiles = [config.age.secrets.ark-rp-visualisation-env.path];
+      serviceConfig = {
+        ExecStart = "${inputs.ark-rp-visualisation.packages.${pkgs.system}.default}/bin/ark-rp-visualisation";
+        EnvironmentFile = config.age.secrets.ark-rp-visualisation-env.path;
+        User = "ark-rp-viz";
+        Group = "ark-rp-viz";
+        Restart = "always";
+
+        # Hardening
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        PrivateTmp = true;
+        NoNewPrivileges = true;
       };
     };
   };
