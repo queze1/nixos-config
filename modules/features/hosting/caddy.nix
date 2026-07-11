@@ -60,7 +60,10 @@
           extraConfig = ''
             import cloudflare_dns
             import tailscale_auth
-            reverse_proxy localhost:${toString config.services.yubal.port}
+
+            # https://github.com/podman-container-tools/podman/issues/25674 "Podman accepts but does not forward ipv6 traffic in rootless mode by default"
+            # Workaround is to use 127.0.0.1 instead of localhost
+            reverse_proxy 127.0.0.1:${toString config.services.yubal.port}
           '';
         };
       };
