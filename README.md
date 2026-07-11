@@ -45,6 +45,7 @@ sudo passwd root
 ├── modules
 │   ├── features
 │   │   ├── desktop            # desktop environments (e.g. niri)
+│   │   ├── hosting            # self-hosted apps and infra
 │   │   ├── programs           # user programs (e.g. firefox)
 │   │   ├── services           # system services (e.g. tailscale)
 │   │   ├── shared             # config which every machine needs
@@ -60,7 +61,5 @@ sudo passwd root
 │   │   ├── commander.nix
 │   │   └── queze.nix
 │   └── vm                     # workarounds for VMs
-├── README.md
-├── secrets
-└── ssh-keys.nix
+└── README.md
 ```
