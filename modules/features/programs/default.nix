@@ -26,6 +26,7 @@
       inputs.nix-index-database.homeModules.default
 
       # Development
+      self.homeModules.cloudflared
       self.homeModules.devenv
       self.homeModules.direnv
       self.homeModules.git
