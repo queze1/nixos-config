@@ -39,41 +39,6 @@
           }
         }
       '';
-
-      virtualHosts = {
-        "http://ark-rp-visualisation.osipol.uk" = {
-          extraConfig = ''
-            # Only listen to localhost (e.g. Cloudflared tunnel)
-            bind 127.0.0.1
-            reverse_proxy localhost:8050
-          '';
-        };
-        "new.navidrome.osipol.uk" = {
-          extraConfig = ''
-            import cloudflare_dns
-            import tailscale_auth
-            reverse_proxy localhost:${toString config.services.navidrome.settings.Port}
-          '';
-        };
-        "new.sillytavern.osipol.uk" = {
-          extraConfig = ''
-            import cloudflare_dns
-            import tailscale_auth
-            respond "Not yet implemented"
-            # reverse_proxy localhost:${toString config.services.sillytavern.port}
-          '';
-        };
-        "yubal.osipol.uk" = {
-          extraConfig = ''
-            import cloudflare_dns
-            import tailscale_auth
-
-            # https://github.com/podman-container-tools/podman/issues/25674 "Podman accepts but does not forward ipv6 traffic in rootless mode by default"
-            # Workaround is to use 127.0.0.1 instead of localhost
-            reverse_proxy 127.0.0.1:${toString config.services.yubal.port}
-          '';
-        };
-      };
     };
 
     age.secrets.osipol-cloudflare-api-token = {
@@ -81,13 +46,6 @@
       owner = config.services.caddy.user;
       group = config.services.caddy.group;
     };
-    age.secrets.osipol-cloudflare-creds = {
-      file = "${inputs.secrets}/osipol-cloudflare-creds.age";
-    };
-
-    # Required to authenticate requests with Tailscale
-    services.tailscaleAuth.enable = true;
-    users.users.caddy.extraGroups = ["tailscale-nginx-auth"];
 
     # Preserve Caddy data
     my.preservation.extraDirectories = [
@@ -98,33 +56,5 @@
         mode = "0700";
       }
     ];
-
-    # Configure ddclient to update Cloudflare DNS with Tailscale IP
-    services.ddclient = {
-      enable = true;
-      usev4 = "ifv4, ifv4=tailscale0";
-      protocol = "cloudflare";
-      zone = "osipol.uk";
-      domains = [
-        "new.navidrome.osipol.uk"
-        "new.sillytavern.osipol.uk"
-        "yubal.osipol.uk"
-      ];
-      passwordFile = config.age.secrets.osipol-cloudflare-api-token.path;
-      username = "token";
-    };
-
-    services.cloudflared = {
-      enable = true;
-      tunnels = {
-        "b6ce003f-d222-4d1c-8e67-56ac678280ba" = {
-          credentialsFile = "${config.age.secrets.osipol-cloudflare-creds.path}";
-          ingress = {
-            "ark-rp-visualisation.osipol.uk" = "http://localhost:80"; # to Caddy
-          };
-          default = "http_status:404";
-        };
-      };
-    };
   };
 }

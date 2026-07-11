@@ -11,9 +11,14 @@ in {
       self.nixosModules.steadfastBase
       self.nixosModules.podmanContainers
 
+      # Ingress & routing
+      self.nixosModules.caddy
+      self.nixosModules.cloudflared
+      self.nixosModules.ddns
+      self.nixosModules.tailscaleAuth
+
       # Self-hosted apps
       self.nixosModules.arkRpVisualisation
-      self.nixosModules.caddy
       self.nixosModules.musicStack
       self.nixosModules.sillytavern
     ];

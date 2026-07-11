@@ -43,6 +43,18 @@ in {
         mode = "0700";
       }
     ];
+
+    # Make Navidrome privately accessible through Tailscale
+    services.caddy.virtualHosts = {
+      "new.navidrome.osipol.uk" = {
+        extraConfig = ''
+          import cloudflare_dns
+          import tailscale_auth
+          reverse_proxy localhost:${toString config.services.navidrome.settings.Port}
+        '';
+      };
+    };
+    services.ddclient.domains = ["new.navidrome.osipol.uk"]; # dynamically update IP
   };
 
   flake.nixosModules.yubal = {
@@ -118,6 +130,21 @@ in {
           ];
         };
       };
+
+      # Make Yubal accessible through Tailscale
+      services.caddy.virtualHosts = {
+        "yubal.osipol.uk" = {
+          extraConfig = ''
+            import cloudflare_dns
+            import tailscale_auth
+
+            # https://github.com/podman-container-tools/podman/issues/25674 "Podman accepts but does not forward ipv6 traffic in rootless mode by default"
+            # Workaround is to use 127.0.0.1 instead of localhost
+            reverse_proxy 127.0.0.1:${toString config.services.yubal.port}
+          '';
+        };
+      };
+      services.ddclient.domains = ["yubal.osipol.uk"]; # dynamically update IP
     };
   };
 
