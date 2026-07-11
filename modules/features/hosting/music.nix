@@ -81,18 +81,7 @@ in {
         home = cfg.configDir;
 
         # https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md
-        subUidRanges = [
-          {
-            startUid = 100000;
-            count = 65536;
-          }
-        ];
-        subGidRanges = [
-          {
-            startGid = 100000;
-            count = 65536;
-          }
-        ];
+        autoSubUidGidRange = true;
       };
 
       # Preserve yubal data
@@ -125,7 +114,7 @@ in {
 
           volumes = [
             "${musicDir}:/app/data" # download into shared music dir
-            "${cfg.configDir}/config:/app/config"
+            "${cfg.configDir}:/app/config"
           ];
         };
       };
