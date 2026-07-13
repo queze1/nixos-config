@@ -13,6 +13,14 @@
     };
 
     services.caddy.virtualHosts = {
+      "pihole-dns.osipol.uk" = {
+        extraConfig = ''
+          import cloudflare_dns
+          import tailscale_auth
+          # Port used by DNS server
+          reverse_proxy localhost:53
+        '';
+      };
       "pihole.osipol.uk" = {
         extraConfig = ''
           import cloudflare_dns
@@ -22,6 +30,10 @@
         '';
       };
     };
-    services.ddclient.domains = ["pihole.osipol.uk"]; # dynamically update IP
+
+    services.ddclient.domains = [
+      "pihole-dns.osipol.uk"
+      "pihole.osipol.uk"
+    ];
   };
 }
