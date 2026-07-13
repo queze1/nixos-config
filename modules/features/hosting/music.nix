@@ -24,7 +24,9 @@ in {
     ];
   };
 
-  flake.nixosModules.navidrome = {config, ...}: {
+  flake.nixosModules.navidrome = {config, ...}: let
+    cfg = config.services.navidrome;
+  in {
     services.navidrome = {
       enable = true;
       group = "music";
@@ -38,8 +40,8 @@ in {
     my.preservation.extraDirectories = [
       {
         directory = "/var/lib/navidrome";
-        user = config.services.navidrome.user;
-        group = config.services.navidrome.group;
+        user = cfg.user;
+        group = cfg.group;
         mode = "0700";
       }
     ];
@@ -50,7 +52,7 @@ in {
         extraConfig = ''
           import cloudflare_dns
           import tailscale_auth
-          reverse_proxy localhost:${toString config.services.navidrome.settings.Port}
+          reverse_proxy localhost:${toString cfg.settings.Port}
         '';
       };
     };
