@@ -4,9 +4,13 @@
   in {
     services.pihole-ftl = {
       enable = true;
+      openFirewallDNS = true;
       settings = {
-        # quad9 and Cloudflare
-        dns.upstreams = ["9.9.9.9" "1.1.1.1"];
+        dns = {
+          upstreams = ["1.1.1.1" "1.0.0.1"];
+          listeningMode = "SINGLE";
+          interface = config.services.tailscale.interfaceName;
+        };
       };
     };
 
