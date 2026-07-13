@@ -1,9 +1,20 @@
 {inputs, ...}: {
   flake.nixosModules.arkRpVisualisation = {
     config,
+    lib,
     pkgs,
     ...
-  }: {
+  }: let
+    cfg = config.services.ark-rp-viz;
+  in {
+    options.services.ark-rp-viz = {
+      port = lib.mkOption {
+        type = lib.types.int;
+        default = 8050;
+        description = "Port to run ark-rp-visualisation on.";
+      };
+    };
+
     users.users.ark-rp-viz = {
       isSystemUser = true;
       group = "ark-rp-viz";
@@ -24,10 +35,14 @@
 
       serviceConfig = {
         ExecStart = "${inputs.ark-rp-visualisation.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/ark-rp-visualisation";
-        EnvironmentFile = config.age.secrets.ark-rp-visualisation-env.path;
         User = "ark-rp-viz";
         Group = "ark-rp-viz";
         Restart = "always";
+
+        Environment = {
+          PORT = toString cfg.port;
+        };
+        EnvironmentFile = config.age.secrets.ark-rp-visualisation-env.path;
 
         # Hardening
         ProtectSystem = "strict";
@@ -42,7 +57,7 @@
       extraConfig = ''
         # Only listen to localhost (e.g. Cloudflared tunnel)
         bind 127.0.0.1
-        reverse_proxy localhost:8050
+        reverse_proxy localhost:${cfg.port}
       '';
     };
     services.cloudflared.tunnels."b6ce003f-d222-4d1c-8e67-56ac678280ba".ingress = {
