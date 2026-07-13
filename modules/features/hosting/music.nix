@@ -24,6 +24,11 @@ in {
         mode = "2770";
       }
     ];
+
+    # Ensure any new files are accessible by the music group
+    systemd.tmpfiles.rules = [
+      "a+ /srv/music - - - - default:group:music:rwx"
+    ];
   };
 
   flake.nixosModules.navidrome = {config, ...}: let
@@ -289,8 +294,8 @@ in {
           };
 
           volumes = [
-            "${musicDir}:/storage:rw"
-            "${cfg.dataDir}:/config:rw"
+            "${musicDir}:/storage"
+            "${cfg.dataDir}:/config"
           ];
         };
       };
