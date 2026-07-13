@@ -40,6 +40,7 @@ in {
       settings = {
         "MusicFolder" = musicDir;
         "Scanner.Schedule" = "0 * * * *";
+        "PID.Album" = "musicbrainz_albumid|album";
       };
     };
 
