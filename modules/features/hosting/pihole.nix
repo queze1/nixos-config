@@ -42,7 +42,6 @@
     };
 
     services.ddclient.domains = [
-      "pihole-dns.osipol.uk"
       "pihole.osipol.uk"
     ];
   };
