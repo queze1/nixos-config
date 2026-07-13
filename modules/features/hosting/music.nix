@@ -289,8 +289,8 @@ in {
           };
 
           volumes = [
-            "${musicDir}:/storage" # download into shared music dir
-            "${cfg.dataDir}:/config"
+            "${musicDir}:/storage:rw"
+            "${cfg.dataDir}:/config:rw"
           ];
         };
       };
