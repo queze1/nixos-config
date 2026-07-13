@@ -283,6 +283,8 @@ in {
           environment = {
             USER_ID = "0";
             GROUP_ID = "0";
+            DISPLAY_WIDTH = 1920;
+            DISPLAY_HEIGHT = 1080;
           };
 
           volumes = [
