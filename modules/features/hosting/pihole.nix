@@ -1,5 +1,7 @@
 {
-  flake.nixosModules.pihole = {config, ...}: {
+  flake.nixosModules.pihole = {config, ...}: let
+    cfg = config.services.pihole-ftl;
+  in {
     services.pihole-ftl = {
       enable = true;
       settings = {
@@ -12,15 +14,23 @@
       enable = true;
     };
 
+    # Open firewall for DNS server on Tailscale only
+    networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
+      allowedUDPPorts = [53];
+      allowedTCPPorts = [53];
+    };
+
+    # Preserve PiHole state
+    my.preservation.extraDirectories = [
+      {
+        directory = cfg.stateDirectory;
+        user = cfg.user;
+        group = cfg.group;
+        mode = "0700";
+      }
+    ];
+
     services.caddy.virtualHosts = {
-      "pihole-dns.osipol.uk" = {
-        extraConfig = ''
-          import cloudflare_dns
-          import tailscale_auth
-          # Port used by DNS server
-          reverse_proxy localhost:53
-        '';
-      };
       "pihole.osipol.uk" = {
         extraConfig = ''
           import cloudflare_dns
