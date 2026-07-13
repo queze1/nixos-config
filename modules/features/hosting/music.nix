@@ -116,6 +116,9 @@ in {
             PGID = "0";
             DOWNLOAD_DIR = "/downloads";
             STATE_DIR = "/state";
+            YTDL_OPTIONS = builtins.toJSON {
+              embed-metadata = true;
+            };
           };
 
           volumes = [
