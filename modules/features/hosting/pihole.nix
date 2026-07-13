@@ -12,6 +12,11 @@
           interface = config.services.tailscale.interfaceName;
         };
       };
+      lists = [
+        {
+          url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
+        }
+      ];
     };
 
     services.pihole-web = {
