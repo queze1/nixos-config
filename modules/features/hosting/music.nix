@@ -160,18 +160,12 @@ in {
         default = "/var/lib/yubal";
         description = "Directory where yubal stores its config.";
       };
-      uid = lib.mkOption {
-        type = lib.types.int;
-        default = 980;
-        description = "User ID under which yubal runs.";
-      };
     };
 
     config = {
       # Create a system user to run yubal
       users.users.yubal = {
         isSystemUser = true;
-        uid = cfg.uid;
         group = "music";
         linger = true;
         createHome = true;
@@ -200,10 +194,8 @@ in {
           podman.user = "yubal";
 
           environment = {
-            # "If your container runs with the root user, then root in the container is actually your user on the host."
             PUID = "0";
             PGID = "0";
-
             YUBAL_SCHEDULER_CRON = "0 0 * * *";
             YUBAL_DOWNLOAD_UGC = "true";
             YUBAL_TZ = "UTC";
@@ -225,7 +217,7 @@ in {
 
             # https://github.com/podman-container-tools/podman/issues/25674 "Podman accepts but does not forward ipv6 traffic in rootless mode by default"
             # Workaround is to use 127.0.0.1 instead of localhost
-            reverse_proxy 127.0.0.1:${toString config.services.yubal.port}
+            reverse_proxy 127.0.0.1:${toString cfg.port}
           '';
         };
       };
