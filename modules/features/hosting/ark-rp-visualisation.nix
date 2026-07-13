@@ -66,6 +66,7 @@
           ProtectHome = true;
           PrivateTmp = true;
           NoNewPrivileges = true;
+          StateDirectory = "ark-rp-viz";
         };
       };
 
