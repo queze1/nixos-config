@@ -20,8 +20,11 @@ in {
       # Self-hosted apps
       self.nixosModules.arkRpVisualisation
       self.nixosModules.musicStack
+      self.nixosModules.pihole
       self.nixosModules.sillytavern
     ];
+
+    # TODO: Set port for PiHole
 
     hardware.facter.reportPath = ./facter.json;
     networking.hostName = "${hostname}";
