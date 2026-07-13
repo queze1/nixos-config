@@ -13,30 +13,14 @@
         default = 8050;
         description = "Port to run ark-rp-visualisation on.";
       };
-      dataDir = lib.mkOption {
-        type = lib.types.str;
-        default = "/var/lib/ark-rp-viz";
-        description = "Path where ark-rp-visualisation stores its data.";
-      };
     };
 
     config = {
       users.users.ark-rp-viz = {
         isSystemUser = true;
         group = "ark-rp-viz";
-        home = cfg.dataDir;
       };
       users.groups.ark-rp-viz = {};
-
-      # Preserve ark-rp-visualisation data
-      my.preservation.extraDirectories = [
-        {
-          directory = cfg.dataDir;
-          user = "ark-rp-viz";
-          group = "ark-rp-viz";
-          mode = "0700";
-        }
-      ];
 
       age.secrets.ark-rp-visualisation-env = {
         file = "${inputs.secrets}/ark-rp-visualisation-env.age";
@@ -58,8 +42,12 @@
 
           Environment = ''
             PORT=${toString cfg.port}
+            HOME=/run/ark-rp-viz
           '';
           EnvironmentFile = config.age.secrets.ark-rp-visualisation-env.path;
+
+          # Create a temporary directory at /run/ark-rp-viz
+          RuntimeDirectory = "ark-rp-viz";
 
           # Hardening
           ProtectSystem = "strict";
