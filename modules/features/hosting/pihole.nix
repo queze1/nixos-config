@@ -17,11 +17,12 @@
           interface = config.services.tailscale.interfaceName;
         };
       };
-      lists = [
-        {
-          url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-        }
-      ];
+      # Has bug where setup service will try to add a list even if it already exists, causing an error
+      # lists = [
+      #   {
+      #     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
+      #   }
+      # ];
     };
 
     services.pihole-web = {
