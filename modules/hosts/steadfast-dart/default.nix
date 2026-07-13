@@ -24,7 +24,11 @@ in {
       self.nixosModules.sillytavern
     ];
 
-    # TODO: Set port for PiHole
+    # Set incrementing port numbers
+    services.ark-rp-viz.port = 8000;
+    services.navidrome.settings.Port = 8001;
+    services.pihole-web.ports = [8002];
+    services.yubal.port = 8003;
 
     hardware.facter.reportPath = ./facter.json;
     networking.hostName = "${hostname}";
