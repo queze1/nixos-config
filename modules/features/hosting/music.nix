@@ -7,6 +7,7 @@ in {
       self.nixosModules.navidrome
       self.nixosModules.metube
       self.nixosModules.yubal
+      self.nixosModules.picard
     ];
 
     # Create group with shared access to the music directory
@@ -158,10 +159,10 @@ in {
         default = 8000;
         description = "Port to run yubal on.";
       };
-      configDir = lib.mkOption {
+      dataDir = lib.mkOption {
         type = lib.types.str;
         default = "/var/lib/yubal";
-        description = "Directory where yubal stores its config.";
+        description = "Directory where yubal stores its data.";
       };
     };
 
@@ -172,7 +173,7 @@ in {
         group = "music";
         linger = true;
         createHome = true;
-        home = cfg.configDir;
+        home = cfg.dataDir;
 
         # https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md
         autoSubUidGidRange = true;
@@ -181,7 +182,7 @@ in {
       # Preserve yubal data
       my.preservation.extraDirectories = [
         {
-          directory = cfg.configDir;
+          directory = cfg.dataDir;
           user = "yubal";
           group = "music";
           mode = "0700";
@@ -205,8 +206,8 @@ in {
           };
 
           volumes = [
-            "${musicDir}:/app/data" # download into shared music dir
-            "${cfg.configDir}:/app/config"
+            "${musicDir}:/app/data"
+            "${cfg.dataDir}:/app/config"
           ];
         };
       };
@@ -225,6 +226,86 @@ in {
         };
       };
       services.ddclient.domains = ["yubal.osipol.uk"]; # dynamically update IP
+    };
+  };
+
+  flake.nixosModules.picard = {
+    config,
+    lib,
+    ...
+  }: let
+    cfg = config.services.picard;
+  in {
+    options.services.picard = {
+      port = lib.mkOption {
+        type = lib.types.int;
+        default = 5800;
+        description = "Port to run Picard on.";
+      };
+      dataDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/var/lib/picard";
+        description = "Directory where Picard stores its data.";
+      };
+    };
+
+    config = {
+      # Create a system user to run Picard
+      users.users.picard = {
+        isSystemUser = true;
+        group = "music";
+        linger = true;
+        createHome = true;
+        home = cfg.dataDir;
+
+        # https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md
+        autoSubUidGidRange = true;
+      };
+
+      # Preserve Picard data
+      my.preservation.extraDirectories = [
+        {
+          directory = cfg.dataDir;
+          user = "picard";
+          group = "music";
+          mode = "0700";
+        }
+      ];
+
+      # Run dockerised Picard with rootless Podman
+      virtualisation.oci-containers = {
+        containers.picard = {
+          image = "docker.io/mikenye/picard:latest";
+          ports = ["${toString cfg.port}:5800"];
+          autoStart = true;
+          podman.user = "picard";
+
+          environment = {
+            USER_ID = "0";
+            GROUP_ID = "0";
+          };
+
+          volumes = [
+            "${musicDir}:/storage" # download into shared music dir
+            "${cfg.dataDir}:/config"
+          ];
+        };
+      };
+
+      # Make picard accessible through Tailscale
+      services.caddy.virtualHosts = {
+        "picard.osipol.uk" = {
+          extraConfig = ''
+            import cloudflare_dns
+            import tailscale_auth
+
+            # https://github.com/podman-container-tools/podman/issues/25674 "Podman accepts but does not forward ipv6 traffic in rootless mode by default"
+            # Workaround is to use 127.0.0.1 instead of localhost
+            reverse_proxy 127.0.0.1:${toString cfg.port}
+          '';
+        };
+      };
+      services.ddclient.domains = ["picard.osipol.uk"]; # dynamically update IP
     };
   };
 }

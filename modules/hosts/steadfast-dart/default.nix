@@ -29,7 +29,8 @@ in {
     services.navidrome.settings.Port = 8001;
     services.metube.port = 8002;
     services.yubal.port = 8003;
-    services.pihole-web.ports = [8004];
+    services.picard.port = 8005;
+    services.pihole-web.ports = [8006];
 
     hardware.facter.reportPath = ./facter.json;
     networking.hostName = "${hostname}";
