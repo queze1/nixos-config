@@ -70,11 +70,6 @@
             path = "/mnt/utm/Apps/SillyTavern-Launcher/SillyTavern/data/default-user";
             devices = ["poco-x3-pro"];
           };
-          "Music" = {
-            id = "ft74r-2c4sc";
-            path = "/mnt/utm/Music";
-            devices = ["poco-x3-pro"];
-          };
         };
       };
     };
