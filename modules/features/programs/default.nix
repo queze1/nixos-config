@@ -64,6 +64,7 @@
       fastfetch
       ffmpeg
       pkgs-stable.yt-dlp
+      sops
       tree
       unzip
       wl-clipboard
