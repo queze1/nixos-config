@@ -1,17 +1,6 @@
 {
-  flake.nixosModules.pihole = {
-    config,
-    lib,
-    ...
-  }: let
+  flake.nixosModules.pihole = {config, ...}: let
     cfg = config.services.pihole-ftl;
-
-    firebogListText = builtins.readFile (builtins.fetchurl {
-      url = "https://v.firebog.net/hosts/lists.php?type=tick";
-      sha256 = "sha256:1zpg9q8c4br5piznnsg3sfirsv0rqgm83kawxagzx308islnk9s1";
-    });
-    firebogListLines = lib.strings.splitString "\n" firebogListText;
-    piholeLists = map (url: {inherit url;}) firebogListLines;
   in {
     services.pihole-ftl = {
       enable = true;
@@ -29,7 +18,11 @@
         };
       };
       # Has bug where setup service will try to add a list even if it already exists, causing an error
-      lists = piholeLists;
+      # lists = [
+      #   {
+      #     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
+      #   }
+      # ];
     };
 
     services.pihole-web = {
