@@ -14,7 +14,7 @@
     };
 
     systemd.services.ddclient = {
-      after = ["tailscaled.service"];
+      requires = ["tailscaled.service"];
       wants = ["tailscaled.service"];
     };
   };
