@@ -10,7 +10,7 @@ My personal NixOS config.
 - Shell: [Fish](https://fishshell.com/)
 
 ## Features
-- [agentix](https://github.com/ryantm/agenix) - to securely manage secrets
+- [sops-nix](https://github.com/Mic92/sops-nix) - to securely manage secrets
 - [nixos-anywhere](https://github.com/nix-community/nixos-anywhere) - to remotely install NixOS with a single CLI command
 - [disko](https://github.com/nix-community/disko) - for declarative disk management
 - [preservation](https://github.com/nix-community/preservation) - for an "erase your darlings" setup.
