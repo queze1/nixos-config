@@ -7,11 +7,10 @@
       self.nixosModules.sharedModules
 
       # Basic libraries
-      self.nixosModules.agenix
-      self.nixosModules.preservation
-      self.nixosModules.sopsNix
       (self.factory.diskoTmpfsOnRoot
         {device = "/dev/vda";})
+      self.nixosModules.preservation
+      self.nixosModules.sopsNix
 
       # UTM VM
       self.nixosModules.utm
@@ -36,7 +35,6 @@
 
       # User related stuff
       self.nixosModules.homeManager
-      self.nixosModules.agenixWithHM
       self.nixosModules.sopsNixWithHM
       self.nixosModules.utmHMIntegration
       self.nixosModules.${mainUser}

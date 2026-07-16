@@ -3,7 +3,7 @@
   self,
   ...
 }: let
-  sshKeys = import "${inputs.secrets}/ssh-keys.nix";
+  sshKeys = import "${self}/ssh-keys.nix";
 in {
   # Base configuration for home servers
   flake.nixosModules.steadfastBase = {
@@ -17,11 +17,10 @@ in {
       self.nixosModules.networkmanager
 
       # Basic libraries
-      self.nixosModules.agenix
-      self.nixosModules.preservation
-      self.nixosModules.sopsNix
       (self.factory.diskoTmpfsOnRoot
         {device = "/dev/nvme0n1";})
+      self.nixosModules.preservation
+      self.nixosModules.sopsNix
 
       # Services
       self.nixosModules.openssh

@@ -56,7 +56,6 @@
       qalculate-qt
 
       # Nix-related CLI tools
-      inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
       inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
 
       # CLI tools
