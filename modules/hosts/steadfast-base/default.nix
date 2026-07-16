@@ -40,9 +40,9 @@ in {
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
 
     # Automatically auth into Tailscale as a server
-    age.secrets.tailscale-auth-key.file = "${inputs.secrets}/tailscale-auth-key.age";
+    sops.secrets.tailscale-auth-key.sopsFile = "${inputs.secrets}/secrets/server.yaml";
     services.tailscale = {
-      authKeyFile = config.age.secrets.tailscale-auth-key.path;
+      authKeyFile = config.sops.secrets.tailscale-auth-key.path;
     };
 
     # Only allow SSH via Tailscale

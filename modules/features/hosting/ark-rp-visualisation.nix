@@ -38,8 +38,8 @@
         }
       ];
 
-      age.secrets.ark-rp-visualisation-env = {
-        file = "${inputs.secrets}/ark-rp-visualisation-env.age";
+      sops.secrets.ark-rp-visualisation-env = {
+        sopsFile = "${inputs.secrets}/secrets/server.yaml";
         owner = "ark-rp-viz";
         group = "ark-rp-viz";
       };
@@ -59,7 +59,7 @@
           Environment = ''
             PORT=${toString cfg.port}
           '';
-          EnvironmentFile = config.age.secrets.ark-rp-visualisation-env.path;
+          EnvironmentFile = config.sops.secrets.ark-rp-visualisation-env.path;
 
           # Hardening
           ProtectSystem = "strict";
