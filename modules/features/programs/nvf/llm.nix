@@ -9,7 +9,7 @@
       ".config/github-copilot"
     ];
 
-    age.secrets.tavily-api-key.file = "${inputs.secrets}/tavily-api-key.age";
+    sops.secrets.tavily-api-key.sopsFile = "${inputs.secrets}/secrets/personal.yaml";
 
     programs.nvf.settings.vim = {
       # LLM integration
@@ -59,7 +59,7 @@
                   ["tavily"] = function()
                     return require("codecompanion.adapters").extend("tavily", {
                       env = {
-                        api_key = "cmd:cat ${config.age.secrets.tavily-api-key.path}",
+                        api_key = "cmd:cat ${config.sops.secrets.tavily-api-key.path}",
                       },
                     })
                   end,

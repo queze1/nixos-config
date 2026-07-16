@@ -9,7 +9,7 @@
       # Basic libraries
       self.nixosModules.agenix
       self.nixosModules.preservation
-      self.nixosModules.sops-nix
+      self.nixosModules.sopsNix
       (self.factory.diskoTmpfsOnRoot
         {device = "/dev/vda";})
 
@@ -37,6 +37,7 @@
       # User related stuff
       self.nixosModules.homeManager
       self.nixosModules.agenixWithHM
+      self.nixosModules.sopsNixWithHM
       self.nixosModules.utmHMIntegration
       self.nixosModules.${mainUser}
       (self.factory.preservationForUser {username = "${mainUser}";})

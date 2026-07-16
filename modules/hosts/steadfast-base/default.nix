@@ -19,7 +19,7 @@ in {
       # Basic libraries
       self.nixosModules.agenix
       self.nixosModules.preservation
-      self.nixosModules.sops-nix
+      self.nixosModules.sopsNix
       (self.factory.diskoTmpfsOnRoot
         {device = "/dev/nvme0n1";})
 
