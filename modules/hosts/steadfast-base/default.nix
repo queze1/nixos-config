@@ -25,7 +25,6 @@ in {
       # Services
       self.nixosModules.openssh
       self.nixosModules.tailscale
-      self.nixosModules.restic
 
       self.nixosModules.commander
     ];
