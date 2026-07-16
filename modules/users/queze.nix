@@ -1,21 +1,7 @@
-{
-  inputs,
-  self,
-  ...
-}: let
+{inputs, ...}: let
   username = "queze";
 in {
   flake.nixosModules.${username} = {
-    imports = [
-      # Activate Home Manager for this user
-      (self.factory.homeConfiguration {inherit username;})
-    ];
-
-    # Required for devenv
-    nix.settings = {
-      trusted-users = ["${username}"];
-    };
-
     users.users.${username} = {
       isNormalUser = true;
       extraGroups = [
@@ -26,11 +12,23 @@ in {
       hashedPasswordFile = "/persistent/passwd"; # sudo sh -c 'mkpasswd -m yescrypt > /persistent/passwd'
     };
 
-    age.secrets."${username}-ssh-config" = {
-      file = "${inputs.secrets}/${username}-ssh-config.age";
-      path = "/home/${username}/.ssh/config";
-      owner = "${username}";
-      mode = "600";
+    # Required for devenv
+    nix.settings = {
+      trusted-users = ["${username}"];
+    };
+
+    home-manager.users.${username} = {config, ...}: {
+      # Use secret SSH config
+      sops.secrets."${username}-ssh-config".sopsFile = "${inputs.secrets}/secrets/personal.yaml";
+      programs.ssh = {
+        enable = true;
+        includes = [config.sops.secrets."${username}-ssh-config".path];
+      };
+
+      home.username = username;
+      home.homeDirectory = "/home/${username}";
+      home.stateVersion = "25.11";
+      programs.home-manager.enable = true;
     };
 
     my.preservation.extraUserDirectories = [
