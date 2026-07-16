@@ -14,7 +14,7 @@
     ];
 
     # Ensure Tailscale waits for preservation
-    my.preservation.systemdServices.tailscaled = {
+    systemd.services.tailscaled = {
       after = ["preservation.target"];
       wants = ["preservation.target"];
     };
