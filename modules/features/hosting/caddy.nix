@@ -17,7 +17,7 @@
       extraConfig = ''
         (cloudflare_dns) {
           tls {
-          	dns cloudflare {file.${config.age.secrets.osipol-cloudflare-api-token.path}}
+          	dns cloudflare {file.${config.sops.secrets.osipol-cloudflare-api-token.path}}
             propagation_timeout -1
             propagation_delay 15s
           }
@@ -41,8 +41,8 @@
       '';
     };
 
-    age.secrets.osipol-cloudflare-api-token = {
-      file = "${inputs.secrets}/osipol-cloudflare-api-token.age";
+    sops.secrets.osipol-cloudflare-api-token = {
+      sopsFile = "${inputs.secrets}/secrets/server.yaml";
       owner = config.services.caddy.user;
       group = config.services.caddy.group;
     };
