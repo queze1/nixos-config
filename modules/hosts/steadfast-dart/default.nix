@@ -1,12 +1,12 @@
 {
-  self,
   inputs,
+  self,
   ...
 }: let
   hostname = "steadfast-dart";
 in {
   # Fastest home server
-  flake.nixosModules.steadfastDartConfiguration = {
+  flake.nixosModules.steadfastDartConfiguration = {config, ...}: {
     imports = [
       self.nixosModules.steadfastBase
       self.nixosModules.podmanContainers
@@ -31,6 +31,28 @@ in {
     services.yubal.port = 8003;
     services.picard.port = 8005;
     services.pihole-web.ports = [8006];
+
+    sops.secrets.restic-backblaze-b2-repo.sopsFile = "${inputs.secrets}/secrets/server.yaml";
+    sops.secrets.restic-backblaze-b2-env.sopsFile = "${inputs.secrets}/secrets/server.yaml";
+    sops.secrets.restic-backblaze-b2-pass.sopsFile = "${inputs.secrets}/secrets/server.yaml";
+
+    services.restic.backups = {
+      backblaze-b2 = {
+        repositoryFile = config.sops.secrets.restic-backblaze-b2-repo.path;
+        environmentFile = config.sops.secrets.restic-backblaze-b2-env.path;
+        passwordFile = config.sops.secrets.restic-backblaze-b2-pass.path;
+        initialize = true;
+
+        timerConfig = {
+          OnCalendar = "daily";
+          Persistent = true;
+        };
+
+        paths = [
+          "/srv/music"
+        ];
+      };
+    };
 
     hardware.facter.reportPath = ./facter.json;
     networking.hostName = "${hostname}";
