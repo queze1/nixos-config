@@ -36,7 +36,6 @@
       self.homeModules.foot
       self.homeModules.imv
       self.homeModules.nvf
-      self.homeModules.vscode
       self.homeModules.yazi
 
       # GUI apps
