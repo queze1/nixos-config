@@ -35,8 +35,9 @@
       # CLI apps
       self.homeModules.foot
       self.homeModules.imv
-      self.homeModules.yazi
       self.homeModules.nvf
+      self.homeModules.vscode
+      self.homeModules.yazi
 
       # GUI apps
       self.homeModules.firefox
