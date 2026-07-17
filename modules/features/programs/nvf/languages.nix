@@ -18,6 +18,8 @@
       };
     };
   in {
+    home.packages = [pkgs.dafny];
+
     programs.nvf.settings.vim = {
       languages = {
         clang.enable = true;
