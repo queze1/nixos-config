@@ -8,6 +8,16 @@
   }: let
     hostName = osConfig.networking.hostName;
     flakePath = "${config.home.homeDirectory}/etc/nixos";
+
+    dafny-nvim = pkgs.vimUtils.buildVimPlugin {
+      name = "dafny-nvim";
+      src = pkgs.fetchFromGitHub {
+        owner = "CameronBadman";
+        repo = "dafny-nvim";
+        rev = "94e5b204ff2312f96207ee259f54f787a68733b1";
+        hash = "sha256-e/ndm/AURRZSGUL/slAkzri2XNcmCpz8fzQVI5ScXFI=";
+      };
+    };
   in {
     programs.nvf.settings.vim = {
       languages = {
@@ -125,6 +135,17 @@
             '');
           };
 
+          dafny = {
+            cmd = [
+              "${pkgs.dafny}/bin/dafny"
+              "server"
+              "--solver-path"
+              "${pkgs.z3}/bin/z3"
+            ];
+            filetypes = ["dfy" "dafny"];
+            root_markers = [".git"];
+          };
+
           nixd = {
             settings = {
               nixd = {
@@ -151,6 +172,18 @@
               };
             };
           };
+        };
+      };
+
+      extraPlugins = {
+        dafny-nvim = {
+          package = dafny-nvim;
+          setup = ''
+            require("dafny").setup({
+              counter_example_depth = 5,    -- depth passed to dafny/counterExample request
+              counter_debounce_ms   = 1000, -- ms to wait after last symbolStatus before fetching counter examples
+            })
+          '';
         };
       };
     };
