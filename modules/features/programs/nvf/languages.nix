@@ -8,7 +8,6 @@
   }: let
     hostName = osConfig.networking.hostName;
     flakePath = "${config.home.homeDirectory}/etc/nixos";
-
     dafny-nvim = pkgs.vimUtils.buildVimPlugin {
       name = "dafny-nvim";
       src = pkgs.fetchFromGitHub {
@@ -176,6 +175,10 @@
       };
 
       extraPlugins = {
+        vim-loves-dafny = {
+          package = pkgs.vimPlugins.vim-loves-dafny;
+          setup = '''';
+        };
         dafny-nvim = {
           package = dafny-nvim;
           setup = ''
