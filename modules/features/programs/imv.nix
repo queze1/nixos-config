@@ -1,5 +1,5 @@
 {
-  flake.homeModules.imv = {
+  flake.homeModules.imv = {pkgs, ...}: {
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
@@ -12,7 +12,6 @@
       };
     };
 
-    # TODO: Fix not rotating
     programs.imv = {
       enable = true;
       settings = {
@@ -26,6 +25,10 @@
           "<Right>" = "pan -50 0";
           "<Up>" = "pan 0 50";
           "<Down>" = "pan 0 -50";
+
+          # Rotate with imagemagick
+          "<Shift+R>" = "exec ${pkgs.imagemagick}/bin/mogrify -rotate 90 $imv_current_file";
+          "<Shift+E>" = "exec ${pkgs.imagemagick}/bin/mogrify -rotate -90 $imv_current_file";
         };
       };
     };
