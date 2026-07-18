@@ -39,7 +39,6 @@
       ];
 
       sops.secrets.ark-rp-visualisation-env = {
-        sopsFile = "${inputs.secrets}/secrets/server.yaml";
         owner = "ark-rp-viz";
         group = "ark-rp-viz";
       };

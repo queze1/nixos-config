@@ -32,9 +32,9 @@ in {
     services.picard.port = 8005;
     services.pihole-web.ports = [8006];
 
-    sops.secrets.restic-backblaze-b2-repo.sopsFile = "${inputs.secrets}/secrets/server.yaml";
-    sops.secrets.restic-backblaze-b2-env.sopsFile = "${inputs.secrets}/secrets/server.yaml";
-    sops.secrets.restic-backblaze-b2-pass.sopsFile = "${inputs.secrets}/secrets/server.yaml";
+    sops.secrets.restic-backblaze-b2-repo = {};
+    sops.secrets.restic-backblaze-b2-env = {};
+    sops.secrets.restic-backblaze-b2-pass = {};
 
     services.restic.backups = {
       backblaze-b2 = {

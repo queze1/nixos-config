@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{
   flake.nixosModules.caddy = {
     config,
     pkgs,
@@ -42,7 +42,6 @@
     };
 
     sops.secrets.osipol-cloudflare-api-token = {
-      sopsFile = "${inputs.secrets}/secrets/server.yaml";
       owner = config.services.caddy.user;
       group = config.services.caddy.group;
     };

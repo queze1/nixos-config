@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{
   flake.homeModules.nvf = {
     config,
     lib,
@@ -9,7 +9,7 @@
       ".config/github-copilot"
     ];
 
-    sops.secrets.tavily-api-key.sopsFile = "${inputs.secrets}/secrets/personal.yaml";
+    sops.secrets.tavily-api-key = {};
 
     programs.nvf.settings.vim = {
       # LLM integration

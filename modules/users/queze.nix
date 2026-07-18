@@ -1,4 +1,4 @@
-{inputs, ...}: let
+let
   username = "queze";
 in {
   flake.nixosModules.${username} = {
@@ -19,7 +19,7 @@ in {
 
     home-manager.users.${username} = {config, ...}: {
       # Use secret SSH config
-      sops.secrets."${username}-ssh-config".sopsFile = "${inputs.secrets}/secrets/personal.yaml";
+      sops.secrets."${username}-ssh-config" = {};
       programs.ssh = {
         enable = true;
         includes = [config.sops.secrets."${username}-ssh-config".path];

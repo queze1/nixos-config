@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{
   flake.nixosModules.cloudflared = {config, ...}: {
     services.cloudflared = {
       enable = true;
@@ -10,8 +10,6 @@
       };
     };
 
-    sops.secrets.osipol-cloudflare-creds = {
-      sopsFile = "${inputs.secrets}/secrets/server.yaml";
-    };
+    sops.secrets.osipol-cloudflare-creds = {};
   };
 }

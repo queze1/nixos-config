@@ -1,8 +1,4 @@
-{
-  inputs,
-  self,
-  ...
-}: let
+{self, ...}: let
   sshKeys = import "${self}/ssh-keys.nix";
 in {
   # Base configuration for home servers
@@ -39,7 +35,7 @@ in {
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
 
     # Automatically auth into Tailscale as a server
-    sops.secrets.tailscale-auth-key.sopsFile = "${inputs.secrets}/secrets/server.yaml";
+    sops.secrets.tailscale-auth-key = {};
     services.tailscale = {
       authKeyFile = config.sops.secrets.tailscale-auth-key.path;
     };
