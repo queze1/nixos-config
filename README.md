@@ -25,13 +25,7 @@ sudo passwd root
 ```
 4. On your source machine, run:
 ```
-./gen-host-key.sh
-
-# Rekey secrets if needed...
-
 ./install.sh <target-machine-ip> <hostname>
-
-# Enter "root" password
 ```
 
 
@@ -40,7 +34,6 @@ sudo passwd root
 .
 ├── assets                     # profile picture, default wallpaper, etc.
 ├── flake.nix                  # imports everything in /modules
-├── gen-host-key.sh
 ├── install.sh                 # script to bootstrap a machine with nixos-anywhere
 ├── modules
 │   ├── features

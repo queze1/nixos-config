@@ -2,27 +2,20 @@
 
 set -e
 
-DEFAULT_HOST_KEY_PATH=".tmp/ssh_host_ed25519_key"
 DEFAULT_COPY_TO_PERSISTENT=1
 
 if [ -z "$2" ]; then
-    echo "Usage: $0 <target-ip> <hostname> [ssh-host-key-path] [copy-to-persistent]"
-    echo "Example: $0 192.168.1.100 able-archer $DEFAULT_HOST_KEY_PATH $DEFAULT_COPY_TO_PERSISTENT"
+    echo "Usage: $0 <target-ip> <hostname> [copy-to-persistent]"
+    echo "Example: $0 192.168.1.100 able-archer $DEFAULT_COPY_TO_PERSISTENT"
     exit 1
 fi
 
 TARGET_IP=$1
 HOSTNAME=$2
-HOST_KEY_PATH=${3:-$DEFAULT_HOST_KEY_PATH}
-COPY_TO_PERSISTENT=${4:-$DEFAULT_COPY_TO_PERSISTENT}
-HOST_KEY_NAME=$(basename "$HOST_KEY_PATH")
-HOST_KEY_DIR=$(dirname "$HOST_KEY_PATH")
+COPY_TO_PERSISTENT=${3:-$DEFAULT_COPY_TO_PERSISTENT}
 
-# Temporary directories
-TMP_DIR=".tmp"
-STAGING_DIR="$TMP_DIR/staging"
-STAGING_ETC_SSH_DIR="$STAGING_DIR/etc/ssh"
-STAGING_PERSISTENT_ETC_SSH_DIR="$STAGING_DIR/persistent/etc/ssh"
+USER_RUN_DIR="/run/user/$(id -u)"
+TMP_DIR=$(mktemp -d "$USER_RUN_DIR/nixos-anywhere-deploy.XXXXXX")
 
 # Helper to echo a command and then execute it
 run_cmd() {
@@ -31,27 +24,80 @@ run_cmd() {
     eval "$cmd"
 }
 
-# If host key is not found, ask the user to generate it first
-if [ ! -f "$HOST_KEY_PATH" ]; then
-    echo "Host key not found at $HOST_KEY_PATH."
-    echo "Please run ./gen-host-key.sh to generate it, then re-run install.sh."
-    exit 1
-fi
+cleanup() {
+    if [ -d "$TMP_DIR" ]; then
+        rm -rf "$TMP_DIR"
+    fi
+}
+trap cleanup EXIT
 
+ETC_SSH_DIR="$TMP_DIR/etc/ssh"
+PERSISTENT_ETC_SSH_DIR="$TMP_DIR/persistent/etc/ssh"
+HOST_KEY_PATH="$ETC_SSH_DIR/ssh_host_ed25519_key"
 
-run_cmd "mkdir -p \"$STAGING_ETC_SSH_DIR\""
-run_cmd "cp \"$HOST_KEY_PATH\" \"$STAGING_ETC_SSH_DIR/$HOST_KEY_NAME\""
+echo "========================================================="
+echo "Generating SSH host keys..."
+echo "========================================================="
 
+# Generate SSH host key in temp dir
+run_cmd "mkdir -p \"$ETC_SSH_DIR\""
+run_cmd "ssh-keygen -t ed25519 -f \"$HOST_KEY_PATH\" -N \"\" -q"
 if [ "$COPY_TO_PERSISTENT" = "1" ]; then
-    run_cmd "mkdir -p \"$STAGING_PERSISTENT_ETC_SSH_DIR\""
-    run_cmd "cp \"$HOST_KEY_PATH\" \"$STAGING_PERSISTENT_ETC_SSH_DIR/$HOST_KEY_NAME\""
+    run_cmd "mkdir -p \"$PERSISTENT_ETC_SSH_DIR\""
+    run_cmd "cp -r \"$ETC_SSH_DIR\" \"$PERSISTENT_ETC_SSH_DIR\""
 fi
+
+# Use ssh-to-age to generate a public key from the host key and print it
+echo
+echo "========================================================="
+echo "Generating age public key..."
+echo "========================================================="
+AGE_PUBLIC_KEY=$(nix run nixpkgs#ssh-to-age -- -i "$HOST_KEY_PATH.pub")
+echo "Key: $AGE_PUBLIC_KEY"
+echo "Configure secrets for this key in the secrets repo and push the changes."
+echo
+
+while true; do
+    # Loop for updating secrets
+    while true; do
+        read -r -p "Update secrets input? (y/n): " choice_update
+        case "$choice_update" in
+            [Yy]* )
+                run_cmd "nix flake update secrets"
+                break
+                ;;
+            [Nn]* )
+                echo "Please configure your secrets first." 
+                ;;
+            * )
+                echo "Please answer y or n."
+                ;;
+        esac
+    done
+
+    # Loop for starting deployment
+    while true; do
+        read -r -p "Start deploy? (y/n): " choice_deploy
+        case "$choice_deploy" in
+            [Yy]* )
+                # Break out of both loops to proceed with deployment
+                break 2
+                ;;
+            [Nn]* )
+                break
+                ;;
+            * )
+                echo "Please answer y or n."
+                ;;
+        esac
+    done
+done
 
 # Remember to update this whenever the command is updated
 cat <<EOF
 Running: nix run github:nix-community/nixos-anywhere -- \\
     --flake ".#$HOSTNAME" \\
-    --extra-files "$STAGING_DIR" \\
+    --extra-files "$TMP_DIR" \\
     --generate-hardware-config nixos-facter "./modules/hosts/$HOSTNAME/facter.json" \\
     --build-on remote \\
     "root@$TARGET_IP"
@@ -60,10 +106,8 @@ EOF
 
 nix run github:nix-community/nixos-anywhere -- \
     --flake ".#$HOSTNAME" \
-    --extra-files "$STAGING_DIR" \
+    --extra-files "$TMP_DIR" \
     --generate-hardware-config nixos-facter "./modules/hosts/$HOSTNAME/facter.json" \
     --build-on remote \
-    "root@$TARGET_IP" &&
-echo &&
-echo "To clean up the key, run: ./gen-host-key.sh --delete"
+    "root@$TARGET_IP"
 
