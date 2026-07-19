@@ -42,13 +42,29 @@ in {
     mkIsoBurnerScript = {
       name,
       hostPlatform,
-    }:
-      pkgs.writeShellScriptBin name ''
-        exec ${pkgs.libisoburn}/bin/xorriso-dd-target \
+    }: let
+      innerScript = pkgs.writeShellScript "burn-iso-internal" ''
+        exec xorriso-dd-target \
           -with_sudo -plug_test -DO_WRITE \
           -image_file ${(mkIso {inherit hostPlatform;}).isoPath} \
           "$@"
       '';
+    in
+      # Run script inside of an FHS sandbox
+      pkgs.buildFHSEnv {
+        inherit name;
+        targetPkgs = pkgs:
+          with pkgs; [
+            libisoburn # contains xorriso-dd-target
+            util-linux # contains lsblk
+            coreutils # basic commands (cat, mkdir, etc.)
+            gnugrep # grep
+            gnused # sed
+            gawk # awk
+            sudo # required by -with_sudo
+          ];
+        runScript = "${innerScript}";
+      };
   in {
     packages = {
       iso-x86 = (mkIso {hostPlatform = "x86_64-linux";}).isoDerivation;
