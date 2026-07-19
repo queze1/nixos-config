@@ -13,8 +13,6 @@ in {
       self.nixosModules.networkmanager
 
       # Basic libraries
-      (self.factory.diskoTmpfsOnRoot
-        {device = "/dev/nvme0n1";})
       self.nixosModules.preservation
       self.nixosModules.sopsNix
 
