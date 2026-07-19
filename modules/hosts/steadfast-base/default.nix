@@ -47,6 +47,37 @@ in {
     services.openssh.openFirewall = false;
     networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = config.services.openssh.ports;
 
+    # Declaratively configure wifi
+    sops.secrets.home-wifi-env = {};
+    networking.networkmanager.ensureProfiles = {
+      environmentFiles = [config.sops.secrets.home-wifi-env.path];
+      profiles.home-wifi = {
+        connection = {
+          id = "$WIFI_SSID";
+          interface-name = "wlp3s0";
+          type = "wifi";
+          uuid = "$WIFI_UUID";
+        };
+        ipv4 = {
+          method = "auto";
+        };
+        ipv6 = {
+          addr-gen-mode = "default";
+          method = "auto";
+        };
+        proxy = {};
+        wifi = {
+          mode = "infrastructure";
+          ssid = "$WIFI_SSID";
+        };
+        wifi-security = {
+          auth-alg = "open";
+          key-mgmt = "wpa-psk";
+          psk = "$WIFI_PSK";
+        };
+      };
+    };
+
     # Don't sleep on lid close
     services.logind.settings.Login = {
       HandleLidSwitch = "ignore";
