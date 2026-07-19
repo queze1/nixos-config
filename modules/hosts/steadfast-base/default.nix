@@ -55,6 +55,7 @@ in {
           interface-name = "wlp3s0";
           type = "wifi";
           uuid = "$WIFI_UUID";
+          autoconnect = true;
         };
         ipv4 = {
           method = "auto";
