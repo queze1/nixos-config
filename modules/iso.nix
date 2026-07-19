@@ -44,7 +44,10 @@ in {
       hostPlatform,
     }:
       pkgs.writeShellScriptBin name ''
-        ${pkgs.libisoburn}/bin/xorriso-dd-target -with_sudo -plug_test -DO_WRITE -image_file ${(mkIso {inherit hostPlatform;}).isoPath}
+        exec ${pkgs.libisoburn}/bin/xorriso-dd-target \
+          -with_sudo -plug_test -DO_WRITE \
+          -image_file ${(mkIso {inherit hostPlatform;}).isoPath} \
+          "$@"
       '';
   in {
     packages = {
