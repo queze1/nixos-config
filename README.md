@@ -13,7 +13,7 @@ My personal NixOS config.
 - [sops-nix](https://github.com/Mic92/sops-nix) - to securely manage secrets
 - [nixos-anywhere](https://github.com/nix-community/nixos-anywhere) - to remotely install NixOS with a single CLI command
 - [disko](https://github.com/nix-community/disko) - for declarative disk management
-- [preservation](https://github.com/nix-community/preservation) - for an "erase your darlings" setup.
+- [preservation](https://github.com/nix-community/preservation) - for an ephemeral root setup.
 
 ## Installation
 1. Flash the NixOS graphical installer ISO onto a USB stick.
@@ -26,7 +26,14 @@ sudo passwd root
 4. On your source machine, run:
 ```
 ./install.sh <target-machine-ip> <hostname>
+
+# configure secrets
+# enter root password to SSH
 ```
+5. For home servers:
+  - Check internet connectivity and Tailscale access.
+  - Manually fix problems by physically logging in with "root" user and "root" password.
+  - Once SSH works, run `passwd -l root` to lock the root account.
 
 
 ## Project Structure
