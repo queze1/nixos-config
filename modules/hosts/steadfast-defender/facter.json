@@ -1748,9 +1748,9 @@
           "hex": "0007",
           "value": 7
         },
-        "sysfs_id": "/devices/platform/i8042/serio1/input/input188",
+        "sysfs_id": "/devices/platform/i8042/serio1/input/input20",
         "unix_device_names": [
-          "/dev/input/event8",
+          "/dev/input/event11",
           "/dev/input/ + handler"
         ]
       }
@@ -2060,7 +2060,7 @@
           },
           {
             "type": "hwaddr",
-            "address": 100
+            "address": 57
           }
         ],
         "detail": {
@@ -2160,28 +2160,6 @@
       },
       {
         "index": 45,
-        "attached_to": 0,
-        "class_list": [
-          "network_interface"
-        ],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Loopback",
-          "value": 0
-        },
-        "model": "Loopback network interface",
-        "sysfs_id": "/class/net/lo",
-        "unix_device_names": [
-          "lo"
-        ]
-      },
-      {
-        "index": 46,
         "attached_to": 21,
         "class_list": [
           "network_interface"
@@ -2222,6 +2200,28 @@
         ]
       },
       {
+        "index": 46,
+        "attached_to": 0,
+        "class_list": [
+          "network_interface"
+        ],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_names": [
+          "lo"
+        ]
+      },
+      {
         "index": 47,
         "attached_to": 36,
         "class_list": [
@@ -2246,7 +2246,7 @@
         "resources": [
           {
             "type": "hwaddr",
-            "address": 100
+            "address": 57
           }
         ],
         "driver": "cdc_mbim",
