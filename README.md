@@ -16,7 +16,7 @@ My personal NixOS config.
 - [preservation](https://github.com/nix-community/preservation) - for an ephemeral root setup.
 
 ## Installation
-1. Flash the NixOS graphical installer ISO onto a USB stick.
+1. Flash a NixOS installer ISO onto a USB stick.
 2. Boot the target machine with the USB stick.
 3. On the target machine, run:
 ```
