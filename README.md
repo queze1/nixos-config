@@ -16,25 +16,24 @@ My personal NixOS config.
 - [preservation](https://github.com/nix-community/preservation) - for an ephemeral root setup.
 
 ## Installation
-1. Flash a NixOS installer ISO onto a USB stick.
-2. Boot the target machine with the USB stick.
-3. On the target machine, run:
+1. Build the custom ISO with `nix build .#iso-x86` (or `.#iso-aarch64`)
+  - Don't do this unless you're me, as it's configured to allow SSH from my public key.
+2. Burn the ISO into a USB stick.
+3. Boot the target machine with the USB stick.
+4. On the target machine, run:
 ```
 ip addr
-sudo passwd root
 ```
-4. On your source machine, run:
+5. On your source machine, run:
 ```
 ./install.sh <target-machine-ip> <hostname>
 
 # configure secrets
-# enter root password to SSH
 ```
 5. For home servers:
-  - Check internet connectivity and Tailscale access.
   - Manually fix problems by physically logging in with "root" user and "root" password.
+  - If internet doesn't work, run `nmcli dev wifi connect <SSID> password <PASSWORD>`.
   - Once SSH works, run `passwd -l root` to lock the root account.
-
 
 ## Project Structure
 ```
@@ -51,6 +50,7 @@ sudo passwd root
 │   │   ├── shared             # config which every machine needs
 │   │   └── system             # system configuration
 │   ├── flake-parts.nix
+│   ├── iso.nix                # custom ISO images
 │   ├── hosts                  # host definitions
 │   │   ├── able-archer        # - personal machine
 │   │   ├── steadfast-base     # - shared home server config
