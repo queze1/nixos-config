@@ -52,7 +52,6 @@ in {
       profiles.home-wifi = {
         connection = {
           id = "$WIFI_SSID";
-          interface-name = "wlp3s0";
           type = "wifi";
           uuid = "$WIFI_UUID";
           autoconnect = true;
