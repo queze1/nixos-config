@@ -57,11 +57,10 @@ in {
           with pkgs; [
             libisoburn # contains xorriso-dd-target
             util-linux # contains lsblk
-            coreutils # basic commands (cat, mkdir, etc.)
-            gnugrep # grep
-            gnused # sed
-            gawk # awk
-            sudo # required by -with_sudo
+            coreutils # contains basic commands (cat, mkdir, etc.)
+            gnugrep # contains grep
+            gnused # contains sed
+            sudo # contains sudo
           ];
         runScript = "${innerScript}";
       };
