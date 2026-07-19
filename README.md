@@ -16,15 +16,15 @@ My personal NixOS config.
 - [preservation](https://github.com/nix-community/preservation) - for an ephemeral root setup.
 
 ## Installation
-1. Build the custom ISO with `nix build github:queze1/nixos-config#iso-x86` (or `.#iso-aarch64`)
+1. Build the custom ISO and burn it onto a USB with `nix run github:queze1/nixos-config#burn-iso-x86` (or `#burn-iso-aarch64`)
   - Don't do this unless you're me, as it's configured to allow SSH from my public key.
-2. Burn the ISO into a USB stick.
-3. Boot the target machine with the USB stick.
-4. On the target machine, run:
+  - If you don't want to use the custom ISO, you can download an ISO from the [official website](https://nixos.org/download/).
+2. Boot the target machine with the USB stick.
+3. On the target machine, run:
 ```
 ip addr
 ```
-5. On your source machine, run:
+4. On your source machine, run:
 ```
 ./install.sh <target-machine-ip> <hostname>
 
