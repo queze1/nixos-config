@@ -9,7 +9,7 @@
   mkIso = {hostPlatform}:
     inputs.nixpkgs-stable.lib.nixosSystem {
       modules = [
-        "${inputs.nixpkgs-stable}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+        "${inputs.nixpkgs-stable}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
         self.nixosModules.openssh
         {
           # Backdoor the ISO so I can SSH in
