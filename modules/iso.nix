@@ -25,7 +25,12 @@
         ];
       }).config.system.build.isoImage;
 in {
-  perSystem = {system, ...}: let
+  perSystem = {
+    pkgs,
+    self',
+    system,
+    ...
+  }: let
   in {
     packages = {
       iso-x86 = mkIso {
@@ -36,6 +41,11 @@ in {
         hostPlatform = "aarch64-linux";
         buildPlatform = system;
       };
+
+      burn-iso = pkgs.writeShellScriptBin "burn-iso" ''
+        set -e
+        echo ${self'.packages.iso-x86}
+      '';
     };
   };
 }
