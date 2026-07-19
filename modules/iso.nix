@@ -37,12 +37,12 @@ in {
     };
   in {
     packages = {
-      iso-x86 = mkIso {hostPlatform = "x86_64-linux";}.isoDerivation;
-      iso-aarch64 = mkIso {hostPlatform = "aarch64-linux";}.isoDerivation;
+      iso-x86 = (mkIso {hostPlatform = "x86_64-linux";}).isoDerivation;
+      iso-aarch64 = (mkIso {hostPlatform = "aarch64-linux";}).isoDerivation;
 
       burn-iso = pkgs.writeShellScriptBin "burn-iso" ''
         set -e
-        echo ${mkIso {hostPlatform = "x86_64-linux";}.isoPath}
+        echo ${(mkIso {hostPlatform = "x86_64-linux";}).isoPath}
       '';
     };
   };
