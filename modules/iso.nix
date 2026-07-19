@@ -32,9 +32,9 @@ in {
       }).config.system.build.isoImage;
   in {
     packages = {
-      # E.g. When you run `nix build .#iso-x86` on an aarch64-darwin host,
-      # it evaluates this package under packages.aarch64-darwin.iso-x86
-      # and sets buildPlatform = "aarch64-darwin"
+      # E.g. When you run `nix build .#iso-x86` on an aarch64-linux host,
+      # it evaluates this package under packages.aarch64-linux.iso-x86
+      # and sets buildPlatform = "aarch64-linux"
       iso-x86 = buildIsoForSystem self.nixosConfigurations.iso-x86;
       iso-aarch64 = buildIsoForSystem self.nixosConfigurations.iso-aarch64;
     };
