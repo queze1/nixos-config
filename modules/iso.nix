@@ -14,6 +14,7 @@
         {
           # Backdoor the ISO so I can SSH in
           users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
+          networking.networkmanager.enable = true;
           nixpkgs.hostPlatform = hostPlatform;
         }
       ];
