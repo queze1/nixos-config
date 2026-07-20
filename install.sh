@@ -44,7 +44,7 @@ run_cmd "mkdir -p \"$ETC_SSH_DIR\""
 run_cmd "ssh-keygen -t ed25519 -f \"$HOST_KEY_PATH\" -N \"\" -q"
 if [ "$COPY_TO_PERSISTENT" = "1" ]; then
     run_cmd "mkdir -p \"$PERSISTENT_ETC_SSH_DIR\""
-    run_cmd "cp -r \"$ETC_SSH_DIR\" \"$PERSISTENT_ETC_SSH_DIR\""
+    run_cmd "cp -r \"$ETC_SSH_DIR/.\" \"$PERSISTENT_ETC_SSH_DIR\""
 fi
 
 # Use ssh-to-age to generate a public key from the host key and print it
