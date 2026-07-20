@@ -58,9 +58,9 @@ in {
             libisoburn # contains xorriso-dd-target
             util-linux # contains lsblk
             coreutils # contains basic commands (cat, mkdir, etc.)
-            gnugrep # contains grep
-            gnused # contains sed
-            sudo # contains sudo
+            gnugrep
+            gnused
+            sudo
           ];
         runScript = "${innerScript}";
       };
