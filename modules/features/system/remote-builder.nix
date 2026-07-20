@@ -1,10 +1,12 @@
 {
-  flake.nixosModules.remoteBuilder = {
+  flake.nixosModules.remoteBuilder = {config, ...}: {
+    sops.secrets.nixbuild-private-key = {};
+
     programs.ssh.extraConfig = ''
       Host eu.nixbuild.net
       PubkeyAcceptedKeyTypes ssh-ed25519
       ServerAliveInterval 60
-      IdentityFile /etc/ssh/ssh_host_ed25519_key
+      IdentityFile ${config.sops.secrets.nixbuild-private-key.path}
     '';
 
     programs.ssh.knownHosts = {
