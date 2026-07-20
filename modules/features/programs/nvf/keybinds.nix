@@ -135,21 +135,6 @@
           silent = true;
           desc = "Clear search highlights";
         }
-        # Bold/italicise
-        {
-          key = "<C-b>";
-          mode = "v";
-          action = "\"xc**<C-r>x**<Esc>";
-          silent = true;
-          desc = "Bold";
-        }
-        {
-          key = "<C-i>";
-          mode = "v";
-          action = "\"xc*<C-r>x*<Esc>";
-          silent = true;
-          desc = "Italicise";
-        }
       ];
 
       luaConfigRC.whichkey-visual = ''
