@@ -22,7 +22,7 @@ My personal NixOS config.
 2. Boot the target machine with the USB stick.
 3. On the target machine, run:
 ```
-nmcli dev wifi connect <SSID> password <PASSWORD> # if using custom ISO
+nmtui # if using custom ISO
 ip addr
 ```
 4. On your source machine, run:
