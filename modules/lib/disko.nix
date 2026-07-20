@@ -113,31 +113,47 @@
     };
   };
 
-  flake.factory.diskoBrtfs = {device}: {lib, ...}: {
+  flake.factory.diskoBrtfs = {device}: {pkgs, ...}: {
     imports = [inputs.disko.nixosModules.default];
 
     fileSystems."/nix".neededForBoot = true;
     fileSystems."/persistent".neededForBoot = true;
 
-    boot.initrd.postDeviceCommands = lib.mkAfter ''
-      mkdir -p /btrfs_tmp
-      mount /dev/disk/by-label/nixos/root /btrfs_tmp
+    boot.initrd.systemd.services.reset-root = {
+      description = "Backup root subvolume and create a empty root";
+      wantedBy = ["initrd.target"];
+      after = [
+        "local-fs-pre.target" # when filesystems are ready for mounting
+        "initrd-root-device.target" # when the root filesystem device is avaliable but before it's mounted
+      ];
+      before = ["sysroot.mount"]; # mounts the root system
+      path = with pkgs; [
+        btrfs-progs
+        coreutils
+        util-linux
+      ];
+      unitConfig.DefaultDependencies = "no";
+      serviceConfig.Type = "oneshot";
+      script = ''
+        mkdir -p /btrfs_tmp
+        mount /dev/disk/by-label/nixos /btrfs_tmp
 
-      # Delete the backup if it exists
-      if [[ -e /btrfs_tmp/root-backup ]]; then
-          btrfs subvolume delete --recursive /btrfs_tmp/root-backup
-      fi
+        # Delete the backup if it exists
+        if [[ -e /btrfs_tmp/root-backup ]]; then
+            btrfs subvolume delete --recursive /btrfs_tmp/root-backup
+        fi
 
-      # Back up the old root
-      if [[ -e /btrfs_tmp/root ]]; then
-          mv /btrfs_tmp/root /btrfs_tmp/root-backup
-      fi
+        # Back up the old root
+        if [[ -e /btrfs_tmp/root ]]; then
+            mv /btrfs_tmp/root /btrfs_tmp/root-backup
+        fi
 
-      # Create a new empty root
-      btrfs subvolume create /btrfs_tmp/root
+        # Create a new empty root
+        btrfs subvolume create /btrfs_tmp/root
 
-      umount /btrfs_tmp
-    '';
+        umount /btrfs_tmp
+      '';
+    };
 
     disko.devices.disk.main = {
       device = device;
