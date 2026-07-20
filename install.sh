@@ -57,6 +57,15 @@ echo "Key: $AGE_PUBLIC_KEY"
 echo "Configure secrets for this key in the secrets repo and push the changes."
 echo
 
+deploy_cmd=(
+    nix run github:nix-community/nixos-anywhere --
+    --flake ".#$HOSTNAME"
+    --extra-files "$TMP_DIR"
+    --generate-hardware-config nixos-facter "./modules/hosts/$HOSTNAME/facter.json"
+    --build-on remote
+    "root@$TARGET_IP"
+)
+
 while true; do
     # Loop for updating secrets
     while true; do
@@ -75,12 +84,24 @@ while true; do
         esac
     done
 
+    echo
+    echo "========================================================="
+    echo "Preparing to deploy..."
+    echo "========================================================="
+    echo "Target IP: $TARGET_IP"
+    echo "Hostname:  $HOSTNAME"
+    echo "Command to execute:"
+    echo "  ${deploy_cmd[*]}"
+    echo
+
     # Loop for starting deployment
     while true; do
         read -r -p "Start deploy? (y/n): " choice_deploy
         case "$choice_deploy" in
             [Yy]* )
-                # Break out of both loops to proceed with deployment
+                "${deploy_cmd[@]}"
+                
+                # Break out of both loops to exit
                 break 2
                 ;;
             [Nn]* )
@@ -92,22 +113,3 @@ while true; do
         esac
     done
 done
-
-# Remember to update this whenever the command is updated
-cat <<EOF
-Running: nix run github:nix-community/nixos-anywhere -- \\
-    --flake ".#$HOSTNAME" \\
-    --extra-files "$TMP_DIR" \\
-    --generate-hardware-config nixos-facter "./modules/hosts/$HOSTNAME/facter.json" \\
-    --build-on remote \\
-    "root@$TARGET_IP"
-
-EOF
-
-nix run github:nix-community/nixos-anywhere -- \
-    --flake ".#$HOSTNAME" \
-    --extra-files "$TMP_DIR" \
-    --generate-hardware-config nixos-facter "./modules/hosts/$HOSTNAME/facter.json" \
-    --build-on remote \
-    "root@$TARGET_IP"
-
