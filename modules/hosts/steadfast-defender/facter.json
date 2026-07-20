@@ -27,8 +27,8 @@
     },
     "bluetooth": [
       {
-        "index": 37,
-        "attached_to": 39,
+        "index": 36,
+        "attached_to": 38,
         "class_list": [
           "usb",
           "bluetooth"
@@ -112,7 +112,7 @@
       },
       {
         "index": 42,
-        "attached_to": 39,
+        "attached_to": 38,
         "class_list": [
           "usb",
           "bluetooth"
@@ -614,7 +614,7 @@
     "camera": [
       {
         "index": 34,
-        "attached_to": 39,
+        "attached_to": 38,
         "class_list": [
           "camera",
           "usb"
@@ -716,7 +716,7 @@
       },
       {
         "index": 40,
-        "attached_to": 39,
+        "attached_to": 38,
         "class_list": [
           "camera",
           "usb"
@@ -1115,11 +1115,11 @@
         "model": "TOSHIBA USB DRV",
         "sysfs_id": "/class/block/sda",
         "sysfs_bus_id": "0:0:0:0",
-        "sysfs_device_link": "/devices/pci0000:00/0000:00:14.0/usb2/2-1/2-1:1.0/host0/target0:0:0/0:0:0:0",
+        "sysfs_device_link": "/devices/pci0000:00/0000:00:14.0/usb2/2-3/2-3:1.0/host0/target0:0:0/0:0:0:0",
         "unix_device_names": [
           "/dev/disk/by-id/usb-TOSHIBA_TOSHIBA_USB_DRV_07088B36AABD1222-0:0",
-          "/dev/disk/by-path/pci-0000:00:14.0-usb-0:1:1.0-scsi-0:0:0:0",
-          "/dev/disk/by-path/pci-0000:00:14.0-usbv3-0:1:1.0-scsi-0:0:0:0",
+          "/dev/disk/by-path/pci-0000:00:14.0-usb-0:3:1.0-scsi-0:0:0:0",
+          "/dev/disk/by-path/pci-0000:00:14.0-usbv3-0:3:1.0-scsi-0:0:0:0",
           "/dev/sda"
         ],
         "unix_device_name2": "/dev/sg0",
@@ -1237,7 +1237,7 @@
     ],
     "hub": [
       {
-        "index": 39,
+        "index": 38,
         "attached_to": 25,
         "class_list": [
           "usb",
@@ -1259,7 +1259,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.18.35 xhci-hcd",
+          "name": "Linux 6.18.38 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1273,7 +1273,7 @@
           "value": 0
         },
         "serial": "0000:00:14.0",
-        "model": "Linux 6.18.35 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.18.38 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-0:1.0",
         "sysfs_bus_id": "1-0:1.0",
         "resources": [
@@ -1346,7 +1346,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.18.35 xhci-hcd",
+          "name": "Linux 6.18.38 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1360,7 +1360,7 @@
           "value": 0
         },
         "serial": "0000:00:14.0",
-        "model": "Linux 6.18.35 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.18.38 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb2/2-0:1.0",
         "sysfs_bus_id": "2-0:1.0",
         "detail": {
@@ -1508,7 +1508,7 @@
     "mouse": [
       {
         "index": 33,
-        "attached_to": 39,
+        "attached_to": 38,
         "class_list": [
           "mouse",
           "usb"
@@ -1615,8 +1615,8 @@
         "module_alias": "usb:v056Ap50B5d0003dc00dsc00dp00ic03isc00ip00in00"
       },
       {
-        "index": 38,
-        "attached_to": 39,
+        "index": 37,
+        "attached_to": 38,
         "class_list": [
           "mouse",
           "usb"
@@ -2002,8 +2002,8 @@
         "module_alias": "pci:v00008086d000024FDsv00008086sd00000130bc02sc80i00"
       },
       {
-        "index": 36,
-        "attached_to": 39,
+        "index": 35,
+        "attached_to": 38,
         "class_list": [
           "network_controller",
           "usb"
@@ -2060,7 +2060,7 @@
           },
           {
             "type": "hwaddr",
-            "address": 57
+            "address": 97
           }
         ],
         "detail": {
@@ -2201,29 +2201,7 @@
       },
       {
         "index": 46,
-        "attached_to": 0,
-        "class_list": [
-          "network_interface"
-        ],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Loopback",
-          "value": 0
-        },
-        "model": "Loopback network interface",
-        "sysfs_id": "/class/net/lo",
-        "unix_device_names": [
-          "lo"
-        ]
-      },
-      {
-        "index": 47,
-        "attached_to": 36,
+        "attached_to": 35,
         "class_list": [
           "network_interface"
         ],
@@ -2246,7 +2224,7 @@
         "resources": [
           {
             "type": "hwaddr",
-            "address": 57
+            "address": 97
           }
         ],
         "driver": "cdc_mbim",
@@ -2256,6 +2234,28 @@
         ],
         "driver_modules": [
           "cdc_mbim"
+        ]
+      },
+      {
+        "index": 47,
+        "attached_to": 0,
+        "class_list": [
+          "network_interface"
+        ],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_names": [
+          "lo"
         ]
       }
     ],
@@ -2977,7 +2977,7 @@
     "usb": [
       {
         "index": 32,
-        "attached_to": 39,
+        "attached_to": 38,
         "class_list": [
           "usb",
           "unknown"
@@ -3059,7 +3059,7 @@
       },
       {
         "index": 41,
-        "attached_to": 39,
+        "attached_to": 38,
         "class_list": [
           "usb",
           "unknown"
