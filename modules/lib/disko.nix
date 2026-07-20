@@ -136,7 +136,7 @@
       serviceConfig.Type = "oneshot";
       script = ''
         mkdir -p /btrfs_tmp
-        mount /dev/disk/by-label/nixos /btrfs_tmp
+        mount /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
 
         # Delete the backup if it exists
         if [[ -e /btrfs_tmp/root-backup ]]; then
