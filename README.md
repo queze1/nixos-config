@@ -32,7 +32,7 @@ ip addr
 # configure secrets when prompted
 ```
 5. For home servers:
-  - If internet doesn't work, run `nmcli dev wifi connect <SSID> password <PASSWORD>`.
+  - If internet doesn't work, run `nmtui`.
   - Remove `services.getty.autologinUser = "root"` if you set it for convenience.
 
 ## Project Structure
