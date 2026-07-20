@@ -18,7 +18,7 @@ My personal NixOS config.
 ## Installation
 1. Build the custom ISO and burn it onto a USB with `nix run github:queze1/nixos-config#burn-iso-x86` (or `#burn-iso-aarch64`)
   - Don't do this unless you're me, as it's configured to allow SSH from my public key.
-  - If you don't want to use the custom ISO, you can download an ISO from the [official website](https://nixos.org/download/).
+  - Alternatively, you can use an ISO from the [official website](https://nixos.org/download/).
 2. Boot the target machine with the USB stick.
 3. On the target machine, run:
 ```
@@ -31,9 +31,8 @@ ip addr
 # configure secrets
 ```
 5. For home servers:
-  - Manually fix problems by physically logging in with "root" user and "root" password.
   - If internet doesn't work, run `nmcli dev wifi connect <SSID> password <PASSWORD>`.
-  - Once SSH works, run `passwd -l root` to lock the root account.
+  - Remove `services.getty.autologinUser = "root"` if you set it for convenience.
 
 ## Project Structure
 ```

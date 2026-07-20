@@ -11,7 +11,7 @@ in {
       ];
 
       # Fallback in case internet breaks and you need physical access
-      initialHashedPassword = "$y$j9T$nS.BeshWf5D0S1Y0vwHcL/$d3284XHsMtupMdPZDZFtDEyKR/GVEWHkEE.z2T5R4i8";
+      hashedPassword = "$y$j9T$nS.BeshWf5D0S1Y0vwHcL/$d3284XHsMtupMdPZDZFtDEyKR/GVEWHkEE.z2T5R4i8";
       openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
     };
   };

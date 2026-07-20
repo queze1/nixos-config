@@ -29,9 +29,6 @@ in {
       pkgs.tree
     ];
 
-    # Remember to lock root password after first use with "passwd -l root"
-    users.users.root.initialPassword = "root";
-
     # Allow SSH into root
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
 
