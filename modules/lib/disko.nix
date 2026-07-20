@@ -155,6 +155,11 @@
       '';
     };
 
+    environment.shellAliases = {
+      mount-backup = "sudo mkdir -p /mnt/backup && sudo mount -o subvol=root-backup,ro /dev/disk/by-partlabel/disk-main-root /mnt/backup";
+      umount-backup = "sudo umount /mnt/backup";
+    };
+
     disko.devices.disk.main = {
       device = device;
       type = "disk";
