@@ -89,6 +89,8 @@
           type = "btrfs";
           extraArgs = [
             "-f"
+            "-L"
+            "nixos"
           ];
           subvolumes = {
             "/persistent" = {
@@ -111,13 +113,31 @@
     };
   };
 
-  flake.factory.diskoBrtfs = {device}: {
+  flake.factory.diskoBrtfs = {device}: {lib, ...}: {
     imports = [inputs.disko.nixosModules.default];
 
     fileSystems."/nix".neededForBoot = true;
     fileSystems."/persistent".neededForBoot = true;
 
-    # TODO: Clear root on reboot
+    boot.initrd.postDeviceCommands = lib.mkAfter ''
+      mkdir -p /btrfs_tmp
+      mount /dev/disk/by-label/nixos/root /btrfs_tmp
+
+      # Delete the backup if it exists
+      if [[ -e /btrfs_tmp/root-backup ]]; then
+          btrfs subvolume delete --recursive /btrfs_tmp/root-backup
+      fi
+
+      # Back up the old root
+      if [[ -e /btrfs_tmp/root ]]; then
+          mv /btrfs_tmp/root /btrfs_tmp/root-backup
+      fi
+
+      # Create a new empty root
+      btrfs subvolume create /btrfs_tmp/root
+
+      umount /btrfs_tmp
+    '';
 
     disko.devices.disk.main = {
       device = device;
@@ -148,19 +168,27 @@
           type = "btrfs";
           extraArgs = [
             "-f"
+            "-L"
+            "nixos"
           ];
           subvolumes = {
             "/root" = {
+              mountOptions = [
+                "subvol=root"
+                "noatime"
+              ];
               mountpoint = "/";
             };
             "/persistent" = {
               mountOptions = [
+                "subvol=persistent"
                 "noatime"
               ];
               mountpoint = "/persistent";
             };
             "/nix" = {
               mountOptions = [
+                "subvol=nix"
                 "noatime"
               ];
               mountpoint = "/nix";
