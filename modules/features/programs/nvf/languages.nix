@@ -190,6 +190,12 @@
             })
           '';
         };
+        markdown-nvim = {
+          package = pkgs.vimPlugins.markdown-nvim;
+          setup = ''
+            require("markdown").setup({})
+          '';
+        };
       };
     };
   };
