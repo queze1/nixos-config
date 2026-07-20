@@ -10,11 +10,14 @@ in {
     imports = [
       self.nixosModules.myOptions
       self.nixosModules.sharedModules
-      self.nixosModules.networkmanager
 
       # Basic libraries
       self.nixosModules.preservation
       self.nixosModules.sopsNix
+
+      # System config
+      self.nixosModules.networkmanager
+      self.nixosModules.remoteBuilder
 
       # Services
       self.nixosModules.openssh
