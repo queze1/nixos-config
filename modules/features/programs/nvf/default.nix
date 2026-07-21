@@ -90,6 +90,12 @@
           };
         };
 
+        # Punish spamming the same key
+        binds.hardtime-nvim = {
+          enable = true;
+          setupOpts = {};
+        };
+
         # ----------------------------------------
         # Integrations
         # ----------------------------------------
