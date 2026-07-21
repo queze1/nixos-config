@@ -135,21 +135,27 @@
       unitConfig.DefaultDependencies = "no";
       serviceConfig.Type = "oneshot";
       script = ''
+        set -euo pipefail
+
+        # Prints creation time as "YYYY-MM-DD_HH-MM-SS"
+        creation_timestamp() {
+            date -d "$(stat -c '%w' "$1")" "+%Y-%m-%d_%H-%M-%S"
+        }
+
         mkdir -p /btrfs_tmp
         mount /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
-
-        # Delete the backup if it exists
-        if [[ -e /btrfs_tmp/root-backup ]]; then
-            btrfs subvolume delete --recursive /btrfs_tmp/root-backup
-        fi
+        mkdir -p /btrfs_tmp/root-backup
 
         # Back up the old root
         if [[ -e /btrfs_tmp/root ]]; then
-            mv /btrfs_tmp/root /btrfs_tmp/root-backup
+            timestamp=$(creation_timestamp /btrfs_tmp/root)
+            mv /btrfs_tmp/root "/btrfs_tmp/root-backup/root-$timestamp"
         fi
 
         # Create a new empty root
         btrfs subvolume create /btrfs_tmp/root
+
+        # TODO: Clean up roots older than 10 generations
 
         umount /btrfs_tmp
       '';
