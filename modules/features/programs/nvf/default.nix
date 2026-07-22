@@ -93,7 +93,9 @@
         # Punish spamming the same key
         binds.hardtime-nvim = {
           enable = true;
-          setupOpts = {};
+          setupOpts = {
+            disable_mouse = false;
+          };
         };
 
         # ----------------------------------------
