@@ -95,6 +95,9 @@
           enable = true;
           setupOpts = {
             disable_mouse = false;
+            disabled_filetypes = {
+              "saga_finder" = true;
+            };
           };
         };
 
