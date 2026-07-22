@@ -107,6 +107,34 @@
             vim.keymap.set({ "n", "x", "o" }, "[a", function()
               require("nvim-treesitter-textobjects.move").goto_previous_start("@parameter.inner", "textobjects")
             end, { desc = "previous parameter [Treesitter]" })
+
+            -- Function movement keymaps
+            vim.keymap.set({ "n", "x", "o" }, "]f", function()
+              require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
+            end, { desc = "next function start [Treesitter]" })
+            vim.keymap.set({ "n", "x", "o" }, "[f", function()
+              require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects")
+            end, { desc = "previous function start [Treesitter]" })
+            vim.keymap.set({ "n", "x", "o" }, "]F", function()
+              require("nvim-treesitter-textobjects.move").goto_next_end("@function.outer", "textobjects")
+            end, { desc = "next function end [Treesitter]" })
+            vim.keymap.set({ "n", "x", "o" }, "[F", function()
+              require("nvim-treesitter-textobjects.move").goto_previous_end("@function.outer", "textobjects")
+            end, { desc = "previous function end [Treesitter]" })
+
+            -- Conditional movement keymaps
+            vim.keymap.set({ "n", "x", "o" }, "]o", function()
+              require("nvim-treesitter-textobjects.move").goto_next_start("@conditional.outer", "textobjects")
+            end, { desc = "next conditional start [Treesitter]" })
+            vim.keymap.set({ "n", "x", "o" }, "[o", function()
+              require("nvim-treesitter-textobjects.move").goto_previous_start("@conditional.outer", "textobjects")
+            end, { desc = "previous conditional start [Treesitter]" })
+            vim.keymap.set({ "n", "x", "o" }, "]O", function()
+              require("nvim-treesitter-textobjects.move").goto_next_end("@conditional.outer", "textobjects")
+            end, { desc = "next conditional end [Treesitter]" })
+            vim.keymap.set({ "n", "x", "o" }, "[O", function()
+              require("nvim-treesitter-textobjects.move").goto_previous_end("@conditional.outer", "textobjects")
+            end, { desc = "previous conditional end [Treesitter]" })
           '';
         };
       };
