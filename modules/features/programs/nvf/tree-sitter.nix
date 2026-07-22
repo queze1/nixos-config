@@ -71,12 +71,12 @@
               require("nvim-treesitter-textobjects.select").select_textobject("@loop.inner", "textobjects")
             end, { desc = "loop [Treesitter]" })
 
-            -- c: conditional
-            vim.keymap.set({ "x", "o" }, "ac", function()
+            -- d: conditional
+            vim.keymap.set({ "x", "o" }, "ad", function()
               require("nvim-treesitter-textobjects.select").select_textobject("@conditional.outer", "textobjects")
             end, { desc = "conditional [Treesitter]" })
 
-            vim.keymap.set({ "x", "o" }, "ic", function()
+            vim.keymap.set({ "x", "o" }, "id", function()
               require("nvim-treesitter-textobjects.select").select_textobject("@conditional.inner", "textobjects")
             end, { desc = "conditional [Treesitter]" })
 
