@@ -5,13 +5,9 @@
 }: let
   hostname = "autumn-forge";
 in {
-  flake.darwinModules.autumnForgeConfiguration = {pkgs, ...}: {
+  flake.darwinModules.autumnForgeConfiguration = {
     imports = [
       self.darwinModules.shellAliases
-    ];
-
-    environment.systemPackages = [
-      pkgs.vim
     ];
 
     programs.fish.enable = true;
@@ -22,6 +18,7 @@ in {
     system.configurationRevision = self.rev or self.dirtyRev or null;
     system.stateVersion = 6;
     nixpkgs.hostPlatform = "aarch64-darwin";
+    networking.hostName = hostname;
   };
 
   flake.darwinConfigurations.${hostname} = inputs.nix-darwin.lib.darwinSystem {
