@@ -15,9 +15,9 @@
 
   flake.darwinModules.shellAliases = {
     environment.shellAliases = {
-      nrs = "sudo darwin-rebuild switch --flake ~/.config/nixos#";
-      nrb = "sudo darwin-rebuild build --flake ~/.config/nixos#";
-      nfc = "sudo darwin-rebuild check --flake ~/.config/nixos#";
+      nrs = "sudo darwin-rebuild switch --flake github:queze/nixos-config#";
+      nrb = "sudo darwin-rebuild build --flake github:queze/nixos-config#";
+      nfc = "sudo darwin-rebuild check --flake github:queze/nixos-config#";
       nrr = "sudo darwin-rebuild rollback";
     };
   };
