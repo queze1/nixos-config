@@ -101,10 +101,10 @@
             end, { desc = "assignment RHS [Treesitter]" })
 
             -- MOVEMENT --
-            vim.keymap.set({ "x", "o" }, "]a", function()
+            vim.keymap.set({ "n", "x", "o" }, "]a", function()
               require("nvim-treesitter-textobjects.move").goto_next_start("@parameter.inner", "textobjects")
             end, { desc = "next parameter [Treesitter]" })
-            vim.keymap.set({ "x", "o" }, "[a", function()
+            vim.keymap.set({ "n", "x", "o" }, "[a", function()
               require("nvim-treesitter-textobjects.move").goto_previous_start("@parameter.inner", "textobjects")
             end, { desc = "previous parameter [Treesitter]" })
           '';
