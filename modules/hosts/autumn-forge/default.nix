@@ -14,6 +14,8 @@ in {
       self.darwinModules.shellAliases
     ];
 
+    # TODO: Manage "queze" user with HM
+
     # Enable flakes
     nix.settings.experimental-features = "nix-command flakes";
 

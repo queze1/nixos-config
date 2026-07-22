@@ -40,6 +40,7 @@
   };
 
   # Programs shared between nix-darwin and NixOS
+  # TODO: Extract out programs which are not needed by nix-darwin
   flake.homeModules.sharedPrograms = {pkgs, ...}: {
     imports = [
       inputs.nix-index-database.homeModules.default
