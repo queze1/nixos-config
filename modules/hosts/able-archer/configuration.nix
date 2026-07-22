@@ -3,7 +3,7 @@
     mainUser = "queze";
   in {
     imports = [
-      self.nixosModules.myOptions
+      self.nixModules.myOptions
       self.nixosModules.sharedModules
 
       # Basic libraries

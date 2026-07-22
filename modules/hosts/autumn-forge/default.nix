@@ -7,6 +7,8 @@
 in {
   flake.darwinModules.autumnForgeConfiguration = {
     imports = [
+      self.nixModules.myOptions
+
       self.darwinModules.shellAliases
       self.darwinModules.homeManager
     ];

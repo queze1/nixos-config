@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.myOptions = {lib, ...}: {
+  flake.nixOptions.myOptions = {lib, ...}: {
     options.my.preservation = {
       extraDirectories = lib.mkOption {
         type = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);

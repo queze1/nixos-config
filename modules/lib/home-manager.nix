@@ -6,18 +6,18 @@
   flake.nixosModules.homeManager = {
     imports = [
       inputs.home-manager.nixosModules.home-manager
-      self.sharedModules.homeManager
+      self.nixModules.homeManager
     ];
   };
 
   flake.darwinModules.homeManager = {
     imports = [
       inputs.home-manager.darwinModules.home-manager
-      self.sharedModules.homeManager
+      self.nixModules.homeManager
     ];
   };
 
-  flake.sharedModules.homeManager = {
+  flake.nixModules.homeManager = {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
     home-manager.extraSpecialArgs = {
