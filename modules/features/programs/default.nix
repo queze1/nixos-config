@@ -18,6 +18,7 @@
 
   flake.nixosModules.allPrograms = {pkgs, ...}: {
     imports = [
+      self.sharedModules.pkgsStableOverlay
       self.nixosModules.fish
     ];
 
