@@ -137,18 +137,13 @@
       script = ''
         set -euo pipefail
 
-        # Prints creation time as "YYYY-MM-DD_HH-MM-SS"
-        creation_timestamp() {
-            date -d "$(stat -c '%w' "$1")" "+%Y-%m-%d_%H-%M-%S"
-        }
-
         mkdir -p /btrfs_tmp
         mount /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
         mkdir -p /btrfs_tmp/root-backup
 
         # Back up the old root
         if [[ -e /btrfs_tmp/root ]]; then
-            timestamp=$(creation_timestamp /btrfs_tmp/root)
+            timestamp=$(date "+%Y-%m-%d_%H-%M-%S")
             mv /btrfs_tmp/root "/btrfs_tmp/root-backup/root-$timestamp"
         fi
 
