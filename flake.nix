@@ -7,8 +7,8 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     home-manager.url = "github:nix-community/home-manager";
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Secrets
