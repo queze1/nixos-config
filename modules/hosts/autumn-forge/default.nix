@@ -8,9 +8,8 @@ in {
   flake.darwinModules.autumnForgeConfiguration = {
     imports = [
       self.darwinModules.shellAliases
+      self.darwinModules.homeManager
     ];
-
-    programs.fish.enable = true;
 
     # Enable flakes
     nix.settings.experimental-features = "nix-command flakes";

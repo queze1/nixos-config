@@ -24,6 +24,12 @@
       type = lib.types.lazyAttrsOf lib.types.deferredModule;
       default = {};
     };
+
+    # Modules shared between nix-darwin and NixOS
+    sharedModules = lib.mkOption {
+      type = lib.types.lazyAttrsOf lib.types.deferredModule;
+      default = {};
+    };
   };
 
   config = {
@@ -40,15 +46,8 @@
     perSystem = {
       pkgs,
       self',
-      system,
       ...
     }: {
-      # pkgs-stable: Nixpkgs at the latest LTS version
-      legacyPackages.pkgs-stable = import inputs.nixpkgs-stable {
-        inherit system;
-        config.allowUnfree = true;
-      };
-
       packages = {
         # flake-update: Update and commit NixOS config flake
         flake-update = pkgs.writeShellScriptBin "flake-update" ''

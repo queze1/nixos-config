@@ -3,19 +3,26 @@
   self,
   ...
 }: {
-  # Configure Home Manager as a NixOS module
-  flake.nixosModules.homeManager = {pkgs-stable, ...}: {
+  flake.nixosModules.homeManager = {
     imports = [
-      # Allow Home Manager options in NixOS
       inputs.home-manager.nixosModules.home-manager
+      self.sharedModules.homeManager
     ];
+  };
 
+  flake.darwinModules.homeManager = {
+    imports = [
+      inputs.home-manager.darwinModules.home-manager
+      self.sharedModules.homeManager
+    ];
+  };
+
+  flake.sharedModules.homeManager = {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
     home-manager.extraSpecialArgs = {
       inherit
         inputs
-        pkgs-stable
         self
         ;
     };

@@ -3,6 +3,19 @@
   self,
   ...
 }: {
+  flake.sharedModules.pkgsStableOverlay = {
+    # Set pkgs.stable to nixpkgs on stable branch
+    nixpkgs.overlays = [
+      # deadnix: skip
+      (final: prev: {
+        stable = import inputs.nixpkgs-stable {
+          system = final.stdenv.hostPlatform.system;
+          config.allowUnfree = true;
+        };
+      })
+    ];
+  };
+
   flake.nixosModules.allPrograms = {pkgs, ...}: {
     imports = [
       self.nixosModules.fish
@@ -17,11 +30,7 @@
     programs.seahorse.enable = true;
   };
 
-  flake.homeModules.allPrograms = {
-    pkgs,
-    pkgs-stable,
-    ...
-  }: {
+  flake.homeModules.allPrograms = {pkgs, ...}: {
     imports = [
       inputs.nix-index-database.homeModules.default
 
@@ -51,9 +60,9 @@
       kdePackages.okular
       obs-studio
       pinta
-      pkgs-stable.celluloid
-      pkgs-stable.qimgv
       qalculate-qt
+      stable.celluloid
+      stable.qimgv
 
       # Nix-related CLI tools
       inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
@@ -62,8 +71,8 @@
       clipboard-jh
       fastfetch
       ffmpeg
-      pkgs-stable.yt-dlp
       sops
+      stable.yt-dlp
       tree
       unzip
       wl-clipboard
