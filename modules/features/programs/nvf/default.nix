@@ -178,11 +178,6 @@
               end
             '';
           };
-
-          # Move based on indentation
-          vim-indentwise = {
-            package = vim-indentwise;
-          };
         };
       };
     };
