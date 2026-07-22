@@ -8,6 +8,7 @@
         context.enable = true;
         fold = true;
         grammars = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+          cpp
           kdl
           nix
         ];
