@@ -5,12 +5,8 @@
 }: {
   flake.nixosModules.allPrograms = {pkgs, ...}: {
     imports = [
-      self.sharedModules.pkgsStableOverlay
+      self.nixModules.sharedPrograms
       self.nixosModules.fish
-    ];
-
-    home-manager.sharedModules = [
-      self.homeModules.sharedPrograms
     ];
 
     services.mullvad-vpn = {
@@ -18,6 +14,29 @@
       package = pkgs.mullvad-vpn;
     };
     programs.seahorse.enable = true;
+  };
+
+  flake.darwinModules.allPrograms = {
+    imports = [
+      self.nixModules.sharedPrograms
+    ];
+  };
+
+  flake.nixModules.sharedPrograms = {
+    # Set pkgs.stable to nixpkgs on stable branch
+    nixpkgs.overlays = [
+      # deadnix: skip
+      (final: prev: {
+        stable = import inputs.nixpkgs-stable {
+          system = final.stdenv.hostPlatform.system;
+          config.allowUnfree = true;
+        };
+      })
+    ];
+
+    home-manager.sharedModules = [
+      self.homeModules.sharedPrograms
+    ];
   };
 
   # Programs shared between nix-darwin and NixOS
@@ -76,18 +95,5 @@
       };
     };
     programs.nix-index-database.comma.enable = true;
-  };
-
-  flake.sharedModules.pkgsStableOverlay = {
-    # Set pkgs.stable to nixpkgs on stable branch
-    nixpkgs.overlays = [
-      # deadnix: skip
-      (final: prev: {
-        stable = import inputs.nixpkgs-stable {
-          system = final.stdenv.hostPlatform.system;
-          config.allowUnfree = true;
-        };
-      })
-    ];
   };
 }

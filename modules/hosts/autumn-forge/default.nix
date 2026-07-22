@@ -9,8 +9,9 @@ in {
     imports = [
       self.nixModules.myOptions
 
-      self.darwinModules.shellAliases
+      self.darwinModules.allPrograms
       self.darwinModules.homeManager
+      self.darwinModules.shellAliases
     ];
 
     # Enable flakes
