@@ -8,12 +8,10 @@ in {
   flake.darwinModules.autumnForgeConfiguration = {
     imports = [
       self.nixModules.myOptions
-
       self.darwinModules.shellAliases
-      self.darwinModules.homeManager
-    ];
 
-    # TODO: Manage "queze" user with HM
+      # self.darwinModules.homeManager // nothing to manage
+    ];
 
     # Enable flakes
     nix.settings.experimental-features = "nix-command flakes";
