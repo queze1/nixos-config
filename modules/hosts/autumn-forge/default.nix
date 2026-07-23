@@ -9,9 +9,8 @@ in {
     imports = [
       self.nixModules.myOptions
 
-      self.darwinModules.allPrograms
-      self.darwinModules.homeManager
       self.darwinModules.shellAliases
+      self.darwinModules.homeManager
     ];
 
     # TODO: Manage "queze" user with HM
