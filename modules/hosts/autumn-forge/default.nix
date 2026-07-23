@@ -9,9 +9,22 @@ in {
     imports = [
       self.nixModules.myOptions
       self.darwinModules.shellAliases
-
-      # self.darwinModules.homeManager // nothing to manage
     ];
+
+    system.keyboard = {
+      enableKeyMapping = true;
+      userKeyMapping = [
+        # Swap Left Control (30064771296) and Left Command (30064771299)
+        {
+          HIDKeyboardModifierMappingSrc = 30064771296;
+          HIDKeyboardModifierMappingDst = 30064771299;
+        }
+        {
+          HIDKeyboardModifierMappingSrc = 30064771299;
+          HIDKeyboardModifierMappingDst = 30064771296;
+        }
+      ];
+    };
 
     # Enable flakes
     nix.settings.experimental-features = "nix-command flakes";
