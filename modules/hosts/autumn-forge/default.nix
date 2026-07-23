@@ -13,17 +13,8 @@ in {
 
     system.keyboard = {
       enableKeyMapping = true;
-      userKeyMapping = [
-        # Swap Left Control (30064771296) and Left Command (30064771299)
-        {
-          HIDKeyboardModifierMappingSrc = 30064771296;
-          HIDKeyboardModifierMappingDst = 30064771299;
-        }
-        {
-          HIDKeyboardModifierMappingSrc = 30064771299;
-          HIDKeyboardModifierMappingDst = 30064771296;
-        }
-      ];
+      swapLeftCommandAndLeftAlt = true;
+      swapCapsLockAndEscape = true;
     };
 
     # Enable flakes
