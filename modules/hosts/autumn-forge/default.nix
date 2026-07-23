@@ -11,11 +11,12 @@ in {
       self.darwinModules.shellAliases
     ];
 
-    system.keyboard = {
-      enableKeyMapping = true;
-      swapLeftCommandAndLeftAlt = true;
-      swapCapsLockAndEscape = true;
-    };
+    # Broken, see https://github.com/nix-darwin/nix-darwin/issues/1566
+    # system.keyboard = {
+    #   enableKeyMapping = true;
+    #   swapLeftCommandAndLeftAlt = true;
+    #   swapCapsLockAndEscape = true;
+    # };
 
     # Enable flakes
     nix.settings.experimental-features = "nix-command flakes";
