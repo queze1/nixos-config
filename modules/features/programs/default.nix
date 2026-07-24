@@ -3,7 +3,7 @@
   self,
   ...
 }: {
-  flake.nixosModules.allPrograms = {pkgs, ...}: {
+  flake.nixosModules.allPrograms = {
     imports = [
       self.sharedModules.pkgsStableOverlay
       self.nixosModules.fish
@@ -13,10 +13,6 @@
       self.homeModules.allPrograms
     ];
 
-    services.mullvad-vpn = {
-      enable = true;
-      package = pkgs.mullvad-vpn;
-    };
     programs.seahorse.enable = true;
   };
 
@@ -50,6 +46,7 @@
       kdePackages.okular
       obs-studio
       pinta
+      proton-vpn
       qalculate-qt
       stable.celluloid
       stable.qimgv
