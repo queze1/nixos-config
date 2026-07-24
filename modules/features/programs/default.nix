@@ -46,7 +46,6 @@
       kdePackages.okular
       obs-studio
       pinta
-      proton-vpn
       qalculate-qt
       stable.celluloid
       stable.qimgv
