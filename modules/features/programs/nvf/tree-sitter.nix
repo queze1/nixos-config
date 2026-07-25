@@ -101,6 +101,8 @@
             end, { desc = "assignment RHS [Treesitter]" })
 
             -- MOVEMENT --
+
+            -- Paramater movement keymaps
             vim.keymap.set({ "n", "x", "o" }, "]a", function()
               require("nvim-treesitter-textobjects.move").goto_next_start("@parameter.inner", "textobjects")
             end, { desc = "next parameter [Treesitter]" })
@@ -135,6 +137,14 @@
             vim.keymap.set({ "n", "x", "o" }, "[O", function()
               require("nvim-treesitter-textobjects.move").goto_previous_end("@conditional.outer", "textobjects")
             end, { desc = "previous conditional end [Treesitter]" })
+
+            -- Assignment movement keymaps
+            vim.keymap.set({ "n", "x", "o" }, "]=", function()
+              require("nvim-treesitter-textobjects.move").goto_next_start("@assignment.rhs", "textobjects")
+            end, { desc = "next assignment RHS start [Treesitter]" })
+            vim.keymap.set({ "n", "x", "o" }, "[=", function()
+              require("nvim-treesitter-textobjects.move").goto_previous_start("@assignment.lhs", "textobjects")
+            end, { desc = "previous assignment LHS start [Treesitter]" })
           '';
         };
       };
