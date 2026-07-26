@@ -1,4 +1,6 @@
 {
+  # Options which all hosts should have access to.
+  # Specifically, options configuring modules which should silently do nothing if that module is not imported.
   flake.nixModules.myOptions = {lib, ...}: {
     options.my.preservation = {
       extraDirectories = lib.mkOption {
