@@ -26,7 +26,7 @@
     config = {
       sops.secrets = lib.mkIf cfg.addDefaults (
         lib.mapAttrs' (
-          name: backup:
+          name: _:
             lib.nameValuePair "restic-${name}-env" {}
         )
         cfg.backups
