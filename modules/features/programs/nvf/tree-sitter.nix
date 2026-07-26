@@ -102,7 +102,7 @@
 
             -- MOVEMENT --
 
-            -- Paramater movement keymaps
+            -- Parameter movement keymaps
             vim.keymap.set({ "n", "x", "o" }, "]a", function()
               require("nvim-treesitter-textobjects.move").goto_next_start("@parameter.inner", "textobjects")
             end, { desc = "next parameter [Treesitter]" })
