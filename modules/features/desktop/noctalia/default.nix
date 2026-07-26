@@ -1,25 +1,4 @@
-{
-  self,
-  inputs,
-  ...
-}: {
-  flake.nixosModules.noctalia = {
-    # Use Noctalia's binary cache
-    nix.settings = {
-      extra-substituters = ["https://noctalia.cachix.org"];
-      extra-trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
-    };
-
-    # Stop showing welcome message
-    my.preservation.extraUserDirectories = [
-      ".cache/noctalia"
-    ];
-
-    home-manager.sharedModules = [
-      self.homeModules.noctalia
-    ];
-  };
-
+{inputs, ...}: {
   flake.homeModules.noctalia = {
     config,
     self,
@@ -57,5 +36,10 @@
         defaultWallpaper = "${self}/assets/laine-chinensy-temptation-v6.png";
       };
     };
+
+    # Stop showing welcome message
+    my.home.preservation.extraDirectories = [
+      ".cache/noctalia"
+    ];
   };
 }
