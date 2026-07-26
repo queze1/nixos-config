@@ -163,7 +163,7 @@
     };
 
     environment.shellAliases = {
-      mount-backup = "sudo mkdir -p /mnt/backup && sudo mount -o subvol=root-backup,ro /dev/disk/by-partlabel/disk-main-root /mnt/backup";
+      mount-backup = "sudo mkdir -p /mnt/backup && sudo mount -o ro /dev/disk/by-partlabel/disk-main-root /mnt/backup";
       umount-backup = "sudo umount /mnt/backup";
     };
 
