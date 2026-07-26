@@ -113,7 +113,10 @@
     };
   };
 
-  flake.factory.diskoBrtfs = {device}: {pkgs, ...}: {
+  flake.factory.diskoBrtfs = {device}: {pkgs, ...}: let
+    # Number of root backups to keep
+    rootBackupLimit = 10;
+  in {
     imports = [inputs.disko.nixosModules.default];
 
     fileSystems."/nix".neededForBoot = true;
@@ -150,7 +153,10 @@
         # Create a new empty root
         btrfs subvolume create /btrfs_tmp/root
 
-        # TODO: Clean up roots older than 10 generations
+        # Prune old backups over limit
+        ls -1 /btrfs_tmp/root-backup | sort -r | tail -n +${toString (rootBackupLimit + 1)} | while read -r old; do
+            btrfs subvolume delete -R "/btrfs_tmp/root-backup/$old"
+        done
 
         umount /btrfs_tmp
       '';
