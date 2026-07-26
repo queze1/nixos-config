@@ -34,6 +34,7 @@ in {
     services.picard.port = 8005;
     services.pihole-web.ports = [8006];
 
+    # TODO: Remove manual sops, move repo and pass into env, get rid of things already set in defaults (everything except paths)
     sops.secrets.restic-backblaze-b2-repo = {};
     sops.secrets.restic-backblaze-b2-env = {};
     sops.secrets.restic-backblaze-b2-pass = {};
