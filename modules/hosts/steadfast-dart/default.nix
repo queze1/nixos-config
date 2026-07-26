@@ -38,7 +38,7 @@ in {
     sops.secrets.restic-backblaze-b2-env = {};
     sops.secrets.restic-backblaze-b2-pass = {};
 
-    services.restic.backups = {
+    my.restic.backups = {
       backblaze-b2 = {
         repositoryFile = config.sops.secrets.restic-backblaze-b2-repo.path;
         environmentFile = config.sops.secrets.restic-backblaze-b2-env.path;
