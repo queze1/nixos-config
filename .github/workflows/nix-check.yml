@@ -1,9 +1,8 @@
 name: Nix Flake Check
 
 on:
-  pull_request:
-  push:
-    branches: [ "main" ]
+  # Replaced by nixbuild
+  workflow_dispatch:
 
 jobs:
   nix-check:
