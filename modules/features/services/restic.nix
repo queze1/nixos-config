@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.restic = {
+  flake.nixosModules.resticDefaults = {
     config,
     lib,
     options,
@@ -35,11 +35,11 @@
       services.restic.backups = lib.mapAttrs (name: backup:
         backup
         // lib.mkIf cfg.addDefaults {
-          initialize = true;
-          environmentFile = config.sops.secrets."restic-${name}-env".path;
+          initialize = lib.mkDefault true;
+          environmentFile = lib.mkDefault config.sops.secrets."restic-${name}-env".path;
           timerConfig = {
-            OnCalendar = "daily";
-            Persistent = true;
+            OnCalendar = lib.mkDefault "daily";
+            Persistent = lib.mkDefault true;
           };
         })
       cfg.backups;

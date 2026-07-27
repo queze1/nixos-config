@@ -6,7 +6,7 @@
   hostname = "steadfast-dart";
 in {
   # Fastest home server
-  flake.nixosModules.steadfastDartConfiguration = {config, ...}: {
+  flake.nixosModules.steadfastDartConfiguration = {
     imports = [
       self.nixosModules.steadfastBase
       (self.factory.diskoTmpfsOnRoot
@@ -34,23 +34,8 @@ in {
     services.picard.port = 8005;
     services.pihole-web.ports = [8006];
 
-    # TODO: Remove manual sops, move repo and pass into env, get rid of things already set in defaults (everything except paths)
-    sops.secrets.restic-backblaze-b2-repo = {};
-    sops.secrets.restic-backblaze-b2-env = {};
-    sops.secrets.restic-backblaze-b2-pass = {};
-
     my.restic.backups = {
       backblaze-b2 = {
-        repositoryFile = config.sops.secrets.restic-backblaze-b2-repo.path;
-        environmentFile = config.sops.secrets.restic-backblaze-b2-env.path;
-        passwordFile = config.sops.secrets.restic-backblaze-b2-pass.path;
-        initialize = true;
-
-        timerConfig = {
-          OnCalendar = "daily";
-          Persistent = true;
-        };
-
         paths = [
           "/srv/music"
         ];
