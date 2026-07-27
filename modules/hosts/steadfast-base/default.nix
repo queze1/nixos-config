@@ -33,7 +33,7 @@ in {
 
     # Convenience programs
     environment.systemPackages = [
-      pkgs.htop
+      pkgs.btop
       pkgs.tree
     ];
 
