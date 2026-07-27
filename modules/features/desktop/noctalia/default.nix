@@ -1,9 +1,5 @@
 {inputs, ...}: {
-  flake.homeModules.noctalia = {
-    config,
-    self,
-    ...
-  }: let
+  flake.homeModules.noctalia = {config, ...}: let
     settings = builtins.fromJSON (builtins.readFile ./settings.json);
     modifiedSettings =
       settings
@@ -28,12 +24,13 @@
 
     home.file.profilePicture = {
       target = "${config.home.homeDirectory}/.face";
-      source = "${self}/assets/pfp.png";
+      # Use relative path instead of ${self} for performance
+      source = ../../../../assets/pfp.png;
     };
 
     home.file.".cache/noctalia/wallpapers.json" = {
       text = builtins.toJSON {
-        defaultWallpaper = "${self}/assets/laine-chinensy-temptation-v6.png";
+        defaultWallpaper = ../../../../assets/laine-chinensy-temptation-v6.png;
       };
     };
 
