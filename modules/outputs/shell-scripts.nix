@@ -1,10 +1,11 @@
 {
   perSystem = {
+    lib,
     pkgs,
     self',
     ...
   }: {
-    packages = {
+    packages = lib.optionalAttrs pkgs.stdenv.isLinux {
       # flake-update: Update and commit NixOS config flake
       flake-update = pkgs.writeShellScriptBin "flake-update" ''
         set -e
