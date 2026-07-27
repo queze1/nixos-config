@@ -24,17 +24,20 @@ in {
             # Backdoor the ISO so I can SSH in
             users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
             networking.networkmanager.enable = true;
+
+            # Recommended in https://gist.github.com/baryluk/70a99b5f26df4671378dd05afef97fce
+            isoImage.squashfsCompression = "zstd -Xcompression-level 6 -b 1M";
             nixpkgs.hostPlatform = system;
           }
         ];
       };
 
-    isoDerivation = isoSystem.config.system.build.isoImage;
-    isoPath = "${isoDerivation}/${isoSystem.config.image.filePath}";
+    isoImage = isoSystem.config.system.build.isoImage;
+    isoPath = "${isoImage}/${isoSystem.config.image.filePath}";
 
     # Wrapper around xorriso-dd-target to burn an ISO
     mkIsoBurnerScript = name: let
-      innerScript = pkgs.writeShellScript "burn-iso-internal" ''
+      innerScript = pkgs.writeShellScript "burn-iso-image-internal" ''
         exec xorriso-dd-target \
           -with_sudo -plug_test -DO_WRITE \
           -image_file ${isoPath} \
@@ -57,8 +60,9 @@ in {
       };
   in {
     packages = lib.optionalAttrs pkgs.stdenv.isLinux {
-      iso = isoDerivation;
-      burn-iso = mkIsoBurnerScript "burn-iso";
+      iso-system = isoSystem.config.system.build.toplevel;
+      iso-image = isoImage;
+      burn-iso-image = mkIsoBurnerScript "burn-iso-image";
     };
   };
 }

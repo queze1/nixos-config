@@ -16,7 +16,7 @@ My personal NixOS config.
 - [preservation](https://github.com/nix-community/preservation) - for an ephemeral root setup.
 
 ## Installation
-1. Build the custom ISO and burn it onto a USB with `nix run github:queze1/nixos-config#burn-iso-x86` (or `#burn-iso-aarch64`)
+1. Build the custom ISO and burn it onto a USB with `nix run github:queze1/nixos-config#burn-iso-image`.
   - Don't do this unless you're me, as it's configured to allow SSH from my public key.
   - Alternatively, you can use an ISO from the [official website](https://nixos.org/download/).
 2. Boot the target machine with the USB stick.
