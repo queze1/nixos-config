@@ -1,16 +1,18 @@
 {self, ...}: {
-  flake.nixosModules.shellAliases = {pkgs, ...}: let
-  in {
-    environment.shellAliases = {
-      nrs = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild switch --flake ~/etc/nixos#";
-      nrb = "sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild boot --flake ~/etc/nixos#";
+  flake.nixosModules.shellAliases = {pkgs, ...}: {
+    environment.systemPackages = [
+      self.packages.${pkgs.stdenv.hostPlatform.system}.flake-update
+      pkgs.nix-output-monitor # prettier nix builds
+    ];
+
+    environment.shellAliases = let
+      mkPrettyRebuild = name: "sudo -v && sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild ${name} --flake ~/etc/nixos# 2>&1 | nom";
+    in {
+      nrs = mkPrettyRebuild "switch";
+      nrb = mkPrettyRebuild "boot";
       nfc = "nix flake check";
       nix-direnv-init = "nix flake new -t github:nix-community/nix-direnv .";
     };
-
-    environment.systemPackages = [
-      self.packages.${pkgs.stdenv.hostPlatform.system}.flake-update
-    ];
   };
 
   flake.darwinModules.shellAliases = {
