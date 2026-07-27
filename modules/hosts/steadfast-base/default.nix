@@ -17,7 +17,7 @@ in {
 
       # System config
       self.nixosModules.networkmanager
-      self.nixosModules.remoteBuilder
+      self.nixosModules.nixbuild
 
       # Services
       self.nixosModules.openssh

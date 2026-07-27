@@ -16,6 +16,7 @@
       self.nixosModules.utm
 
       # System components
+      self.nixosModules.nixbuildAsSubstituter
       self.nixosModules.deployNixOnDroid
       self.nixosModules.fonts
       self.nixosModules.networkmanager
