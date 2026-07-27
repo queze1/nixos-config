@@ -59,6 +59,7 @@ ip addr
 │   ├── options.nix            # shared options
 │   ├── outputs                # flake outputs
 │   │   ├── iso.nix            # - custom ISO images
+│   │   ├── colmena.nix        # - machines managed by colmena
 │   │   └── ...
 │   ├── users                  # user definitions
 │   │   ├── commander.nix
