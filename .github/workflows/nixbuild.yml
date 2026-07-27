@@ -6,14 +6,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps: 
-      - name: CI workflow
-        uses: nixbuild/nixbuild-action/.github/workflows/ci-workflow.yml@v25
-        secrets:
-          nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          # Build home server NixOS configurations (named steadfast-<name>)
-          filter_builds: '.top_attr == "packages" and (.attr | startswith("steadfast-"))'
+    uses: nixbuild/nixbuild-action/.github/workflows/ci-workflow.yml@v25
+    secrets:
+      nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
+      github_access_token: ${{ secrets.GITHUB_TOKEN }}
+    with:
+      # Build home server NixOS configurations (named steadfast-<name>)
+      filter_builds: '.top_attr == "packages" and (.attr | startswith("steadfast-"))'
 
