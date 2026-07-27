@@ -13,7 +13,8 @@
 
     # Secrets
     secrets = {
-      url = "git+ssh://git@github.com/queze1/nixos-secrets.git";
+      url = "github:queze1/nixos-secrets";
+      # url = "git+ssh://git@github.com/queze1/nixos-secrets.git";
       flake = false;
     };
 

@@ -789,17 +789,17 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1785110289,
-        "narHash": "sha256-pultYq6oetQvrVyH4lZuFIwFCxhXpwbZAzjOs7OAVxg=",
-        "ref": "refs/heads/main",
-        "rev": "ce65846f8c4f5afc3ae1c3f002261f62506b5c99",
-        "revCount": 42,
-        "type": "git",
-        "url": "ssh://git@github.com/queze1/nixos-secrets.git"
+        "lastModified": 1785124328,
+        "narHash": "sha256-d8YdG/LQhlou+Xg8Zvjx0ph6Swl7+9bQCdvZU01SA2I=",
+        "owner": "queze1",
+        "repo": "nixos-secrets",
+        "rev": "33c9179b1ee99b4dd9e4116e75a7766c15243e2e",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/queze1/nixos-secrets.git"
+        "owner": "queze1",
+        "repo": "nixos-secrets",
+        "type": "github"
       }
     },
     "sops-nix": {

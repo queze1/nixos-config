@@ -19,6 +19,7 @@
       self.nixosModules.deployNixOnDroid
       self.nixosModules.fonts
       self.nixosModules.networkmanager
+      self.nixosModules.setupAccessTokens
       self.nixosModules.shellAliases
       self.nixosModules.sound
 
