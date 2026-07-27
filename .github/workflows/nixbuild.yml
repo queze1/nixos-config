@@ -5,7 +5,7 @@ on:
 
 jobs:
   checks:
-    uses: nixbuild/nixbuild-action/.github/workflows/ci-workflow.yml@v26
+    uses: nixbuild/nixbuild-action/.github/workflows/ci-workflow.yml@v25
     secrets:
       nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
 
