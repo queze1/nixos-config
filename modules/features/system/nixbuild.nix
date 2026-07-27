@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.nixbuild = {config, ...}: {
+  flake.nixosModules.nixbuild = {pkgs, ...}: {
     imports = [self.nixosModules.nixbuildAsSubstituter];
 
     nix = {
@@ -7,7 +7,7 @@
       buildMachines = [
         {
           hostName = "eu.nixbuild.net";
-          system = config.nixpkgs.buildPlatform;
+          system = pkgs.stdenv.hostPlatform.system;
           maxJobs = 100;
           supportedFeatures = ["benchmark" "big-parallel"];
         }
