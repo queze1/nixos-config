@@ -789,11 +789,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1784534649,
-        "narHash": "sha256-NiEqYV0KtnEWM3YLnx6QWs63w9tx/4et11p8iwTle9M=",
+        "lastModified": 1785110289,
+        "narHash": "sha256-pultYq6oetQvrVyH4lZuFIwFCxhXpwbZAzjOs7OAVxg=",
         "ref": "refs/heads/main",
-        "rev": "a3244c4af6aa7d33532b9ac25992f3fcdacb43de",
-        "revCount": 41,
+        "rev": "ce65846f8c4f5afc3ae1c3f002261f62506b5c99",
+        "revCount": 42,
         "type": "git",
         "url": "ssh://git@github.com/queze1/nixos-secrets.git"
       },
