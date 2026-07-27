@@ -65,3 +65,9 @@ ip addr
 │   └── vm                     # workarounds for VMs
 └── README.md
 ```
+
+## CI/CD
+1. [nixos-systems-as-packages.nix](https://github.com/queze1/nixos-config/blob/main/modules/outputs/nixos-systems-as-packages.nix) exports NixOS configurations as packages.
+2. [nixbuild GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/nixbuild.yml) builds NixOS configurations on [nixbuild.net](https://nixbuild.net/) (very fast).
+3. [nixbuild.nix](https://github.com/queze1/nixos-config/blob/main/modules/features/system/nixbuild.nix) adds nixbuild as a substituter. After nixbuild.net finishes building, systems can pull binaries from it without having to build locally.
+
