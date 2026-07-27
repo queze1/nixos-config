@@ -13,4 +13,7 @@ jobs:
         secrets:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Build home server NixOS configurations (named steadfast-<name>)
+          filter_builds: '.top_attr == "packages" and (.attr | startswith("steadfast-"))'
 
