@@ -27,5 +27,10 @@
         }
       ];
     };
+
+    nix.settings = {
+      substituters = ["ssh://eu.nixbuild.net"];
+      trusted-public-keys = ["nixbuild.net/DHZ6OD-1:0B9aZ9YuXT6XH7PyKDlzcKYj/SjwEw2VzBJEfq7tPMM="];
+    };
   };
 }
