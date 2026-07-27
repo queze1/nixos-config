@@ -50,13 +50,15 @@ ip addr
 │   │   ├── shared             # config which every machine needs
 │   │   └── system             # system configuration
 │   ├── flake-parts.nix
-│   ├── iso.nix                # custom ISO images
 │   ├── hosts                  # host definitions
 │   │   ├── able-archer        # - personal machine
 │   │   ├── steadfast-base     # - shared home server config
-│   │   ├── steadfast-[...]    # - home servers
+│   │   └── steadfast-[...]    # - home servers
 │   ├── lib                    # helper libraries
 │   ├── options.nix            # shared options
+│   ├── outputs                # flake outputs
+│   │   ├── iso.nix            # - custom ISO images
+│   │   └── ...
 │   ├── users                  # user definitions
 │   │   ├── commander.nix
 │   │   └── queze.nix
