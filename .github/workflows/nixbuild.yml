@@ -7,12 +7,27 @@ on:
     branches: [ "main" ]
 
 jobs:
+  # Run checks, build packages (including NixOS systems but excluding ISO images)
   build:
     uses: nixbuild/nixbuild-action/.github/workflows/ci-workflow.yml@v25
     secrets:
       nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
       github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
     with:
-      # Run checks, build packages (including NixOS systems but excluding ISO images)
       filter_builds: '.top_attr == "checks" or (.top_attr == "packages" and (.attr | endswith("iso-image") | not))'
+  
+  # Add to deployed branch if tests pass and the push was on main
+  promote:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fast-forward deployed branch
+        run: |
+          git push origin HEAD:refs/heads/deployed
 
