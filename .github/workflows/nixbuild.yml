@@ -13,6 +13,6 @@ jobs:
       nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
       github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
     with:
-      # Run all checks, build all NixOS systems
-      filter_builds: '.top_attr == "checks" or (.top_attr == "packages" and (.attr | endswith("-system")))'
+      # Run all checks, build all packages (including NixOS systems and ISOs)
+      filter_builds: '.top_attr == "checks" or .top_attr == "packages"'
 
