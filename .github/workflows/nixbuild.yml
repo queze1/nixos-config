@@ -11,22 +11,6 @@ jobs:
       nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
       github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
     with:
-      # Set up SSH access to private repos
-      pre_evaluation_script: |
-        mkdir -p ~/.ssh
-        cat << 'EOF' > ~/.ssh/id_ed25519
-        ${{ secrets.SSH_PRIVATE_KEY }}
-        EOF
-        chmod 600 ~/.ssh/id_ed25519
-        ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
-      pre_build_script: |
-        mkdir -p ~/.ssh
-        cat << 'EOF' > ~/.ssh/id_ed25519
-        ${{ secrets.SSH_PRIVATE_KEY }}
-        EOF
-        chmod 600 ~/.ssh/id_ed25519
-        ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
-
       # Build home server NixOS configurations (named steadfast-<name>)
       filter_builds: '.top_attr == "packages" and (.attr | startswith("steadfast-"))'
 
