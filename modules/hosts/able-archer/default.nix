@@ -39,7 +39,6 @@ in {
 
       # Services
       self.nixosModules.docker
-      self.nixosModules.protonvpn
       self.nixosModules.syncthing
       self.nixosModules.tailscale
 

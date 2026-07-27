@@ -7,6 +7,7 @@
     imports = [
       self.sharedModules.pkgsStableOverlay
       self.nixosModules.fish
+      self.nixosModules.protonvpn
     ];
 
     home-manager.sharedModules = [
