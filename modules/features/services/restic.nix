@@ -6,9 +6,31 @@
     ...
   }: let
     cfg = config.my.restic;
+
+    # Extract the services.restic.backups.<name> submodule
+    resticBackupSubmodule = options.services.restic.backups.type.nestedTypes.elemType.getSubModules;
+
+    # Define a submodule which sets new defaults (pre-evaluation)
+    myResticSubmodule = lib.types.submodule [
+      (
+        {name, ...}: {
+          imports = resticBackupSubmodule;
+
+          # Recursively set lib.mkDefault, overrides option defaults but is overridden by normal definitions
+          config = lib.mapAttrsRecursive (_: value: lib.mkDefault value) {
+            initialize = true;
+            environmentFile = config.sops.secrets."restic-${name}-env".path;
+            timerConfig = {
+              OnCalendar = "daily";
+              Persistent = true;
+            };
+          };
+        }
+      )
+    ];
   in {
     options.my.restic.backups = lib.mkOption {
-      type = options.services.restic.backups.type;
+      type = lib.types.attrsOf myResticSubmodule;
       default = {};
       description = "Periodic backups to create with Restic.";
     };
@@ -22,22 +44,7 @@
         )
         cfg.backups;
 
-      # For every backup, set defaults
-      services.restic.backups =
-        lib.mapAttrs (
-          name: backup:
-            lib.recursiveUpdate
-            {
-              initialize = true;
-              environmentFile = config.sops.secrets."restic-${name}-env".path;
-              timerConfig = {
-                OnCalendar = "daily";
-                Persistent = true;
-              };
-            }
-            backup
-        )
-        cfg.backups;
+      services.restic.backups = cfg.backups;
     };
   };
 }
