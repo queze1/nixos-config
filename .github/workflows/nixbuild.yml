@@ -2,10 +2,15 @@ name: nixbuild
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
-  checks:
-    uses: nixbuild/nixbuild-action/.github/workflows/ci-workflow.yml@v25
-    secrets:
-      nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: CI workflow
+        uses: nixbuild/nixbuild-action/.github/workflows/ci-workflow.yml@v25
+        secrets:
+          nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
