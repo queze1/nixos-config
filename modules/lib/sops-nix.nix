@@ -32,7 +32,7 @@
       inputs.sops-nix.homeManagerModules.sops
     ];
 
-    sops.defaultSopsFile = "${inputs.secrets}/secrets/${osConfig.networking.hostName}.yaml";
+    sops.defaultSopsFile = "${inputs.secrets}/secrets/${osConfig.networking.hostName}-home.yaml";
     sops.age.keyFile = ".config/sops/age/keys.txt";
   };
 }
