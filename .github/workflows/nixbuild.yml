@@ -1,0 +1,11 @@
+name: nixbuild
+
+on:
+  workflow_dispatch:
+
+jobs:
+  checks:
+    uses: nixbuild/nixbuild-action/.github/workflows/ci-workflow.yml@v26
+    secrets:
+      nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
+
