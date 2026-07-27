@@ -4,6 +4,7 @@
   ...
 }: let
   hostname = "steadfast-dart";
+  system = "x86_64-linux";
 in {
   # Fastest home server
   flake.nixosModules.steadfastDartConfiguration = {
@@ -43,10 +44,12 @@ in {
     };
 
     hardware.facter.reportPath = ./facter.json;
-    networking.hostName = "${hostname}";
+    networking.hostName = hostname;
   };
 
-  flake.nixosConfigurations.${hostname} = inputs.nixpkgs-stable.lib.nixosSystem {
-    modules = [self.nixosModules.steadfastDartConfiguration];
-  };
+  flake.nixosConfigurations.${hostname} =
+    inputs.nixpkgs-stable.lib.nixosSystem {
+      modules = [self.nixosModules.steadfastDartConfiguration];
+    }
+    // {_system = system;};
 }

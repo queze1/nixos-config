@@ -2,7 +2,10 @@
   inputs,
   self,
   ...
-}: {
+}: let
+  hostname = "able-archer";
+  system = "aarch64-linux";
+in {
   flake.nixosModules.ableArcherConfiguration = {lib, ...}: let
     mainUser = "queze";
   in {
@@ -94,14 +97,16 @@
     nix.gc.options = lib.mkForce "--delete-older-than 7d";
     boot.loader.systemd-boot.configurationLimit = lib.mkForce 10;
 
-    networking.hostName = "able-archer";
+    networking.hostName = hostname;
     system.stateVersion = "25.11";
   };
 
-  flake.nixosConfigurations.able-archer = inputs.nixpkgs.lib.nixosSystem {
-    modules = [
-      self.nixosModules.ableArcherConfiguration
-      self.nixosModules.ableArcherHardware
-    ];
-  };
+  flake.nixosConfigurations.able-archer =
+    inputs.nixpkgs.lib.nixosSystem {
+      modules = [
+        self.nixosModules.ableArcherConfiguration
+        self.nixosModules.ableArcherHardware
+      ];
+    }
+    // {_system = system;};
 }

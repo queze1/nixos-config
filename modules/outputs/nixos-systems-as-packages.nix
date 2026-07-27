@@ -4,10 +4,19 @@
     lib,
     ...
   }: let
+    # Helper to retrieve host architecture lazily
+    getHostSystem = hostname: nixos:
+      if nixos ? _system
+      then nixos._system
+      else
+        lib.warn
+        "NixOS configuration '${hostname}' is missing '_system' helper attribute. Falling back to 'pkgs.stdenv.hostPlatform.system'."
+        nixos.pkgs.stdenv.hostPlatform.system;
+
     # Find all NixOS configurations matching the current architecture
     matchingNixosConfigurations =
       lib.filterAttrs (
-        _: nixos: nixos.pkgs.stdenv.hostPlatform.system == system
+        hostname: nixos: (getHostSystem hostname nixos) == system
       )
       self.nixosConfigurations;
 
