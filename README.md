@@ -42,13 +42,14 @@ ip addr
 ├── flake.nix                  # imports everything in /modules
 ├── install.sh                 # script to bootstrap a machine with nixos-anywhere
 ├── modules
-│   ├── features
-│   │   ├── desktop            # desktop environments (e.g. niri)
-│   │   ├── hosting            # self-hosted apps and infra
-│   │   ├── programs           # user programs (e.g. firefox)
-│   │   ├── services           # system services (e.g. tailscale)
-│   │   ├── shared             # config which every machine needs
-│   │   └── system             # system configuration
+│   ├── features               # nix modules which add features
+│   │   ├── desktop            # - desktop environments (e.g. niri)
+│   │   ├── hosting            # - self-hosted apps and infra
+│   │   ├── nix                # - nix-related settings
+│   │   ├── programs           # - user programs (e.g. firefox)
+│   │   ├── services           # - system services (e.g. tailscale)
+│   │   ├── shared             # - config which every machine needs
+│   │   └── system             # - system configuration
 │   ├── flake-parts.nix
 │   ├── hosts                  # host definitions
 │   │   ├── able-archer        # - personal machine
