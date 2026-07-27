@@ -17,12 +17,16 @@ in {
 
       # System config
       self.nixosModules.networkmanager
+
+      # Nix-related
       self.nixosModules.nixbuild
+      self.nixosModules.setupAccessTokens
 
       # Services
+      self.nixosModules.comin
       self.nixosModules.openssh
-      self.nixosModules.tailscale
       self.nixosModules.resticDefaults
+      self.nixosModules.tailscale
 
       self.nixosModules.commander
     ];
