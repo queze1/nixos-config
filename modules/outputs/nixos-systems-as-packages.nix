@@ -4,10 +4,21 @@
     lib,
     ...
   }: let
-    # Find all NixOS configurations with the same system
-    matchingNixosConfigurations = lib.filterAttrs (_: nixos: nixos.pkgs.stdenv.hostPlatform.system == system) self.nixosConfigurations;
-    nixosDerivations = lib.mapAttrs (_: nixos: nixos.config.system.build.toplevel) matchingNixosConfigurations;
+    # Find all NixOS configurations matching the current architecture
+    matchingNixosConfigurations =
+      lib.filterAttrs (
+        _: nixos: nixos.pkgs.stdenv.hostPlatform.system == system
+      )
+      self.nixosConfigurations;
+
+    nixosSystems =
+      lib.mapAttrs' (
+        hostname: nixos:
+          lib.nameValuePair "${hostname}-system" nixos.config.system.build.toplevel
+      )
+      matchingNixosConfigurations;
   in {
-    packages = nixosDerivations;
+    # Export as packages so CI can find them
+    packages = nixosSystems;
   };
 }
