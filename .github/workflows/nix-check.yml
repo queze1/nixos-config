@@ -11,14 +11,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7.0.0
-      - name: Start SSH agent
-        uses: webfactory/ssh-agent@v0.10.0
-        with:
-            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Install Nix
         uses: cachix/install-nix-action@v31.10.6
         with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
       - name: Setup Magic Nix Cache
         uses: DeterminateSystems/magic-nix-cache-action@main
       - run: nix flake check

@@ -9,7 +9,7 @@ jobs:
     uses: nixbuild/nixbuild-action/.github/workflows/ci-workflow.yml@v25
     secrets:
       nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
-      github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
     with:
       # Set up SSH access to private repos
       pre_evaluation_script: |
