@@ -7,7 +7,7 @@
   system = "x86_64-linux";
 in {
   # Fastest home server
-  flake.nixosModules.steadfastDartConfiguration = {config, ...}: {
+  flake.nixosModules.steadfastDartConfiguration = {
     imports = [
       self.nixosModules.steadfastBase
       (self.factory.diskoTmpfsOnRoot
@@ -35,17 +35,7 @@ in {
     services.pihole-web.ports = [8006];
 
     # Allow only Caddy to access services
-    networking.nftables.tables."caddy-firewall" = {
-      family = "inet";
-      content = ''
-        chain output {
-          type filter hook output priority filter; policy accept;
-
-          oif "lo" tcp dport { 8000, 8002, 8003, 8005, 8006 } meta skuid ${toString config.users.users.${config.services.caddy.user}.uid} accept
-          oif "lo" tcp dport { 8000, 8002, 8003, 8005, 8006 } drop
-        }
-      '';
-    };
+    my.caddy.firewalledPorts = [8000 8002 8003 8005 8006];
 
     my.restic.backups = {
       backblaze-b2 = {
