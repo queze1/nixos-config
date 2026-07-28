@@ -156,18 +156,6 @@ in {
         };
       };
       services.ddclient.domains = ["metube.osipol.uk"];
-
-      # Allow only Caddy to access this port
-      networking.nftables.tables."yubal-firewall" = {
-        family = "inet";
-        content = ''
-          chain output {
-            type filter hook output; policy accept;
-
-            dport ${cfg.port} meta skuid != ${toString config.users.users.${config.services.caddy.user}.uid} drop
-          }
-        '';
-      };
     };
   };
 
@@ -239,7 +227,7 @@ in {
         };
       };
 
-      # Make Yubal accessible through Tailscale
+      # Reverse proxy with Tailscale auth
       services.caddy.virtualHosts = {
         "yubal.osipol.uk" = {
           extraConfig = ''
@@ -252,7 +240,20 @@ in {
           '';
         };
       };
-      services.ddclient.domains = ["yubal.osipol.uk"]; # dynamically update IP
+      services.ddclient.domains = ["yubal.osipol.uk"];
+
+      # Allow only Caddy to access this port
+      networking.nftables.tables."yubal-firewall" = {
+        family = "inet";
+        content = ''
+          chain output {
+            type filter hook output; policy accept;
+
+            oif "lo" tcp dport ${toString cfg.port} meta skuid ${toString config.users.users.${config.services.caddy.user}.uid} accept
+            oif "lo" tcp dport ${toString cfg.port} drop
+          }
+        '';
+      };
     };
   };
 
