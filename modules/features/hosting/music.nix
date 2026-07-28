@@ -36,13 +36,15 @@ in {
   in {
     services.navidrome = {
       enable = true;
-      group = "music";
       settings = {
         "MusicFolder" = musicDir;
         "Scanner.Schedule" = "0 * * * *";
         "PID.Album" = "musicbrainz_albumid|album";
       };
     };
+
+    # Give access to the music dir
+    users.users.${cfg.user}.extraGroups = ["music"];
 
     # Preserve Navidrome data
     my.preservation.extraDirectories = [
@@ -91,7 +93,8 @@ in {
       # Create a system user to run MeTube
       users.users.metube = {
         isSystemUser = true;
-        group = "music";
+        group = "metube";
+        extraGroups = ["music"];
         linger = true;
         createHome = true;
         home = cfg.dataDir;
@@ -105,7 +108,7 @@ in {
         {
           directory = cfg.dataDir;
           user = "metube";
-          group = "music";
+          group = "metube";
           mode = "0700";
         }
       ];
@@ -176,7 +179,8 @@ in {
       # Create a system user to run yubal
       users.users.yubal = {
         isSystemUser = true;
-        group = "music";
+        group = "yubal";
+        extraGroups = ["music"];
         linger = true;
         createHome = true;
         home = cfg.dataDir;
@@ -190,7 +194,7 @@ in {
         {
           directory = cfg.dataDir;
           user = "yubal";
-          group = "music";
+          group = "yubal";
           mode = "0700";
         }
       ];
@@ -259,7 +263,8 @@ in {
       # Create a system user to run Picard
       users.users.picard = {
         isSystemUser = true;
-        group = "music";
+        group = "picard";
+        extraGroups = ["music"];
         linger = true;
         createHome = true;
         home = cfg.dataDir;
@@ -273,7 +278,7 @@ in {
         {
           directory = cfg.dataDir;
           user = "picard";
-          group = "music";
+          group = "picard";
           mode = "0700";
         }
       ];
