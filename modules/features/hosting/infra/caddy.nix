@@ -73,7 +73,7 @@
         }
       ];
 
-      networking.nftables.tables."caddy-firewall" = lib.optional myCfg.firewalledPorts {
+      networking.nftables.tables."caddy-firewall" = lib.optional (myCfg.firewalledPorts == []) {
         family = "inet";
         content = ''
           chain output {
