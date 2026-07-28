@@ -16,15 +16,15 @@ jobs:
           github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
           nix_conf: experimental-features = nix-command flakes
           nix_on_tmpfs: true
-      - name: Cache Nix cache
-        uses: actions/cache@v6.1.0
+      - name: Cache Nix store and cache
+        uses: nix-community/cache-nix-action@v7
         with:
-          path: ~/.cache/nix
-          key: nix-cache-${{ runner.os }}-${{ hashFiles('flake.lock') }}-${{ hashFiles('**/*.nix') }}
-          restore-keys: |
-            nix-cache-${{ runner.os }}-${{ hashFiles('flake.lock') }}-
-            nix-cache-${{ runner.os }}-
-            nix-cache-
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          restore-prefixes-first-match: |
+            nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}-
+            nix-${{ runner.os }}-
+          paths: |
+            ~/.cache/nix
       - uses: nixbuild/nixbuild-action@v25
         with:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
