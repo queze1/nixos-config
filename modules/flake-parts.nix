@@ -11,7 +11,8 @@
   options.flake = {
     factory = lib.mkOption {
       type = lib.types.attrsOf lib.types.raw;
-      default = {};
+      default = {
+      };
     };
 
     # Since there is no flake-parts module for nix-darwin, specify custom options
