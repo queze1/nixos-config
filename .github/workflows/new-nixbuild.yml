@@ -33,6 +33,8 @@ jobs:
             .#nixosConfigurations.able-archer.config.system.build.toplevel \
             .#nixosConfigurations.steadfast-dart.config.system.build.toplevel \
             .#nixosConfigurations.steadfast-defender.config.system.build.toplevel \
+            .#packages.aarch64-linux.iso-system \
+            .#packages.x86_64-linux.iso-system \
             --print-build-logs \
             --eval-store auto \
             --store ssh-ng://eu.nixbuild.net \
