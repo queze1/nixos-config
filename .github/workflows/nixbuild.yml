@@ -30,15 +30,11 @@ jobs:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
       # Build all NixOS configurations and ISO systems
       - run: |
-          nix build \
+          nix run github:Mic92/nix-fast-build \
             .#packages.x86_64-linux.all-nixos-configurations \
             .#packages.aarch64-linux.iso-system \
             .#packages.x86_64-linux.iso-system \
-            --print-build-logs \
-            --eval-store auto \
-            --store ssh-ng://eu.nixbuild.net \
-            --builders "" \
-            --no-link
+            --store ssh-ng://eu.nixbuild.net
   
   # Add to deployed branch if tests pass and the push was on main
   promote:
