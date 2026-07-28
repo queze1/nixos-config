@@ -4,7 +4,15 @@
     pkgs,
     self',
     ...
-  }: {
+  }: let
+    # Generate a script which wraps a Nix command with nom
+    mkPrettyNixCmd = name: cmd:
+      pkgs.writeShellScriptBin name ''
+        sudo -v &&
+        ${cmd} --log-format internal-json -v "$@" 2>&1 |
+        ${lib.getExe pkgs.nix-output-monitor} --json
+      '';
+  in {
     packages = lib.optionalAttrs pkgs.stdenv.isLinux {
       # flake-update: Update and commit NixOS config flake
       flake-update = pkgs.writeShellScriptBin "flake-update" ''
@@ -51,6 +59,10 @@
         echo "Deploying to server..."
         nix run github:serokell/deploy-rs -- --targets '.#nix-on-droid-server' -- --impure
       '';
+
+      # nrs/nrb: prettified nixos-rebuild
+      nrs = mkPrettyNixCmd "nrs" "nixos-rebuild switch --flake ~/etc/nixos#";
+      nrb = mkPrettyNixCmd "nrb" "nixos-rebuild boot --flake ~/etc/nixos#";
     };
   };
 }
