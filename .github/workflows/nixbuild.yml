@@ -9,7 +9,8 @@ on:
 jobs:
   # Run checks, build packages (including NixOS systems but excluding ISO images)
   build:
-    uses: nixbuild/nixbuild-action/.github/workflows/ci-workflow.yml@v25
+    uses: queze1/nixbuild-action/.github/workflows/ci-workflow.yml@master # fork
+    # uses: nixbuild/nixbuild-action/.github/workflows/ci-workflow.yml@v25
     secrets:
       nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
       github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
