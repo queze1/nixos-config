@@ -9,6 +9,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - target: "nixos-configurations"
+            attr: ".#packages.x86_64-linux.all-nixos-configurations"
+          - target: "iso-aarch64"
+            attr: ".#packages.aarch64-linux.iso-system"
+          - target: "iso-x86_64"
+            attr: ".#packages.x86_64-linux.iso-system"
+
     steps:
       - uses: actions/checkout@v7
       - uses: nixbuild/nix-quick-install-action@v35
@@ -16,29 +26,30 @@ jobs:
           github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
           nix_conf: experimental-features = nix-command flakes
           nix_on_tmpfs: true
+
       - name: Cache Nix store and cache
         uses: nix-community/cache-nix-action@v7
         with:
-          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          primary-key: nix-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
           restore-prefixes-first-match: |
-            nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}-
+            nix-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-
+            nix-${{ runner.os }}-${{ matrix.target }}-
             nix-${{ runner.os }}-
           paths: |
             ~/.cache/nix
+
       - uses: nixbuild/nixbuild-action@v25
         with:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
-      # Build all NixOS configurations and ISO systems
+
+      # Build matrix target
       - run: |
           nix build \
-            .#packages.x86_64-linux.all-nixos-configurations \
-            .#packages.aarch64-linux.iso-system \
-            .#packages.x86_64-linux.iso-system \
+            ${{ matrix.attr }} \
             --print-build-logs \
             --eval-store auto \
             --store ssh-ng://eu.nixbuild.net \
-            --builders "" \
-            --no-link
+            --builders ""
   
   # Add to deployed branch if tests pass and the push was on main
   promote:
