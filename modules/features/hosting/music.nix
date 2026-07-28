@@ -33,10 +33,12 @@ in {
 
   flake.nixosModules.navidrome = {config, ...}: let
     cfg = config.services.navidrome;
+    socketPath = "/run/navidrome/navidrome.sock";
   in {
     services.navidrome = {
       enable = true;
       settings = {
+        "Address" = "unix:${socketPath}";
         "MusicFolder" = musicDir;
         "Scanner.Schedule" = "0 * * * *";
         "PID.Album" = "musicbrainz_albumid|album";
@@ -56,13 +58,16 @@ in {
       }
     ];
 
+    # Give Caddy access to the socket
+    users.users.${config.services.caddy.user}.extraGroups = [cfg.group];
+
     # Make Navidrome privately accessible through Tailscale
     services.caddy.virtualHosts = {
       "new.navidrome.osipol.uk" = {
         extraConfig = ''
           import cloudflare_dns
           import tailscale_auth
-          reverse_proxy localhost:${toString cfg.settings.Port}
+          reverse_proxy unix/${socketPath}
         '';
       };
     };

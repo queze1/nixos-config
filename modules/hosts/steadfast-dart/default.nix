@@ -29,7 +29,6 @@ in {
 
     # Set incrementing port numbers
     services.ark-rp-viz.port = 8000;
-    services.navidrome.settings.Port = 8001;
     services.metube.port = 8002;
     services.yubal.port = 8003;
     services.picard.port = 8005;
