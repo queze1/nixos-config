@@ -158,13 +158,14 @@ in {
       services.ddclient.domains = ["metube.osipol.uk"];
 
       # Prevent other services from accessing this port
-      networking.nftables.tables."uid-restrict" = {
+      networking.nftables.tables."yubal-firewall" = {
         family = "inet";
         content = ''
           chain output {
-            type filter hook output priority 0; policy accept;
+            type filter hook output; policy accept;
 
-            lo dport ${cfg.port} meta skuid != ${toString config.users.users.${config.services.caddy.user}.uid} drop
+            oif lo tcp dport ${cfg.port} meta skuid ${toString config.users.users.${config.services.caddy.user}.uid} drop
+            oif lo tcp dport ${cfg.port} drop
           }
         '';
       };
