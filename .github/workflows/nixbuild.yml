@@ -2,20 +2,43 @@ name: nixbuild
 
 on:
   workflow_dispatch:
-  # pull_request:
-  # push:
-  #   branches: [ "main" ]
+  pull_request:
+  push:
+    branches: [ "main" ]
 
 jobs:
-  # Run checks, build packages (including NixOS systems but excluding ISO images)
   build:
-    uses: queze1/nixbuild-action/.github/workflows/ci-workflow.yml@master # fork
-    # uses: nixbuild/nixbuild-action/.github/workflows/ci-workflow.yml@v25
-    secrets:
-      nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
-      github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
-    with:
-      filter_builds: '.top_attr == "checks" or (.top_attr == "packages" and (.attr | endswith("iso-image") | not))'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: nixbuild/nix-quick-install-action@v35
+        with:
+          github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
+          nix_conf: experimental-features = nix-command flakes
+          nix_on_tmpfs: true
+      - name: Cache Nix cache
+        uses: actions/cache@v6.1.0
+        with:
+          path: ~/.cache/nix
+          key: nix-cache-${{ runner.os }}-${{ hashFiles('flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          restore-keys: |
+            nix-cache-${{ runner.os }}-${{ hashFiles('flake.lock') }}-
+            nix-cache-${{ runner.os }}-
+            nix-cache-
+      - uses: nixbuild/nixbuild-action@v25
+        with:
+          nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
+      # Build all NixOS configurations and ISO systems
+      - run: |
+          nix build \
+            .#packages.x86_64-linux.all-nixos-configurations \
+            .#packages.aarch64-linux.iso-system \
+            .#packages.x86_64-linux.iso-system \
+            --print-build-logs \
+            --eval-store auto \
+            --store ssh-ng://eu.nixbuild.net \
+            --builders "" \
+            --no-link
   
   # Add to deployed branch if tests pass and the push was on main
   promote:
