@@ -4,7 +4,6 @@
   ...
 }: let
   hostname = "steadfast-defender";
-  system = "x86_64-linux";
 in {
   # ThinkPad home server
   flake.nixosModules.steadfastDefenderConfiguration = {
@@ -18,9 +17,7 @@ in {
     networking.hostName = hostname;
   };
 
-  flake.nixosConfigurations.${hostname} =
-    inputs.nixpkgs-stable.lib.nixosSystem {
-      modules = [self.nixosModules.steadfastDefenderConfiguration];
-    }
-    // {_system = system;};
+  flake.nixosConfigurations.${hostname} = inputs.nixpkgs-stable.lib.nixosSystem {
+    modules = [self.nixosModules.steadfastDefenderConfiguration];
+  };
 }

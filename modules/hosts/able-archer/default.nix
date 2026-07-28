@@ -4,7 +4,6 @@
   ...
 }: let
   hostname = "able-archer";
-  system = "aarch64-linux";
 in {
   flake.nixosModules.ableArcherConfiguration = {lib, ...}: let
     mainUser = "queze";
@@ -113,12 +112,10 @@ in {
     system.stateVersion = "25.11";
   };
 
-  flake.nixosConfigurations.able-archer =
-    inputs.nixpkgs.lib.nixosSystem {
-      modules = [
-        self.nixosModules.ableArcherConfiguration
-        self.nixosModules.ableArcherHardware
-      ];
-    }
-    // {_system = system;};
+  flake.nixosConfigurations.able-archer = inputs.nixpkgs.lib.nixosSystem {
+    modules = [
+      self.nixosModules.ableArcherConfiguration
+      self.nixosModules.ableArcherHardware
+    ];
+  };
 }
