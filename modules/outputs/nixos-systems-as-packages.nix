@@ -10,7 +10,7 @@
       then nixos._system
       else
         lib.warn
-        "NixOS configuration '${hostname}' is missing '_system' helper attribute. Falling back to 'pkgs.stdenv.hostPlatform.system'."
+        "NixOS configuration '${hostname}' is missing '_system' helper attribute. Falling back to 'pkgs.stdenv.hostPlatform.system', which evaluates the system."
         nixos.pkgs.stdenv.hostPlatform.system;
 
     # Find all NixOS configurations matching the current architecture
