@@ -15,6 +15,8 @@
       };
 
       extraConfig = ''
+        admin unix//run/caddy-admin.sock
+
         (cloudflare_dns) {
           tls {
           	dns cloudflare {file.${config.sops.secrets.osipol-cloudflare-api-token.path}}
