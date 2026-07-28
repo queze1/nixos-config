@@ -241,19 +241,6 @@ in {
         };
       };
       services.ddclient.domains = ["yubal.osipol.uk"];
-
-      # Allow only Caddy to access this port
-      networking.nftables.tables."yubal-firewall" = {
-        family = "inet";
-        content = ''
-          chain output {
-            type filter hook output; policy accept;
-
-            oif "lo" tcp dport ${toString cfg.port} meta skuid ${toString config.users.users.${config.services.caddy.user}.uid} accept
-            oif "lo" tcp dport ${toString cfg.port} drop
-          }
-        '';
-      };
     };
   };
 
