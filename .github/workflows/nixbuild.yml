@@ -2,9 +2,9 @@ name: nixbuild
 
 on:
   workflow_dispatch:
-  pull_request:
-  push:
-    branches: [ "main" ]
+  # pull_request:
+  # push:
+  #   branches: [ "main" ]
 
 jobs:
   # Run checks, build packages (including NixOS systems but excluding ISO images)
