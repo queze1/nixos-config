@@ -157,15 +157,14 @@ in {
       };
       services.ddclient.domains = ["metube.osipol.uk"];
 
-      # Prevent other services from accessing this port
+      # Allow only Caddy to access this port
       networking.nftables.tables."yubal-firewall" = {
         family = "inet";
         content = ''
           chain output {
             type filter hook output; policy accept;
 
-            oif lo tcp dport ${cfg.port} meta skuid ${toString config.users.users.${config.services.caddy.user}.uid} drop
-            oif lo tcp dport ${cfg.port} drop
+            dport ${cfg.port} meta skuid != ${toString config.users.users.${config.services.caddy.user}.uid} drop
           }
         '';
       };
