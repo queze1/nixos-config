@@ -61,7 +61,7 @@ in {
     # Give Caddy access to the socket
     users.users.${config.services.caddy.user}.extraGroups = [cfg.group];
 
-    # Make Navidrome privately accessible through Tailscale
+    # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {
       "new.navidrome.osipol.uk" = {
         extraConfig = ''
@@ -71,7 +71,7 @@ in {
         '';
       };
     };
-    services.ddclient.domains = ["new.navidrome.osipol.uk"]; # dynamically update IP
+    services.ddclient.domains = ["new.navidrome.osipol.uk"];
   };
 
   flake.nixosModules.metube = {
@@ -103,8 +103,6 @@ in {
         linger = true;
         createHome = true;
         home = cfg.dataDir;
-
-        # https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md
         autoSubUidGidRange = true;
       };
       users.groups.metube = {};
@@ -119,7 +117,7 @@ in {
         }
       ];
 
-      # Run MeTube with rootless Podman
+      # Run with rootless Podman
       virtualisation.oci-containers = {
         containers.metube = {
           image = "ghcr.io/alexta69/metube";
@@ -144,7 +142,7 @@ in {
         };
       };
 
-      # Make MeTube accessible through Tailscale
+      # Reverse proxy with Tailscale auth
       services.caddy.virtualHosts = {
         "metube.osipol.uk" = {
           extraConfig = ''
@@ -157,7 +155,19 @@ in {
           '';
         };
       };
-      services.ddclient.domains = ["metube.osipol.uk"]; # dynamically update IP
+      services.ddclient.domains = ["metube.osipol.uk"];
+
+      # Prevent other services from accessing this port
+      networking.nftables.tables."uid-restrict" = {
+        family = "inet";
+        content = ''
+          chain output {
+            type filter hook output priority 0; policy accept;
+
+            lo dport ${cfg.port} meta skuid != ${toString config.users.users.${config.services.caddy.user}.uid} drop
+          }
+        '';
+      };
     };
   };
 
