@@ -1,8 +1,8 @@
 {
-  flake.nixosModules.tailscaleAuth = {
+  flake.nixosModules.tailscaleAuth = {config, ...}: {
     services.tailscaleAuth.enable = true;
 
     # Allow Cadddy to authenticate requests with Tailscale
-    users.users.caddy.extraGroups = ["tailscale-nginx-auth"];
+    users.users.${config.services.caddy.user}.extraGroups = ["tailscale-nginx-auth"];
   };
 }
