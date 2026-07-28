@@ -29,9 +29,10 @@
           hash = "sha256-7GoH8YLCoPmPExQxoga2FHB58zQDoZVf1BBwkVi0SsQ=";
         };
 
+        globalConfig = ''
+          admin unix//run/caddy/caddy-admin.sock
+        '';
         extraConfig = ''
-          admin unix//run/caddy-admin.sock
-
           (cloudflare_dns) {
             tls {
             	dns cloudflare {file.${config.sops.secrets.osipol-cloudflare-api-token.path}}
