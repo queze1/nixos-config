@@ -102,6 +102,7 @@ in {
         # https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md
         autoSubUidGidRange = true;
       };
+      users.groups.metube = {};
 
       # Preserve MeTube data
       my.preservation.extraDirectories = [
@@ -188,6 +189,7 @@ in {
         # https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md
         autoSubUidGidRange = true;
       };
+      users.groups.yubal = {};
 
       # Preserve yubal data
       my.preservation.extraDirectories = [
@@ -272,6 +274,7 @@ in {
         # https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md
         autoSubUidGidRange = true;
       };
+      users.groups.picard = {};
 
       # Preserve Picard data
       my.preservation.extraDirectories = [
