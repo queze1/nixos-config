@@ -23,6 +23,13 @@ in {
       programs.ssh = {
         enable = true;
         includes = [config.sops.secrets."${username}-ssh-config".path];
+        enableDefaultConfig = false;
+        settings."*" = {
+          ForwardAgent = false;
+          AddKeysToAgent = "no";
+          Compression = false;
+          UserKnownHostsFile = "~/.ssh/known_hosts";
+        };
       };
 
       home.username = username;
