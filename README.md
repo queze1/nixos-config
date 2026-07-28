@@ -3,8 +3,8 @@
 My personal NixOS config.
 
 ## Software
-- Window manager: [niri](https://github.com/YaLTeR/niri)
-- Desktop shell: [Noctalia Shell](https://github.com/noctalia-dev/noctalia-shell)
+- Window manager: [niri](https://github.com/niri-wm/niri)
+- Desktop shell: [Noctalia Shell](https://github.com/noctalia-dev/noctalia)
 - Editor: [Neovim](https://neovim.io/)
 - Terminal: [foot](https://codeberg.org/dnkl/foot)
 - Shell: [Fish](https://fishshell.com/)
@@ -72,5 +72,5 @@ ip addr
 1. [all-nixos-configurations.nix](https://github.com/queze1/nixos-config/blob/main/modules/outputs/all-nixos-configurations.nix) finds all NixOS configurations and exports a derivatiwhich links to all of them.
 2. [nixbuild GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/nixbuild.yml) builds NixOS configurations on [nixbuild.net](https://nixbuild.net/) (very fast). If tests pass, fast-forwards the `deployed` branch to `main`.
 3. [comin](https://github.com/nlewo/comin/) pings the `deployed` branch, pulls and applies changes.
-4. [nixbuild.nix](https://github.com/queze1/nixos-config/blob/main/modules/features/system/nixbuild.nix) adds nixbuild as a substituter. Since nixbuild.net built all configurations, systems can pull binaries from it without having to build locally.
+4. [nixbuild.nix](https://github.com/queze1/nixos-config/blob/main/modules/features/nix/nixbuild.nix) adds nixbuild as a substituter. Since nixbuild.net built all configurations, systems can pull binaries from it without having to build locally.
 
