@@ -73,16 +73,18 @@
         }
       ];
 
-      networking.nftables.tables."caddy-firewall" = lib.optional (myCfg.firewalledPorts == []) {
-        family = "inet";
-        content = ''
-          chain output {
-            type filter hook output priority filter; policy accept;
+      networking.nftables.tables = lib.optional (myCfg.firewalledPorts == []) {
+        "caddy-firewall" = {
+          family = "inet";
+          content = ''
+            chain output {
+              type filter hook output priority filter; policy accept;
 
-            oif "lo" tcp dport {${firewalledPortsStr}} meta skuid ${toString uid} accept
-            oif "lo" tcp dport {${firewalledPortsStr}} drop
-          }
-        '';
+              oif "lo" tcp dport {${firewalledPortsStr}} meta skuid ${toString uid} accept
+              oif "lo" tcp dport {${firewalledPortsStr}} drop
+            }
+          '';
+        };
       };
     };
   };
