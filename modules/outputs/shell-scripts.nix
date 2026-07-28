@@ -9,7 +9,7 @@
     mkPrettyNixCmd = name: cmd:
       pkgs.writeShellScriptBin name ''
         sudo -v &&
-        ${cmd} --log-format internal-json -v "$@" 2>&1 |
+        sudo ${cmd} "$@" --log-format internal-json -v |&
         ${lib.getExe pkgs.nix-output-monitor} --json
       '';
   in {
