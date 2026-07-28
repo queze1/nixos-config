@@ -12,8 +12,12 @@ jobs:
     strategy:
       matrix:
         include:
-          - target: "nixos-configurations"
-            attr: ".#packages.x86_64-linux.all-nixos-configurations"
+          - target: "able-archer"
+            attr: ".#nixosConfigurations.able-archer.config.system.build.toplevel"
+          - target: "steadfast-dart"
+            attr: ".#nixosConfigurations.steadfast-dart.config.system.build.toplevel"
+          - target: "steadfast-defender"
+            attr: ".#nixosConfigurations.steadfast-defender.config.system.build.toplevel"
           - target: "iso-aarch64"
             attr: ".#packages.aarch64-linux.iso-system"
           - target: "iso-x86_64"
