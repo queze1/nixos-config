@@ -22,12 +22,14 @@ in {
       # UTM VM
       self.nixosModules.utm
 
-      # System components
-      self.nixosModules.nixbuildAsSubstituter
+      # Build-related
       self.nixosModules.deployNixOnDroid
+      self.nixosModules.nixbuildAsSubstituter
+      self.nixosModules.setupAccessTokens
+
+      # System components
       self.nixosModules.fonts
       self.nixosModules.networkmanager
-      self.nixosModules.setupAccessTokens
       self.nixosModules.shellAliases
       self.nixosModules.sound
 
@@ -39,6 +41,7 @@ in {
 
       # Services
       self.nixosModules.docker
+      self.nixosModules.resticDefaults
       self.nixosModules.syncthing
       self.nixosModules.tailscale
 
@@ -50,6 +53,16 @@ in {
       (self.factory.preservationForUser {username = "${mainUser}";})
       (self.factory.utmMountSharedDir {username = "${mainUser}";})
     ];
+
+    my.restic.backups = {
+      backblaze-b2 = {
+        paths = [
+          "/home/${mainUser}/.ssh"
+          "/home/${mainUser}/Coding"
+          "/home/${mainUser}/cs3231"
+        ];
+      };
+    };
 
     # Sync this PC with phone home server
     services.syncthing = {
