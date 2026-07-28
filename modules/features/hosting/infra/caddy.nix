@@ -73,7 +73,7 @@
         }
       ];
 
-      networking.nftables.tables = lib.optional (myCfg.firewalledPorts == []) {
+      networking.nftables.tables = lib.mkIf (myCfg.firewalledPorts != []) {
         "caddy-firewall" = {
           family = "inet";
           content = ''
