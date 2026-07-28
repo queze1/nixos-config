@@ -59,9 +59,10 @@
         '';
       };
 
-      sops.secrets.osipol-cloudflare-api-token = {
-        owner = config.services.caddy.user;
-        group = config.services.caddy.group;
+      # Initialise a directory to put the socket
+      systemd.services.caddy.serviceConfig = {
+        RuntimeDirectory = "caddy";
+        RuntimeDirectoryMode = "0700";
       };
 
       # Preserve Caddy data
@@ -73,6 +74,12 @@
           mode = "0700";
         }
       ];
+
+      # For Cloudflare DNS
+      sops.secrets.osipol-cloudflare-api-token = {
+        owner = config.services.caddy.user;
+        group = config.services.caddy.group;
+      };
 
       networking.nftables.tables = lib.mkIf (myCfg.firewalledPorts != []) {
         "caddy-firewall" = {
