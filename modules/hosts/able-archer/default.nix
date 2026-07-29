@@ -23,7 +23,6 @@ in {
 
       # Build-related
       self.nixosModules.deployNixOnDroid
-      self.nixosModules.nixbuildAsSubstituter
       self.nixosModules.setupAccessTokens
 
       # System components
