@@ -54,7 +54,7 @@
       # Nix-related CLI tools
       inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
 
-      neo-cowsay
+      cowsay
 
       # CLI tools
       clipboard-jh
