@@ -71,7 +71,7 @@
 
       # Networking with Cloudflare tunnel
       services.cloudflared.tunnels."b6ce003f-d222-4d1c-8e67-56ac678280ba".ingress = {
-        "ark-rp-visualisation.osipol.uk" = "http://localhost:${toString cfg.port}";
+        "ark-rp-visualisation.osipol.uk" = "http://127.0.0.1:${toString cfg.port}";
       };
     };
   };
