@@ -10,7 +10,7 @@
       pkgs.writeShellScriptBin name ''
         sudo -v &&
         sudo nixos-rebuild ${cmd} "$@" |&
-        ${lib.getExe pkgs.nix-output-monitor} --json
+        ${lib.getExe pkgs.nix-output-monitor}
       '';
   in {
     packages = lib.optionalAttrs pkgs.stdenv.isLinux {
