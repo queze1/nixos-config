@@ -98,8 +98,7 @@ in {
       # Create a system user to run MeTube
       users.users.metube = {
         isSystemUser = true;
-        group = "metube";
-        extraGroups = ["music"];
+        group = "music";
         linger = true;
         createHome = true;
         home = cfg.dataDir;
@@ -116,14 +115,13 @@ in {
           }
         ];
       };
-      users.groups.metube = {};
 
       # Preserve MeTube data
       my.preservation.extraDirectories = [
         {
           directory = cfg.dataDir;
           user = "metube";
-          group = "metube";
+          group = "music";
           mode = "0700";
         }
       ];
@@ -135,7 +133,6 @@ in {
           ports = ["${toString cfg.port}:8081"];
           autoStart = true;
           podman.user = "metube";
-          extraOptions = ["--group-add=keep-groups"];
 
           environment = {
             PUID = "0";
@@ -195,8 +192,7 @@ in {
       # Create a system user to run yubal
       users.users.yubal = {
         isSystemUser = true;
-        group = "yubal";
-        extraGroups = ["music"];
+        group = "music";
         linger = true;
         createHome = true;
         home = cfg.dataDir;
@@ -213,14 +209,13 @@ in {
           }
         ];
       };
-      users.groups.yubal = {};
 
       # Preserve yubal data
       my.preservation.extraDirectories = [
         {
           directory = cfg.dataDir;
           user = "yubal";
-          group = "yubal";
+          group = "music";
           mode = "0700";
         }
       ];
@@ -232,7 +227,6 @@ in {
           ports = ["${toString cfg.port}:8000"];
           autoStart = true;
           podman.user = "yubal";
-          extraOptions = ["--group-add=keep-groups"];
 
           environment = {
             PUID = "0";
@@ -290,8 +284,7 @@ in {
       # Create a system user to run Picard
       users.users.picard = {
         isSystemUser = true;
-        group = "picard";
-        extraGroups = ["music"];
+        group = "music";
         linger = true;
         createHome = true;
         home = cfg.dataDir;
@@ -308,14 +301,13 @@ in {
           }
         ];
       };
-      users.groups.picard = {};
 
       # Preserve Picard data
       my.preservation.extraDirectories = [
         {
           directory = cfg.dataDir;
           user = "picard";
-          group = "picard";
+          group = "music";
           mode = "0700";
         }
       ];
@@ -327,7 +319,6 @@ in {
           ports = ["${toString cfg.port}:5800"];
           autoStart = true;
           podman.user = "picard";
-          extraOptions = ["--group-add=keep-groups"];
 
           environment = {
             USER_ID = "0";
