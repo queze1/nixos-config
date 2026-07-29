@@ -35,7 +35,7 @@
         extraConfig = ''
           (cloudflare_dns) {
             tls {
-            	dns cloudflare {file.${config.sops.secrets.osipol-cloudflare-api-token.path}}
+              dns cloudflare {file.${config.sops.secrets.osipol-cloudflare-api-token.path}}
               propagation_timeout -1
               propagation_delay 15s
             }
