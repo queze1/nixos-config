@@ -212,10 +212,6 @@
       configFile = "${configFile}";
     };
 
-    systemd.services.sillytavern.serviceConfig = {
-      StateDirectory = "SillyTavern";
-    };
-
     # Preserve SillyTavern data
     my.preservation.extraDirectories = [
       {
