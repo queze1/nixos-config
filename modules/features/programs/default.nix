@@ -54,8 +54,6 @@
       # Nix-related CLI tools
       inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
 
-      hello
-
       # CLI tools
       clipboard-jh
       fastfetch
