@@ -73,7 +73,7 @@
       services.caddy.virtualHosts."http://ark-rp-visualisation.osipol.uk" = {
         extraConfig = ''
           # Only listen to localhost (e.g. Cloudflared tunnel)
-          bind 127.0.0.1
+          bind 127.0.0.1 ::1
           reverse_proxy localhost:${toString cfg.port}
         '';
       };
