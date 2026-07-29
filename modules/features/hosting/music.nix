@@ -135,6 +135,7 @@ in {
           ports = ["${toString cfg.port}:8081"];
           autoStart = true;
           podman.user = "metube";
+          extraOptions = ["--group-add=keep-groups"];
 
           environment = {
             PUID = "0";
@@ -231,6 +232,7 @@ in {
           ports = ["${toString cfg.port}:8000"];
           autoStart = true;
           podman.user = "yubal";
+          extraOptions = ["--group-add=keep-groups"];
 
           environment = {
             PUID = "0";
@@ -325,6 +327,7 @@ in {
           ports = ["${toString cfg.port}:5800"];
           autoStart = true;
           podman.user = "picard";
+          extraOptions = ["--group-add=keep-groups"];
 
           environment = {
             USER_ID = "0";
