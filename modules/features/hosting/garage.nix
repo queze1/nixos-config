@@ -64,8 +64,17 @@
     };
 
     # Networking with Cloudflare tunnel
-    services.cloudflared.tunnels."b6ce003f-d222-4d1c-8e67-56ac678280ba".ingress = {
-      "garage-s3.osipol.uk" = "http://localhost:${toString apiPort}";
+    services.cloudflared = {
+      enable = true;
+      tunnels = {
+        "9d3af70e-bb75-4731-a99c-145865a1bb5f" = {
+          credentialsFile = "${config.sops.secrets.garbage-cloudflare-creds.path}";
+          default = "http_status:404";
+          ingress = {
+            "garage-s3.osipol.uk" = "http://localhost:${toString apiPort}";
+          };
+        };
+      };
     };
   };
 }
