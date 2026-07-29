@@ -22,6 +22,7 @@ in {
       self.nixosModules.arkRpVisualisation
       self.nixosModules.musicStack
       self.nixosModules.pihole
+      self.nixosModules.sillytavern
     ];
 
     # Set incrementing port numbers
@@ -29,7 +30,7 @@ in {
     services.metube.port = 8001;
     services.picard.port = 8002;
     services.pihole-web.ports = [8003];
-    # services.sillytavern.port = 8004;
+    services.sillytavern.port = 8004;
     services.yubal.port = 8005;
 
     # Allow only Caddy to access services going through it
