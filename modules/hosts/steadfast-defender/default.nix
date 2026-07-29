@@ -12,6 +12,9 @@ in {
       (self.factory.diskoBrtfs
         {device = "/dev/nvme0n1";})
 
+      # Hosting
+      self.nixosModules.caddy
+      self.nixosModules.cloudflared
       self.nixosModules.garage
     ];
 
