@@ -38,8 +38,7 @@
 
     # Preserve Garage data
     my.preservation.extraDirectories = [
-      cfg.settings.data_dir
-      cfg.settings.metadata_dir
+      "/var/lib/garage"
     ];
 
     # Networking with Cloudflare tunnel
