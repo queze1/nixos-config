@@ -13,7 +13,6 @@ in {
         {device = "/dev/nvme0n1";})
 
       # Hosting
-      self.nixosModules.caddy
       self.nixosModules.garage
     ];
 
