@@ -103,7 +103,18 @@ in {
         linger = true;
         createHome = true;
         home = cfg.dataDir;
-        autoSubUidGidRange = true;
+        subUidRanges = [
+          {
+            startUid = 100000;
+            count = 65536;
+          }
+        ];
+        subGidRanges = [
+          {
+            startGid = 100000;
+            count = 65536;
+          }
+        ];
       };
       users.groups.metube = {};
 
@@ -188,9 +199,18 @@ in {
         linger = true;
         createHome = true;
         home = cfg.dataDir;
-
-        # https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md
-        autoSubUidGidRange = true;
+        subUidRanges = [
+          {
+            startUid = 200000;
+            count = 65536;
+          }
+        ];
+        subGidRanges = [
+          {
+            startGid = 200000;
+            count = 65536;
+          }
+        ];
       };
       users.groups.yubal = {};
 
@@ -273,9 +293,18 @@ in {
         linger = true;
         createHome = true;
         home = cfg.dataDir;
-
-        # https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md
-        autoSubUidGidRange = true;
+        subUidRanges = [
+          {
+            startUid = 300000;
+            count = 65536;
+          }
+        ];
+        subGidRanges = [
+          {
+            startGid = 300000;
+            count = 65536;
+          }
+        ];
       };
       users.groups.picard = {};
 
