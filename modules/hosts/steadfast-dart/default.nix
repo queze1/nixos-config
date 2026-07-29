@@ -40,6 +40,7 @@ in {
       backblaze-b2 = {
         paths = [
           "/srv/music"
+          "/var/lib/SillyTavern/data/default-user"
         ];
       };
     };
