@@ -34,8 +34,8 @@ in {
     services.sillytavern.port = 8004;
     services.yubal.port = 8005;
 
-    # Allow only Caddy to access services
-    my.caddy.firewalledPorts = [8000 8001 8002 8003 8004 8005];
+    # Allow only Caddy to access services going through it
+    my.caddy.firewalledPorts = [8001 8002 8003 8004 8005];
 
     my.restic.backups = {
       backblaze-b2 = {

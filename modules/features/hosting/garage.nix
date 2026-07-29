@@ -5,7 +5,7 @@
     pkgs,
     ...
   }: let
-    cfg = config.services.garage;
+    apiPort = 3900;
   in {
     services.garage = {
       enable = true;
@@ -23,7 +23,7 @@
 
         s3_api = {
           s3_region = "garage";
-          api_bind_addr = "[::]:3900";
+          api_bind_addr = "[::]:${toString apiPort}";
           root_domain = ".s3.garage.localhost";
         };
 
@@ -64,14 +64,8 @@
     };
 
     # Networking with Cloudflare tunnel
-    services.caddy.virtualHosts."http://garage-s3.osipol.uk" = {
-      extraConfig = ''
-        bind 127.0.0.1 ::1
-        reverse_proxy ${toString cfg.settings.s3_api.api_bind_addr}
-      '';
-    };
     services.cloudflared.tunnels."b6ce003f-d222-4d1c-8e67-56ac678280ba".ingress = {
-      "garage-s3.osipol.uk" = "http://localhost:80";
+      "garage-s3.osipol.uk" = "http://localhost:${toString apiPort}";
     };
   };
 }

@@ -70,15 +70,8 @@
       };
 
       # Networking with Cloudflare tunnel
-      services.caddy.virtualHosts."http://ark-rp-visualisation.osipol.uk" = {
-        extraConfig = ''
-          # Only listen to localhost (e.g. Cloudflared tunnel)
-          bind 127.0.0.1 ::1
-          reverse_proxy localhost:${toString cfg.port}
-        '';
-      };
       services.cloudflared.tunnels."b6ce003f-d222-4d1c-8e67-56ac678280ba".ingress = {
-        "ark-rp-visualisation.osipol.uk" = "http://localhost:80"; # Forward to Caddy
+        "ark-rp-visualisation.osipol.uk" = "http://localhost:${toString cfg.port}";
       };
     };
   };
