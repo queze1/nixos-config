@@ -24,7 +24,7 @@
         s3_api = {
           s3_region = "garage";
           api_bind_addr = "[::]:${toString apiPort}";
-          root_domain = ".s3.garage.localhost";
+          root_domain = ".garage-s3.osipol.uk";
         };
 
         admin = {
@@ -71,7 +71,7 @@
           credentialsFile = "${config.sops.secrets.garage-cloudflare-creds.path}";
           default = "http_status:404";
           ingress = {
-            "garage-s3.osipol.uk" = "http://localhost:${toString apiPort}";
+            "garage-s3.osipol.uk" = "http://127.0.0.1:${toString apiPort}";
           };
         };
       };
