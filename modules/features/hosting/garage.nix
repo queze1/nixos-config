@@ -1,6 +1,7 @@
 {
   flake.nixosModules.garage = {
     config,
+    lib,
     pkgs,
     ...
   }: let
@@ -32,14 +33,35 @@
       };
     };
 
-    sops.secrets.garage-env = {
-      restartUnits = ["garage.service"];
+    systemd.services.garage.serviceConfig = {};
+
+    # Create a system user to run Garage
+    users.users.garage = {
+      isSystemUser = true;
+      group = "garage";
+    };
+    users.groups.garage = {};
+
+    # Override systemd to use a static user
+    systemd.services.garage.serviceConfig = {
+      DynamicUser = lib.mkForce false;
+      User = "garage";
+      Group = "garage";
     };
 
     # Preserve Garage data
     my.preservation.extraDirectories = [
-      "/var/lib/garage"
+      {
+        directory = "/var/lib/garage";
+        user = "garage";
+        group = "garage";
+        mode = "700";
+      }
     ];
+
+    sops.secrets.garage-env = {
+      restartUnits = ["garage.service"];
+    };
 
     # Networking with Cloudflare tunnel
     services.caddy.virtualHosts."http://garage-s3.osipol.uk" = {
