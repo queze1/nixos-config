@@ -52,6 +52,7 @@ jobs:
             access-tokens = [
               "s3://nix-cache=${{ secrets.GARAGE_ACCESS_KEY_ID }}:${{ secrets.GARAGE_SECRET_ACCESS_KEY }}"
             ]
+            ignore-cache-failures = false
       # Build matrix target
       - run: |
           nix build \
