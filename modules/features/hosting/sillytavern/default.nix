@@ -1,9 +1,15 @@
 {
-  flake.nixosModules.sillytavern = {config, ...}: let
+  flake.nixosModules.sillytavern = {
+    config,
+    pkgs,
+    ...
+  }: let
     cfg = config.services.sillytavern;
   in {
     services.sillytavern = {
-      enable = false;
+      enable = true;
+      listen = true;
+      configFile = import ./config.nix {inherit config pkgs;};
     };
 
     # Preserve SillyTavern data
@@ -22,7 +28,7 @@
         extraConfig = ''
           import cloudflare_dns
           import tailscale_auth
-          reverse_proxy localhost:${toString config.services.sillytavern.port}
+          reverse_proxy localhost:${toString cfg.port}
         '';
       };
     };
