@@ -40,7 +40,6 @@ in {
       # Services
       self.nixosModules.docker
       self.nixosModules.resticDefaults
-      self.nixosModules.syncthing
       self.nixosModules.tailscale
 
       # User related stuff
@@ -59,31 +58,6 @@ in {
           "/home/${mainUser}/Coding"
           "/home/${mainUser}/cs3231"
         ];
-      };
-    };
-
-    # Sync this PC with phone home server
-    services.syncthing = {
-      user = "${mainUser}";
-      group = "users";
-      dataDir = "/home/${mainUser}/.local/share/syncthing";
-      configDir = "/home/${mainUser}/.config/syncthing";
-      settings = {
-        devices = {
-          "poco-x3-pro" = {
-            id = "CGN4GSA-JX3232W-WM5XXI6-RKU3W6F-RVAZH7N-YPOCAF3-52SRDUO-HHRFFQI";
-            addresses = [
-              "tcp://100.102.46.127:22000"
-            ];
-          };
-        };
-        folders = {
-          "SillyTavern Data" = {
-            id = "nicrf-adfwa";
-            path = "/mnt/utm/Apps/SillyTavern-Launcher/SillyTavern/data/default-user";
-            devices = ["poco-x3-pro"];
-          };
-        };
       };
     };
 
