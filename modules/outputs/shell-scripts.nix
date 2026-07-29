@@ -5,11 +5,11 @@
     self',
     ...
   }: let
-    # Generate a script which wraps a Nix command with nom
-    mkPrettyNixCmd = name: cmd:
+    # Generate a script which wraps a nixos-rebuild command with nom
+    mkPrettyNixosRebuild = name: cmd:
       pkgs.writeShellScriptBin name ''
         sudo -v &&
-        sudo ${cmd} "$@" --log-format internal-json -v |&
+        sudo nixos-rebuild ${cmd} "$@" |&
         ${lib.getExe pkgs.nix-output-monitor} --json
       '';
   in {
@@ -61,8 +61,8 @@
       '';
 
       # nrs/nrb: prettified nixos-rebuild
-      nrs = mkPrettyNixCmd "nrs" "nixos-rebuild switch --flake ~/etc/nixos#";
-      nrb = mkPrettyNixCmd "nrb" "nixos-rebuild boot --flake ~/etc/nixos#";
+      nrs = mkPrettyNixosRebuild "nrs" "switch --flake ~/etc/nixos#";
+      nrb = mkPrettyNixosRebuild "nrb" "boot --flake ~/etc/nixos#";
     };
   };
 }
