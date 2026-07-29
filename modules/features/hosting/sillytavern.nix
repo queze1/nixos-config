@@ -209,7 +209,7 @@
     services.sillytavern = {
       enable = true;
       listen = true;
-      inherit configFile;
+      configFile = "${configFile}";
     };
 
     # Preserve SillyTavern data
