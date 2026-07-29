@@ -46,8 +46,11 @@ jobs:
         with:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
 
-      # Build matrix target
-      - run: |
+      - name: Build and Push to Garage S3 Cache
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.GARAGE_S3_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.GARAGE_S3_SECRET_KEY }}
+        run: |
           nix build \
             ${{ matrix.attr }} \
             --print-build-logs \
