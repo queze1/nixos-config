@@ -46,7 +46,7 @@ jobs:
         with:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
 
-      - name: Build and Push to Garage S3 Cache
+      - name: Build with nixbuild
         run: |
           nix build \
             ${{ matrix.attr }} \
