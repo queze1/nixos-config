@@ -70,9 +70,19 @@
       };
 
       # Networking with Cloudflare tunnel
-      services.cloudflared.tunnels."b6ce003f-d222-4d1c-8e67-56ac678280ba".ingress = {
-        "ark-rp-visualisation.osipol.uk" = "http://127.0.0.1:${toString cfg.port}";
+      services.cloudflared = {
+        enable = true;
+        tunnels = {
+          "b6ce003f-d222-4d1c-8e67-56ac678280ba" = {
+            credentialsFile = "${config.sops.secrets.ark-rp-viz-cloudflare-creds.path}";
+            default = "http_status:404";
+            ingress = {
+              "ark-rp-visualisation.osipol.uk" = "http://127.0.0.1:${toString cfg.port}";
+            };
+          };
+        };
       };
+      sops.secrets.ark-rp-viz-cloudflare-creds = {};
     };
   };
 }

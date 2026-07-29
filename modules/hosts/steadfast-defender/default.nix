@@ -14,7 +14,6 @@ in {
 
       # Hosting
       self.nixosModules.caddy
-      self.nixosModules.cloudflared
       self.nixosModules.garage
     ];
 
