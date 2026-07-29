@@ -28,13 +28,14 @@ in {
 
     # Set incrementing port numbers
     services.ark-rp-viz.port = 8000;
-    services.metube.port = 8002;
-    services.yubal.port = 8003;
-    services.picard.port = 8005;
-    services.pihole-web.ports = [8006];
+    services.metube.port = 8001;
+    services.picard.port = 8002;
+    services.pihole-web.ports = [8003];
+    services.sillytavern.port = 8004;
+    services.yubal.port = 8005;
 
     # Allow only Caddy to access services
-    my.caddy.firewalledPorts = [8000 8002 8003 8005 8006];
+    my.caddy.firewalledPorts = [8000 8001 8002 8003 8004 8005];
 
     my.restic.backups = {
       backblaze-b2 = {

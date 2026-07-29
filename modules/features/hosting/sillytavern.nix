@@ -1,22 +1,31 @@
 {
-  flake.nixosModules.sillytavern = {config, ...}: {
+  flake.nixosModules.sillytavern = {config, ...}: let
+    cfg = config.services.sillytavern;
+  in {
     services.sillytavern = {
-      enable = false;
-      # port = 8045;
-      # TODO: Create config file, whitelist to only Tailscale IPs
+      enable = true;
     };
 
-    # Make SillyTavern privately accessible through Tailscale
+    # Preserve SillyTavern data
+    my.preservation.extraDirectories = [
+      {
+        directory = "/var/lib/SillyTavern";
+        user = cfg.user;
+        group = cfg.group;
+        mode = "0700";
+      }
+    ];
+
+    # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {
       "new.sillytavern.osipol.uk" = {
         extraConfig = ''
           import cloudflare_dns
           import tailscale_auth
-          respond "Not yet implemented"
-          # reverse_proxy localhost:${toString config.services.sillytavern.port}
+          reverse_proxy localhost:${toString config.services.sillytavern.port}
         '';
       };
     };
-    services.ddclient.domains = ["new.sillytavern.osipol.uk"]; # dynamically update IP
+    services.ddclient.domains = ["new.sillytavern.osipol.uk"];
   };
 }
