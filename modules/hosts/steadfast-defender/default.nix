@@ -11,9 +11,6 @@ in {
       self.nixosModules.steadfastBase
       (self.factory.diskoBrtfs
         {device = "/dev/nvme0n1";})
-
-      # Hosting
-      self.nixosModules.garage
     ];
 
     hardware.facter.reportPath = ./facter.json;

@@ -1,3 +1,4 @@
+# CURRENTLY UNUSED, use if you want a NAS and not just Restic backup
 {
   flake.nixosModules.garage = {
     config,
