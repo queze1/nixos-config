@@ -3,7 +3,7 @@
     cfg = config.services.sillytavern;
   in {
     services.sillytavern = {
-      enable = true;
+      enable = false;
     };
 
     # Preserve SillyTavern data
