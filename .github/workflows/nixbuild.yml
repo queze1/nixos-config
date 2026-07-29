@@ -45,14 +45,7 @@ jobs:
       - uses: nixbuild/nixbuild-action@v25
         with:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
-          settings: |
-            caches = [
-              "s3://nix-cache?region=garage&endpoint=https://garage-s3.osipol.uk&addressing-style=path"
-            ]
-            access-tokens = [
-              "s3://nix-cache=${{ secrets.GARAGE_ACCESS_KEY_ID }}:${{ secrets.GARAGE_SECRET_ACCESS_KEY }}"
-            ]
-            ignore-cache-failures = false
+
       # Build matrix target
       - run: |
           nix build \
