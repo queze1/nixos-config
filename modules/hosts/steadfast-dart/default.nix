@@ -41,6 +41,8 @@ in {
         paths = [
           "/persistent/srv/music"
           "/persistent/var/lib/SillyTavern/data"
+          "/persistent/var/lib/tailscale"
+          "/persistent/var/lib/navidrome/backup"
         ];
       };
     };

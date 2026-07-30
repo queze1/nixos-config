@@ -33,6 +33,7 @@ in {
 
   flake.nixosModules.navidrome = {config, ...}: let
     cfg = config.services.navidrome;
+    workingDir = "/var/lib/navidrome";
     socketPath = "/run/navidrome/navidrome.sock";
   in {
     services.navidrome = {
@@ -42,6 +43,9 @@ in {
         "MusicFolder" = musicDir;
         "Scanner.Schedule" = "0 * * * *";
         "PID.Album" = "musicbrainz_albumid|album";
+        "Backup.Path" = "${workingDir}/backup";
+        "Backup.Schedule" = "0 0 * * *";
+        "Backup.Count" = 7;
       };
     };
 
@@ -51,7 +55,7 @@ in {
     # Preserve Navidrome data
     my.preservation.extraDirectories = [
       {
-        directory = "/var/lib/navidrome";
+        directory = workingDir;
         user = cfg.user;
         group = cfg.group;
         mode = "0700";
