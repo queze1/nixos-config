@@ -36,9 +36,6 @@
     };
 
     config = {
-      # Output a warning if no backups are defined
-      warnings = lib.optional (cfg.backups == {}) "No backups configured.";
-
       # For every backup, define an environment file secret
       sops.secrets =
         lib.mapAttrs' (
