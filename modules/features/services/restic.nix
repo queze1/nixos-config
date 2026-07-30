@@ -55,7 +55,7 @@
       # Append extraPaths to every backup
       services.restic.backups = lib.mkMerge [
         cfg.backups
-        (lib.mapAttrs (_: _: {paths = cfg.extraPaths;}) cfg.backups)
+        # (lib.mapAttrs (_: _: {paths = cfg.extraPaths;}) cfg.backups)
       ];
     };
   };
