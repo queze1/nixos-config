@@ -13,10 +13,7 @@
       preserveAt."/persistent" = {
         directories =
           [
-            "/var/lib/fwupd"
-            "/var/lib/libvirt"
             "/var/lib/systemd/coredump"
-            "/var/lib/systemd/linger"
             "/var/lib/systemd/rfkill"
             "/var/lib/systemd/timers"
             "/var/log"
