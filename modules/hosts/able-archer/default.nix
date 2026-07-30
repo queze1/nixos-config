@@ -54,9 +54,9 @@ in {
     my.restic.backups = {
       backblaze-b2 = {
         paths = [
-          "/home/${mainUser}/.ssh"
-          "/home/${mainUser}/Coding"
-          "/home/${mainUser}/cs3231"
+          "/persistent/home/${mainUser}/.ssh"
+          "/persistent/home/${mainUser}/Coding"
+          "/persistent/home/${mainUser}/cs3231"
         ];
       };
     };

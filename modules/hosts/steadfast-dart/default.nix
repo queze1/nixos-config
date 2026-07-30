@@ -39,8 +39,8 @@ in {
     my.restic.backups = {
       backblaze-b2 = {
         paths = [
-          "/srv/music"
-          "/var/lib/SillyTavern/data"
+          "/persistent/srv/music"
+          "/persistent/var/lib/SillyTavern/data"
         ];
       };
     };
