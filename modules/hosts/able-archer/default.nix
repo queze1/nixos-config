@@ -51,7 +51,7 @@ in {
       (self.factory.utmMountSharedDir {username = "${mainUser}";})
     ];
 
-    my.restic = {
+    my.restic.backups = {
       extraPaths = [
         "/persistent/etc/ssh"
         "/persistent/home/${mainUser}/.ssh"
@@ -59,7 +59,7 @@ in {
         "/persistent/home/${mainUser}/cs3231"
         "/persistent/var/lib/tailscale"
       ];
-      backups.backblaze-b2 = {};
+      backblaze-b2 = {};
     };
 
     # Force Audacity to use Wayland

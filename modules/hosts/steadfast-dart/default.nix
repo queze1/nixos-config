@@ -36,7 +36,7 @@ in {
     # Allow only Caddy to access services going through it
     my.caddy.firewalledPorts = [8001 8002 8003 8004 8005];
 
-    my.restic = {
+    my.restic.backups = {
       extraPaths = [
         "/persistent/etc/ssh"
         "/persistent/srv/music"
@@ -46,7 +46,7 @@ in {
         "/persistent/var/lib/nixos"
         "/persistent/var/lib/tailscale"
       ];
-      backups.backblaze-b2 = {};
+      backblaze-b2 = {};
     };
 
     hardware.facter.reportPath = ./facter.json;
