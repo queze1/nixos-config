@@ -52,13 +52,14 @@ in {
     ];
 
     my.restic.backups = {
-      backblaze-b2 = {
-        paths = [
-          "/persistent/home/${mainUser}/.ssh"
-          "/persistent/home/${mainUser}/Coding"
-          "/persistent/home/${mainUser}/cs3231"
-        ];
-      };
+      extraPaths = [
+        "/persistent/etc/ssh"
+        "/persistent/home/${mainUser}/.ssh"
+        "/persistent/home/${mainUser}/Coding"
+        "/persistent/home/${mainUser}/cs3231"
+        "/persistent/var/lib/tailscale"
+      ];
+      backblaze-b2 = {};
     };
 
     # Force Audacity to use Wayland
