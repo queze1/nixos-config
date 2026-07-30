@@ -8,13 +8,13 @@
     cfg = config.my.restic;
 
     # Extract the services.restic.backups.<name> submodule
-    resticBackupSubmodule = options.services.restic.backups.type.nestedTypes.elemType.getSubModules;
+    backupSubmodule = options.services.restic.backups.type.nestedTypes.elemType.getSubModules;
 
-    # Define a submodule which sets new defaults (pre-evaluation)
-    myResticSubmodule = lib.types.submodule [
+    # Define a submodule which sets pre-evaluation defaults
+    myBackupSubmodule = lib.types.submodule [
       (
         {name, ...}: {
-          imports = resticBackupSubmodule;
+          imports = backupSubmodule;
 
           # Recursively set lib.mkDefault, overrides option defaults but is overridden by normal definitions
           config = lib.mapAttrsRecursive (_: value: lib.mkDefault value) {
@@ -29,22 +29,34 @@
       )
     ];
   in {
-    options.my.restic.backups = lib.mkOption {
-      type = lib.types.attrsOf myResticSubmodule;
-      default = {};
-      description = "Periodic backups to create with Restic.";
+    options.my.restic = {
+      backups = lib.mkOption {
+        type = lib.types.attrsOf myBackupSubmodule;
+        default = {};
+        description = "Periodic backups to create with Restic.";
+      };
+      extraPaths = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [];
+        description = ''
+          Which paths to back up. This applies to all backup targets.
+        '';
+      };
     };
 
     config = {
       # For every backup, define an environment file secret
       sops.secrets =
-        lib.mapAttrs' (
-          name: _:
-            lib.nameValuePair "restic-${name}-env" {}
-        )
+        lib.concatMapAttrs (name: _: {
+          "restic-${name}-env" = {};
+        })
         cfg.backups;
 
-      services.restic.backups = cfg.backups;
+      # Append extraPaths to every backup
+      services.restic.backups = lib.mkMerge [
+        cfg.backups
+        (lib.mapAttrs (_: _: {paths = cfg.extraPaths;}) cfg.backups)
+      ];
     };
   };
 }
