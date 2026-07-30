@@ -1,5 +1,9 @@
 {
-  flake.nixosModules.pihole = {config, ...}: let
+  flake.nixosModules.pihole = {
+    config,
+    pkgs,
+    ...
+  }: let
     cfg = config.services.pihole-ftl;
   in {
     services.pihole-ftl = {
@@ -29,6 +33,8 @@
       enable = true;
     };
 
+    environment.systemPackages = [pkgs.pihole-ftl];
+
     # Open firewall for DNS server on Tailscale only
     networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
       allowedUDPPorts = [53];
@@ -50,14 +56,10 @@
         extraConfig = ''
           import cloudflare_dns
           import tailscale_auth
-          # Not sure how this works when ports should be a list
           reverse_proxy localhost:${toString config.services.pihole-web.ports}
         '';
       };
     };
-
-    services.ddclient.domains = [
-      "pihole.osipol.uk"
-    ];
+    services.ddclient.domains = ["pihole.osipol.uk"];
   };
 }
