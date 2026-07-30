@@ -37,16 +37,17 @@ in {
     my.caddy.firewalledPorts = [8001 8002 8003 8004 8005];
 
     my.restic.backups = {
-      extraPaths = [
-        "/persistent/etc/ssh"
-        "/persistent/srv/music"
-        "/persistent/var/lib/SillyTavern/data"
-        "/persistent/var/lib/caddy/.local/share/caddy"
-        "/persistent/var/lib/navidrome/backup"
-        "/persistent/var/lib/nixos"
-        "/persistent/var/lib/tailscale"
-      ];
-      backblaze-b2 = {};
+      backblaze-b2 = {
+        paths = [
+          "/persistent/etc/ssh"
+          "/persistent/srv/music"
+          "/persistent/var/lib/SillyTavern/data"
+          "/persistent/var/lib/caddy/.local/share/caddy"
+          "/persistent/var/lib/navidrome/backup"
+          "/persistent/var/lib/nixos"
+          "/persistent/var/lib/tailscale"
+        ];
+      };
     };
 
     hardware.facter.reportPath = ./facter.json;
