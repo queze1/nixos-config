@@ -42,6 +42,7 @@ in {
         "Address" = "unix:${socketPath}";
         "MusicFolder" = musicDir;
         "Scanner.Schedule" = "0 * * * *";
+        "CoverArtPriority" = "embedded, cover.*, folder.*, front.*, external";
         "PID.Album" = "musicbrainz_albumid|album";
         "Backup.Path" = "${workingDir}/backup";
         "Backup.Schedule" = "0 0 * * *";
