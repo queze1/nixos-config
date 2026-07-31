@@ -2,6 +2,7 @@
   flake.nixosModules.resticServer = {config, ...}: let
     cfg = config.services.restic.server;
     socketPath = "/run/restic/restic.sock";
+    port = 8433; # host on a non-standard port to whitelist in Tailscale access controls
   in {
     services.restic.server = {
       enable = true;
@@ -31,7 +32,7 @@
 
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {
-      "restic-server.osipol.uk" = {
+      "restic-server.osipol.uk:${port}" = {
         extraConfig = ''
           import cloudflare_dns
           import tailscale_auth
