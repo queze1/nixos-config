@@ -45,6 +45,8 @@
     };
 
     config = {
+      # TODO: Throw an error if extraPaths is set up but no backups are found
+
       # For every backup, define an environment file secret
       sops.secrets =
         lib.concatMapAttrs (name: _: {
