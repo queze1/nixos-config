@@ -14,7 +14,7 @@ in {
 
       # Ingress & routing
       self.nixosModules.caddy
-      self.nixosModules.ddclient
+      self.nixosModules.ddns
       self.nixosModules.tailscaleAuth
 
       # Hosted services
