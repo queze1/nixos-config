@@ -1,6 +1,6 @@
 {
   flake.nixosModules.resticServer = {config, ...}: let
-    cfg = config.restic.server;
+    cfg = config.services.restic.server;
     socketPath = "/run/restic/restic.sock";
   in {
     services.restic.server = {
