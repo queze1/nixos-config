@@ -39,10 +39,6 @@ in {
     my.restic = {
       extraPaths = [
         "/persistent/etc/ssh"
-        "/persistent/srv/music"
-        "/persistent/var/lib/SillyTavern/data"
-        "/persistent/var/lib/caddy/.local/share/caddy"
-        "/persistent/var/lib/navidrome/backup"
         "/persistent/var/lib/nixos"
         "/persistent/var/lib/tailscale"
       ];

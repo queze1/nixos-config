@@ -5,6 +5,8 @@
     ...
   }: let
     cfg = config.services.sillytavern;
+    dataDir = "/var/lib/SillyTavern";
+
     yamlFormat = pkgs.formats.yaml {};
     configFile = yamlFormat.generate "config.yaml" {
       dataRoot = "./data";
@@ -28,7 +30,6 @@
       port = cfg.port;
       heartbeatInterval = 0;
       enableKeepAlive = false;
-
       ssl = {
         enabled = false;
         certPath = "./certs/cert.pem";
@@ -215,12 +216,15 @@
     # Preserve SillyTavern data
     my.preservation.extraDirectories = [
       {
-        directory = "/var/lib/SillyTavern";
+        directory = dataDir;
         user = cfg.user;
         group = cfg.group;
         mode = "0700";
       }
     ];
+
+    # Backup Sillytavern data
+    my.restic.extraPaths = ["/persistent${dataDir}/data"];
 
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {

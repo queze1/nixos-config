@@ -68,17 +68,20 @@
       # Preserve Caddy data
       my.preservation.extraDirectories = [
         {
-          directory = config.services.caddy.dataDir;
-          user = config.services.caddy.user;
-          group = config.services.caddy.group;
+          directory = cfg.dataDir;
+          user = cfg.user;
+          group = cfg.group;
           mode = "0700";
         }
       ];
 
+      # Back up Caddy data
+      my.restic.extraPaths = ["/persistent${cfg.dataDir}"];
+
       # For Cloudflare DNS
       sops.secrets.osipol-cloudflare-api-token = {
-        owner = config.services.caddy.user;
-        group = config.services.caddy.group;
+        owner = cfg.user;
+        group = cfg.group;
       };
 
       networking.nftables.tables = lib.mkIf (myCfg.firewalledPorts != []) {
