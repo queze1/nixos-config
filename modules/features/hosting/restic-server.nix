@@ -16,9 +16,6 @@
       group = "restic";
     };
 
-    # Create /run/restic directory
-    systemd.services.restic-rest-server.serviceConfig.RuntimeDirectory = "restic";
-
     # Preserve restic repository
     my.preservation.extraDirectories = [
       {
