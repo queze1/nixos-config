@@ -27,7 +27,13 @@ in {
         "/persistent/var/lib/nixos"
         "/persistent/var/lib/tailscale"
       ];
-      backups.backblaze-b2 = {};
+      backups.backblaze-b2 = {
+        timerConfig = {
+          OnCalendar = "daily";
+          RandomizedDelaySec = "4h";
+          Persistent = true;
+        };
+      };
     };
 
     hardware.facter.reportPath = ./facter.json;
