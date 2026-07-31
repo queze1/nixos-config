@@ -90,7 +90,7 @@
           cfg.httpPort
           cfg.httpsPort
         ];
-        allowedUDPPorts = cfg.httpsPort;
+        allowedUDPPorts = [cfg.httpsPort];
       };
 
       # Firewall services which are meant to route through Caddy
