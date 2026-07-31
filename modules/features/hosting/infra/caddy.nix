@@ -21,7 +21,6 @@
     config = {
       services.caddy = {
         enable = true;
-        openFirewall = true; # open ports 80 and 443
         package = pkgs.caddy.withPlugins {
           plugins = [
             "github.com/caddy-dns/cloudflare@v0.2.4"
@@ -84,6 +83,16 @@
         group = cfg.group;
       };
 
+      # Open ports on Tailscale
+      networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
+        allowedTCPPorts = [
+          cfg.httpPort
+          cfg.httpsPort
+        ];
+        allowedUDPPorts = cfg.httpsPort;
+      };
+
+      # Firewall services which are meant to route through Caddy
       networking.nftables.tables = lib.mkIf (myCfg.firewalledPorts != []) {
         "caddy-firewall" = {
           family = "inet";

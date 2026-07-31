@@ -30,7 +30,7 @@
     # Give Caddy access to the socket
     users.users.${config.services.caddy.user}.extraGroups = ["restic"];
 
-    # Open firewall for port
+    # Open port on Tailscale
     networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [port];
 
     # Reverse proxy
