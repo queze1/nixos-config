@@ -60,6 +60,7 @@ in {
         "/persistent/var/lib/tailscale"
       ];
       backups.backblaze-b2 = {};
+      backups.local-server = {};
     };
 
     # Force Audacity to use Wayland
