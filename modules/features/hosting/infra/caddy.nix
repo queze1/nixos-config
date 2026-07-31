@@ -76,7 +76,7 @@
       ];
 
       # Back up Caddy data
-      my.restic.extraPaths = ["/persistent${cfg.dataDir}"];
+      my.restic.extraPaths = [("/persistent" + lib.path.append cfg.dataDir ".local/share/caddy")];
 
       # For Cloudflare DNS
       sops.secrets.osipol-cloudflare-api-token = {

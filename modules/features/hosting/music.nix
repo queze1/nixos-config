@@ -26,7 +26,7 @@ in {
     ];
 
     # Back up music directory
-    my.restic.extraPaths = ["/persistent${musicDir}"];
+    my.restic.extraPaths = [("/persistent" + musicDir)];
 
     # Ensure any new files are accessible by the music group
     systemd.tmpfiles.rules = [
@@ -36,8 +36,8 @@ in {
 
   flake.nixosModules.navidrome = {config, ...}: let
     cfg = config.services.navidrome;
-    workingDir = "/var/lib/navidrome";
-    backupDir = "${workingDir}/backup";
+    dataDir = "/var/lib/navidrome";
+    backupDir = "${dataDir}/backup";
     socketPath = "/run/navidrome/navidrome.sock";
   in {
     services.navidrome = {
@@ -60,7 +60,7 @@ in {
     # Preserve Navidrome data
     my.preservation.extraDirectories = [
       {
-        directory = workingDir;
+        directory = dataDir;
         user = cfg.user;
         group = cfg.group;
         mode = "0700";
@@ -68,7 +68,7 @@ in {
     ];
 
     # Back up Navidrome backups
-    my.restic.extraPaths = ["/persistent${backupDir}"];
+    my.restic.extraPaths = [("/persistent" + backupDir)];
 
     # Give Caddy access to the socket
     users.users.${config.services.caddy.user}.extraGroups = [cfg.group];
