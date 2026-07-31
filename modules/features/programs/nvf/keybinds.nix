@@ -75,7 +75,7 @@
           silent = true;
           desc = "Save file";
         }
-        # H to go to start (^), L to go to end ($)
+        # H to go to start (^), L to go to end (g_)
         {
           key = "H";
           mode = [
@@ -94,7 +94,7 @@
             "v"
             "o"
           ];
-          action = "$";
+          action = "g_";
           silent = true;
           desc = "Go to end of line";
         }
