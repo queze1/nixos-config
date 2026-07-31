@@ -34,7 +34,9 @@
       };
     };
 
-    systemd.services.garage.serviceConfig = {};
+    sops.secrets.garage-env = {
+      restartUnits = ["garage.service"];
+    };
 
     # Create a system user to run Garage
     users.users.garage = {
@@ -59,10 +61,6 @@
         mode = "700";
       }
     ];
-
-    sops.secrets.garage-env = {
-      restartUnits = ["garage.service"];
-    };
 
     # Networking with Cloudflare tunnel
     services.cloudflared = {
