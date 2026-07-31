@@ -1,7 +1,6 @@
 {
   flake.nixosModules.sillytavern = {
     config,
-    lib,
     pkgs,
     ...
   }: let
@@ -225,7 +224,7 @@
     ];
 
     # Backup Sillytavern data
-    my.restic.extraPaths = [("/persistent" + lib.path.append dataDir "data")];
+    my.restic.extraPaths = [("/persistent" + dataDir "/data")];
 
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {
