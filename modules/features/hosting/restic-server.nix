@@ -5,9 +5,15 @@
   in {
     services.restic.server = {
       enable = true;
-      appendOnly = true;
       listenAddress = socketPath;
+      htpasswd-file = config.age.secrets.restic-server-htpasswd.path;
+      appendOnly = true;
       privateRepos = true;
+    };
+
+    sops.secrets.restic-server-htpasswd = {
+      owner = "restic";
+      group = "restic";
     };
 
     # Create /run/restic directory
