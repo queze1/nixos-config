@@ -59,8 +59,20 @@ in {
         "/persistent/home/${mainUser}/cs3231"
         "/persistent/var/lib/tailscale"
       ];
-      backups.backblaze-b2 = {};
-      backups.local-server = {};
+      backups.backblaze-b2 = {
+        timerConfig = {
+          OnCalendar = "daily";
+          RandomizedDelaySec = "1h";
+          Persistent = false;
+        };
+      };
+      backups.local-server = {
+        timerConfig = {
+          OnCalendar = "02:00";
+          RandomizedDelaySec = "1h";
+          Persistent = false;
+        };
+      };
     };
 
     # Force Audacity to use Wayland
