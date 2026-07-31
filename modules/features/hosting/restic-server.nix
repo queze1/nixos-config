@@ -14,8 +14,8 @@
     my.preservation.extraDirectories = [
       {
         directory = cfg.dataDir;
-        user = cfg.user;
-        group = cfg.group;
+        user = "restic";
+        group = "restic";
         mode = "0700";
       }
     ];
