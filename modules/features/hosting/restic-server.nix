@@ -6,9 +6,12 @@
     services.restic.server = {
       enable = true;
       appendOnly = true;
-      listenAddress = "unix:${socketPath}";
+      listenAddress = socketPath;
       privateRepos = true;
     };
+
+    # Create /run/restic directory
+    systemd.services.restic-rest-server.serviceConfig.RuntimeDirectory = "restic";
 
     # Preserve restic repository
     my.preservation.extraDirectories = [
