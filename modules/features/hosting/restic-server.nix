@@ -6,7 +6,7 @@
     services.restic.server = {
       enable = true;
       listenAddress = socketPath;
-      htpasswd-file = config.age.secrets.restic-server-htpasswd.path;
+      htpasswd-file = config.sops.secrets.restic-server-htpasswd.path;
       appendOnly = true;
       privateRepos = true;
     };
