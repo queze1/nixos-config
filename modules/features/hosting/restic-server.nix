@@ -20,9 +20,6 @@
       }
     ];
 
-    # Back up restic repository
-    my.restic.extraPaths = [("/persistent" + cfg.dataDir)];
-
     # Give Caddy access to the socket
     users.users.${config.services.caddy.user}.extraGroups = [cfg.group];
 
