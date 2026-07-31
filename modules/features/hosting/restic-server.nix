@@ -2,7 +2,7 @@
   flake.nixosModules.resticServer = {config, ...}: let
     cfg = config.services.restic.server;
     socketPath = "/run/restic/restic.sock";
-    port = 8433; # host on a non-standard port to whitelist in Tailscale access controls
+    port = 8443; # host on a non-standard port to whitelist in Tailscale access controls
   in {
     services.restic.server = {
       enable = true;
