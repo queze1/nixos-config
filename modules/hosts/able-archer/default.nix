@@ -57,6 +57,7 @@ in {
         "/persistent/home/${mainUser}/.ssh"
         "/persistent/home/${mainUser}/Coding"
         "/persistent/home/${mainUser}/cs3231"
+        "/persistent/home/${mainUser}/etc/nixos"
         "/persistent/var/lib/tailscale"
       ];
       backups.backblaze-b2 = {
