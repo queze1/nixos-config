@@ -21,7 +21,7 @@
     ];
 
     # Give Caddy access to the socket
-    users.users.${config.services.caddy.user}.extraGroups = [cfg.group];
+    users.users.${config.services.caddy.user}.extraGroups = ["restic"];
 
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {
