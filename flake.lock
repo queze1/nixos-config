@@ -844,11 +844,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1785470093,
-        "narHash": "sha256-FxP3JmozWUlx18ZZum+jn1c49mKn8OioqBIFVimKFQQ=",
+        "lastModified": 1785470514,
+        "narHash": "sha256-iJEzvfe+oIUF/FjQrvk5a9biJf+OJibeBvJKiOu0nTM=",
         "owner": "queze1",
         "repo": "nixos-secrets",
-        "rev": "13bf5c7d3a34ab4ceb3d5cca498edc4a3d2b4749",
+        "rev": "088c67c4d52b47cad9811a95dd7ac60d0aa7ccd8",
         "type": "github"
       },
       "original": {
