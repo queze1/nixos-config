@@ -32,7 +32,7 @@
 
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {
-      "restic-server.osipol.uk:${port}" = {
+      "restic-server.osipol.uk:${toString port}" = {
         extraConfig = ''
           import cloudflare_dns
           import tailscale_auth
