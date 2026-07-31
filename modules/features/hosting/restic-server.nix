@@ -33,12 +33,12 @@
     # Open firewall for port
     networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [port];
 
-    # Reverse proxy with Tailscale auth
+    # Reverse proxy
+    # NOTE: Don't use tailscale_auth for any service which needs to be reachable by a server, it automatically rejects tagged devices
     services.caddy.virtualHosts = {
       "restic-server.osipol.uk:${toString port}" = {
         extraConfig = ''
           import cloudflare_dns
-          import tailscale_auth
           reverse_proxy unix/${socketPath}
         '';
       };
