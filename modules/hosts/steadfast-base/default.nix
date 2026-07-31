@@ -19,7 +19,6 @@ in {
       self.nixosModules.networkmanager
 
       # Nix-related
-      self.nixosModules.nixbuild
       self.nixosModules.setupAccessTokens
 
       # Services
