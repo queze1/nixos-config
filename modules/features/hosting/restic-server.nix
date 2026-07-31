@@ -9,7 +9,7 @@
       listenAddress = socketPath;
       htpasswd-file = config.sops.secrets.restic-server-htpasswd.path;
       appendOnly = true;
-      privateRepos = true;
+      # privateRepos = true;
     };
 
     sops.secrets.restic-server-htpasswd = {
