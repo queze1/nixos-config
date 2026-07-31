@@ -45,8 +45,12 @@
     };
 
     config = {
-      # TODO: Throw an error if extraPaths is set up but no backups are found
-
+      assertions = [
+        {
+          assertion = cfg.extraPaths == [] || cfg.backups != {};
+          message = "my.restic.extraPaths is set, but no my.restic.backups are defined.";
+        }
+      ];
       # For every backup, define an environment file secret
       sops.secrets =
         lib.concatMapAttrs (name: _: {
