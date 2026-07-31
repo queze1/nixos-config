@@ -30,6 +30,7 @@
 
         globalConfig = ''
           admin unix//run/caddy/caddy-admin.sock
+          bind ${config.services.tailscale.interfaceName}
         '';
         extraConfig = ''
           (cloudflare_dns) {
