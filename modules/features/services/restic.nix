@@ -20,10 +20,6 @@
           config = lib.mapAttrsRecursive (_: value: lib.mkDefault value) {
             initialize = true;
             environmentFile = config.sops.secrets."restic-${name}-env".path;
-            timerConfig = {
-              OnCalendar = "daily";
-              Persistent = true;
-            };
           };
         }
       )
