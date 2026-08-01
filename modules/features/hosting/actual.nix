@@ -26,6 +26,7 @@
         group = "actual";
         mode = "700";
       }
+      # Nixpkgs option doesn't create subdirs automatically, oversight?
       {
         directory = cfg.settings.serverFiles;
         user = "actual";
