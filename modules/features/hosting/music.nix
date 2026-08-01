@@ -29,9 +29,11 @@ in {
     my.restic.extraPaths = [("/persistent" + musicDir)];
 
     # Ensure any new files are accessible by the music group
-    systemd.tmpfiles.rules = [
-      "a+ /srv/music - - - - default:group:music:rwx"
-    ];
+    systemd.tmpfiles.settings.music = {
+      "/srv/music"."a+" = {
+        argument = "default:group:music:rwx";
+      };
+    };
   };
 
   flake.nixosModules.navidrome = {config, ...}: let
