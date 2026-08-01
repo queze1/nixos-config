@@ -66,6 +66,6 @@
     services.ddclient.domains = ["pihole.osipol.uk"];
 
     # Only allow Caddy to access this port
-    my.caddy.firewalledPorts = lib.mapAttrs lib.toIntBase10 cfg-web.ports;
+    my.caddy.firewalledPorts = [lib.toIntBase10 cfg-web.ports];
   };
 }
