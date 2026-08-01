@@ -26,6 +26,18 @@
         group = "actual";
         mode = "700";
       }
+      {
+        directory = cfg.settings.serverFiles;
+        user = "actual";
+        group = "actual";
+        mode = "700";
+      }
+      {
+        directory = cfg.settings.userFiles;
+        user = "actual";
+        group = "actual";
+        mode = "700";
+      }
     ];
 
     # Reverse proxy with Tailscale auth
