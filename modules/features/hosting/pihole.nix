@@ -1,6 +1,7 @@
 {
   flake.nixosModules.pihole = {
     config,
+    lib,
     pkgs,
     ...
   }: let
@@ -65,6 +66,6 @@
     services.ddclient.domains = ["pihole.osipol.uk"];
 
     # Only allow Caddy to access this port
-    my.caddy.firewalledPorts = cfg-web.ports;
+    my.caddy.firewalledPorts = [lib.toIntBase10 cfg-web.ports];
   };
 }
