@@ -177,6 +177,9 @@ in {
         };
       };
       services.ddclient.domains = ["metube.osipol.uk"];
+
+      # Only allow Caddy to access this port
+      my.caddy.firewalledPorts = [cfg.port];
     };
   };
 
@@ -269,6 +272,9 @@ in {
         };
       };
       services.ddclient.domains = ["yubal.osipol.uk"];
+
+      # Only allow Caddy to access this port
+      my.caddy.firewalledPorts = [cfg.port];
     };
   };
 
@@ -347,7 +353,7 @@ in {
         };
       };
 
-      # Make picard accessible through Tailscale
+      # Reverse proxy with Tailscale auth
       services.caddy.virtualHosts = {
         "picard.osipol.uk" = {
           extraConfig = ''
@@ -360,7 +366,10 @@ in {
           '';
         };
       };
-      services.ddclient.domains = ["picard.osipol.uk"]; # dynamically update IP
+      services.ddclient.domains = ["picard.osipol.uk"];
+
+      # Only allow Caddy to access this port
+      my.caddy.firewalledPorts = [cfg.port];
     };
   };
 }

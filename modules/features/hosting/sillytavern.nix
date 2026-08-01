@@ -237,5 +237,8 @@
       };
     };
     services.ddclient.domains = ["new.sillytavern.osipol.uk"];
+
+    # Only allow Caddy to access this port
+    my.caddy.firewalledPorts = [cfg.port];
   };
 }

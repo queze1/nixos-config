@@ -5,6 +5,7 @@
     ...
   }: let
     cfg = config.services.pihole-ftl;
+    cfg-web = config.services.pihole-web;
   in {
     services.pihole-ftl = {
       enable = true;
@@ -51,15 +52,19 @@
       }
     ];
 
+    # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {
       "pihole.osipol.uk" = {
         extraConfig = ''
           import cloudflare_dns
           import tailscale_auth
-          reverse_proxy localhost:${toString config.services.pihole-web.ports}
+          reverse_proxy localhost:${toString cfg-web.ports}
         '';
       };
     };
     services.ddclient.domains = ["pihole.osipol.uk"];
+
+    # Only allow Caddy to access this port
+    my.caddy.firewalledPorts = cfg-web.ports;
   };
 }

@@ -34,10 +34,13 @@
         extraConfig = ''
           import cloudflare_dns
           import tailscale_auth
-          reverse_proxy localhost:${toString cfg.port}
+          reverse_proxy localhost:${toString cfg.settings.port}
         '';
       };
     };
     services.ddclient.domains = ["new.actual.osipol.uk"];
+
+    # Only allow Caddy to access this port
+    my.caddy.firewalledPorts = [cfg.settings.port];
   };
 }
