@@ -71,7 +71,6 @@
 
       # Networking with Cloudflare tunnel
       services.cloudflared = {
-        enable = true;
         tunnels = {
           "b6ce003f-d222-4d1c-8e67-56ac678280ba" = {
             credentialsFile = "${config.sops.secrets.ark-rp-viz-cloudflare-creds.path}";
