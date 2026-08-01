@@ -9,7 +9,7 @@ in {
   flake.nixosModules.steadfastDefenderConfiguration = {
     imports = [
       self.nixosModules.steadfastBase
-      (self.factory.diskoBrtfs
+      (self.factory.diskoBrtfsEphemeralRoot
         {device = "/dev/nvme0n1";})
 
       # Ingress & routing

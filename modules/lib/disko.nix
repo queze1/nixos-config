@@ -113,7 +113,7 @@
     };
   };
 
-  flake.factory.diskoBrtfs = {device}: {pkgs, ...}: let
+  flake.factory.diskoBrtfsEphemeralRoot = {device}: {pkgs, ...}: let
     # Number of root backups to keep
     rootBackupLimit = 10;
   in {
