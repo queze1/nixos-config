@@ -129,7 +129,7 @@
         "local-fs-pre.target" # when filesystems are ready for mounting
         "initrd-root-device.target" # when the root filesystem device is avaliable but before it's mounted
       ];
-      before = ["sysroot.mount"]; # mounts the root system
+      before = ["sysroot.mount"]; # mounts the root filesystem
       path = with pkgs; [
         btrfs-progs
         coreutils
@@ -162,6 +162,42 @@
         ls -1 /btrfs_tmp/root-backup | sort -r | tail -n +${toString (rootBackupLimit + 1)} | while read -r old; do
             btrfs subvolume delete -R "/btrfs_tmp/root-backup/$old"
         done
+
+        umount /btrfs_tmp
+      '';
+    };
+
+    boot.initrd.systemd.services.restore-persistent = {
+      description = "Restore persistent subvolume";
+      wantedBy = ["initrd.target"];
+      after = [
+        "local-fs-pre.target"
+        "initrd-root-device.target"
+        "reset-root.service" # avoid mounting /btrfs_tmp at the same time
+      ];
+      before = [
+        "sysroot.mount"
+        "initrd-preservation.target" # ensure /persistent is restored before preservation bind mounts
+      ];
+      path = with pkgs; [
+        coreutils
+        util-linux
+      ];
+      unitConfig.DefaultDependencies = "no";
+      serviceConfig.Type = "oneshot";
+      script = ''
+        set -euo pipefail
+
+        mkdir -p /btrfs_tmp
+        mount /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
+        mkdir -p /btrfs_tmp/persistent-backup
+
+        # Restore a persistent subvolume if it was placed in persistent-new
+        if [[ -e /btrfs_tmp/persistent-new ]]; then
+            timestamp=$(date "+%Y-%m-%d_%H-%M-%S")
+            mv /btrfs_tmp/persistent "/btrfs_tmp/persistent-backup/persistent-$timestamp"
+            mv /btrfs_tmp/persistent-new /btrfs_tmp/persistent
+        fi
 
         umount /btrfs_tmp
       '';
