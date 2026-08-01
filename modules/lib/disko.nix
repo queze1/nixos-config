@@ -123,7 +123,7 @@
     fileSystems."/persistent".neededForBoot = true;
 
     boot.initrd.systemd.services.reset-root = {
-      description = "Backup root subvolume and create a empty root";
+      description = "Backup root subvolume and initialise a new root";
       wantedBy = ["initrd.target"];
       after = [
         "local-fs-pre.target" # when filesystems are ready for mounting
@@ -150,8 +150,13 @@
             mv /btrfs_tmp/root "/btrfs_tmp/root-backup/root-$timestamp"
         fi
 
-        # Create a new empty root
-        btrfs subvolume create /btrfs_tmp/root
+        if [[ -e /btrfs_tmp/root-new ]]; then
+            # Restore a root if it was placed in root-new
+            mv /btrfs_tmp/root-new /btrfs_tmp/root
+        else
+            # Create a new empty root
+            btrfs subvolume create /btrfs_tmp/root
+        fi
 
         # Prune old backups over limit
         ls -1 /btrfs_tmp/root-backup | sort -r | tail -n +${toString (rootBackupLimit + 1)} | while read -r old; do
