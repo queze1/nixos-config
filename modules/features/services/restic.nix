@@ -86,6 +86,19 @@
             else allPaths;
         })
       cfg.backups;
+
+      # Give each restic service ambient capacities instead of running as root
+      # https://restic.readthedocs.io/en/latest/080_examples.html#backing-up-your-system-without-running-restic-as-root
+      systemd.services = lib.mapAttrs' (name: _:
+        lib.nameValuePair "restic-backups-${name}" {
+          serviceConfig = {
+            DynamicUser = true;
+            User = "restic-${name}";
+            AmbientCapabilities = "CAP_DAC_READ_SEARCH";
+            CapabilityBoundingSet = "CAP_DAC_READ_SEARCH";
+          };
+        })
+      cfg.backups;
     };
   };
 }
