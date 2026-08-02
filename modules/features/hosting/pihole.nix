@@ -40,12 +40,6 @@
       restartUnits = ["pihole-ftl.service"];
     };
 
-    # Open firewall for DNS server on Tailscale only
-    networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
-      allowedUDPPorts = [53];
-      allowedTCPPorts = [53];
-    };
-
     # Preserve PiHole state
     my.preservation.extraDirectories = [
       {
@@ -55,6 +49,12 @@
         mode = "0700";
       }
     ];
+
+    # Open firewall for DNS server on Tailscale only
+    networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
+      allowedUDPPorts = [53];
+      allowedTCPPorts = [53];
+    };
 
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {
