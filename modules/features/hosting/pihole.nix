@@ -34,6 +34,12 @@
       enable = true;
     };
 
+    # Configure secrets
+    systemd.services.pihole-ftl.environmentFile = config.sops.secrets.pihole-env.path;
+    sops.secrets.pihole-env = {
+      restartUnits = "pihole-ftl.service";
+    };
+
     # Open firewall for DNS server on Tailscale only
     networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
       allowedUDPPorts = [53];
