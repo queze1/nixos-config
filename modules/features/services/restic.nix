@@ -93,7 +93,7 @@
         lib.nameValuePair "restic-backups-${name}" {
           serviceConfig = {
             DynamicUser = true;
-            User = "restic-${name}";
+            User = lib.mkForce "restic-${name}";
             AmbientCapabilities = "CAP_DAC_READ_SEARCH";
             CapabilityBoundingSet = "CAP_DAC_READ_SEARCH";
           };
