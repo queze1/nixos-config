@@ -2,10 +2,53 @@
   flake.nixosModules.pihole = {
     config,
     lib,
+    pkgs,
     ...
   }: let
     cfg = config.services.pihole-ftl;
-    cfg-web = config.services.pihole-web;
+    cfgWeb = config.services.pihole-web;
+
+    piholeDomain = "pihole.osipol.uk";
+    piholeUrl = "https://${piholeDomain}";
+    piholePasswordFile = "/etc/pihole/cli_pw";
+    piholeBackupDir = "${cfg.stateDirectory}/backups";
+    piholeBackupScript = pkgs.writeShellApplication {
+      name = "pihole-backup";
+      runtimeInputs = [pkgs.curl pkgs.jq pkgs.coreutils];
+      text = ''
+        set -euo pipefail
+
+        if [ ! -r "${piholePasswordFile}" ]; then
+          echo "Cannot read password file: ${piholePasswordFile}" >&2
+          exit 1
+        fi
+
+        PASSWORD=$(<"${piholePasswordFile}")
+        RESPONSE=$(curl -sk -X POST "${piholeUrl}/api/auth" \
+          --data "{\"password\":\"''${PASSWORD}\"}")
+        SID=$(echo "$RESPONSE" | jq -r '.session.sid')
+
+        if [ -z "''${SID}" ] || [ "''${SID}" = "null" ]; then
+          echo "Auth failed, response was: ''${RESPONSE}" >&2
+          exit 1
+        fi
+
+        mkdir -p "${piholeBackupDir}"
+        TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+        OUTFILE="${piholeBackupDir}/''${TIMESTAMP}-backup.zip"
+
+        curl -sk -X GET "${piholeUrl}/api/teleporter" \
+          -H "accept: application/zip" \
+          -H "sid: ''${SID}" \
+          -o "''${OUTFILE}"
+
+        # Invalidate the session now that we're done with it
+        curl -sk -X DELETE "${piholeUrl}/api/auth" \
+          -H "sid: ''${SID}" >/dev/null || true
+
+        echo "Backup written to ''${OUTFILE}"
+      '';
+    };
   in {
     services.pihole-ftl = {
       enable = true;
@@ -50,6 +93,28 @@
       }
     ];
 
+    systemd.services.pihole-backup = {
+      description = "Back up Pi-hole config";
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${piholeBackupScript}/bin/pihole-backup";
+        User = cfg.user;
+      };
+    };
+
+    systemd.timers.pihole-backup = {
+      description = "Daily Pi-hole backup";
+      wantedBy = ["timers.target"];
+      timerConfig = {
+        OnCalendar = "daily";
+        Persistent = true;
+        RandomizedDelaySec = "hour";
+      };
+    };
+
+    # Back up Pi-hole backup dumps
+    my.restic.extraPaths = [piholeBackupDir];
+
     # Open firewall for DNS server on Tailscale only
     networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
       allowedUDPPorts = [53];
@@ -58,16 +123,16 @@
 
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {
-      "pihole.osipol.uk" = {
+      ${piholeDomain} = {
         extraConfig = ''
           import cloudflare_dns
-          reverse_proxy localhost:${toString cfg-web.ports}
+          reverse_proxy localhost:${toString cfgWeb.ports}
         '';
       };
     };
-    services.ddclient.domains = ["pihole.osipol.uk"];
+    services.ddclient.domains = [piholeDomain];
 
     # Only allow Caddy to access this port
-    my.caddy.firewalledPorts = [(lib.toIntBase10 cfg-web.ports)];
+    my.caddy.firewalledPorts = [(lib.toIntBase10 cfgWeb.ports)];
   };
 }
