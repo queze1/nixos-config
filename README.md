@@ -10,10 +10,10 @@ My personal NixOS config.
 - Shell: [Fish](https://fishshell.com/)
 
 ## Features
-- [sops-nix](https://github.com/Mic92/sops-nix) - to securely manage secrets
-- [nixos-anywhere](https://github.com/nix-community/nixos-anywhere) - to remotely install NixOS with a single CLI command
-- [disko](https://github.com/nix-community/disko) - for declarative disk management
-- [preservation](https://github.com/nix-community/preservation) - for an ephemeral root setup.
+- [sops-nix](https://github.com/Mic92/sops-nix) - To securely manage secrets.
+- [nixos-anywhere](https://github.com/nix-community/nixos-anywhere) - To remotely install NixOS with a single CLI command.
+- [disko](https://github.com/nix-community/disko) - For declarative disk management.
+- [preservation](https://github.com/nix-community/preservation) - For an ephemeral root setup.
 
 ## Installation
 1. Build the custom ISO and burn it onto a USB with `nix run github:queze1/nixos-config#burn-iso-image`.
@@ -68,8 +68,7 @@ ip addr
 └── README.md
 ```
 
-## CI/CD Process
-1. [nixbuild GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/nixbuild.yml) builds NixOS configurations on [nixbuild.net](https://nixbuild.net/) (very fast). If tests pass, fast-forwards the `deployed` branch to `main`.
+## CI/CD
+1. [nixbuild GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/nixbuild.yml) builds NixOS configurations on [nixbuild.net](https://nixbuild.net/). If tests pass, fast-forwards the `deployed` branch to `main`.
 2. [comin](https://github.com/nlewo/comin/) pings the `deployed` branch, pulls and applies changes.
-3. [nixbuild.nix](https://github.com/queze1/nixos-config/blob/main/modules/features/nix/nixbuild.nix) adds nixbuild as a substituter. Since nixbuild.net built all configurations, systems can pull binaries from it without having to build locally.
 
