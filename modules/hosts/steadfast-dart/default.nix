@@ -9,6 +9,8 @@ in {
   flake.nixosModules.steadfastDartConfiguration = {
     imports = [
       self.nixosModules.steadfastBase
+
+      self.nixosModules.btrbk
       (self.factory.diskoTmpfsOnRoot
         {device = "/dev/nvme0n1";})
       self.nixosModules.podmanContainers

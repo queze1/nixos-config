@@ -209,28 +209,6 @@
       umount-backup = "sudo umount /mnt/backup";
     };
 
-    # Snapshot /persistent hourly
-    services.btrbk.instances."persistent" = {
-      onCalendar = "hourly";
-      settings = {
-        timestamp_format = "long-iso";
-        snapshot_preserve_min = "latest";
-        snapshot_preserve = "24h";
-
-        volume."/persistent" = {
-          subvolume = ".";
-          snapshot_dir = "snapshots"; # -> /persistent/snapshots
-        };
-      };
-    };
-
-    # btrbk does not create the snapshot directory itself
-    systemd.tmpfiles.settings.btrbk."/persistent/snapshots".d = {
-      user = "root";
-      group = "root";
-      mode = "0700";
-    };
-
     disko.devices.disk.main = {
       device = device;
       type = "disk";

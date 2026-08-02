@@ -9,6 +9,8 @@ in {
   flake.nixosModules.steadfastDefenderConfiguration = {
     imports = [
       self.nixosModules.steadfastBase
+
+      self.nixosModules.btrbk
       (self.factory.diskoBrtfsEphemeralRoot
         {device = "/dev/nvme0n1";})
 
