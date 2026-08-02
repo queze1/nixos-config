@@ -31,16 +31,17 @@ in {
       self.nixosModules.shellAliases
       self.nixosModules.sound
 
+      # Services
+      self.nixosModules.btrbk
+      self.nixosModules.docker
+      self.nixosModules.resticDefaults
+      self.nixosModules.tailscale
+
       # Desktop environment
       self.nixosModules.niriNoctalia
 
       # Programs
       self.nixosModules.allPrograms
-
-      # Services
-      self.nixosModules.docker
-      self.nixosModules.resticDefaults
-      self.nixosModules.tailscale
 
       # User related stuff
       self.nixosModules.homeManager
@@ -52,13 +53,14 @@ in {
     ];
 
     my.restic = {
+      snapshotsDir = "/persistent/snapshots";
       extraPaths = [
-        "/persistent/etc/ssh"
-        "/persistent/home/${mainUser}/.ssh"
-        "/persistent/home/${mainUser}/Coding"
-        "/persistent/home/${mainUser}/cs3231"
-        "/persistent/home/${mainUser}/etc/nixos"
-        "/persistent/var/lib/tailscale"
+        "/etc/ssh"
+        "/home/${mainUser}/.ssh"
+        "/home/${mainUser}/Coding"
+        "/home/${mainUser}/cs3231"
+        "/home/${mainUser}/etc/nixos"
+        "/var/lib/tailscale"
       ];
       backups.backblaze-b2 = {
         timerConfig = {
