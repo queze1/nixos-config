@@ -7,6 +7,8 @@
   }: let
     cfg = config.my.restic;
 
+    toSubpath = p: lib.path.removePrefix /. (/. + p);
+
     # Extract the services.restic.backups.<name> submodule
     backupSubmodule = options.services.restic.backups.type.nestedTypes.elemType.getSubModules;
 
@@ -17,10 +19,18 @@
           imports = backupSubmodule;
 
           # Recursively set lib.mkDefault, overrides option defaults but is overridden by normal definitions
-          config = lib.mapAttrsRecursive (_: value: lib.mkDefault value) {
-            initialize = true;
-            environmentFile = config.sops.secrets."restic-${name}-env".path;
-          };
+          config = lib.mapAttrsRecursive (_: value: lib.mkDefault value) (
+            {
+              initialize = true;
+              environmentFile = config.sops.secrets."restic-${name}-env".path;
+            }
+            // lib.optionalAttrs (cfg.snapshotsDir != null) {
+              # cd into the newest directory under snapshotsDir
+              backupPrepareCommand = ''
+                cd "${cfg.snapshotsDir}/$(ls -1 ${lib.escapeShellArg cfg.snapshotsDir} | sort | tail -n1)"
+              '';
+            }
+          );
         }
       )
     ];
@@ -38,6 +48,14 @@
           Which paths to back up. This applies to all backup targets.
         '';
       };
+      snapshotsDir = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = ''
+          If set, paths are backed up relative to the newest (lexicographically last) directory found in this directory.
+          Every path is turned into a subpath and a `backupPrepareCommand` is generated that `cd`s into that directory before restic runs.
+        '';
+      };
     };
 
     config = {
@@ -47,6 +65,7 @@
           message = "my.restic.extraPaths is set, but no my.restic.backups are defined.";
         }
       ];
+
       # For every backup, define an environment file secret
       sops.secrets =
         lib.concatMapAttrs (name: _: {
@@ -54,11 +73,19 @@
         })
         cfg.backups;
 
-      # Append extraPaths to every backup
-      services.restic.backups = lib.mkMerge [
-        cfg.backups
-        (lib.mapAttrs (_: _: {paths = cfg.extraPaths;}) cfg.backups)
-      ];
+      services.restic.backups = lib.mapAttrs (_: backup:
+        backup
+        // {
+          paths = let
+            # Append extraPaths to every backup
+            allPaths = backup.paths ++ cfg.extraPaths;
+          in
+            # Turn every path into a subpath if snapshotsDir was set
+            if cfg.snapshotsDir != null
+            then map toSubpath allPaths
+            else allPaths;
+        })
+      cfg.backups;
     };
   };
 }
