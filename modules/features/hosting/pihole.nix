@@ -35,7 +35,7 @@
     };
 
     # Configure secrets
-    systemd.services.pihole-ftl.environmentFile = config.sops.secrets.pihole-env.path;
+    systemd.services.pihole-ftl.serviceConfig.EnvironmentFile = config.sops.secrets.pihole-env.path;
     sops.secrets.pihole-env = {
       restartUnits = "pihole-ftl.service";
     };
