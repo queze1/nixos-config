@@ -44,7 +44,6 @@ in {
           "$@"
       '';
     in
-      # Run script inside of an FHS sandbox
       pkgs.buildFHSEnv {
         inherit name;
         targetPkgs = pkgs:
