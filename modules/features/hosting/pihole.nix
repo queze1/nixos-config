@@ -114,8 +114,8 @@
       };
     };
 
-    # Back up daily Pi-hole backup dumps
-    my.restic.extraPaths = [piholeBackupDir];
+    # Back up Pihole data & daily backup dumps
+    my.restic.extraPaths = [cfg.stateDirectory];
 
     # Open firewall for DNS server on Tailscale only
     networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
