@@ -41,6 +41,9 @@
       }
     ];
 
+    # Back up Actual data
+    my.restic.extraPaths = [cfg.settings.dataDir];
+
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {
       "new.actual.osipol.uk" = {
