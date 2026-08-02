@@ -26,7 +26,7 @@ in {
     ];
 
     # Back up music directory
-    my.restic.extraPaths = [("/persistent" + musicDir)];
+    my.restic.extraPaths = [musicDir];
 
     # Ensure any new files are accessible by the music group
     systemd.tmpfiles.settings.music = {
@@ -70,7 +70,7 @@ in {
     ];
 
     # Back up Navidrome backups
-    my.restic.extraPaths = [("/persistent" + backupDir)];
+    my.restic.extraPaths = [backupDir];
 
     # Give Caddy access to the socket
     users.users.${config.services.caddy.user}.extraGroups = [cfg.group];

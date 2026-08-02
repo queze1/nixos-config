@@ -24,10 +24,11 @@ in {
     ];
 
     my.restic = {
+      snapshotsDir = "/persistent/snapshots";
       extraPaths = [
-        "/persistent/etc/ssh"
-        "/persistent/var/lib/nixos"
-        "/persistent/var/lib/tailscale"
+        "/etc/ssh"
+        "/var/lib/nixos"
+        "/var/lib/tailscale"
       ];
       backups.backblaze-b2 = {
         timerConfig = {

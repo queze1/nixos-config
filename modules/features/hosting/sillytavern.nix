@@ -224,7 +224,7 @@
     ];
 
     # Backup Sillytavern data
-    my.restic.extraPaths = [("/persistent" + dataDir + "/data")];
+    my.restic.extraPaths = ["${dataDir}/data"];
 
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {
