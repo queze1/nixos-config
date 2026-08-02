@@ -95,6 +95,8 @@
 
     systemd.services.pihole-backup = {
       description = "Back up Pi-hole config";
+      after = ["pihole-ftl.service"];
+      wants = ["pihole-ftl.service"];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${piholeBackupScript}/bin/pihole-backup";
@@ -112,7 +114,7 @@
       };
     };
 
-    # Back up Pi-hole backup dumps
+    # Back up daily Pi-hole backup dumps
     my.restic.extraPaths = [piholeBackupDir];
 
     # Open firewall for DNS server on Tailscale only
