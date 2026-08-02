@@ -23,6 +23,7 @@ in {
 
       # Services
       self.nixosModules.comin
+      self.nixosModules.fwudp
       self.nixosModules.openssh
       self.nixosModules.resticDefaults
       self.nixosModules.tailscale
@@ -94,9 +95,6 @@ in {
         STOP_CHARGE_THRESH_BAT0 = 80;
       };
     };
-
-    # Update firmware
-    services.fwupd.enable = true;
 
     system.stateVersion = "25.11";
   };
