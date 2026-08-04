@@ -1,6 +1,6 @@
 {
-  flake.templates.devshell = {
-    path = ../templates/devshell;
-    description = "A basic devshell template";
+  flake.templates.flake = {
+    path = ../templates/flake;
+    description = "A basic flake template";
   };
 }

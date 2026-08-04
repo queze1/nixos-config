@@ -10,7 +10,7 @@
 
     environment.shellAliases = {
       nfc = "nix flake check";
-      nix-direnv-init = "nix flake new -t github:nix-community/nix-direnv .";
+      nix-flake-init = "nix flake new -t github:queze1/nixos-config .#flake";
     };
   };
 
