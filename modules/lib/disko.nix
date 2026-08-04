@@ -204,10 +204,10 @@
       '';
     };
 
-    # Shell aliases to mount/unmount the root partition
+    # Shell aliases to mount/unmount the top-level subpartition
     environment.shellAliases = {
-      mount-backup = "sudo mkdir -p /mnt/backup && sudo mount -o ro /dev/disk/by-partlabel/disk-main-root /mnt/backup";
-      umount-backup = "sudo umount /mnt/backup";
+      mount-top-level = "sudo mkdir -p /mnt/top-level && sudo mount -o subvolid=5 /dev/disk/by-partlabel/disk-main-root /mnt/top-level";
+      umount-top-level = "sudo umount /mnt/top-level";
     };
 
     disko.devices.disk.main = {
