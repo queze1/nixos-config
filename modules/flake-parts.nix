@@ -4,8 +4,8 @@
   ...
 }: {
   imports = [
-    # Integrate home-manager with flake-parts
     inputs.home-manager.flakeModules.home-manager
+    inputs.git-hooks-nix.flakeModule
   ];
 
   options.flake = {
@@ -41,5 +41,21 @@
       "aarch64-linux"
       "aarch64-darwin"
     ];
+
+    templates.default = {
+      path = ../templates/flake;
+      description = "A basic flake template";
+    };
+
+    perSystem = {config, ...}: {
+      devShells.default = config.pre-commit.devShell;
+
+      pre-commit.settings.hooks = {
+        alejandra.enable = true;
+        commitizen.enable = true;
+        deadnix.enable = true;
+        flake-checker.enable = true;
+      };
+    };
   };
 }
