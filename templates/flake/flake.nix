@@ -1,13 +1,11 @@
 {
-  description = "A basic flake";
-
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = {nixpkgs}: let
-    systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
-    perSystem = nixpkgs.lib.genAttrs systems;
+    supportedSystems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
+    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
   in {
-    packages = perSystem (
+    packages = forAllSystems (
       system: let
         pkgs = nixpkgs.legacyPackages.${system};
       in {
