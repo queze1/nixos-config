@@ -96,6 +96,13 @@
       umount-top-level = "sudo umount /mnt/top-level";
     };
 
+    specialisation.persistent-restore.configuration = {lib, ...}: {
+      fileSystems."/persistent".options = lib.mkForce [
+        "subvol=persistent-restore"
+        "noatime"
+      ];
+    };
+
     disko.devices.nodev = {
       "/" = {
         fsType = "tmpfs";
