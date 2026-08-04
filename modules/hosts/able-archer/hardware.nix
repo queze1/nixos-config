@@ -1,8 +1,6 @@
 {
   flake.nixosModules.ableArcherHardware = {
-    config,
     lib,
-    pkgs,
     modulesPath,
     ...
   }: {
