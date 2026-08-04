@@ -51,6 +51,7 @@
         "local-fs-pre.target"
         "initrd-root-device.target"
         "reset-root.service" # avoid mounting /btrfs_tmp at the same time
+        "dev-disk-by\\x2dpartlabel-disk\\x2dmain\\x2droot.device"
       ];
       requires = [
         "dev-disk-by\\x2dpartlabel-disk\\x2dmain\\x2droot.device"
@@ -61,6 +62,7 @@
       ];
       path = with pkgs; [
         coreutils
+        systemd
         util-linux
       ];
       unitConfig.DefaultDependencies = "no";
