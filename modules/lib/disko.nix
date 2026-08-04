@@ -66,7 +66,11 @@
         set -euo pipefail
 
         mkdir -p /btrfs_tmp
-        mount /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
+
+        lsblk -f /dev/disk/by-partlabel/disk-main-root
+        blkid /dev/disk/by-partlabel/disk-main-root
+        mount -t btrfs /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
+        # mount /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
         mkdir -p /btrfs_tmp/persistent-backup
 
         # Restore a persistent subvolume if it was placed in persistent-new
