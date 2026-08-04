@@ -42,12 +42,12 @@
       "aarch64-darwin"
     ];
 
-    templates.default = {
+    flake.templates.default = {
       path = ../templates/flake;
       description = "A basic flake template";
     };
 
-    perSystem = {config, ...}: {
+    flake.perSystem = {config, ...}: {
       devShells.default = config.pre-commit.devShell;
 
       pre-commit.settings.hooks = {
