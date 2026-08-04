@@ -21,12 +21,12 @@ My personal NixOS config.
   - Alternatively, you can use an ISO from the [official website](https://nixos.org/download/).
 2. Boot the target machine with the USB stick.
 3. On the target machine, run:
-```
+```bash
 nmtui # if using custom ISO
 ip addr
 ```
 4. On your source machine, run:
-```
+```bash
 ./install.sh <target-machine-ip> <hostname>
 
 # configure secrets when prompted
