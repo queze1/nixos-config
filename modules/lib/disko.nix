@@ -167,6 +167,7 @@
       '';
     };
 
+    # Bit of a hack
     boot.initrd.systemd.services.restore-persistent = {
       description = "Restore persistent subvolume from /persistent-new";
       wantedBy = ["initrd.target"];
