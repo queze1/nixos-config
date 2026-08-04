@@ -51,7 +51,9 @@
         "local-fs-pre.target"
         "initrd-root-device.target"
         "reset-root.service" # avoid mounting /btrfs_tmp at the same time
-        "dev-disk-by\x2dpartlabel-disk\x2dmain\x2droot.device"
+      ];
+      requires = [
+        "dev-disk-by\\x2dpartlabel-disk\\x2dmain\\x2droot.device"
       ];
       before = [
         "sysroot.mount"
@@ -65,6 +67,7 @@
       serviceConfig.Type = "oneshot";
       script = ''
         set -euo pipefail
+        udevadm settle --timeout=30
 
         mkdir -p /btrfs_tmp
 
