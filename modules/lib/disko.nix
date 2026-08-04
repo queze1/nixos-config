@@ -37,11 +37,54 @@
   };
 
   # Mostly copied from https://www.vimjoyer.com/vid89-impermanent/disko
-  flake.factory.diskoTmpfsOnRoot = {device}: {
+  flake.factory.diskoTmpfsOnRoot = {device}: {pkgs, ...}: {
     imports = [inputs.disko.nixosModules.default];
 
     fileSystems."/nix".neededForBoot = true;
     fileSystems."/persistent".neededForBoot = true;
+
+    # Bit of a hack
+    boot.initrd.systemd.services.restore-persistent = {
+      description = "Restore persistent subvolume from /persistent-new";
+      wantedBy = ["initrd.target"];
+      after = [
+        "local-fs-pre.target"
+        "initrd-root-device.target"
+        "reset-root.service" # avoid mounting /btrfs_tmp at the same time
+      ];
+      before = [
+        "sysroot.mount"
+        "initrd-preservation.target" # ensure /persistent is restored before preservation bind mounts
+      ];
+      path = with pkgs; [
+        coreutils
+        util-linux
+      ];
+      unitConfig.DefaultDependencies = "no";
+      serviceConfig.Type = "oneshot";
+      script = ''
+        set -euo pipefail
+
+        mkdir -p /btrfs_tmp
+        mount /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
+        mkdir -p /btrfs_tmp/persistent-backup
+
+        # Restore a persistent subvolume if it was placed in persistent-new
+        if [[ -e /btrfs_tmp/persistent-new ]]; then
+            timestamp=$(date "+%Y-%m-%d_%H-%M-%S")
+            mv /btrfs_tmp/persistent "/btrfs_tmp/persistent-backup/persistent-$timestamp"
+            mv /btrfs_tmp/persistent-new /btrfs_tmp/persistent
+        fi
+
+        umount /btrfs_tmp
+      '';
+    };
+
+    # Shell aliases to mount/unmount the top-level subpartition
+    environment.shellAliases = {
+      mount-top-level = "sudo mkdir -p /mnt/top-level && sudo mount -o subvolid=5 /dev/disk/by-partlabel/disk-main-root /mnt/top-level";
+      umount-top-level = "sudo umount /mnt/top-level";
+    };
 
     disko.devices.nodev = {
       "/" = {
