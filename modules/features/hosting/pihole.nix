@@ -79,7 +79,7 @@
 
     # Configure secrets
     systemd.services.pihole-ftl = {
-      after = ["preservation.target"];
+      after = ["sops-nix.service"];
       serviceConfig.EnvironmentFile = config.sops.secrets.pihole-env.path;
     };
     sops.secrets.pihole-env = {

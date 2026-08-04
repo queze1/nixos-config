@@ -46,7 +46,10 @@
       # Service to run ark-rp-visualisation
       systemd.services.ark-rp-viz = {
         description = "ARK D&D Campaign Dashboard";
-        after = ["network.target"];
+        after = [
+          "network.target"
+          "sops-nix.service"
+        ];
         wantedBy = ["multi-user.target"];
 
         serviceConfig = {
