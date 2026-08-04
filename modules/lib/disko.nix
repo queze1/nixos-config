@@ -51,6 +51,7 @@
         "local-fs-pre.target"
         "initrd-root-device.target"
         "reset-root.service" # avoid mounting /btrfs_tmp at the same time
+        "dev-disk-by\x2dpartlabel-disk\x2dmain\x2droot.device"
       ];
       before = [
         "sysroot.mount"
@@ -175,6 +176,7 @@
       after = [
         "local-fs-pre.target" # when filesystems are ready for mounting
         "initrd-root-device.target" # when the root filesystem device is avaliable but before it's mounted
+        "dev-disk-by\x2dpartlabel-disk\x2dmain\x2droot.device" # when the device is ready
       ];
       before = ["sysroot.mount"]; # mounts the root filesystem
       path = with pkgs; [
@@ -222,6 +224,7 @@
         "local-fs-pre.target"
         "initrd-root-device.target"
         "reset-root.service" # avoid mounting /btrfs_tmp at the same time
+        "dev-disk-by\x2dpartlabel-disk\x2dmain\x2droot.device"
       ];
       before = [
         "sysroot.mount"
