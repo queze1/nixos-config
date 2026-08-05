@@ -52,6 +52,13 @@
           Which paths to back up. This applies to all backup targets.
         '';
       };
+      extraExclude = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [];
+        description = ''
+          Which paths to exclude. This applies to all backup targets.
+        '';
+      };
       snapshotsDir = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
@@ -81,13 +88,17 @@
         backup
         // {
           paths = let
-            # Append extraPaths to every backup
             allPaths = backup.paths ++ cfg.extraPaths;
           in
-            # Turn every path into a subpath if snapshotsDir was set
             if cfg.snapshotsDir != null
             then map toSubpath allPaths
             else allPaths;
+          exclude = let
+            allExclude = backup.exclude ++ cfg.extraExclude;
+          in
+            if cfg.snapshotsDir != null
+            then map toSubpath allExclude
+            else allExclude;
         })
       cfg.backups;
 

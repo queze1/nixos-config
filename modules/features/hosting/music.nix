@@ -39,7 +39,6 @@ in {
   flake.nixosModules.navidrome = {config, ...}: let
     cfg = config.services.navidrome;
     dataDir = "/var/lib/navidrome";
-    backupDir = "${dataDir}/backup";
     socketPath = "/run/navidrome/navidrome.sock";
   in {
     services.navidrome = {
@@ -50,7 +49,7 @@ in {
         "Scanner.Schedule" = "0 * * * *";
         "CoverArtPriority" = "embedded, cover.*, folder.*, front.*, external";
         "PID.Album" = "musicbrainz_albumid|album";
-        "Backup.Path" = backupDir;
+        "Backup.Path" = "${dataDir}/backup";
         "Backup.Schedule" = "0 0 * * *";
         "Backup.Count" = 7;
       };
@@ -71,6 +70,7 @@ in {
 
     # Back up Navidrome data
     my.restic.extraPaths = [dataDir];
+    my.restic.extraExclude = ["${dataDir}/cache"];
 
     # Give Caddy access to the socket
     users.users.${config.services.caddy.user}.extraGroups = [cfg.group];
