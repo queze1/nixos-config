@@ -10,15 +10,17 @@
     toSubpath = p: lib.path.removePrefix /. (/. + p);
     backupSubmodule = options.services.restic.backups.type.nestedTypes.elemType.getSubModules;
 
-    # Wrapper that cds into the latest snapshot before executing restic
+    # Wrapper that cds into the latest snapshot before executing restic backup
     resticWrapper = pkgs.writeShellScriptBin "restic" ''
       set -e
-      latest=$(${lib.getExe' pkgs.coreutils "ls"} -1 ${lib.escapeShellArg cfg.snapshotsDir} 2>/dev/null \
-        | ${lib.getExe' pkgs.coreutils "sort"} | ${lib.getExe' pkgs.coreutils "tail"} -n1)
-      if [ -n "$latest" ]; then
-        cd "${cfg.snapshotsDir}/$latest"
+      if [ "''${1:-}" = "backup" ]; then
+        latest=$(${lib.getExe' pkgs.coreutils "ls"} -1 ${lib.escapeShellArg cfg.snapshotsDir} 2>/dev/null \
+          | ${lib.getExe' pkgs.coreutils "sort"} | ${lib.getExe' pkgs.coreutils "tail"} -n1)
+        if [ -n "$latest" ]; then
+          cd "${cfg.snapshotsDir}/$latest"
+        fi
+        echo "Working directory: $(${lib.getExe' pkgs.coreutils "pwd"})"
       fi
-      echo "Working directory: $(${lib.getExe' pkgs.coreutils "pwd"})"
       exec ${lib.getExe pkgs.restic} "$@"
     '';
 
