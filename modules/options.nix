@@ -20,6 +20,18 @@
         default = [];
         description = "Extra user directories to preserve.";
       };
+      extraFiles = lib.mkOption {
+        type = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
+        default = [];
+        example = [
+          {
+            file = "/etc/ssh/ssh_host_ed25519_key";
+            how = "symlink";
+            configureParent = true;
+          }
+        ];
+        description = "Extra files to preserve.";
+      };
     };
   };
 
