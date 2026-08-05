@@ -54,7 +54,19 @@ jobs:
             --eval-store auto \
             --store ssh-ng://eu.nixbuild.net \
             --builders ""
-  
+
+  summary:
+    name: "Summary"
+    needs: build
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate nixbuild.net summary
+        uses: nixbuild/nixbuild-action@v25
+        with:
+          nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
+          generate_summary_for: 'workflow'
+
   # Add to deployed branch if tests pass and the push was on main
   promote:
     needs: build
