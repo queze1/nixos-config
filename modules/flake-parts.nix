@@ -55,7 +55,6 @@
         commitizen.enable = true;
         deadnix.enable = true;
         flake-checker.enable = true;
-        shellcheck.enable = true;
       };
     };
   };
