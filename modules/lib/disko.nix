@@ -37,71 +37,11 @@
   };
 
   # Mostly copied from https://www.vimjoyer.com/vid89-impermanent/disko
-  flake.factory.diskoTmpfsOnRoot = {device}: {pkgs, ...}: {
+  flake.factory.diskoTmpfsOnRoot = {device}: {
     imports = [inputs.disko.nixosModules.default];
 
     fileSystems."/nix".neededForBoot = true;
     fileSystems."/persistent".neededForBoot = true;
-
-    # Bit of a hack
-    boot.initrd.systemd.services.restore-persistent = {
-      description = "Restore persistent subvolume from /persistent-new";
-      wantedBy = ["initrd.target"];
-      after = [
-        "local-fs-pre.target"
-        "initrd-root-device.target"
-        "reset-root.service" # avoid mounting /btrfs_tmp at the same time
-        "dev-disk-by\\x2dpartlabel-disk\\x2dmain\\x2droot.device"
-      ];
-      requires = [
-        "dev-disk-by\\x2dpartlabel-disk\\x2dmain\\x2droot.device"
-      ];
-      before = [
-        "sysroot.mount"
-        "initrd-preservation.target" # ensure /persistent is restored before preservation bind mounts
-      ];
-      path = with pkgs; [
-        coreutils
-        systemd
-        util-linux
-      ];
-      unitConfig.DefaultDependencies = "no";
-      serviceConfig.Type = "oneshot";
-      script = ''
-        set -euo pipefail
-        udevadm settle --timeout=30
-
-        mkdir -p /btrfs_tmp
-
-        lsblk -f /dev/disk/by-partlabel/disk-main-root
-        blkid /dev/disk/by-partlabel/disk-main-root
-        mount -t btrfs /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
-        # mount /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
-        mkdir -p /btrfs_tmp/persistent-backup
-
-        # Restore a persistent subvolume if it was placed in persistent-new
-        if [[ -e /btrfs_tmp/persistent-new ]]; then
-            timestamp=$(date "+%Y-%m-%d_%H-%M-%S")
-            mv /btrfs_tmp/persistent "/btrfs_tmp/persistent-backup/persistent-$timestamp"
-            mv /btrfs_tmp/persistent-new /btrfs_tmp/persistent
-        fi
-
-        umount /btrfs_tmp
-      '';
-    };
-
-    # Shell aliases to mount/unmount the top-level subpartition
-    environment.shellAliases = {
-      mount-top-level = "sudo mkdir -p /mnt/top-level && sudo mount -o subvolid=5 /dev/disk/by-partlabel/disk-main-root /mnt/top-level";
-      umount-top-level = "sudo umount /mnt/top-level";
-    };
-
-    # specialisation.persistent-restore.configuration = {lib, ...}: {
-    #   fileSystems."/persistent".options = lib.mkForce [
-    #     "subvol=persistent-restore"
-    #     "noatime"
-    #   ];
-    # };
 
     disko.devices.nodev = {
       "/" = {
@@ -182,16 +122,20 @@
     fileSystems."/nix".neededForBoot = true;
     fileSystems."/persistent".neededForBoot = true;
 
-    boot.initrd.systemd.services.reset-root = {
-      description = "Backup root subvolume and initialise a new root";
+    boot.initrd.systemd.services.setup-subvolumes = {
+      description = "Set up /root and /persistent";
       wantedBy = ["initrd.target"];
       after = [
         "local-fs-pre.target" # when filesystems are ready for mounting
         "initrd-root-device.target" # when the root filesystem device is avaliable but before it's mounted
-        "dev-disk-by\x2dpartlabel-disk\x2dmain\x2droot.device" # when the device is ready
+        "dev-disk-by\x2dpartlabel-disk\x2dmain\x2droot.device"
+      ];
+      requires = [
+        "dev-disk-by\\x2dpartlabel-disk\\x2dmain\\x2droot.device"
       ];
       before = ["sysroot.mount"]; # mounts the root filesystem
       path = with pkgs; [
+        systemd
         btrfs-progs
         coreutils
         util-linux
@@ -202,8 +146,11 @@
         set -euo pipefail
 
         mkdir -p /btrfs_tmp
+        udevadm settle --timeout=30
         mount /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
+
         mkdir -p /btrfs_tmp/root-backup
+        mkdir -p /btrfs_tmp/persistent-backup
 
         # Back up the old root
         if [[ -e /btrfs_tmp/root ]]; then
@@ -211,9 +158,9 @@
             mv /btrfs_tmp/root "/btrfs_tmp/root-backup/root-$timestamp"
         fi
 
-        if [[ -e /btrfs_tmp/root-new ]]; then
-            # Restore a root if it was placed in root-new
-            mv /btrfs_tmp/root-new /btrfs_tmp/root
+        if [[ -e /btrfs_tmp/root-restore ]]; then
+            # Restore a root if it was placed in root-restore
+            mv /btrfs_tmp/root-restore /btrfs_tmp/root
         else
             # Create a new empty root
             btrfs subvolume create /btrfs_tmp/root
@@ -224,42 +171,11 @@
             btrfs subvolume delete -R "/btrfs_tmp/root-backup/$old"
         done
 
-        umount /btrfs_tmp
-      '';
-    };
-
-    # Bit of a hack
-    boot.initrd.systemd.services.restore-persistent = {
-      description = "Restore persistent subvolume from /persistent-new";
-      wantedBy = ["initrd.target"];
-      after = [
-        "local-fs-pre.target"
-        "initrd-root-device.target"
-        "reset-root.service" # avoid mounting /btrfs_tmp at the same time
-        "dev-disk-by\x2dpartlabel-disk\x2dmain\x2droot.device"
-      ];
-      before = [
-        "sysroot.mount"
-        "initrd-preservation.target" # ensure /persistent is restored before preservation bind mounts
-      ];
-      path = with pkgs; [
-        coreutils
-        util-linux
-      ];
-      unitConfig.DefaultDependencies = "no";
-      serviceConfig.Type = "oneshot";
-      script = ''
-        set -euo pipefail
-
-        mkdir -p /btrfs_tmp
-        mount /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
-        mkdir -p /btrfs_tmp/persistent-backup
-
-        # Restore a persistent subvolume if it was placed in persistent-new
-        if [[ -e /btrfs_tmp/persistent-new ]]; then
+        # Restore a persistent subvolume if it was placed in persistent-restore
+        if [[ -e /btrfs_tmp/persistent-restore ]]; then
             timestamp=$(date "+%Y-%m-%d_%H-%M-%S")
             mv /btrfs_tmp/persistent "/btrfs_tmp/persistent-backup/persistent-$timestamp"
-            mv /btrfs_tmp/persistent-new /btrfs_tmp/persistent
+            mv /btrfs_tmp/persistent-restore /btrfs_tmp/persistent
         fi
 
         umount /btrfs_tmp
@@ -272,16 +188,16 @@
       umount-top-level = "sudo umount /mnt/top-level";
     };
 
-    # specialisation.root-restore.configuration = {lib, ...}: {
+    # specialisation.root-preview.configuration = {lib, ...}: {
     #   fileSystems."/root".options = lib.mkForce [
-    #     "subvol=root-restore"
+    #     "subvol=root-preview"
     #     "noatime"
     #   ];
     # };
 
-    # specialisation.persistent-restore.configuration = {lib, ...}: {
+    # specialisation.persistent-preview.configuration = {lib, ...}: {
     #   fileSystems."/persistent".options = lib.mkForce [
-    #     "subvol=persistent-restore"
+    #     "subvol=persistent-preview"
     #     "noatime"
     #   ];
     # };
