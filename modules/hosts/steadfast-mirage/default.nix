@@ -45,19 +45,12 @@ in {
         "/var/lib/nixos"
         "/var/lib/tailscale"
       ];
+      # Don't back up but allow restoring backups
       backups.backblaze-b2 = {
-        timerConfig = {
-          OnCalendar = "daily";
-          RandomizedDelaySec = "4h";
-          Persistent = true;
-        };
+        timerConfig = null;
       };
       backups.local-server = {
-        timerConfig = {
-          OnCalendar = "hourly";
-          RandomizedDelaySec = "15m";
-          Persistent = true;
-        };
+        timerConfig = null;
       };
     };
 
