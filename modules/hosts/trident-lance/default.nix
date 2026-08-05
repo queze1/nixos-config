@@ -6,7 +6,7 @@
   hostname = "trident-lance";
   sshKeys = import "${self}/ssh-keys.nix";
 in {
-  # Configuration for testing on cloud
+  # Configuration for testing on cloud (CURRENTLY BROKEN)
   flake.nixosModules.tridentLanceConfiguration = {
     config,
     lib,
@@ -144,7 +144,6 @@ in {
   };
 
   flake.nixosConfigurations.${hostname} = inputs.nixpkgs-stable.lib.nixosSystem {
-    system = "x86_64-linux";
     modules = [self.nixosModules.tridentLanceConfiguration];
   };
 }
