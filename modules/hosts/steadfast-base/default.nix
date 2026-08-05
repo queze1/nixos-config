@@ -51,7 +51,6 @@ in {
     networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = config.services.openssh.ports;
 
     # Declaratively configure wifi
-    sops.secrets.home-wifi-env = {};
     networking.networkmanager.ensureProfiles = {
       environmentFiles = [config.sops.secrets.home-wifi-env.path];
       profiles.home-wifi = {
@@ -79,6 +78,11 @@ in {
           psk = "$WIFI_PSK";
         };
       };
+    };
+    sops.secrets.home-wifi-env = {};
+    systemd.services.NetworkManager-ensure-profiles = {
+      wants = ["sops-nix.service"];
+      after = ["sops-nix.service"];
     };
 
     # Don't sleep on lid close

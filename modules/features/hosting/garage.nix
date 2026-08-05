@@ -45,11 +45,14 @@
     };
     users.groups.garage = {};
 
-    # Override systemd to use a static user
-    systemd.services.garage.serviceConfig = {
-      DynamicUser = lib.mkForce false;
-      User = "garage";
-      Group = "garage";
+    systemd.services.garage = {
+      wants = ["sops-nix.service"];
+      after = ["sops-nix.service"];
+      serviceConfig = {
+        DynamicUser = lib.mkForce false;
+        User = "garage";
+        Group = "garage";
+      };
     };
 
     # Preserve Garage data

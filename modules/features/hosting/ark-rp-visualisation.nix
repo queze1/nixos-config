@@ -41,11 +41,13 @@
       sops.secrets.ark-rp-visualisation-env = {
         owner = "ark-rp-viz";
         group = "ark-rp-viz";
+        restartUnits = ["ark-rp-viz.service"];
       };
 
       # Service to run ark-rp-visualisation
       systemd.services.ark-rp-viz = {
         description = "ARK D&D Campaign Dashboard";
+        wants = ["sops-nix.service"];
         after = [
           "network.target"
           "sops-nix.service"
