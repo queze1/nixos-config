@@ -69,8 +69,8 @@ in {
       }
     ];
 
-    # Back up Navidrome backups
-    my.restic.extraPaths = [backupDir];
+    # Back up Navidrome data
+    my.restic.extraPaths = [dataDir];
 
     # Give Caddy access to the socket
     users.users.${config.services.caddy.user}.extraGroups = [cfg.group];
