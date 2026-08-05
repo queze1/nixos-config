@@ -17,6 +17,12 @@
     sops.age.generateKey = true;
 
     my.preservation.extraDirectories = ["/var/lib/sops-nix"];
+
+    # sops-nix runs as an activation script, make activation wait for initrd-preservation.target
+    boot.initrd.systemd.services.initrd-nixos-activation = {
+      after = ["initrd-preservation.target"];
+      wants = ["initrd-preservation.target"];
+    };
   };
 
   flake.nixosModules.sopsNixWithHM = {
