@@ -7,6 +7,7 @@
       dates = "weekly";
       options = "--delete-older-than 30d";
     };
+    nix.settings.download-buffer-size = 5000000; # 500 MB
 
     # Preserve nix repl history
     my.preservation.extraUserDirectories = [
