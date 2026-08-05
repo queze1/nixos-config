@@ -135,7 +135,6 @@
       ];
       before = ["sysroot.mount"]; # mounts the root filesystem
       path = with pkgs; [
-        systemd
         btrfs-progs
         coreutils
         util-linux
@@ -146,7 +145,6 @@
         set -euo pipefail
 
         mkdir -p /btrfs_tmp
-        udevadm settle --timeout=30
         mount /dev/disk/by-partlabel/disk-main-root /btrfs_tmp
 
         mkdir -p /btrfs_tmp/root-backup
