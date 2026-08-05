@@ -235,21 +235,18 @@
           subvolumes = {
             "/root" = {
               mountOptions = [
-                "subvol=root"
                 "noatime"
               ];
               mountpoint = "/";
             };
             "/persistent" = {
               mountOptions = [
-                "subvol=persistent"
                 "noatime"
               ];
               mountpoint = "/persistent";
             };
             "/nix" = {
               mountOptions = [
-                "subvol=nix"
                 "noatime"
               ];
               mountpoint = "/nix";
