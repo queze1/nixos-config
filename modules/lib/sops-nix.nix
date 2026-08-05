@@ -14,7 +14,6 @@
     ];
     sops.defaultSopsFile = "${inputs.secrets}/secrets/${config.networking.hostName}.yaml";
     sops.age.keyFile = "/var/lib/sops-nix/key.txt";
-    sops.age.generateKey = true;
 
     my.preservation.extraDirectories = ["/var/lib/sops-nix"];
   };
