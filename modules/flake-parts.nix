@@ -47,7 +47,7 @@
       description = "A basic flake template";
     };
 
-    flake.perSystem = {config, ...}: {
+    perSystem = {config, ...}: {
       devShells.default = config.pre-commit.devShell;
 
       pre-commit.settings.hooks = {
