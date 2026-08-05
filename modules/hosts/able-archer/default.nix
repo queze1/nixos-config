@@ -13,7 +13,7 @@ in {
       self.nixosModules.sharedModules
 
       # Basic libraries
-      (self.factory.diskoTmpfsOnRoot
+      (self.factory.diskoBrtfsEphemeralRoot
         {device = "/dev/vda";})
       self.nixosModules.preservation
       self.nixosModules.sopsNix
