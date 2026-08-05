@@ -96,12 +96,12 @@
       umount-top-level = "sudo umount /mnt/top-level";
     };
 
-    specialisation.persistent-restore.configuration = {lib, ...}: {
-      fileSystems."/persistent".options = lib.mkForce [
-        "subvol=persistent-restore"
-        "noatime"
-      ];
-    };
+    # specialisation.persistent-restore.configuration = {lib, ...}: {
+    #   fileSystems."/persistent".options = lib.mkForce [
+    #     "subvol=persistent-restore"
+    #     "noatime"
+    #   ];
+    # };
 
     disko.devices.nodev = {
       "/" = {
@@ -272,19 +272,19 @@
       umount-top-level = "sudo umount /mnt/top-level";
     };
 
-    specialisation.root-restore.configuration = {lib, ...}: {
-      fileSystems."/root".options = lib.mkForce [
-        "subvol=root-restore"
-        "noatime"
-      ];
-    };
+    # specialisation.root-restore.configuration = {lib, ...}: {
+    #   fileSystems."/root".options = lib.mkForce [
+    #     "subvol=root-restore"
+    #     "noatime"
+    #   ];
+    # };
 
-    specialisation.persistent-restore.configuration = {lib, ...}: {
-      fileSystems."/persistent".options = lib.mkForce [
-        "subvol=persistent-restore"
-        "noatime"
-      ];
-    };
+    # specialisation.persistent-restore.configuration = {lib, ...}: {
+    #   fileSystems."/persistent".options = lib.mkForce [
+    #     "subvol=persistent-restore"
+    #     "noatime"
+    #   ];
+    # };
 
     disko.devices.disk.main = {
       device = device;
