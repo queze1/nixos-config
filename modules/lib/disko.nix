@@ -186,19 +186,29 @@
       umount-top-level = "sudo umount /mnt/top-level";
     };
 
-    # specialisation.root-preview.configuration = {lib, ...}: {
-    #   fileSystems."/root".options = lib.mkForce [
-    #     "subvol=root-preview"
-    #     "noatime"
-    #   ];
-    # };
+    specialisation.root-preview.configuration = {lib, ...}: {
+      disko.devices.disk.main.content.partitions.root.content.subvolumes = {
+        "/root" = {
+          mountpoint = lib.mkForce "/root-original";
+        };
+        "/root-preview" = {
+          mountOptions = ["noatime"];
+          mountpoint = "/root";
+        };
+      };
+    };
 
-    # specialisation.persistent-preview.configuration = {lib, ...}: {
-    #   fileSystems."/persistent".options = lib.mkForce [
-    #     "subvol=persistent-preview"
-    #     "noatime"
-    #   ];
-    # };
+    specialisation.persistent-preview.configuration = {lib, ...}: {
+      disko.devices.disk.main.content.partitions.root.content.subvolumes = {
+        "/persistent" = {
+          mountpoint = lib.mkForce "/persistent-original";
+        };
+        "/persistent-preview" = {
+          mountOptions = ["noatime"];
+          mountpoint = "/persistent";
+        };
+      };
+    };
 
     disko.devices.disk.main = {
       device = device;
@@ -234,21 +244,15 @@
           ];
           subvolumes = {
             "/root" = {
-              mountOptions = [
-                "noatime"
-              ];
+              mountOptions = ["noatime"];
               mountpoint = "/";
             };
             "/persistent" = {
-              mountOptions = [
-                "noatime"
-              ];
+              mountOptions = ["noatime"];
               mountpoint = "/persistent";
             };
             "/nix" = {
-              mountOptions = [
-                "noatime"
-              ];
+              mountOptions = ["noatime"];
               mountpoint = "/nix";
             };
           };
