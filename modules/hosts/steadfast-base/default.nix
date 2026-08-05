@@ -12,10 +12,13 @@ in {
       self.nixosModules.sharedModules
 
       # Basic libraries
+      (self.factory.diskoBrtfsEphemeralRoot
+        {device = "/dev/nvme0n1";})
       self.nixosModules.preservation
       self.nixosModules.sopsNix
 
       # System config
+      self.nixosModules.btrbk
       self.nixosModules.networkmanager
 
       # Nix-related

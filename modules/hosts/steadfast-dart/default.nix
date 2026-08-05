@@ -10,9 +10,6 @@ in {
     imports = [
       self.nixosModules.steadfastBase
 
-      self.nixosModules.btrbk
-      (self.factory.diskoBrtfsEphemeralRoot
-        {device = "/dev/nvme0n1";})
       self.nixosModules.podmanContainers
 
       # Ingress & routing
