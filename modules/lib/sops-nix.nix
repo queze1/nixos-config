@@ -13,15 +13,6 @@
       "/persistent/etc/ssh/ssh_host_ed25519_key"
     ];
     sops.defaultSopsFile = "${inputs.secrets}/secrets/${config.networking.hostName}.yaml";
-    sops.age.keyFile = "/var/lib/sops-nix/key.txt";
-
-    my.preservation.extraFiles = [
-      {
-        file = "/var/lib/sops-nix/key.txt";
-        how = "symlink";
-        configureParent = true;
-      }
-    ];
   };
 
   flake.nixosModules.sopsNixWithHM = {
