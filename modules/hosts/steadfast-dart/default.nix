@@ -13,6 +13,7 @@ in {
       self.nixosModules.btrbk
       (self.factory.diskoBrtfsEphemeralRoot
         {device = "/dev/nvme0n1";})
+      self.nixosModules.laptopServer
       self.nixosModules.podmanContainers
 
       # Ingress & routing
