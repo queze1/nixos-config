@@ -80,10 +80,6 @@ in {
       };
     };
     sops.secrets.home-wifi-env = {};
-    systemd.services.NetworkManager-ensure-profiles = {
-      wants = ["sops-nix.service"];
-      after = ["sops-nix.service"];
-    };
 
     # Don't sleep on lid close
     services.logind.settings.Login = {

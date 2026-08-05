@@ -46,8 +46,6 @@
     users.groups.garage = {};
 
     systemd.services.garage = {
-      wants = ["sops-nix.service"];
-      after = ["sops-nix.service"];
       serviceConfig = {
         DynamicUser = lib.mkForce false;
         User = "garage";
