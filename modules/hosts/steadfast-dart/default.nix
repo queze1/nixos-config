@@ -11,7 +11,7 @@ in {
       self.nixosModules.steadfastBase
 
       self.nixosModules.btrbk
-      (self.factory.diskoTmpfsOnRoot
+      (self.factory.diskoBrtfsEphemeralRoot
         {device = "/dev/nvme0n1";})
       self.nixosModules.podmanContainers
 
