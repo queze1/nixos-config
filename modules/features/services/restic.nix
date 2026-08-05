@@ -1,16 +1,26 @@
 {
   flake.nixosModules.resticDefaults = {
+    pkgs,
     config,
     lib,
     options,
     ...
   }: let
     cfg = config.my.restic;
-
     toSubpath = p: lib.path.removePrefix /. (/. + p);
-
-    # Extract the services.restic.backups.<name> submodule
     backupSubmodule = options.services.restic.backups.type.nestedTypes.elemType.getSubModules;
+
+    # Wrapper that cds into the latest snapshot before executing restic
+    resticWrapper = pkgs.writeShellScriptBin "restic" ''
+      set -e
+      latest=$(${lib.getExe' pkgs.coreutils "ls"} -1 ${lib.escapeShellArg cfg.snapshotsDir} 2>/dev/null \
+        | ${lib.getExe' pkgs.coreutils "sort"} | ${lib.getExe' pkgs.coreutils "tail"} -n1)
+      if [ -n "$latest" ]; then
+        cd "${cfg.snapshotsDir}/$latest"
+      fi
+      echo "Working directory: $(${lib.getExe' pkgs.coreutils "pwd"})"
+      exec ${lib.getExe pkgs.restic} "$@"
+    '';
 
     # Define a submodule which sets pre-evaluation defaults
     myBackupSubmodule = lib.types.submodule [
@@ -18,19 +28,11 @@
         {name, ...}: {
           imports = backupSubmodule;
 
-          # Recursively set lib.mkDefault, overrides option defaults but is overridden by normal definitions
-          config = lib.mapAttrsRecursive (_: value: lib.mkDefault value) (
-            {
-              initialize = true;
-              environmentFile = config.sops.secrets."restic-${name}-env".path;
-            }
-            // lib.optionalAttrs (cfg.snapshotsDir != null) {
-              # cd into the newest directory under snapshotsDir
-              backupPrepareCommand = ''
-                cd "${cfg.snapshotsDir}/$(ls -1 ${lib.escapeShellArg cfg.snapshotsDir} | sort | tail -n1)"
-              '';
-            }
-          );
+          config = {
+            initialize = lib.mkDefault true;
+            environmentFile = lib.mkDefault config.sops.secrets."restic-${name}-env".path;
+            package = lib.mkIf (cfg.snapshotsDir != null) (lib.mkDefault resticWrapper);
+          };
         }
       )
     ];
@@ -53,7 +55,7 @@
         default = null;
         description = ''
           If set, paths are backed up relative to the newest (lexicographically last) directory found in this directory.
-          Every path is turned into a subpath and a `backupPrepareCommand` is generated that `cd`s into that directory before restic runs.
+          Every path is turned into a subpath and a wrapper is generated that `cd`s into that directory before restic runs.
         '';
       };
     };
