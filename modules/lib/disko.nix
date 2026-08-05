@@ -193,7 +193,7 @@
         };
         "/root-preview" = {
           mountOptions = ["noatime"];
-          mountpoint = "/root";
+          mountpoint = "/";
         };
       };
     };
