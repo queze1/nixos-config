@@ -74,6 +74,8 @@ in {
           "Backup.Path" = "${myCfg.dataDir}/backup";
           "Backup.Schedule" = "0 0 * * *";
           "Backup.Count" = 7;
+          "ExtAuth.TrustedSources" = "@";
+          "ExtAuth.UserHeader" = "X-Webauth-User";
         };
       };
 
@@ -102,7 +104,10 @@ in {
         ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
-            import tailscale_auth
+            request_header -X-Webauth-User
+            @public path /share/* /rest/*
+            @protected not path /share/* /rest/*
+            import tailscale_auth @protected
             reverse_proxy unix/${myCfg.socketPath}
           '';
         };
