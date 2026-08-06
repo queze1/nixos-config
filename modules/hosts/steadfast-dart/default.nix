@@ -27,7 +27,7 @@ in {
     ];
 
     # Set incrementing port numbers
-    services.actual.settings.port = 8000;
+    my.app.actual.port = 8000;
     my.app.ark-rp-viz.port = 8001;
     services.metube.port = 8002;
     services.picard.port = 8003;
