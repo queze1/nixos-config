@@ -36,56 +36,79 @@ in {
     };
   };
 
-  flake.nixosModules.navidrome = {config, ...}: let
+  flake.nixosModules.navidrome = {
+    config,
+    lib,
+    ...
+  }: let
     cfg = config.services.navidrome;
-    dataDir = "/var/lib/navidrome";
-    socketPath = "/run/navidrome/navidrome.sock";
+    myCfg = config.my.app.navidrome;
   in {
-    services.navidrome = {
-      enable = true;
-      settings = {
-        "Address" = "unix:${socketPath}";
-        "MusicFolder" = musicDir;
-        "Scanner.Schedule" = "0 * * * *";
-        "CoverArtPriority" = "embedded, cover.*, folder.*, front.*, external";
-        "PID.Album" = "musicbrainz_albumid|album";
-        "Backup.Path" = "${dataDir}/backup";
-        "Backup.Schedule" = "0 0 * * *";
-        "Backup.Count" = 7;
+    options.my.app.navidrome = {
+      domain = lib.mkOption {
+        type = lib.types.str;
+        default = "navidrome.osipol.uk";
+        description = "Domain to host Navidrome on.";
+      };
+      socketPath = lib.mkOption {
+        type = lib.types.str;
+        default = "/run/navidrome/navidrome.sock";
+        description = "Socket to run Navidrome on.";
+      };
+      dataDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/var/lib/navidrome";
+        description = "Path where Navidrome stores its data.";
       };
     };
 
-    # Give access to the music dir
-    users.users.${cfg.user}.extraGroups = ["music"];
-
-    # Preserve Navidrome data
-    my.preservation.extraDirectories = [
-      {
-        directory = dataDir;
-        user = cfg.user;
-        group = cfg.group;
-        mode = "0700";
-      }
-    ];
-
-    # Back up Navidrome data
-    my.restic.extraPaths = [dataDir];
-    my.restic.extraExclude = ["${dataDir}/cache"];
-
-    # Give Caddy access to the socket
-    users.users.${config.services.caddy.user}.extraGroups = [cfg.group];
-
-    # Reverse proxy with Tailscale auth
-    services.caddy.virtualHosts = {
-      "new.navidrome.osipol.uk" = {
-        extraConfig = ''
-          import cloudflare_dns
-          import tailscale_auth
-          reverse_proxy unix/${socketPath}
-        '';
+    config = {
+      services.navidrome = {
+        enable = true;
+        settings = {
+          "Address" = "unix:${myCfg.socketPath}";
+          "MusicFolder" = musicDir;
+          "Scanner.Schedule" = "0 * * * *";
+          "CoverArtPriority" = "embedded, cover.*, folder.*, front.*, external";
+          "PID.Album" = "musicbrainz_albumid|album";
+          "Backup.Path" = "${myCfg.dataDir}/backup";
+          "Backup.Schedule" = "0 0 * * *";
+          "Backup.Count" = 7;
+        };
       };
+
+      # Give access to the music dir
+      users.users.${cfg.user}.extraGroups = ["music"];
+
+      # Preserve Navidrome data
+      my.preservation.extraDirectories = [
+        {
+          directory = myCfg.dataDir;
+          user = cfg.user;
+          group = cfg.group;
+          mode = "0700";
+        }
+      ];
+
+      # Back up Navidrome data
+      my.restic.extraPaths = [myCfg.dataDir];
+      my.restic.extraExclude = ["${myCfg.dataDir}/cache"];
+
+      # Give Caddy access to the socket
+      users.users.${config.services.caddy.user}.extraGroups = [cfg.group];
+
+      # Reverse proxy with Tailscale auth
+      services.caddy.virtualHosts = {
+        ${myCfg.domain} = {
+          extraConfig = ''
+            import cloudflare_dns
+            import tailscale_auth
+            reverse_proxy unix/${myCfg.socketPath}
+          '';
+        };
+      };
+      services.ddclient.domains = [myCfg.domain];
     };
-    services.ddclient.domains = ["new.navidrome.osipol.uk"];
   };
 
   flake.nixosModules.metube = {
