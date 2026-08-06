@@ -120,7 +120,7 @@ in {
   in {
     options.my.apps.metube = {
       domain = lib.mkOption {
-        type = lib.types.int;
+        type = lib.types.str;
         default = "metube.osipol.uk";
         description = "Domain to host MeTube on.";
       };
@@ -222,7 +222,7 @@ in {
   in {
     options.my.apps.yubal = {
       domain = lib.mkOption {
-        type = lib.types.int;
+        type = lib.types.str;
         default = "yubal.osipol.uk";
         description = "Domain to host yubal on.";
       };
