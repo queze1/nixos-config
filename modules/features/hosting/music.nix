@@ -218,9 +218,14 @@ in {
     lib,
     ...
   }: let
-    cfg = config.services.yubal;
+    cfg = config.my.apps.yubal;
   in {
-    options.services.yubal = {
+    options.my.apps.yubal = {
+      domain = lib.mkOption {
+        type = lib.types.int;
+        default = "yubal.osipol.uk";
+        description = "Domain to host yubal on.";
+      };
       port = lib.mkOption {
         type = lib.types.int;
         default = 8000;
@@ -290,7 +295,7 @@ in {
 
       # Reverse proxy with Tailscale auth
       services.caddy.virtualHosts = {
-        "yubal.osipol.uk" = {
+        ${cfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
             import tailscale_auth
@@ -301,7 +306,7 @@ in {
           '';
         };
       };
-      services.ddclient.domains = ["yubal.osipol.uk"];
+      services.ddclient.domains = [cfg.domain];
 
       # Only allow Caddy to access this port
       my.caddy.firewalledPorts = [cfg.port];
