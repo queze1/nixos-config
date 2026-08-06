@@ -5,9 +5,14 @@
     pkgs,
     ...
   }: let
-    cfg = config.services.ark-rp-viz;
+    cfg = config.my.app.ark-rp-viz;
   in {
-    options.services.ark-rp-viz = {
+    options.my.app.ark-rp-viz = {
+      domain = lib.mkOption {
+        type = lib.types.str;
+        default = "ark-rp-visualisation.osipol.uk";
+        description = "Domain to host ark-rp-visualisation on.";
+      };
       port = lib.mkOption {
         type = lib.types.int;
         default = 8050;
@@ -79,7 +84,7 @@
             credentialsFile = "${config.sops.secrets.ark-rp-viz-cloudflare-creds.path}";
             default = "http_status:404";
             ingress = {
-              "ark-rp-visualisation.osipol.uk" = "http://127.0.0.1:${toString cfg.port}";
+              ${cfg.domain} = "http://127.0.0.1:${toString cfg.port}";
             };
           };
         };

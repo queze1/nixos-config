@@ -28,7 +28,7 @@ in {
 
     # Set incrementing port numbers
     services.actual.settings.port = 8000;
-    services.ark-rp-viz.port = 8001;
+    my.app.ark-rp-viz.port = 8001;
     services.metube.port = 8002;
     services.picard.port = 8003;
     services.pihole-web.ports = ["8004"];
