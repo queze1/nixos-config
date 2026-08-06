@@ -32,7 +32,7 @@ in {
     my.apps.metube.port = 8002;
     my.apps.picard.port = 8003;
     my.apps.pihole.ports = ["8004"];
-    services.sillytavern.port = 8005;
+    my.apps.sillytavern.port = 8005;
     my.apps.yubal.port = 8006;
 
     my.restic = {

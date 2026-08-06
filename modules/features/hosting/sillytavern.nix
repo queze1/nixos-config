@@ -1,11 +1,12 @@
 {
   flake.nixosModules.sillytavern = {
     config,
+    lib,
     pkgs,
     ...
   }: let
     cfg = config.services.sillytavern;
-    dataDir = "/var/lib/SillyTavern";
+    myCfg = config.my.apps.sillytavern;
 
     yamlFormat = pkgs.formats.yaml {};
     configFile = yamlFormat.generate "config.yaml" {
@@ -207,38 +208,59 @@
       enableServerPluginsAutoUpdate = true;
     };
   in {
-    services.sillytavern = {
-      enable = true;
-      listen = true;
-      configFile = "${configFile}";
-    };
-
-    # Preserve SillyTavern data
-    my.preservation.extraDirectories = [
-      {
-        directory = dataDir;
-        user = cfg.user;
-        group = cfg.group;
-        mode = "0700";
-      }
-    ];
-
-    # Backup Sillytavern data
-    my.restic.extraPaths = ["${dataDir}/data"];
-
-    # Reverse proxy with Tailscale auth
-    services.caddy.virtualHosts = {
-      "new.sillytavern.osipol.uk" = {
-        extraConfig = ''
-          import cloudflare_dns
-          import tailscale_auth
-          reverse_proxy localhost:${toString cfg.port}
-        '';
+    options.my.apps.sillytavern = {
+      domain = lib.mkOption {
+        type = lib.types.str;
+        default = "sillytavern.osipol.uk";
+        description = "Domain to host SillyTavern on.";
+      };
+      port = lib.mkOption {
+        type = lib.types.int;
+        default = 8045;
+        description = "Port to run SillyTavern on.";
+      };
+      dataDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/var/lib/SillyTavern";
+        description = "Directory where SillyTavern stores its data.";
       };
     };
-    services.ddclient.domains = ["new.sillytavern.osipol.uk"];
 
-    # Only allow Caddy to access this port
-    my.caddy.firewalledPorts = [cfg.port];
+    config = {
+      services.sillytavern = {
+        enable = true;
+        listen = true;
+        port = myCfg.port;
+        configFile = "${configFile}";
+      };
+
+      # Preserve SillyTavern data
+      my.preservation.extraDirectories = [
+        {
+          directory = myCfg.dataDir;
+          user = cfg.user;
+          group = cfg.group;
+          mode = "0700";
+        }
+      ];
+
+      # Backup Sillytavern data
+      my.restic.extraPaths = ["${myCfg.dataDir}/data"];
+
+      # Reverse proxy with Tailscale auth
+      services.caddy.virtualHosts = {
+        ${cfg.domain} = {
+          extraConfig = ''
+            import cloudflare_dns
+            import tailscale_auth
+            reverse_proxy localhost:${toString myCfg.port}
+          '';
+        };
+      };
+      services.ddclient.domains = [myCfg.domain];
+
+      # Only allow Caddy to access this port
+      my.caddy.firewalledPorts = [myCfg.port];
+    };
   };
 }
