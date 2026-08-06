@@ -318,9 +318,14 @@ in {
     lib,
     ...
   }: let
-    cfg = config.services.picard;
+    cfg = config.my.apps.picard;
   in {
-    options.services.picard = {
+    options.my.apps.picard = {
+      domain = lib.mkOption {
+        type = lib.types.str;
+        default = "picard.osipol.uk";
+        description = "Domain to host Picard on.";
+      };
       port = lib.mkOption {
         type = lib.types.int;
         default = 5800;
@@ -390,7 +395,7 @@ in {
 
       # Reverse proxy with Tailscale auth
       services.caddy.virtualHosts = {
-        "picard.osipol.uk" = {
+        ${cfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
             import tailscale_auth
@@ -401,7 +406,7 @@ in {
           '';
         };
       };
-      services.ddclient.domains = ["picard.osipol.uk"];
+      services.ddclient.domains = [cfg.domain];
 
       # Only allow Caddy to access this port
       my.caddy.firewalledPorts = [cfg.port];

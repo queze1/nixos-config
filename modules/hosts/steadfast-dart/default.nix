@@ -33,7 +33,7 @@ in {
     my.apps.picard.port = 8003;
     services.pihole-web.ports = ["8004"];
     services.sillytavern.port = 8005;
-    services.yubal.port = 8006;
+    my.apps.yubal.port = 8006;
 
     my.restic = {
       snapshotsDir = "/persistent/snapshots";
