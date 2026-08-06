@@ -150,7 +150,7 @@
       services.ddclient.domains = [myCfg.domain];
 
       # Only allow Caddy to access this port
-      my.caddy.firewalledPorts = [(lib.toIntBase10 myCfg.ports)];
+      my.caddy.firewalledPorts = lib.toIntBase10 myCfg.ports;
     };
   };
 }
