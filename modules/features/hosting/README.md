@@ -25,7 +25,7 @@ A "typical" private service looks like:
   - Alternatively, a rootless Podman container may be used for Docker applications.
 2. File access wrangling, such as:
   - Preserving application data with `preservation` with correct permissions.
-  - Initialising directories with `tmpfiles` if the service definition didn't do this if you.
+  - Initialising directories with `tmpfiles` if the service definition didn't do this for you.
   - Creating a system user and group to run Podman containers or manage file permissions.
     - See [github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md](https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md) for info on user management with rootless Podman.
 3. Configuring any needed secrets with `sops-nix`.
