@@ -5,9 +5,9 @@
     pkgs,
     ...
   }: let
-    cfg = config.my.app.ark-rp-viz;
+    cfg = config.my.apps.ark-rp-viz;
   in {
-    options.my.app.ark-rp-viz = {
+    options.my.apps.ark-rp-viz = {
       domain = lib.mkOption {
         type = lib.types.str;
         default = "ark-rp-visualisation.osipol.uk";

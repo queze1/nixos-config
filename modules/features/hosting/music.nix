@@ -42,9 +42,9 @@ in {
     ...
   }: let
     cfg = config.services.navidrome;
-    myCfg = config.my.app.navidrome;
+    myCfg = config.my.apps.navidrome;
   in {
-    options.my.app.navidrome = {
+    options.my.apps.navidrome = {
       domain = lib.mkOption {
         type = lib.types.str;
         default = "navidrome.osipol.uk";

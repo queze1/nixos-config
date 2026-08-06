@@ -5,9 +5,9 @@
     ...
   }: let
     cfg = config.services.actual;
-    myCfg = config.my.app.actual;
+    myCfg = config.my.apps.actual;
   in {
-    options.my.app.actual = {
+    options.my.apps.actual = {
       domain = lib.mkOption {
         type = lib.types.str;
         default = "actual.osipol.uk";
