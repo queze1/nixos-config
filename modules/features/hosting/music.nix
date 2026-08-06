@@ -116,9 +116,14 @@ in {
     lib,
     ...
   }: let
-    cfg = config.services.metube;
+    cfg = config.my.apps.metube;
   in {
-    options.services.metube = {
+    options.my.apps.metube = {
+      domain = lib.mkOption {
+        type = lib.types.int;
+        default = "metube.osipol.uk";
+        description = "Domain to host MeTube on.";
+      };
       port = lib.mkOption {
         type = lib.types.int;
         default = 8081;
@@ -190,7 +195,7 @@ in {
 
       # Reverse proxy with Tailscale auth
       services.caddy.virtualHosts = {
-        "metube.osipol.uk" = {
+        ${cfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
             import tailscale_auth
@@ -201,7 +206,7 @@ in {
           '';
         };
       };
-      services.ddclient.domains = ["metube.osipol.uk"];
+      services.ddclient.domains = [cfg.domain];
 
       # Only allow Caddy to access this port
       my.caddy.firewalledPorts = [cfg.port];

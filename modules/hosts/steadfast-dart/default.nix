@@ -29,7 +29,7 @@ in {
     # Set incrementing port numbers
     my.apps.actual.port = 8000;
     my.apps.ark-rp-viz.port = 8001;
-    services.metube.port = 8002;
+    my.apps.metube.port = 8002;
     services.picard.port = 8003;
     services.pihole-web.ports = ["8004"];
     services.sillytavern.port = 8005;
