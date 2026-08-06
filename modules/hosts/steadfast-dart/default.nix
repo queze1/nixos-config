@@ -31,7 +31,7 @@ in {
     my.apps.ark-rp-viz.port = 8001;
     my.apps.metube.port = 8002;
     my.apps.picard.port = 8003;
-    services.pihole-web.ports = ["8004"];
+    my.apps.pihole.ports = ["8004"];
     services.sillytavern.port = 8005;
     my.apps.yubal.port = 8006;
 

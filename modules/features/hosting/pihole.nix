@@ -6,10 +6,9 @@
     ...
   }: let
     cfg = config.services.pihole-ftl;
-    cfgWeb = config.services.pihole-web;
+    myCfg = config.my.apps.pihole;
 
-    piholeDomain = "pihole.osipol.uk";
-    piholeUrl = "https://${piholeDomain}";
+    piholeUrl = "https://${myCfg.domain}";
     piholePasswordFile = "/etc/pihole/cli_pw";
     piholeBackupDir = "${cfg.stateDirectory}/backups";
     piholeBackupScript = pkgs.writeShellApplication {
@@ -50,93 +49,108 @@
       '';
     };
   in {
-    services.pihole-ftl = {
-      enable = true;
-      settings = {
-        dns = {
-          upstreams = [
-            # Cloudflare DNS
-            "1.1.1.1"
-            "1.0.0.1"
-            # 2606:4700:4700::1111"
-            "2606:4700:4700::1001"
-          ];
-          listeningMode = "SINGLE";
-          interface = config.services.tailscale.interfaceName;
+    options.my.apps.pihole = {
+      domain = lib.mkOption {
+        type = lib.types.str;
+        default = "pihole.osipol.uk";
+        description = "Domain to host the Pi-Hole web server on.";
+      };
+      ports = lib.mkOption {
+        types = lib.types.listOf;
+        default = [];
+        description = "Port(s) for the Pi-Hole webserver to serve on.";
+      };
+    };
+    config = {
+      services.pihole-ftl = {
+        enable = true;
+        settings = {
+          dns = {
+            upstreams = [
+              # Cloudflare DNS
+              "1.1.1.1"
+              "1.0.0.1"
+              # 2606:4700:4700::1111"
+              "2606:4700:4700::1001"
+            ];
+            listeningMode = "SINGLE";
+            interface = config.services.tailscale.interfaceName;
+          };
+        };
+        # Has bug where setup service will try to add a list even if it already exists, causing an error
+        # lists = [
+        #   {
+        #     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
+        #   }
+        # ];
+      };
+
+      services.pihole-web = {
+        enable = true;
+        ports = myCfg.ports;
+      };
+
+      # Configure secrets
+      systemd.services.pihole-ftl = {
+        serviceConfig.EnvironmentFile = config.sops.secrets.pihole-env.path;
+      };
+      sops.secrets.pihole-env = {
+        restartUnits = ["pihole-ftl.service"];
+      };
+
+      # Preserve PiHole state
+      my.preservation.extraDirectories = [
+        {
+          directory = cfg.stateDirectory;
+          user = cfg.user;
+          group = cfg.group;
+          mode = "0700";
+        }
+      ];
+
+      systemd.services.pihole-backup = {
+        description = "Back up Pi-hole config";
+        after = ["pihole-ftl.service"];
+        wants = ["pihole-ftl.service"];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${piholeBackupScript}/bin/pihole-backup";
+          User = cfg.user;
         };
       };
-      # Has bug where setup service will try to add a list even if it already exists, causing an error
-      # lists = [
-      #   {
-      #     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-      #   }
-      # ];
-    };
 
-    services.pihole-web = {
-      enable = true;
-    };
-
-    # Configure secrets
-    systemd.services.pihole-ftl = {
-      serviceConfig.EnvironmentFile = config.sops.secrets.pihole-env.path;
-    };
-    sops.secrets.pihole-env = {
-      restartUnits = ["pihole-ftl.service"];
-    };
-
-    # Preserve PiHole state
-    my.preservation.extraDirectories = [
-      {
-        directory = cfg.stateDirectory;
-        user = cfg.user;
-        group = cfg.group;
-        mode = "0700";
-      }
-    ];
-
-    systemd.services.pihole-backup = {
-      description = "Back up Pi-hole config";
-      after = ["pihole-ftl.service"];
-      wants = ["pihole-ftl.service"];
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${piholeBackupScript}/bin/pihole-backup";
-        User = cfg.user;
+      systemd.timers.pihole-backup = {
+        description = "Daily Pi-hole backup";
+        wantedBy = ["timers.target"];
+        timerConfig = {
+          OnCalendar = "daily";
+          Persistent = true;
+          RandomizedDelaySec = "hour";
+        };
       };
-    };
 
-    systemd.timers.pihole-backup = {
-      description = "Daily Pi-hole backup";
-      wantedBy = ["timers.target"];
-      timerConfig = {
-        OnCalendar = "daily";
-        Persistent = true;
-        RandomizedDelaySec = "hour";
+      # Back up Pihole data & daily backup dumps
+      my.restic.extraPaths = [cfg.stateDirectory];
+
+      # Open firewall for DNS server on Tailscale only
+      networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
+        allowedUDPPorts = [53];
+        allowedTCPPorts = [53];
       };
-    };
 
-    # Back up Pihole data & daily backup dumps
-    my.restic.extraPaths = [cfg.stateDirectory];
-
-    # Open firewall for DNS server on Tailscale only
-    networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
-      allowedUDPPorts = [53];
-      allowedTCPPorts = [53];
-    };
-
-    # Reverse proxy with Tailscale auth
-    services.caddy.virtualHosts = {
-      ${piholeDomain} = {
-        extraConfig = ''
-          import cloudflare_dns
-          reverse_proxy localhost:${toString cfgWeb.ports}
-        '';
+      # Reverse proxy with Tailscale auth
+      services.caddy.virtualHosts = {
+        ${myCfg.domain} = {
+          extraConfig = ''
+            import cloudflare_dns
+            reverse_proxy localhost:${toString myCfg.ports}
+          '';
+        };
       };
-    };
-    services.ddclient.domains = [piholeDomain];
+      services.ddclient.domains = [myCfg.domain];
 
-    # Only allow Caddy to access this port
-    my.caddy.firewalledPorts = [(lib.toIntBase10 cfgWeb.ports)];
+      # Only allow Caddy to access this port
+      my.caddy.firewalledPorts = [(lib.toIntBase10 myCfg.ports)];
+    };
   };
 }
