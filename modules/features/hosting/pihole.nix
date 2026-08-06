@@ -56,7 +56,7 @@
         description = "Domain to host the Pi-Hole web server on.";
       };
       ports = lib.mkOption {
-        types = lib.types.listOf;
+        type = lib.types.listOf lib.types.str;
         default = [];
         description = "Port(s) for the Pi-Hole webserver to serve on.";
       };

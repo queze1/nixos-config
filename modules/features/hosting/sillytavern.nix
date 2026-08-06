@@ -249,7 +249,7 @@
 
       # Reverse proxy with Tailscale auth
       services.caddy.virtualHosts = {
-        ${cfg.domain} = {
+        ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
             import tailscale_auth
