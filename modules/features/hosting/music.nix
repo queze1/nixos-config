@@ -403,29 +403,19 @@ in {
           extraConfig = ''
             import cloudflare_dns
 
-            @ping path /ping
-
-            route {
-              # Public /ping endpoint which sanitises responses
-              handle @ping {
-                reverse_proxy 127.0.0.1:${toString cfg.port} {
-                  handle_response {
-                    respond "OK" 200
-                  }
+            # No health endpoint, so we create our own
+            # Reverse proxy to / and return its status code
+            handle_path /ping {
+              reverse_proxy 127.0.0.1:${toString cfg.port} {
+                handle_response {
+                  respond "{rp.status_code}"
                 }
-              }
-
-              handle {
-                import tailscale_auth
-                reverse_proxy 127.0.0.1:${toString cfg.port}
               }
             }
 
-            handle_errors {
-              @failed_ping expression {http.request.uri.path} == "/ping"
-              handle @failed_ping {
-                respond "DOWN" 503
-              }
+            handle {
+              import tailscale_auth
+              reverse_proxy 127.0.0.1:${toString cfg.port}
             }
           '';
         };
