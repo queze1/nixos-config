@@ -84,6 +84,16 @@
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
             }
+            {
+              name = "Pi-Hole DNS";
+              url = "100.68.90.10"; # steadfast-dart
+              dns.query-name = "one.one.one.one";
+              dns.query-type = "A";
+              conditions = [
+                "[BODY] == any(1.1.1.1, 1.0.0.1)"
+                "[DNS_RCODE] == NOERROR"
+              ];
+            }
           ];
         };
       };
