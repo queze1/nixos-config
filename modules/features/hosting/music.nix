@@ -104,13 +104,12 @@ in {
         ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
-            @public path /share/* /rest/* /ping
-            @protected not path /share/* /rest/* /ping
+            @public path /share/* /ping
+            @protected not path /share/* /ping
 
             import tailscale_auth @protected
             request_header @public -X-Webauth-User # prevent spoofing user
 
-            # respond "user={http.request.header.X-Webauth-User} name={http.request.header.X-Webauth-Name} login={http.request.header.X-Webauth-Login}"
             reverse_proxy unix/${myCfg.socketPath}
           '';
         };
