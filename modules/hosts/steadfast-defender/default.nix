@@ -16,6 +16,7 @@ in {
       self.nixosModules.tailscaleAuth
 
       # Hosted services
+      self.nixosModules.gatus
       self.nixosModules.resticServer
     ];
 
