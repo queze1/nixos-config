@@ -32,6 +32,7 @@
           web.port = cfg.port;
           storage.type = "sqlite";
           storage.path = "${cfg.dataDir}/data.db";
+          storage.maximum-number-of-results = 1440; # 60 mins * 24 hours
           endpoints = let
             responseTimeLimit = "500"; # 500 ms
           in [
