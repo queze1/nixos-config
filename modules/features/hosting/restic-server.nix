@@ -48,7 +48,6 @@
       users.users.${config.services.caddy.user}.extraGroups = ["restic"];
 
       # Reverse proxy
-      # NOTE: Don't use tailscale_auth for any service which needs to be reachable by a server, it automatically rejects tagged devices
       services.caddy.virtualHosts = {
         "${myCfg.domain}:${toString port}" = {
           extraConfig = ''

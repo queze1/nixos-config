@@ -110,6 +110,14 @@
                 "[DNS_RCODE] == NOERROR"
               ];
             }
+            {
+              name = "restic-server";
+              url = "https://restic-server.osipol.uk:8433";
+              conditions = [
+                "[STATUS] == 403"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
+              ];
+            }
           ];
         };
       };
