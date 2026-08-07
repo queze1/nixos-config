@@ -115,7 +115,8 @@
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${piholeBackupScript}/bin/pihole-backup";
-          User = cfg.user;
+          # Simulate the requests coming through Caddy
+          User = config.services.caddy.user;
         };
       };
 
@@ -125,7 +126,7 @@
         timerConfig = {
           OnCalendar = "daily";
           Persistent = true;
-          RandomizedDelaySec = "hour";
+          RandomizedDelaySec = "1h";
         };
       };
 
