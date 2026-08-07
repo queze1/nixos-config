@@ -252,8 +252,21 @@
         ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
-            import tailscale_auth
-            reverse_proxy localhost:${toString myCfg.port}
+
+            # No health endpoint, so we create our own
+            # Reverse proxy to / and return its status code
+            handle_path /ping {
+              reverse_proxy localhost:${toString myCfg.port} {
+                handle_response {
+                  respond "{rp.status_code}"
+                }
+              }
+            }
+
+            handle {
+              import tailscale_auth
+              reverse_proxy localhost:${toString myCfg.port}
+            }
           '';
         };
       };

@@ -66,6 +66,14 @@
                 "[RESPONSE_TIME] < 500"
               ];
             }
+            {
+              name = "SillyTavern";
+              url = "https://sillytavern.osipol.uk/ping";
+              conditions = [
+                "[STATUS] == 200"
+                "[RESPONSE_TIME] < 500"
+              ];
+            }
           ];
         };
       };
