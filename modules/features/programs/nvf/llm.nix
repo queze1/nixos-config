@@ -1,15 +1,9 @@
 {
-  flake.homeModules.nvf = {
-    config,
-    lib,
-    ...
-  }: {
+  flake.homeModules.nvf = {lib, ...}: {
     # Preserve copilot.nvim token
     my.home.preservation.extraDirectories = [
       ".config/github-copilot"
     ];
-
-    sops.secrets.tavily-api-key = {};
 
     programs.nvf.settings.vim = {
       # LLM integration
@@ -53,19 +47,6 @@
                 };
               };
             };
-            adapters = lib.mkLuaInline ''
-              {
-                ["http"]= {
-                  ["tavily"] = function()
-                    return require("codecompanion.adapters").extend("tavily", {
-                      env = {
-                        api_key = "cmd:cat ${config.sops.secrets.tavily-api-key.path}",
-                      },
-                    })
-                  end,
-                },
-              }
-            '';
           };
         };
       };
