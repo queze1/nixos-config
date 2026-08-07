@@ -9,6 +9,7 @@
     services.caddy = {
       extraConfig = ''
         (tailscale_auth) {
+          # e.g. import tailscale_auth @protected to filter forward_auth to @protected
           forward_auth {args[0]} unix//${config.services.tailscaleAuth.socketPath} {
             uri /auth
             header_up Remote-Addr {remote_host}
