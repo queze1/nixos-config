@@ -207,9 +207,6 @@ in {
           extraConfig = ''
             import cloudflare_dns
             import tailscale_auth
-
-            # https://github.com/podman-container-tools/podman/issues/25674 "Podman accepts but does not forward ipv6 traffic in rootless mode by default"
-            # Workaround is to use 127.0.0.1 instead of localhost
             reverse_proxy 127.0.0.1:${toString cfg.port}
           '';
         };
@@ -307,9 +304,6 @@ in {
           extraConfig = ''
             import cloudflare_dns
             import tailscale_auth
-
-            # https://github.com/podman-container-tools/podman/issues/25674 "Podman accepts but does not forward ipv6 traffic in rootless mode by default"
-            # Workaround is to use 127.0.0.1 instead of localhost
             reverse_proxy 127.0.0.1:${toString cfg.port}
           '';
         };
@@ -407,9 +401,6 @@ in {
           extraConfig = ''
             import cloudflare_dns
             import tailscale_auth
-
-            # https://github.com/podman-container-tools/podman/issues/25674 "Podman accepts but does not forward ipv6 traffic in rootless mode by default"
-            # Workaround is to use 127.0.0.1 instead of localhost
             reverse_proxy 127.0.0.1:${toString cfg.port}
           '';
         };

@@ -38,6 +38,8 @@ A "typical" private service looks like:
   - Give Caddy access to the service's Unix socket OR firewall the service port so only Caddy can access it.
   - Define a new host which points to the service with Cloudflare DNS and (optionally) `tailscale-nginx-auth`.
   - Add the domain to `ddclient`.
+  - NOTE: ["Podman accepts but does not forward ipv6 traffic in rootless mode by default"](https://github.com/podman-container-tools/podman/issues/25674)
+    - Reverse proxy to `127.0.0.1` instead of `localhost` for Podman containers.
 
 # Overview
 - Actual Budget 
