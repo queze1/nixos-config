@@ -32,13 +32,15 @@
           web.port = cfg.port;
           storage.type = "sqlite";
           storage.path = "${cfg.dataDir}/data.db";
-          endpoints = [
+          endpoints = let
+            responseTimeLimit = 500; # 500 ms
+          in [
             {
               name = "Navidrome";
               url = "https://navidrome.osipol.uk/ping";
               conditions = [
                 "[STATUS] == 200"
-                "[RESPONSE_TIME] < 500"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
             }
             {
@@ -46,7 +48,7 @@
               url = "https://metube.osipol.uk/version";
               conditions = [
                 "[STATUS] == 200"
-                "[RESPONSE_TIME] < 500"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
             }
             {
@@ -54,7 +56,7 @@
               url = "https://yubal.osipol.uk/api/health";
               conditions = [
                 "[STATUS] == 200"
-                "[RESPONSE_TIME] < 500"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
                 "[BODY].status == healthy"
               ];
             }
@@ -63,7 +65,7 @@
               url = "https://picard.osipol.uk/ping";
               conditions = [
                 "[STATUS] == 200"
-                "[RESPONSE_TIME] < 500"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
             }
             {
@@ -71,7 +73,15 @@
               url = "https://sillytavern.osipol.uk/ping";
               conditions = [
                 "[STATUS] == 200"
-                "[RESPONSE_TIME] < 500"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
+              ];
+            }
+            {
+              name = "ARK RP Visualisation";
+              url = "https://ark-rp-visualisation.osipol.uk/";
+              conditions = [
+                "[STATUS] == 200"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
             }
           ];
