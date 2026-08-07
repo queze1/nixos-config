@@ -94,7 +94,7 @@
             }
             {
               name = "Pi-Hole Web Interface";
-              url = "https://pi-hole.osipol.uk/api/docs";
+              url = "https://pi-hole.osipol.uk/api/info/client";
               conditions = [
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
