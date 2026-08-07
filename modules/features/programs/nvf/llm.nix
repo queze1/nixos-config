@@ -15,7 +15,7 @@
           };
         };
         codecompanion-nvim = {
-          enable = false;
+          enable = true;
           setupOpts = {
             interactions = {
               chat = {
