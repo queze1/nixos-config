@@ -112,7 +112,7 @@
             }
             {
               name = "restic-server";
-              url = "https://restic-server.osipol.uk:8433";
+              url = "https://restic-server.osipol.uk:8443";
               conditions = [
                 "[STATUS] == 403"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
