@@ -121,7 +121,7 @@
               ];
             }
             {
-              name = "restic-server";
+              name = "Restic Server";
               group = "Private Services";
               url = "https://restic-server.osipol.uk:8443";
               conditions = [
