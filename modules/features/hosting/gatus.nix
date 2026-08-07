@@ -33,7 +33,7 @@
           storage.type = "sqlite";
           storage.path = "${cfg.dataDir}/data.db";
           endpoints = let
-            responseTimeLimit = 500; # 500 ms
+            responseTimeLimit = "500"; # 500 ms
           in [
             {
               name = "Navidrome";
