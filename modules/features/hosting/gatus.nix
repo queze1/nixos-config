@@ -49,6 +49,15 @@
                 "[RESPONSE_TIME] < 500"
               ];
             }
+            {
+              name = "Yubal";
+              url = "https://yubal.osipol.uk/api/health";
+              conditions = [
+                "[STATUS] == 200"
+                "[RESPONSE_TIME] < 500"
+                "[BODY].status == healthy"
+              ];
+            }
           ];
         };
       };
