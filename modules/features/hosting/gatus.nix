@@ -38,6 +38,7 @@
           in [
             {
               name = "Actual Budget";
+              group = "Private Apps";
               url = "https://actual.osipol.uk/health";
               conditions = [
                 "[STATUS] == 200"
@@ -46,6 +47,7 @@
             }
             {
               name = "Navidrome";
+              group = "Private Apps";
               url = "https://navidrome.osipol.uk/ping";
               conditions = [
                 "[STATUS] == 200"
@@ -54,6 +56,7 @@
             }
             {
               name = "MeTube";
+              group = "Private Apps";
               url = "https://metube.osipol.uk/version";
               conditions = [
                 "[STATUS] == 200"
@@ -62,6 +65,7 @@
             }
             {
               name = "Yubal";
+              group = "Private Apps";
               url = "https://yubal.osipol.uk/api/health";
               conditions = [
                 "[STATUS] == 200"
@@ -71,6 +75,7 @@
             }
             {
               name = "Picard";
+              group = "Private Apps";
               url = "https://picard.osipol.uk/ping";
               conditions = [
                 "[STATUS] == 200"
@@ -79,6 +84,7 @@
             }
             {
               name = "SillyTavern";
+              group = "Private Apps";
               url = "https://sillytavern.osipol.uk/ping";
               conditions = [
                 "[STATUS] == 200"
@@ -87,6 +93,7 @@
             }
             {
               name = "ARK RP Visualisation";
+              group = "Public Websites";
               url = "https://ark-rp-visualisation.osipol.uk/";
               conditions = [
                 "[STATUS] == 200"
@@ -95,6 +102,7 @@
             }
             {
               name = "Pi-Hole Web Interface";
+              group = "Private Services";
               url = "https://pi-hole.osipol.uk/api/info/client";
               conditions = [
                 "[STATUS] == 200"
@@ -103,6 +111,7 @@
             }
             {
               name = "Pi-Hole DNS";
+              group = "Private Services";
               url = "100.68.90.10"; # steadfast-dart
               dns.query-name = "one.one.one.one";
               dns.query-type = "A";
@@ -113,6 +122,7 @@
             }
             {
               name = "restic-server";
+              group = "Private Services";
               url = "https://restic-server.osipol.uk:8443";
               conditions = [
                 "[STATUS] == 401"
