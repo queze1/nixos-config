@@ -72,7 +72,6 @@
         allowedTCPPorts = [
           cfg.httpPort
           cfg.httpsPort
-          8443 # whitelisted on Tailscale ACL for servers
         ];
         allowedUDPPorts = [cfg.httpsPort];
       };

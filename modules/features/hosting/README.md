@@ -10,8 +10,8 @@ In practice, steps look like:
   - Caddy Cloudflare DNS plugin handles DNS chalenge.
   - Clients attempting to access the URL from the public internet are blocked here.
 2. Client attempts to access the host, typically on port 443.
-  - Ports 80, 443 and 8443 are open only on Tailscale, blocking connections from LAN.
-  - Tailscale ACL is configured to block all access from devices not in `autogroup:owner` (i.e. my laptop and 2 phones) by default (with exceptions, e.g. port 8443 is whitelisted so services which need to be accessible by servers can use that port). 
+  - Ports 80 and 443 are open only on Tailscale, blocking connections from LAN.
+  - Tailscale ACL is configured to block by default for devices not in `autogroup:owner` (i.e. my laptop and 2 phones) by default, with exceptions added where needed (e.g. port 443). 
 3. Caddy authenticates incoming requests and redirects them to the correct service.
   - No service ports are opened (e.g. `8000`), since clients should not be able to bypass Caddy.
   - To prevent local processes from bypassing Caddy, Unix sockets are used wherever possible, but where they are not, a firewall in `caddy.nix` is used to block outgoing connections to service ports, unless they are from the Caddy user.
@@ -52,7 +52,8 @@ A "typical" private service looks like:
   - Yubal - Uses rootless Podman container.
   - Picard (on Docker)  - Uses rootless Podman container.
 - Pi-Hole - Opens port 53 on Tailscale for DNS. Runs custom backup script daily to dump Teleporter backup. No `tailscale-nginx-auth` (Pi-Hole handles its own auth).
-- rest-server - Runs on port 8443 (whitelisted by Tailscale ACL). Runs in append-only mode.
+- rest-server - Runs in append-only mode.
 - SillyTavern
+- Gatus - Uptime tracker.
 
 

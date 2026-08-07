@@ -6,7 +6,6 @@
   }: let
     cfg = config.services.restic.server;
     myCfg = config.my.apps.resticServer;
-    port = 8443; # host on whitelisted port as servers need access
   in {
     options.my.apps.resticServer = {
       domain = lib.mkOption {
@@ -49,7 +48,7 @@
 
       # Reverse proxy
       services.caddy.virtualHosts = {
-        "${myCfg.domain}:${toString port}" = {
+        ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
             reverse_proxy unix/${myCfg.socketPath}
