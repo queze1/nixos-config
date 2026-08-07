@@ -17,6 +17,11 @@
         default = 8080;
         description = "Port to run Gatus on.";
       };
+      dataDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/var/lib/gatus";
+        description = "Directory where Gatus stores its data.";
+      };
     };
 
     config = {
@@ -26,7 +31,7 @@
           web.address = "127.0.0.1";
           web.port = cfg.port;
           storage.type = "sqlite";
-          storage.path = "data.db";
+          storage.path = "${cfg.dataDir}/data.db";
           endpoints = [
             {
               name = "website";
@@ -36,6 +41,14 @@
                 "[STATUS] == 200"
                 "[BODY].status == UP"
                 "[RESPONSE_TIME] < 300"
+              ];
+            }
+            {
+              name = "Navidrome";
+              url = "https://navidrome.osipol.uk/ping";
+              conditions = [
+                "[STATUS] == 200"
+                "[RESPONSE_TIME] < 500"
               ];
             }
           ];
@@ -53,7 +66,7 @@
       # Preserve Gatus data
       my.preservation.extraDirectories = [
         {
-          directory = "/var/lib/gatus";
+          directory = cfg.dataDir;
           user = "gatus";
           group = "gatus";
           mode = "700";
