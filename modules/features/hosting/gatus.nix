@@ -9,7 +9,7 @@
     options.my.apps.gatus = {
       domain = lib.mkOption {
         type = lib.types.str;
-        default = "gatus.osipol.uk";
+        default = "uptime.osipol.uk";
         description = "Domain to host Gatus on.";
       };
       port = lib.mkOption {
