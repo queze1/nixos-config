@@ -69,7 +69,8 @@
         ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
-            import tailscale_auth
+            @protected not path /health
+            import tailscale_auth @protected
             reverse_proxy localhost:${toString myCfg.port}
           '';
         };

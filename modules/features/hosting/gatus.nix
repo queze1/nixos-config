@@ -36,6 +36,14 @@
             responseTimeLimit = "500"; # 500 ms
           in [
             {
+              name = "Actual Budget";
+              url = "https://actual.osipol.uk/health";
+              conditions = [
+                "[STATUS] == 200"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
+              ];
+            }
+            {
               name = "Navidrome";
               url = "https://navidrome.osipol.uk/ping";
               conditions = [
