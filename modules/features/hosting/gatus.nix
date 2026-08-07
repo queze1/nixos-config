@@ -50,12 +50,11 @@
               ];
             }
             {
-              name = "Yubal";
-              url = "https://yubal.osipol.uk/api/health";
+              name = "Picard";
+              url = "https://picard.osipol.uk/ping";
               conditions = [
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < 500"
-                "[BODY].status == healthy"
               ];
             }
           ];

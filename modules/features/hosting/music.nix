@@ -402,8 +402,31 @@ in {
         ${cfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
-            import tailscale_auth
-            reverse_proxy 127.0.0.1:${toString cfg.port}
+
+            @ping path /ping
+
+            route {
+              # Public /ping endpoint which sanitises responses
+              handle @ping {
+                reverse_proxy 127.0.0.1:${toString cfg.port} {
+                  handle_response {
+                    respond "OK" 200
+                  }
+                }
+              }
+
+              handle {
+                import tailscale_auth
+                reverse_proxy 127.0.0.1:${toString cfg.port}
+              }
+            }
+
+            handle_errors {
+              @failed_ping expression {http.request.uri.path} == "/ping"
+              handle @failed_ping {
+                respond "DOWN" 503
+              }
+            }
           '';
         };
       };
