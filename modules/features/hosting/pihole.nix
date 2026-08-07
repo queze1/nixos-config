@@ -144,7 +144,7 @@
         ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
-            @protected not path /api/client
+            @protected not path /api/info/client
             import tailscale_auth @protected
             reverse_proxy localhost:${toString myCfg.ports}
           '';
