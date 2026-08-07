@@ -304,7 +304,7 @@ in {
         ${cfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
-            @protected path not /api/health
+            @protected not path /api/health
             import tailscale_auth @protected
             reverse_proxy 127.0.0.1:${toString cfg.port}
           '';
