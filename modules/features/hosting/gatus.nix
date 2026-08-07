@@ -115,7 +115,7 @@
               name = "restic-server";
               url = "https://restic-server.osipol.uk:8443";
               conditions = [
-                "[STATUS] == 403"
+                "[STATUS] == 401"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
             }
