@@ -51,7 +51,7 @@ A "typical" private service looks like:
   - MeTube - Uses rootless Podman container.
   - Yubal - Uses rootless Podman container.
   - Picard (on Docker)  - Uses rootless Podman container.
-- Pi-Hole - Opens port 53 on Tailscale for DNS. Runs custom backup script daily to dump Teleporter backup. No `tailsale-nginx-auth` (server needs to access itself).
+- Pi-Hole - Opens port 53 on Tailscale for DNS. Runs custom backup script daily to dump Teleporter backup. No `tailscale-nginx-auth` (Pi-Hole handles its own auth).
 - rest-server - Runs on port 8443 (whitelisted by Tailscale ACL). Runs in append-only mode.
 - SillyTavern
 

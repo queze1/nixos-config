@@ -115,8 +115,7 @@
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${piholeBackupScript}/bin/pihole-backup";
-          # Simulate the requests coming through Caddy
-          User = config.services.caddy.user;
+          User = cfg.user;
         };
       };
 
@@ -139,13 +138,11 @@
         allowedTCPPorts = [53];
       };
 
-      # Reverse proxy with Tailscale auth
+      # Reverse proxy
       services.caddy.virtualHosts = {
         ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
-            @protected not path /api/info/client
-            import tailscale_auth @protected
             reverse_proxy localhost:${toString myCfg.ports}
           '';
         };
