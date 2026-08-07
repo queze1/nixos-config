@@ -108,6 +108,7 @@ in {
             @public path /share/* /rest/* /ping
             @protected not path /share/* /rest/* /ping
             import tailscale_auth @protected
+            respond "user={http.request.header.X-Webauth-User} name={http.request.header.X-Webauth-Name} login={http.request.header.X-Webauth-Login}"
             reverse_proxy unix/${myCfg.socketPath}
           '';
         };
