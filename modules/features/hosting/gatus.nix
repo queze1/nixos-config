@@ -85,6 +85,14 @@
               ];
             }
             {
+              name = "Pi-Hole Web Interface";
+              url = "https://pi-hole.osipol.uk/api/docs";
+              conditions = [
+                "[STATUS] == 200"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
+              ];
+            }
+            {
               name = "Pi-Hole DNS";
               url = "100.68.90.10"; # steadfast-dart
               dns.query-name = "one.one.one.one";

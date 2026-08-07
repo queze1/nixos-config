@@ -52,7 +52,7 @@
     options.my.apps.pihole = {
       domain = lib.mkOption {
         type = lib.types.str;
-        default = "pihole.osipol.uk";
+        default = "pi-hole.osipol.uk";
         description = "Domain to host the Pi-Hole web server on.";
       };
       ports = lib.mkOption {
@@ -144,6 +144,8 @@
         ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
+            @protected not path /api/docs
+            import tailscale_auth @protected
             reverse_proxy localhost:${toString myCfg.ports}
           '';
         };
