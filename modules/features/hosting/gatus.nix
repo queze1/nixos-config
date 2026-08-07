@@ -34,18 +34,16 @@
           storage.path = "${cfg.dataDir}/data.db";
           endpoints = [
             {
-              name = "website";
-              url = "https://twin.sh/health";
-              interval = "5m";
+              name = "Navidrome";
+              url = "https://navidrome.osipol.uk/ping";
               conditions = [
                 "[STATUS] == 200"
-                "[BODY].status == UP"
-                "[RESPONSE_TIME] < 300"
+                "[RESPONSE_TIME] < 500"
               ];
             }
             {
-              name = "Navidrome";
-              url = "https://navidrome.osipol.uk/ping";
+              name = "MeTube";
+              url = "https://metube.osipol.uk/version";
               conditions = [
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < 500"

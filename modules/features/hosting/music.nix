@@ -206,7 +206,8 @@ in {
         ${cfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
-            import tailscale_auth
+            @protected not path /version
+            import tailscale_auth @protected
             reverse_proxy 127.0.0.1:${toString cfg.port}
           '';
         };
