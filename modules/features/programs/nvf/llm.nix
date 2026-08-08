@@ -27,7 +27,7 @@
                 adapter = "copilot";
               };
               cli = {
-                agent = "copilot";
+                agent = "codex";
                 agents = {
                   codex = {
                     cmd = "codex";
