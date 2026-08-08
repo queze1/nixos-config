@@ -69,9 +69,9 @@
             "n"
             "v"
           ];
-          action = "<cmd>CodeCompanionChat Toggle<cr>";
+          action = "<cmd>CodeCompanionCLI<cr>";
           silent = true;
-          desc = "Toggle CodeCompanion Chat";
+          desc = "Open CodeCompanion CLI";
         }
         {
           key = "ga";
