@@ -56,7 +56,7 @@
     services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
       import cloudflare_dns
       @protected not path /api/health
-      import @protected tailscale_auth
+      import tailscale_auth @protected
       reverse_proxy localhost:${toString myCfg.port}
     '';
     services.ddclient.domains = [myCfg.domain];
