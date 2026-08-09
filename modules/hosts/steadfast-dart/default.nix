@@ -26,6 +26,7 @@ in {
       self.nixosModules.musicStack
       self.nixosModules.pihole
       self.nixosModules.sillytavern
+      self.nixosModules.vaultwarden
     ];
 
     # Set incrementing port numbers
@@ -36,6 +37,7 @@ in {
     my.apps.pihole.ports = ["8004"];
     my.apps.sillytavern.port = 8005;
     my.apps.yubal.port = 8006;
+    my.apps.vaultwarden.port = 8007;
 
     my.restic = {
       snapshotsDir = "/persistent/snapshots";
