@@ -26,7 +26,10 @@
       enable = true;
       host = "127.0.0.1";
       port = myCfg.port;
-      environment.APP_URL = "https://${myCfg.domain}";
+      environment = {
+        APP_URL = "https://${myCfg.domain}";
+        TRUSTED_AUTH_HEADER = "X-Webauth-User";
+      };
     };
 
     users.users.beszel-hub = {
@@ -49,9 +52,16 @@
     # Back up Beszel data
     my.restic.extraPaths = [cfg.dataDir];
 
-    # Reverse proxy
+    # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
       import cloudflare_dns
+      @protected not path /api/health
+
+      route @protected {
+        request_header -X-Webauth-User
+        import tailscale_auth
+      }
+
       reverse_proxy localhost:${toString myCfg.port}
     '';
     services.ddclient.domains = [myCfg.domain];
