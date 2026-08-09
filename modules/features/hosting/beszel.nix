@@ -79,7 +79,7 @@
         HUB_URL = "https://${myCfg.domain}";
         KEY_FILE = config.sops.secrets.beszel-agent-key.path;
         TOKEN_FILE = config.sops.secrets.beszel-agent-token.path;
-        DISABLE_SSH = true;
+        DISABLE_SSH = "true";
       };
     };
 
