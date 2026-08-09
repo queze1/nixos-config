@@ -127,6 +127,34 @@
           silent = true;
           desc = "Move to window right";
         }
+        {
+          key = "<C-h>";
+          mode = "t";
+          action = "<C-\\><C-n><C-w>h";
+          silent = true;
+          desc = "Move to window left";
+        }
+        {
+          key = "<C-j>";
+          mode = "t";
+          action = "<C-\\><C-n><C-w>j";
+          silent = true;
+          desc = "Move to window down";
+        }
+        {
+          key = "<C-k>";
+          mode = "t";
+          action = "<C-\\><C-n><C-w>k";
+          silent = true;
+          desc = "Move to window up";
+        }
+        {
+          key = "<C-l>";
+          mode = "t";
+          action = "<C-\\><C-n><C-w>l";
+          silent = true;
+          desc = "Move to window right";
+        }
         # Clear search highlights with ESC
         {
           key = "<Esc>";
