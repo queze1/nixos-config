@@ -101,7 +101,7 @@
               ];
             }
             {
-              name = "Pi-Hole Web Interface";
+              name = "Pi-Hole Web";
               group = "Private Services";
               url = "https://pi-hole.osipol.uk/api/info/client";
               conditions = [
