@@ -7,6 +7,7 @@
     ];
 
     my.home.preservation.extraDirectories = [
+      ".codex"
       ".copilot"
     ];
   };
