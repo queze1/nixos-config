@@ -58,16 +58,6 @@
               alerts = [{type = "discord";}];
             }
             {
-              name = "Navidrome";
-              group = "Private Apps";
-              url = "https://navidrome.osipol.uk/ping";
-              conditions = [
-                "[STATUS] == 200"
-                "[RESPONSE_TIME] < ${responseTimeLimit}"
-              ];
-              alerts = [{type = "discord";}];
-            }
-            {
               name = "MeTube";
               group = "Private Apps";
               url = "https://metube.osipol.uk/version";
@@ -78,13 +68,12 @@
               alerts = [{type = "discord";}];
             }
             {
-              name = "Yubal";
+              name = "Navidrome";
               group = "Private Apps";
-              url = "https://yubal.osipol.uk/api/health";
+              url = "https://navidrome.osipol.uk/ping";
               conditions = [
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
-                "[BODY].status == healthy"
               ];
               alerts = [{type = "discord";}];
             }
@@ -109,12 +98,23 @@
               alerts = [{type = "discord";}];
             }
             {
-              name = "ARK RP Visualisation";
-              group = "Public Websites";
-              url = "https://ark-rp-visualisation.osipol.uk/";
+              name = "Vaultwarden";
+              group = "Private Apps";
+              url = "https://vaultwarden.osipol.uk/alive";
               conditions = [
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
+              ];
+              alerts = [{type = "discord";}];
+            }
+            {
+              name = "Yubal";
+              group = "Private Apps";
+              url = "https://yubal.osipol.uk/api/health";
+              conditions = [
+                "[STATUS] == 200"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
+                "[BODY].status == healthy"
               ];
               alerts = [{type = "discord";}];
             }
@@ -122,16 +122,6 @@
               name = "Beszel Hub";
               group = "Private Services";
               url = "https://beszel.osipol.uk/api/health";
-              conditions = [
-                "[STATUS] == 200"
-                "[RESPONSE_TIME] < ${responseTimeLimit}"
-              ];
-              alerts = [{type = "discord";}];
-            }
-            {
-              name = "Pi-Hole Web";
-              group = "Private Services";
-              url = "https://pi-hole.osipol.uk/api/info/client";
               conditions = [
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
@@ -151,11 +141,31 @@
               alerts = [{type = "discord";}];
             }
             {
+              name = "Pi-Hole Web";
+              group = "Private Services";
+              url = "https://pi-hole.osipol.uk/api/info/client";
+              conditions = [
+                "[STATUS] == 200"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
+              ];
+              alerts = [{type = "discord";}];
+            }
+            {
               name = "Restic Server";
               group = "Private Services";
               url = "https://restic-server.osipol.uk";
               conditions = [
                 "[STATUS] == 401"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
+              ];
+              alerts = [{type = "discord";}];
+            }
+            {
+              name = "ARK RP Visualisation";
+              group = "Public Websites";
+              url = "https://ark-rp-visualisation.osipol.uk/";
+              conditions = [
+                "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
               alerts = [{type = "discord";}];
