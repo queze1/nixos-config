@@ -70,6 +70,7 @@
   in {
     services.beszel.agent = {
       enable = true;
+      smartmon.enable = true;
       environmentFile = config.sops.secrets.beszel-agent-env.path;
       environment = {
         HUB_URL = "https://${myCfg.domain}";
