@@ -55,7 +55,7 @@
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
       import cloudflare_dns
-      @protected not path /api/health
+      @protected not path /api/health /api/beszel/agent-connect
       import tailscale_auth @protected
       reverse_proxy localhost:${toString myCfg.port}
     '';
