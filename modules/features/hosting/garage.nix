@@ -1,4 +1,5 @@
 # CURRENTLY UNUSED, use if you want a NAS and not just Restic backup
+# CHANGE TO USE TAILSCALE INSTEAD
 {
   flake.nixosModules.garage = {
     config,
