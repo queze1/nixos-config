@@ -27,12 +27,23 @@
     config = {
       services.gatus = {
         enable = true;
+        environmentFile = config.sops.secrets.gatus-env.path;
         settings = {
           web.address = "127.0.0.1";
           web.port = myCfg.port;
           storage.type = "sqlite";
           storage.path = "${myCfg.dataDir}/data.db";
           storage.maximum-number-of-results = 480; # 60 mins * 8 hours
+          alerting.discord = {
+            webhook-url = "$DISCORD_WEBHOOK_URL";
+            message-content = "<@1326330605113315358>";
+            default-alert = {
+              failure-threshold = 3;
+              success-threshold = 3;
+              send-on-resolved = true;
+              enabled = true;
+            };
+          };
           endpoints = let
             responseTimeLimit = "500"; # 500 ms
           in [
@@ -44,6 +55,7 @@
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
+              alerts = [{type = "discord";}];
             }
             {
               name = "Navidrome";
@@ -53,6 +65,7 @@
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
+              alerts = [{type = "discord";}];
             }
             {
               name = "MeTube";
@@ -62,6 +75,7 @@
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
+              alerts = [{type = "discord";}];
             }
             {
               name = "Yubal";
@@ -72,6 +86,7 @@
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
                 "[BODY].status == healthy"
               ];
+              alerts = [{type = "discord";}];
             }
             {
               name = "Picard";
@@ -81,6 +96,7 @@
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
+              alerts = [{type = "discord";}];
             }
             {
               name = "SillyTavern";
@@ -90,6 +106,7 @@
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
+              alerts = [{type = "discord";}];
             }
             {
               name = "ARK RP Visualisation";
@@ -99,6 +116,7 @@
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
+              alerts = [{type = "discord";}];
             }
             {
               name = "Beszel Hub";
@@ -108,6 +126,7 @@
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
+              alerts = [{type = "discord";}];
             }
             {
               name = "Pi-Hole Web";
@@ -117,6 +136,7 @@
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
+              alerts = [{type = "discord";}];
             }
             {
               name = "Pi-Hole DNS";
@@ -128,6 +148,7 @@
                 "[BODY] == any(1.1.1.1, 1.0.0.1)"
                 "[DNS_RCODE] == NOERROR"
               ];
+              alerts = [{type = "discord";}];
             }
             {
               name = "Restic Server";
@@ -137,10 +158,13 @@
                 "[STATUS] == 401"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
               ];
+              alerts = [{type = "discord";}];
             }
           ];
         };
       };
+
+      sops.secrets.gatus-env.restartUnits = ["gatus.service"];
 
       # Use a static user instead of dynamic user
       users.users.gatus = {
