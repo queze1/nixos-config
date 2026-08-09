@@ -6,7 +6,7 @@
     options,
     ...
   }: let
-    cfg = config.my.restic;
+    myCfg = config.my.restic;
     toSubpath = p: lib.path.removePrefix /. (/. + p);
     backupSubmodule = options.services.restic.backups.type.nestedTypes.elemType.getSubModules;
 
@@ -14,10 +14,10 @@
     resticWrapper = pkgs.writeShellScriptBin "restic" ''
       set -e
       if [ "''${1:-}" = "backup" ]; then
-        latest=$(${lib.getExe' pkgs.coreutils "ls"} -1 ${lib.escapeShellArg cfg.snapshotsDir} 2>/dev/null \
+        latest=$(${lib.getExe' pkgs.coreutils "ls"} -1 ${lib.escapeShellArg myCfg.snapshotsDir} 2>/dev/null \
           | ${lib.getExe' pkgs.coreutils "sort"} | ${lib.getExe' pkgs.coreutils "tail"} -n1)
         if [ -n "$latest" ]; then
-          cd "${cfg.snapshotsDir}/$latest"
+          cd "${myCfg.snapshotsDir}/$latest"
         fi
         echo "Working directory: $(${lib.getExe' pkgs.coreutils "pwd"})"
       fi
@@ -33,7 +33,7 @@
           config = {
             initialize = lib.mkDefault true;
             environmentFile = lib.mkDefault config.sops.secrets."restic-${name}-env".path;
-            package = lib.mkIf (cfg.snapshotsDir != null) (lib.mkDefault resticWrapper);
+            package = lib.mkIf (myCfg.snapshotsDir != null) (lib.mkDefault resticWrapper);
           };
         }
       )
@@ -72,7 +72,7 @@
     config = {
       assertions = [
         {
-          assertion = cfg.extraPaths == [] || cfg.backups != {};
+          assertion = myCfg.extraPaths == [] || myCfg.backups != {};
           message = "my.restic.extraPaths is set, but no my.restic.backups are defined.";
         }
       ];
@@ -82,25 +82,25 @@
         lib.concatMapAttrs (name: _: {
           "restic-${name}-env" = {};
         })
-        cfg.backups;
+        myCfg.backups;
 
       services.restic.backups = lib.mapAttrs (_: backup:
         backup
         // {
           paths = let
-            allPaths = backup.paths ++ cfg.extraPaths;
+            allPaths = backup.paths ++ myCfg.extraPaths;
           in
-            if cfg.snapshotsDir != null
+            if myCfg.snapshotsDir != null
             then map toSubpath allPaths
             else allPaths;
           exclude = let
-            allExclude = backup.exclude ++ cfg.extraExclude;
+            allExclude = backup.exclude ++ myCfg.extraExclude;
           in
-            if cfg.snapshotsDir != null
+            if myCfg.snapshotsDir != null
             then map toSubpath allExclude
             else allExclude;
         })
-      cfg.backups;
+      myCfg.backups;
 
       # Give each restic service ambient capacities instead of running as root
       # https://restic.readthedocs.io/en/latest/080_examples.html#backing-up-your-system-without-running-restic-as-root
@@ -113,7 +113,7 @@
             CapabilityBoundingSet = "CAP_DAC_READ_SEARCH";
           };
         })
-      cfg.backups;
+      myCfg.backups;
     };
   };
 }

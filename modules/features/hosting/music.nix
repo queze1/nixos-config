@@ -124,7 +124,7 @@ in {
     lib,
     ...
   }: let
-    cfg = config.my.apps.metube;
+    myCfg = config.my.apps.metube;
   in {
     options.my.apps.metube = {
       domain = lib.mkOption {
@@ -151,7 +151,7 @@ in {
         group = "music";
         linger = true;
         createHome = true;
-        home = cfg.dataDir;
+        home = myCfg.dataDir;
         subUidRanges = [
           {
             startUid = 100000;
@@ -169,7 +169,7 @@ in {
       # Preserve MeTube data
       my.preservation.extraDirectories = [
         {
-          directory = cfg.dataDir;
+          directory = myCfg.dataDir;
           user = "metube";
           group = "music";
           mode = "0700";
@@ -180,7 +180,7 @@ in {
       virtualisation.oci-containers = {
         containers.metube = {
           image = "ghcr.io/alexta69/metube";
-          ports = ["${toString cfg.port}:8081"];
+          ports = ["${toString myCfg.port}:8081"];
           autoStart = true;
           podman.user = "metube";
 
@@ -196,26 +196,26 @@ in {
 
           volumes = [
             "${musicDir}:/downloads"
-            "${cfg.dataDir}:/state"
+            "${myCfg.dataDir}:/state"
           ];
         };
       };
 
       # Reverse proxy with Tailscale auth
       services.caddy.virtualHosts = {
-        ${cfg.domain} = {
+        ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
             @protected not path /version
             import tailscale_auth @protected
-            reverse_proxy 127.0.0.1:${toString cfg.port}
+            reverse_proxy 127.0.0.1:${toString myCfg.port}
           '';
         };
       };
-      services.ddclient.domains = [cfg.domain];
+      services.ddclient.domains = [myCfg.domain];
 
       # Only allow Caddy to access this port
-      my.caddy.firewalledPorts = [cfg.port];
+      my.caddy.firewalledPorts = [myCfg.port];
     };
   };
 
@@ -224,7 +224,7 @@ in {
     lib,
     ...
   }: let
-    cfg = config.my.apps.yubal;
+    myCfg = config.my.apps.yubal;
   in {
     options.my.apps.yubal = {
       domain = lib.mkOption {
@@ -251,7 +251,7 @@ in {
         group = "music";
         linger = true;
         createHome = true;
-        home = cfg.dataDir;
+        home = myCfg.dataDir;
         subUidRanges = [
           {
             startUid = 200000;
@@ -269,7 +269,7 @@ in {
       # Preserve yubal data
       my.preservation.extraDirectories = [
         {
-          directory = cfg.dataDir;
+          directory = myCfg.dataDir;
           user = "yubal";
           group = "music";
           mode = "0700";
@@ -280,7 +280,7 @@ in {
       virtualisation.oci-containers = {
         containers.yubal = {
           image = "ghcr.io/guillevc/yubal:latest";
-          ports = ["${toString cfg.port}:8000"];
+          ports = ["${toString myCfg.port}:8000"];
           autoStart = true;
           podman.user = "yubal";
 
@@ -294,26 +294,26 @@ in {
 
           volumes = [
             "${musicDir}:/app/data"
-            "${cfg.dataDir}:/app/config"
+            "${myCfg.dataDir}:/app/config"
           ];
         };
       };
 
       # Reverse proxy with Tailscale auth
       services.caddy.virtualHosts = {
-        ${cfg.domain} = {
+        ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
             @protected not path /api/health
             import tailscale_auth @protected
-            reverse_proxy 127.0.0.1:${toString cfg.port}
+            reverse_proxy 127.0.0.1:${toString myCfg.port}
           '';
         };
       };
-      services.ddclient.domains = [cfg.domain];
+      services.ddclient.domains = [myCfg.domain];
 
       # Only allow Caddy to access this port
-      my.caddy.firewalledPorts = [cfg.port];
+      my.caddy.firewalledPorts = [myCfg.port];
     };
   };
 
@@ -322,7 +322,7 @@ in {
     lib,
     ...
   }: let
-    cfg = config.my.apps.picard;
+    myCfg = config.my.apps.picard;
   in {
     options.my.apps.picard = {
       domain = lib.mkOption {
@@ -349,7 +349,7 @@ in {
         group = "music";
         linger = true;
         createHome = true;
-        home = cfg.dataDir;
+        home = myCfg.dataDir;
         subUidRanges = [
           {
             startUid = 300000;
@@ -367,7 +367,7 @@ in {
       # Preserve Picard data
       my.preservation.extraDirectories = [
         {
-          directory = cfg.dataDir;
+          directory = myCfg.dataDir;
           user = "picard";
           group = "music";
           mode = "0700";
@@ -378,7 +378,7 @@ in {
       virtualisation.oci-containers = {
         containers.picard = {
           image = "docker.io/mikenye/picard:latest";
-          ports = ["${toString cfg.port}:5800"];
+          ports = ["${toString myCfg.port}:5800"];
           autoStart = true;
           podman.user = "picard";
 
@@ -392,21 +392,21 @@ in {
 
           volumes = [
             "${musicDir}:/storage"
-            "${cfg.dataDir}:/config"
+            "${myCfg.dataDir}:/config"
           ];
         };
       };
 
       # Reverse proxy with Tailscale auth
       services.caddy.virtualHosts = {
-        ${cfg.domain} = {
+        ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
 
             # No health endpoint, so we create our own
             # Reverse proxy to / and return its status code
             handle_path /ping {
-              reverse_proxy 127.0.0.1:${toString cfg.port} {
+              reverse_proxy 127.0.0.1:${toString myCfg.port} {
                 handle_response {
                   respond "{rp.status_code}"
                 }
@@ -415,15 +415,15 @@ in {
 
             handle {
               import tailscale_auth
-              reverse_proxy 127.0.0.1:${toString cfg.port}
+              reverse_proxy 127.0.0.1:${toString myCfg.port}
             }
           '';
         };
       };
-      services.ddclient.domains = [cfg.domain];
+      services.ddclient.domains = [myCfg.domain];
 
       # Only allow Caddy to access this port
-      my.caddy.firewalledPorts = [cfg.port];
+      my.caddy.firewalledPorts = [myCfg.port];
     };
   };
 }

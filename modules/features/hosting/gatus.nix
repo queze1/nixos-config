@@ -4,7 +4,7 @@
     lib,
     ...
   }: let
-    cfg = config.my.apps.gatus;
+    myCfg = config.my.apps.gatus;
   in {
     options.my.apps.gatus = {
       domain = lib.mkOption {
@@ -29,9 +29,9 @@
         enable = true;
         settings = {
           web.address = "127.0.0.1";
-          web.port = cfg.port;
+          web.port = myCfg.port;
           storage.type = "sqlite";
-          storage.path = "${cfg.dataDir}/data.db";
+          storage.path = "${myCfg.dataDir}/data.db";
           storage.maximum-number-of-results = 480; # 60 mins * 8 hours
           endpoints = let
             responseTimeLimit = "500"; # 500 ms
@@ -153,7 +153,7 @@
       # Preserve Gatus data
       my.preservation.extraDirectories = [
         {
-          directory = cfg.dataDir;
+          directory = myCfg.dataDir;
           user = "gatus";
           group = "gatus";
           mode = "700";
@@ -162,18 +162,18 @@
 
       # Reverse proxy with Tailscale auth
       services.caddy.virtualHosts = {
-        ${cfg.domain} = {
+        ${myCfg.domain} = {
           extraConfig = ''
             import cloudflare_dns
             import tailscale_auth
-            reverse_proxy localhost:${toString cfg.port}
+            reverse_proxy localhost:${toString myCfg.port}
           '';
         };
       };
-      services.ddclient.domains = [cfg.domain];
+      services.ddclient.domains = [myCfg.domain];
 
       # Only allow Caddy to access this port
-      my.caddy.firewalledPorts = [cfg.port];
+      my.caddy.firewalledPorts = [myCfg.port];
     };
   };
 }

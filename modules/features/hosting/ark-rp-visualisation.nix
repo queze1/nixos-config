@@ -5,7 +5,7 @@
     pkgs,
     ...
   }: let
-    cfg = config.my.apps.ark-rp-viz;
+    myCfg = config.my.apps.ark-rp-viz;
   in {
     options.my.apps.ark-rp-viz = {
       domain = lib.mkOption {
@@ -29,14 +29,14 @@
       users.users.ark-rp-viz = {
         isSystemUser = true;
         group = "ark-rp-viz";
-        home = cfg.dataDir;
+        home = myCfg.dataDir;
       };
       users.groups.ark-rp-viz = {};
 
       # Preserve ark-rp-visualisation data
       my.preservation.extraDirectories = [
         {
-          directory = cfg.dataDir;
+          directory = myCfg.dataDir;
           user = "ark-rp-viz";
           group = "ark-rp-viz";
           mode = "0700";
@@ -64,7 +64,7 @@
           Restart = "always";
 
           Environment = ''
-            PORT=${toString cfg.port}
+            PORT=${toString myCfg.port}
           '';
           EnvironmentFile = config.sops.secrets.ark-rp-visualisation-env.path;
 
@@ -84,7 +84,7 @@
             credentialsFile = "${config.sops.secrets.ark-rp-viz-cloudflare-creds.path}";
             default = "http_status:404";
             ingress = {
-              ${cfg.domain} = "http://127.0.0.1:${toString cfg.port}";
+              ${myCfg.domain} = "http://127.0.0.1:${toString myCfg.port}";
             };
           };
         };
