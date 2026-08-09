@@ -1,0 +1,3 @@
+[mcp_servers.nixos]
+command = "mcp-nixos"
+enabled = true
