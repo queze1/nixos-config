@@ -54,6 +54,7 @@ A "typical" private service looks like:
 - Pi-Hole - Opens port 53 on Tailscale for DNS. Runs custom backup script daily to dump Teleporter backup. No `tailscale-nginx-auth` (Pi-Hole handles its own auth).
 - rest-server - Runs in append-only mode.
 - SillyTavern
+- Vaultwarden - Password manager.
 - Gatus - Uptime tracker.
-
+- Bezsel  - System usage tracker.
 
