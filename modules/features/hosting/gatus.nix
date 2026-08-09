@@ -38,10 +38,10 @@
             webhook-url = "$DISCORD_WEBHOOK_URL";
             message-content = "<@1326330605113315358>";
             default-alert = {
+              enabled = true;
+              send-on-resolved = true;
               failure-threshold = 3;
               success-threshold = 3;
-              send-on-resolved = true;
-              enabled = true;
             };
           };
           endpoints = let
