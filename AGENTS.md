@@ -14,6 +14,18 @@ This is a Nix flake for NixOS hosts, an ISO, and deployment outputs.
 - `assets/` stores static wallpapers, themes, and images. `templates/flake/`
   is the default flake template.
 
+## Reference tools
+
+Use the NixOS MCP server as the primary reference for NixOS, Home Manager, nix-darwin options, packages, modules, versions, and flakes. Do not rely on training data when an MCP lookup can answer the question.
+
+| Purpose                | Tools                                                                                                                    |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| NixOS options/packages | `mcp__nixos__nixos_search`, `mcp__nixos__nixos_info`                                                                     |
+| Home Manager options   | `mcp__nixos__home_manager_search`, `mcp__nixos__home_manager_options_by_prefix`, `mcp__nixos__home_manager_list_options` |
+| nix-darwin options     | `mcp__nixos__darwin_search`, `mcp__nixos__darwin_options_by_prefix`, `mcp__nixos__darwin_list_options`                   |
+| Package versions       | `mcp__nixos__nixhub_package_versions`, `mcp__nixos__nixhub_find_version`                                                 |
+| Flake search           | `mcp__nixos__nixos_flakes_search`                                                                                        |
+
 ## Build, Test, and Development Commands
 
 Run `nix develop` for the pre-commit tooling. Use `nix flake check` before
