@@ -105,12 +105,7 @@ in {
           extraConfig = ''
             import cloudflare_dns
             @protected not path /share/* /ping
-
-            route {
-              request_header -X-Webauth-User # prevent spoofing user
-              import tailscale_auth @protected
-            }
-
+            import tailscale_auth @protected
             reverse_proxy unix/${myCfg.socketPath}
           '';
         };
