@@ -65,8 +65,11 @@
   in {
     services.beszel.agent = {
       enable = true;
-      environment.HUB_URL = "https://${myCfg.domain}";
       environmentFile = config.sops.secrets.beszel-agent-env.path;
+      environment = {
+        DISABLE_SSH = true;
+        HUB_URL = "https://${myCfg.domain}";
+      };
     };
 
     sops.secrets.beszel-agent-env = {};
