@@ -101,6 +101,15 @@
               ];
             }
             {
+              name = "Beszel Hub";
+              group = "Private Services";
+              url = "https://beszel.osipol.uk/api/health";
+              conditions = [
+                "[STATUS] == 200"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
+              ];
+            }
+            {
               name = "Pi-Hole Web";
               group = "Private Services";
               url = "https://pi-hole.osipol.uk/api/info/client";
