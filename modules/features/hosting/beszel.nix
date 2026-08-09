@@ -70,7 +70,5 @@
     };
 
     sops.secrets.beszel-agent-env = {};
-
-    networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [45876];
   };
 }
