@@ -65,13 +65,17 @@
   in {
     services.beszel.agent = {
       enable = true;
-      environmentFile = config.sops.secrets.beszel-agent-env.path;
       environment = {
-        DISABLE_SSH = true;
         HUB_URL = "https://${myCfg.domain}";
+        KEY_FILE = config.sops.secrets.beszel-agent-key.path;
+        TOKEN_FILE = config.sops.secrets.beszel-agent-token.path;
+        DISABLE_SSH = true;
       };
     };
 
-    sops.secrets.beszel-agent-env = {};
+    sops.secrets = {
+      beszel-agent-key.restartUnits = "beszel-agent.service";
+      beszel-agent-token.restartUnits = "beszel-agent.service";
+    };
   };
 }
