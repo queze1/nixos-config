@@ -101,6 +101,9 @@ in {
       };
     };
 
+    # Turn off monitor after 1 minute idle
+    boot.kernelParams = ["consoleblank=60"];
+
     system.stateVersion = "25.11";
   };
 }
