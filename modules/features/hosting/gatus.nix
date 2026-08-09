@@ -36,7 +36,7 @@
           storage.maximum-number-of-results = 480; # 60 mins * 8 hours
           alerting.discord = {
             webhook-url = "$DISCORD_WEBHOOK_URL";
-            message-content = "<@1326330605113315358>";
+            message-content = "<@&1326330605113315358>";
             default-alert = {
               enabled = true;
               send-on-resolved = true;
