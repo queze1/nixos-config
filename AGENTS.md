@@ -33,14 +33,6 @@ submitting changes; it evaluates the flake and its checks. Format Nix files
 with `alejandra .` (also enforced by the hook). Run `pre-commit run --all-files`
 for the complete local validation set.
 
-Build the output affected by a change rather than rebuilding every host. For
-example:
-
-```bash
-nix build .#nixosConfigurations.able-archer.config.system.build.toplevel
-nix build .#packages.x86_64-linux.iso-system
-```
-
 CI builds `able-archer`, `steadfast-dart`, `steadfast-defender`, and both ISO
 architectures. Use `./install.sh <target-ip> <hostname>` only for intentional
 machine provisioning; it invokes remote deployment.
