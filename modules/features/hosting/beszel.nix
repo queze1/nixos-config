@@ -79,8 +79,8 @@
     };
 
     sops.secrets = {
-      beszel-agent-key.restartUnits = "beszel-agent.service";
-      beszel-agent-token.restartUnits = "beszel-agent.service";
+      beszel-agent-key.restartUnits = ["beszel-agent.service"];
+      beszel-agent-token.restartUnits = ["beszel-agent.service"];
     };
   };
 }
