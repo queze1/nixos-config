@@ -17,8 +17,9 @@ in {
 
       # Hosted services
       self.nixosModules.beszel
-      self.nixosModules.beszelHub
       self.nixosModules.beszelClient
+      self.nixosModules.beszelHub
+      self.nixosModules.garage
       self.nixosModules.gatus
       self.nixosModules.resticServer
     ];
