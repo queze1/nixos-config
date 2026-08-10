@@ -50,6 +50,9 @@
       # Backup Nextcloud data
       my.restic.extraPaths = [dataDir];
 
+      # Don't use nginx for reverse proxy
+      services.nginx.enable = false;
+
       # Reverse proxy with Tailscale auth
       services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
         import cloudflare_dns
