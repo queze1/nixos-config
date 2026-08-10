@@ -24,6 +24,7 @@ in {
       self.nixosModules.beszel
       self.nixosModules.beszelClient
       self.nixosModules.musicStack
+      self.nixosModules.nextcloud
       self.nixosModules.pihole
       self.nixosModules.sillytavern
       self.nixosModules.vaultwarden
@@ -33,6 +34,7 @@ in {
     my.apps.actual.port = 8000;
     my.apps.ark-rp-viz.port = 8001;
     my.apps.metube.port = 8002;
+    my.apps.nextcloud.port = 8008;
     my.apps.picard.port = 8003;
     my.apps.pihole.ports = ["8004"];
     my.apps.sillytavern.port = 8005;
