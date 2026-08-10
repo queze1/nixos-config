@@ -19,7 +19,6 @@ in {
       self.nixosModules.beszel
       self.nixosModules.beszelClient
       self.nixosModules.beszelHub
-      self.nixosModules.garage
       self.nixosModules.gatus
       self.nixosModules.resticServer
     ];
