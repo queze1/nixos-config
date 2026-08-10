@@ -73,6 +73,7 @@
           DynamicUser = lib.mkForce false;
           User = "garage";
           Group = "garage";
+          RuntimeDirectory = "garage";
         };
       };
 
