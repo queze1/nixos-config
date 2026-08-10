@@ -35,6 +35,7 @@
       self.homeModules.yazi
 
       # GUI apps
+      self.homeModules.bitwardenClient
       self.homeModules.firefox
       self.homeModules.keepassxc
       self.homeModules.obsidian
