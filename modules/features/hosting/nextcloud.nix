@@ -2,6 +2,7 @@
   flake.nixosModules.nextcloud = {
     config,
     lib,
+    pkgs,
     ...
   }: let
     myCfg = config.my.apps.nextcloud;
@@ -23,6 +24,7 @@
     config = {
       services.nextcloud = {
         enable = true;
+        package = pkgs.nextcloud33;
         hostName = myCfg.domain;
         config = {
           adminpassFile = config.sops.secrets.nextcloud-admin-password.path;
