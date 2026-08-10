@@ -1,3 +1,4 @@
+# TODO: Requires lots of extra config to use with Caddy
 {
   flake.nixosModules.nextcloud = {
     config,

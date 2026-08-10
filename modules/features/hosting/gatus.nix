@@ -67,16 +67,16 @@
               ];
               alerts = [{type = "discord";}];
             }
-            {
-              name = "Nextcloud";
-              group = "Private Apps";
-              url = "https://nextcloud.osipol.uk/status.php";
-              conditions = [
-                "[STATUS] == 200"
-                "[RESPONSE_TIME] < ${responseTimeLimit}"
-              ];
-              alerts = [{type = "discord";}];
-            }
+            # {
+            #   name = "Nextcloud";
+            #   group = "Private Apps";
+            #   url = "https://nextcloud.osipol.uk/status.php";
+            #   conditions = [
+            #     "[STATUS] == 200"
+            #     "[RESPONSE_TIME] < ${responseTimeLimit}"
+            #   ];
+            #   alerts = [{type = "discord";}];
+            # }
             {
               name = "Navidrome";
               group = "Private Apps";
