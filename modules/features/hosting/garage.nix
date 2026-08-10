@@ -1,3 +1,4 @@
+# Not worth unless you can set up a cluster of 3
 {
   flake.nixosModules.garage = {
     config,
