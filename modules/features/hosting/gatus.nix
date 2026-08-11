@@ -194,20 +194,19 @@
         }
       ];
 
-      # Reverse proxy with Tailscale auth
-      services.caddy.virtualHosts = {
-        ${myCfg.domain} = {
-          extraConfig = ''
-            import cloudflare_dns
-            import tailscale_auth
-            reverse_proxy localhost:${toString myCfg.port}
-          '';
+      # Networking with Cloudflare tunnel
+      services.cloudflared = {
+        tunnels = {
+          "e33aff4b-47a8-411f-a7de-f01fa3e3c6b5" = {
+            credentialsFile = "${config.sops.secrets.gatus-cloudflare-creds.path}";
+            default = "http_status:404";
+            ingress = {
+              ${myCfg.domain} = "http://127.0.0.1:${toString myCfg.port}";
+            };
+          };
         };
       };
-      services.ddclient.domains = [myCfg.domain];
-
-      # Only allow Caddy to access this port
-      my.caddy.firewalledPorts = [myCfg.port];
+      sops.secrets.gatus-cloudflare-creds = {};
     };
   };
 }
