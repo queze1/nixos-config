@@ -44,6 +44,7 @@
     ];
 
     home.packages = with pkgs; [
+      calibre
       gnome-clocks
       kdePackages.okular
       obs-studio
