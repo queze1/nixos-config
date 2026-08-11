@@ -10,7 +10,18 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in {
         default = pkgs.hello;
-        devShells.default = pkgs.mkShell {packages = [];};
+      }
+    );
+
+    devShells = forAllSystems (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        default = pkgs.mkShell {
+          packages = [
+            pkgs.hello
+          ];
+        };
       }
     );
   };
