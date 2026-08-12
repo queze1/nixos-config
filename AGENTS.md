@@ -10,7 +10,7 @@ This is a Nix flake for NixOS hosts, an ISO, and deployment outputs.
 - `modules/features/` contains reusable configuration grouped by purpose:
   `desktop`, `hosting`, `nix`, `programs`, `services`, `shared`, and `system`.
 - `modules/users/` defines users; `modules/lib/` holds shared integrations;
-  `modules/outputs/` defines ISO, Colmena, deploy-rs, and helper outputs.
+  `modules/outputs/` defines ISO, Colmena, and helper outputs.
 - `assets/` stores static wallpapers, themes, and images. `templates/flake/`
   is the default flake template.
 

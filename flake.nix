@@ -44,20 +44,11 @@
       url = "github:nlewo/comin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Personal repos
     ark-rp-visualisation = {
       url = "github:queze1/ark-rp-visualisation";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-on-droid-repo = {
-      url = "github:queze1/nix-on-droid-config";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-      inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
 
     # Applications

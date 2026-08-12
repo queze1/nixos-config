@@ -2,7 +2,6 @@
   perSystem = {
     lib,
     pkgs,
-    self',
     ...
   }: let
     # Generate a script which wraps a nixos-rebuild command with nom
@@ -43,21 +42,6 @@
           echo "Restoring stashed changes..."
           git stash pop || echo "Stash pop resulted in conflicts. Please resolve manually."
         fi
-      '';
-
-      # deploy-nix-on-droid: Deploy Nix-on-Droid config with deploy-rs
-      deploy-nix-on-droid = pkgs.writeShellScriptBin "deploy-nix-on-droid" ''
-        set -e
-
-        ${self'.packages.flake-update}/bin/flake-update nix-on-droid-repo
-
-        cd ~/etc/nixos
-
-        echo "Rebuilding system..."
-        sudo nixos-rebuild switch --flake ~/etc/nixos#
-
-        echo "Deploying to server..."
-        nix run github:serokell/deploy-rs -- --targets '.#nix-on-droid-server' -- --impure
       '';
 
       # nrs/nrb: prettified nixos-rebuild

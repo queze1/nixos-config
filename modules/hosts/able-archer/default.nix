@@ -22,7 +22,6 @@ in {
       self.nixosModules.utm
 
       # Build-related
-      self.nixosModules.deployNixOnDroid
       self.nixosModules.setupAccessTokens
 
       # System components
