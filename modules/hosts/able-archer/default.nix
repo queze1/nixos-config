@@ -59,6 +59,7 @@ in {
         "/home/${mainUser}/Coding"
         "/home/${mainUser}/cs3231"
         "/home/${mainUser}/etc/nixos"
+        "/passwd"
         "/var/lib/tailscale"
       ];
       backups.backblaze-b2 = {
