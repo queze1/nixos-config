@@ -7,9 +7,11 @@ cd /mnt/top-level
 
 btrfs subvolume create persistent-preview
 
-# Drop --dry-run if looks sane
 # Note that restic will drop common prefixes
 restic-local-server restore latest --target persistent-preview --dry-run
+
+# Drop --dry-run if looks sane
+restic-local-server restore latest --target persistent-preview
 
 # Overwrite old host keys
 cp -p /persistent/etc/ssh/ssh_host_rsa_key persistent-preview/etc/ssh/ssh_host_rsa_key
