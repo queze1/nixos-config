@@ -27,6 +27,7 @@
     config = {
       services.immich = {
         enable = true;
+        host = "127.0.0.1";
         port = myCfg.port;
         mediaLocation = myCfg.mediaDir;
         machine-learning.enable = false;
