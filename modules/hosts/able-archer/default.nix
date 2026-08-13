@@ -62,6 +62,15 @@ in {
         "/passwd"
         "/var/lib/tailscale"
       ];
+      extraExclude = [
+        ".Trash-1000"
+        ".cache"
+        ".devenv"
+        ".next"
+        ".pnpm-store"
+        ".venv"
+        "node_modules"
+      ];
       backups.backblaze-b2 = {
         timerConfig = {
           OnCalendar = "daily";
