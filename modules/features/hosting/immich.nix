@@ -4,6 +4,7 @@
     lib,
     ...
   }: let
+    cfg = config.services.immich;
     myCfg = config.my.apps.immich;
   in {
     options.my.apps.immich = {
@@ -17,11 +18,6 @@
         default = 2283;
         description = "Port to run Immich on.";
       };
-      mediaDir = lib.mkOption {
-        type = lib.types.str;
-        default = "/srv/immich";
-        description = "Directory where Immich stores media.";
-      };
     };
 
     config = {
@@ -29,17 +25,16 @@
         enable = true;
         host = "127.0.0.1";
         port = myCfg.port;
-        mediaLocation = myCfg.mediaDir;
         machine-learning.enable = false;
         settings.server.externalDomain = "https://${myCfg.domain}";
       };
 
-      # Preserve Immich directories and database
+      # Preserve Immich data and Postgres
       my.preservation.extraDirectories = [
         {
-          directory = myCfg.mediaDir;
-          user = config.services.immich.user;
-          group = config.services.immich.group;
+          directory = cfg.mediaLocation;
+          user = cfg.user;
+          group = cfg.group;
           mode = "0700";
         }
         {
@@ -50,9 +45,9 @@
         }
       ];
 
-      # Backup Immich media
+      # Backup Immich data
       my.restic.extraPaths = [
-        myCfg.mediaDir
+        cfg.mediaLocation
       ];
 
       # Reverse proxy
