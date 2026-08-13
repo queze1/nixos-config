@@ -23,6 +23,7 @@ in {
       self.nixosModules.arkRpVisualisation
       self.nixosModules.beszel
       self.nixosModules.beszelClient
+      self.nixosModules.immich
       self.nixosModules.musicStack
       self.nixosModules.pihole
       self.nixosModules.sillytavern
@@ -38,6 +39,7 @@ in {
     my.apps.sillytavern.port = 8005;
     my.apps.vaultwarden.port = 8006;
     my.apps.yubal.port = 8007;
+    my.apps.immich.port = 8008;
 
     my.restic = {
       snapshotsDir = "/persistent/snapshots";
