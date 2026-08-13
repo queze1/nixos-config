@@ -58,6 +58,17 @@
               alerts = [{type = "discord";}];
             }
             {
+              name = "Immich";
+              group = "Private Apps";
+              url = "https://immich.osipol.uk/api/server/ping";
+              conditions = [
+                "[STATUS] == 200"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
+                "[BODY].res == pong"
+              ];
+              alerts = [{type = "discord";}];
+            }
+            {
               name = "MeTube";
               group = "Private Apps";
               url = "https://metube.osipol.uk/version";
