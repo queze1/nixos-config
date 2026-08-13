@@ -23,7 +23,6 @@ in {
       self.nixosModules.arkRpVisualisation
       self.nixosModules.beszel
       self.nixosModules.beszelClient
-      self.nixosModules.immich
       self.nixosModules.musicStack
       self.nixosModules.pihole
       self.nixosModules.sillytavern

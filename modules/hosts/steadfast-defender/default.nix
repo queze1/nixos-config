@@ -21,6 +21,7 @@ in {
       self.nixosModules.beszelClient
       self.nixosModules.beszelHub
       self.nixosModules.gatus
+      self.nixosModules.immich
       self.nixosModules.resticServer
     ];
 
