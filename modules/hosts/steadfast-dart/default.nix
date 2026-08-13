@@ -5,7 +5,7 @@
 }: let
   hostname = "steadfast-dart";
 in {
-  # Fastest home server
+  # Newer home server
   flake.nixosModules.steadfastDartConfiguration = {
     imports = [
       self.nixosModules.steadfastBase
