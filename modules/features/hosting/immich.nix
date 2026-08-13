@@ -25,7 +25,6 @@
         enable = true;
         host = "127.0.0.1";
         port = myCfg.port;
-        machine-learning.enable = false;
         settings.server.externalDomain = "https://${myCfg.domain}";
       };
 
