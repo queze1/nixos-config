@@ -48,7 +48,7 @@
 
       # Reverse proxy on Tailscale MagicDNS
       services.caddy.virtualHosts = {
-        "${config.networking.hostName}.${config.my.constants.tailnetDomain}:${myCfg.port}" = {
+        "${config.networking.hostName}.${config.my.constants.tailnetDomain}:${toString myCfg.port}" = {
           extraConfig = ''
             reverse_proxy unix/${myCfg.socketPath}
           '';
