@@ -1,7 +1,15 @@
 {
   # Options which all hosts should have access to.
-  # Specifically, options configuring modules which should silently do nothing if that module is not imported.
+  # E.g. constants, options configuring modules which should silently do nothing if that module is not imported.
   flake.nixModules.myOptions = {lib, ...}: {
+    options.my.constants = {
+      tailnetDomain = lib.mkOption {
+        type = lib.types.str;
+        default = "tail8963fb.ts.net";
+        description = "Tailnet DNS name.";
+      };
+    };
+
     options.my.preservation = {
       extraDirectories = lib.mkOption {
         type = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
