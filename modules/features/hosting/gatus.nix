@@ -164,7 +164,7 @@
             {
               name = "Restic Server (steadfast-defender)";
               group = "Private Services";
-              url = "https://steadfast-defender.${config.my.constants.tailnetDomain}:8000";
+              url = "https://steadfast-defender.${config.my.constants.tailnetDomain}:8443";
               conditions = [
                 "[STATUS] == 401"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
@@ -174,7 +174,7 @@
             {
               name = "Restic Server (steadfast-dart)";
               group = "Private Services";
-              url = "https://steadfast-dart.${config.my.constants.tailnetDomain}:8000";
+              url = "https://steadfast-dart.${config.my.constants.tailnetDomain}:8443";
               conditions = [
                 "[STATUS] == 401"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"

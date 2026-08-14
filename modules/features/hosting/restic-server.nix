@@ -10,7 +10,7 @@
     options.my.apps.resticServer = {
       port = lib.mkOption {
         type = lib.types.int;
-        default = 8000;
+        default = 8443;
         description = "Port to host rest-server on.";
       };
       socketPath = lib.mkOption {
