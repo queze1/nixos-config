@@ -1,13 +1,20 @@
 {
-  flake.nixosModules.sharedModules = {
+  flake.nixosModules.sharedModules = {pkgs, ...}: {
     nixpkgs.config.allowUnfree = true;
-    nix.settings.experimental-features = ["nix-command" "flakes"];
+
+    # Point legacy <nixpkgs> to this system's nixpkgs
+    nix.nixPath = ["nixpkgs=${pkgs.path}"];
+
+    nix.settings = {
+      experimental-features = ["nix-command" "flakes"];
+      download-buffer-size = 5000000; # 500 MB
+    };
+
     nix.gc = {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 30d";
     };
-    nix.settings.download-buffer-size = 5000000; # 500 MB
 
     # Preserve nix repl history
     my.preservation.extraUserDirectories = [
