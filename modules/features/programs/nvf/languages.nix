@@ -149,7 +149,7 @@
             settings = {
               nixd = {
                 nixpkgs = {
-                  expr = "(builtins.getFlake \"${flakePath}\").inputs.nixpkgs";
+                  expr = "import (builtins.getFlake \"${flakePath}\").inputs.nixpkgs {}";
                 };
                 formatting = {
                   command = ["${lib.getExe pkgs.alejandra}"];
