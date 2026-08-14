@@ -104,6 +104,9 @@ in {
     # Turn off monitor after 1 minute idle
     boot.kernelParams = ["consoleblank=60"];
 
+    # Save space, use git history as the primary way to rollback instead of boot entries
+    boot.loader.systemd-boot.configurationLimit = 3;
+
     system.stateVersion = "25.11";
   };
 }
