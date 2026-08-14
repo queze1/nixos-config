@@ -76,6 +76,9 @@
         allowedUDPPorts = [cfg.httpsPort];
       };
 
+      # Allow Caddy to fetch Tailscale TLS certificates
+      services.tailscale.permitCertUid = cfg.user;
+
       # Firewall services which are meant to route through Caddy
       networking.nftables.tables = lib.mkIf (myCfg.firewalledPorts != []) {
         "caddy-firewall" = {
