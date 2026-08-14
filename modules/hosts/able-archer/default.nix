@@ -107,7 +107,6 @@ in {
 
     # Save space
     nix.gc.options = lib.mkForce "--delete-older-than 7d";
-    boot.loader.systemd-boot.configurationLimit = lib.mkForce 10;
 
     networking.hostName = hostname;
     system.stateVersion = "25.11";
