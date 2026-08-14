@@ -54,6 +54,11 @@
           '';
         };
       };
+
+      # Open port on Tailscale
+      networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
+        allowedTCPPorts = [myCfg.port];
+      };
     };
   };
 }
