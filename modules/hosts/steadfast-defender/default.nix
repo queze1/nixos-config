@@ -40,6 +40,13 @@ in {
           Persistent = true;
         };
       };
+      backups.local-server = {
+        timerConfig = {
+          OnCalendar = "hourly";
+          RandomizedDelaySec = "15m";
+          Persistent = true;
+        };
+      };
     };
 
     hardware.facter.reportPath = ./facter.json;

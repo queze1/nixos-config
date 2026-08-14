@@ -26,6 +26,7 @@ in {
       self.nixosModules.beszelClient
       self.nixosModules.musicStack
       self.nixosModules.pihole
+      self.nixosModules.resticServer
       self.nixosModules.sillytavern
       self.nixosModules.vaultwarden
     ];

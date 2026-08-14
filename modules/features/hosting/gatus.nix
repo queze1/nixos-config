@@ -172,6 +172,16 @@
               alerts = [{type = "discord";}];
             }
             {
+              name = "Restic Server (steadfast-dart)";
+              group = "Private Services";
+              url = "https://steadfast-dart.${config.my.constants.tailnetDomain}:8000";
+              conditions = [
+                "[STATUS] == 401"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
+              ];
+              alerts = [{type = "discord";}];
+            }
+            {
               name = "ARK RP Visualisation";
               group = "Public Websites";
               url = "https://ark-rp-visualisation.osipol.uk/";
