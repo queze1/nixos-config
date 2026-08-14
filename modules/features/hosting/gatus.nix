@@ -89,7 +89,7 @@
               alerts = [{type = "discord";}];
             }
             {
-              name = "Picard";
+              name = "MusicBrainz Picard";
               group = "Private Apps";
               url = "https://picard.osipol.uk/ping";
               conditions = [
