@@ -162,9 +162,9 @@
               alerts = [{type = "discord";}];
             }
             {
-              name = "Restic Server";
+              name = "Restic Server (steadfast-defender)";
               group = "Private Services";
-              url = "https://restic-server.osipol.uk";
+              url = "https://steadfast-defender.${config.my.constants.tailnetDomain}:8000";
               conditions = [
                 "[STATUS] == 401"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"

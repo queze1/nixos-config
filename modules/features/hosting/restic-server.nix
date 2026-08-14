@@ -8,10 +8,10 @@
     myCfg = config.my.apps.resticServer;
   in {
     options.my.apps.resticServer = {
-      domain = lib.mkOption {
-        type = lib.types.str;
-        default = "restic-server.osipol.uk";
-        description = "Domain to host rest-server on.";
+      port = lib.mkOption {
+        type = lib.types.int;
+        default = 8000;
+        description = "Port to host rest-server on.";
       };
       socketPath = lib.mkOption {
         type = lib.types.str;
@@ -46,16 +46,14 @@
       # Give Caddy access to the socket
       users.users.${config.services.caddy.user}.extraGroups = ["restic"];
 
-      # Reverse proxy
+      # Reverse proxy on Tailscale MagicDNS
       services.caddy.virtualHosts = {
-        ${myCfg.domain} = {
+        "${config.networking.hostName}.${config.my.constants.tailnetDomain}:${myCfg.port}" = {
           extraConfig = ''
-            import cloudflare_dns
             reverse_proxy unix/${myCfg.socketPath}
           '';
         };
       };
-      services.ddclient.domains = [myCfg.domain];
     };
   };
 }
