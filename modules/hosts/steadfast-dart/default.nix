@@ -14,6 +14,7 @@ in {
 
       # Ingress & routing
       self.nixosModules.caddy
+      self.nixosModules.caddyCloudflareDNS
       self.nixosModules.cloudflared
       self.nixosModules.ddns
       self.nixosModules.tailscaleAuth

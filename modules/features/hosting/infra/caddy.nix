@@ -1,7 +1,6 @@
 {
   flake.nixosModules.caddy = {
     config,
-    pkgs,
     lib,
     ...
   }: let
@@ -21,24 +20,8 @@
     config = {
       services.caddy = {
         enable = true;
-        package = pkgs.caddy.withPlugins {
-          plugins = [
-            "github.com/caddy-dns/cloudflare@v0.2.4"
-          ];
-          hash = "sha256-7GoH8YLCoPmPExQxoga2FHB58zQDoZVf1BBwkVi0SsQ=";
-        };
-
         globalConfig = ''
           admin unix//run/caddy/caddy-admin.sock
-        '';
-        extraConfig = ''
-          (cloudflare_dns) {
-            tls {
-              dns cloudflare {file.${config.sops.secrets.osipol-cloudflare-api-token.path}}
-              propagation_timeout -1
-              propagation_delay 15s
-            }
-          }
         '';
       };
 
@@ -60,12 +43,6 @@
 
       # Back up Caddy data
       my.restic.extraPaths = ["${cfg.dataDir}/.local/share/caddy"];
-
-      # For Cloudflare DNS
-      sops.secrets.osipol-cloudflare-api-token = {
-        owner = cfg.user;
-        group = cfg.group;
-      };
 
       # Open ports on Tailscale
       networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
@@ -93,6 +70,37 @@
           '';
         };
       };
+    };
+  };
+
+  flake.nixosModules.caddyCloudflareDNS = {
+    config,
+    pkgs,
+    ...
+  }: let
+    cfg = config.services.caddy;
+  in {
+    services.caddy = {
+      package = pkgs.caddy.withPlugins {
+        plugins = [
+          "github.com/caddy-dns/cloudflare@v0.2.4"
+        ];
+        hash = "sha256-7GoH8YLCoPmPExQxoga2FHB58zQDoZVf1BBwkVi0SsQ=";
+      };
+      extraConfig = ''
+        (cloudflare_dns) {
+          tls {
+            dns cloudflare {file.${config.sops.secrets.osipol-cloudflare-api-token.path}}
+            propagation_timeout -1
+            propagation_delay 15s
+          }
+        }
+      '';
+    };
+
+    sops.secrets.osipol-cloudflare-api-token = {
+      owner = cfg.user;
+      group = cfg.group;
     };
   };
 }
