@@ -2,9 +2,11 @@
   flake.homeModules.nvf = {
     config,
     lib,
+    osConfig,
     pkgs,
     ...
   }: let
+    hostName = osConfig.networking.hostName;
     flakePath = "${config.home.homeDirectory}/etc/nixos";
     dafny-nvim = pkgs.vimUtils.buildVimPlugin {
       name = "dafny-nvim";
@@ -153,6 +155,12 @@
                   command = ["${lib.getExe pkgs.alejandra}"];
                 };
                 options = {
+                  nixos = {
+                    expr = "(builtins.getFlake \"${flakePath}\").nixosConfigurations.${hostName}.options";
+                  };
+                  home_manager = {
+                    expr = "(builtins.getFlake \"${flakePath}\").nixosConfigurations.${hostName}.options.home-manager.users.type.getSubOptions []";
+                  };
                   flake_parts = {
                     expr = "(builtins.getFlake \"${flakePath}\").debug.options";
                   };
