@@ -30,6 +30,7 @@
 
       # CLI apps
       self.homeModules.foot
+      # self.homeModules.immichGo
       self.homeModules.imv
       self.homeModules.nvf
       self.homeModules.yazi
@@ -65,6 +66,12 @@
       tree
       unzip
       wl-clipboard
+      (pkgs.writeShellScriptBin "immich-go" ''
+        exec ${pkgs.immich-go}/bin/immich-go \
+          --server https://photos.example.com \
+          --api-key-file /run/secrets/immich-api-key \
+          "$@"
+      '')
     ];
 
     programs.btop = {
