@@ -22,10 +22,10 @@ in {
       self.nixosModules.networkmanager
 
       # Nix-related
+      self.nixosModules.comin
       self.nixosModules.setupAccessTokens
 
       # Services
-      self.nixosModules.comin
       self.nixosModules.fwudp
       self.nixosModules.openssh
       self.nixosModules.resticDefaults
