@@ -7,6 +7,11 @@
 in {
   # Tiny EC2 instance
   flake.nixosModules.mirageWhiteConfiguration = {
+    zramSwap = {
+      enable = true;
+      memoryPercent = 100;
+    };
+
     nix.settings.experimental-features = ["nix-command" "flakes"];
 
     networking.hostName = hostname;
