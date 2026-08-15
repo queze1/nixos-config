@@ -31,13 +31,16 @@ in {
       memoryPercent = 100;
     };
 
-    # Minimise storage usage
+    # Minimise Nix store size
     boot.loader.grub.configurationLimit = 3;
     nix.gc = {
       automatic = true;
       options = "--delete-old";
     };
     nix.settings.auto-optimise-store = true;
+
+    # Disable documentation
+    documentation.enable = false;
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
 
