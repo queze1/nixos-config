@@ -1,12 +1,12 @@
 {
-  flake.nixosModules.forgejo2github = {
+  flake.nixosModules.github2forgejo = {
     config,
     lib,
     pkgs,
     ...
   }: let
     cfg = config.services.forgejo;
-    myCfg = config.my.apps.forgejo2github;
+    myCfg = config.my.apps.github2forgejo;
     source = pkgs.fetchFromGitHub {
       owner = "PatNei";
       repo = "GITHUB2FORGEJO";
@@ -14,7 +14,7 @@
       hash = lib.fakeHash;
     };
   in {
-    options.my.apps.forgejo2github = {
+    options.my.apps.github2forgejo = {
       githubUser = lib.mkOption {
         type = lib.types.str;
         default = "queze1";
@@ -33,13 +33,13 @@
     };
 
     config = {
-      sops.secrets.forgejo2github-env = {
+      sops.secrets.github2forgejo-env = {
         owner = cfg.user;
         group = cfg.group;
         mode = "0400";
       };
 
-      systemd.services.forgejo2github = {
+      systemd.services.github2forgejo = {
         description = "Mirror GitHub repositories to Forgejo";
         after = ["forgejo.service" "network-online.target"];
         wants = ["forgejo.service" "network-online.target"];
@@ -52,14 +52,14 @@
         path = [pkgs.curl pkgs.jq];
         serviceConfig = {
           ExecStart = "${pkgs.bash}/bin/bash ${source}/github-forgejo-migrate.sh";
-          EnvironmentFile = config.sops.secrets.forgejo2github-env.path;
+          EnvironmentFile = config.sops.secrets.github2forgejo-env.path;
           Type = "oneshot";
           User = cfg.user;
           Group = cfg.group;
         };
       };
 
-      systemd.timers.forgejo2github = {
+      systemd.timers.github2forgejo = {
         description = "Daily GitHub to Forgejo mirror";
         wantedBy = ["timers.target"];
         timerConfig = {
