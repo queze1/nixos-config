@@ -8,6 +8,7 @@ in {
   # Tiny EC2 instance
   flake.nixosModules.mirageWhiteConfiguration = {
     networking.hostName = hostname;
+    system.stateVersion = "26.05";
   };
 
   flake.nixosConfigurations.${hostname} = inputs.nixpkgs-stable.lib.nixosSystem {

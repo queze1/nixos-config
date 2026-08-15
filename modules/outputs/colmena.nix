@@ -21,21 +21,24 @@
         };
       };
 
-      defaults = {config, ...}: {
-        deployment = {
-          targetHost = config.networking.hostName;
-          targetPort = 22;
-          targetUser = "root";
-        };
+      defaults = {
+        deployment.targetPort = 22;
+        deployment.targetUser = "root";
       };
 
-      steadfast-dart = {
-        deployment.buildOnTarget = true;
+      steadfast-dart = {config, ...}: {
+        deployment = {
+          buildOnTarget = true;
+          targetHost = config.networking.hostName;
+        };
         imports = [self.nixosModules.steadfastDartConfiguration];
       };
 
-      steadfast-defender = {
-        deployment.buildOnTarget = true;
+      steadfast-defender = {config, ...}: {
+        deployment = {
+          buildOnTarget = true;
+          targetHost = config.networking.hostName;
+        };
         imports = [self.nixosModules.steadfastDefenderConfiguration];
       };
 
@@ -44,6 +47,14 @@
       # };
 
       mirage-white = {
+        deployment = {
+          targetHost = "ec2-43-204-216-74.ap-south-1.compute.amazonaws.com";
+          sshOptions = [
+            "-i"
+            "~/.ssh/aws-ec2.pem"
+          ];
+        };
+
         imports = [
           self.nixosModules.mirageWhiteConfiguration
           self.nixosModules.mirageWhiteHardware
