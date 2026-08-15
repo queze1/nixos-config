@@ -1,5 +1,6 @@
 {
   inputs,
+  pkgs-stable_x86,
   self,
   ...
 }: let
@@ -69,10 +70,7 @@ in {
   };
 
   flake.nixosConfigurations.${hostname} = inputs.nixpkgs-stable.lib.nixosSystem {
-    pkgs = import inputs.nixpkgs-stable {
-      system = "x86_64-linux";
-      config.allowUnfree = true;
-    };
+    pkgs = pkgs-stable_x86;
     modules = [self.nixosModules.steadfastDartConfiguration];
   };
 }

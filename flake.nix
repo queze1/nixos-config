@@ -1,5 +1,14 @@
 {
-  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
+  outputs = inputs: let
+    pkgs-stable_x86 = import inputs.nixpkgs-stable {
+      system = "x86_64-linux";
+      config.allowUnfree = true;
+    };
+  in
+    inputs.flake-parts.lib.mkFlake {
+      inherit inputs;
+      specialArgs = {inherit pkgs-stable_x86;};
+    } (inputs.import-tree ./modules);
 
   inputs = {
     # Nix ecosystem
