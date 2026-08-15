@@ -26,7 +26,6 @@ in {
 
       # System components
       self.nixosModules.fonts
-      self.nixosModules.networkmanager
       self.nixosModules.shellAliases
       self.nixosModules.sound
 

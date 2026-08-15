@@ -19,7 +19,6 @@ in {
 
       # System config
       self.nixosModules.btrbk
-      self.nixosModules.networkmanager
 
       # Nix-related
       self.nixosModules.comin
