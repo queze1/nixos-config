@@ -49,7 +49,12 @@
           FORGEJO_USER = myCfg.forgejoUser;
           STRATEGY = myCfg.strategy;
         };
-        path = [pkgs.curl pkgs.jq];
+        path = [
+          pkgs.bash
+          pkgs.curl
+          pkgs.jq
+          pkgs.ncurses
+        ];
         serviceConfig = {
           ExecStart = "${pkgs.bash}/bin/bash ${source}/github-forgejo-migrate.sh";
           EnvironmentFile = config.sops.secrets.github2forgejo-env.path;
