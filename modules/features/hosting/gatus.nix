@@ -60,7 +60,7 @@
             {
               name = "ForgeJo";
               group = "Private Apps";
-              url = "https:/forgejo.osipol.uk/api/healthz";
+              url = "https://forgejo.osipol.uk/api/healthz";
               conditions = [
                 "[STATUS] == 200"
                 "[RESPONSE_TIME] < ${responseTimeLimit}"
@@ -68,7 +68,6 @@
               ];
               alerts = [{type = "discord";}];
             }
-
             {
               name = "Immich";
               group = "Private Apps";
