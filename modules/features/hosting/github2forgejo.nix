@@ -20,11 +20,6 @@
         default = "queze1";
         description = "GitHub user or organisation to mirror.";
       };
-      forgejoUser = lib.mkOption {
-        type = lib.types.str;
-        default = myCfg.githubUser;
-        description = "Forgejo user or organisation that owns the mirrored repositories.";
-      };
       strategy = lib.mkOption {
         type = lib.types.enum ["mirror" "clone"];
         default = "mirror";
@@ -46,7 +41,6 @@
         environment = {
           GITHUB_USER = myCfg.githubUser;
           FORGEJO_URL = "https://${config.my.apps.forgejo.domain}";
-          FORGEJO_USER = myCfg.forgejoUser;
           STRATEGY = myCfg.strategy;
         };
         path = [
