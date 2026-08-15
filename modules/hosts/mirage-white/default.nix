@@ -8,6 +8,8 @@ in {
   # Tiny EC2 instance
   flake.nixosModules.mirageWhiteConfiguration = {config, ...}: {
     imports = [
+      self.nixosModules.myOptions
+
       self.nixosModules.sopsNix
       self.nixosModules.tailscale
     ];
