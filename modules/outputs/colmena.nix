@@ -44,7 +44,10 @@
       # };
 
       mirage-white = {
-        imports = [self.nixosModules.mirageWhiteConfiguration];
+        imports = [
+          self.nixosModules.mirageWhiteConfiguration
+          self.nixosModules.mirageWhiteHardware
+        ];
       };
     };
 }
