@@ -57,4 +57,4 @@ A "typical" private service looks like:
 - Vaultwarden - Password manager.
 - Gatus - Uptime tracker.
 - Bezsel  - System usage tracker.
-
+- Forgejo - GitHub repository mirror.

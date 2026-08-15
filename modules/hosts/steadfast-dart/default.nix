@@ -24,6 +24,7 @@ in {
       self.nixosModules.arkRpVisualisation
       self.nixosModules.beszel
       self.nixosModules.beszelClient
+      self.nixosModules.forgejo
       self.nixosModules.musicStack
       self.nixosModules.pihole
       self.nixosModules.resticServer
