@@ -58,7 +58,7 @@ in {
         runScript = "${innerScript}";
       };
   in {
-    packages = lib.optionalAttrs pkgs.stdenv.isLinux {
+    packages = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
       iso-system = isoSystem.config.system.build.toplevel;
       iso-image = isoImage;
       burn-iso-image = mkIsoBurnerScript "burn-iso-image";

@@ -12,7 +12,7 @@
         ${lib.getExe pkgs.nix-output-monitor}
       '';
   in {
-    packages = lib.optionalAttrs pkgs.stdenv.isLinux {
+    packages = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
       # flake-update: Update and commit NixOS config flake
       flake-update = pkgs.writeShellScriptBin "flake-update" ''
         set -e
