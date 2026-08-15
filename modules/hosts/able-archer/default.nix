@@ -87,8 +87,6 @@ in {
       };
     };
 
-    environment.localBinInPath = true;
-
     # Save space
     nix.gc.options = lib.mkForce "--delete-older-than 7d";
 
