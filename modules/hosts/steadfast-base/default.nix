@@ -30,6 +30,10 @@ in {
       self.nixosModules.resticDefaults
       self.nixosModules.tailscale
 
+      # Monitoring
+      self.nixosModules.beszel
+      self.nixosModules.beszelAgent
+
       self.nixosModules.commander
     ];
 

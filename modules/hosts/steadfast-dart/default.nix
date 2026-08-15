@@ -22,8 +22,6 @@ in {
       # Self-hosted apps
       self.nixosModules.actual
       self.nixosModules.arkRpVisualisation
-      self.nixosModules.beszel
-      self.nixosModules.beszelClient
       self.nixosModules.forgejo
       self.nixosModules.github2forgejo
       self.nixosModules.musicStack

@@ -18,8 +18,6 @@ in {
       self.nixosModules.tailscaleAuth
 
       # Hosted services
-      self.nixosModules.beszel
-      self.nixosModules.beszelClient
       self.nixosModules.beszelHub
       self.nixosModules.gatus
       self.nixosModules.immich

@@ -16,7 +16,7 @@ in {
 
       # Services
       self.nixosModules.beszel
-      self.nixosModules.beszelClient
+      self.nixosModules.beszelAgent
     ];
 
     # Automatically auth into Tailscale as a server

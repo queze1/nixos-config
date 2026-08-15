@@ -65,7 +65,7 @@
     my.caddy.firewalledPorts = [myCfg.port];
   };
 
-  flake.nixosModules.beszelClient = {config, ...}: let
+  flake.nixosModules.beszelAgent = {config, ...}: let
     myCfg = config.my.beszel;
   in {
     services.beszel.agent = {
