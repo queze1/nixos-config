@@ -12,5 +12,7 @@
         }
       ];
     };
+
+    my.preservation.extraDirectories = ["/var/lib/comin"];
   };
 }
