@@ -15,16 +15,17 @@ in {
       self.nixosModules.tailscale
 
       # Nix-related
+      self.nixosModules.comin
       self.nixosModules.nixbuild
       self.nixosModules.setupAccessTokens
-
-      # Monitoring
-      self.nixosModules.beszel
-      self.nixosModules.beszelAgent
 
       # Hosted services
       self.nixosModules.cloudflared
       self.nixosModules.gatus
+
+      # Monitoring
+      self.nixosModules.beszel
+      self.nixosModules.beszelAgent
     ];
 
     # Automatically auth into Tailscale as a server
