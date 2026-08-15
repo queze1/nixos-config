@@ -1,12 +1,14 @@
 {
-  inputs,
-  pkgs-stable_x86,
   self,
+  inputs,
   ...
 }: {
   flake.colmenaHive = inputs.colmena.lib.makeHive {
     meta = {
-      nixpkgs = pkgs-stable_x86;
+      nixpkgs = import inputs.nixpkgs-stable {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
     };
 
     defaults = {config, ...}: {
