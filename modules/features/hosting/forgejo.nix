@@ -36,6 +36,9 @@
             ENABLE_REVERSE_PROXY_AUTHENTICATION = true;
             ENABLE_REVERSE_PROXY_AUTO_REGISTRATION = true;
           };
+          session = {
+            COOKIE_SECURE = true;
+          };
         };
       };
 
