@@ -1,7 +1,7 @@
 {
-  # Options which all hosts should have access to.
+  # Options which all NixOS hosts should have access to.
   # E.g. constants, options configuring modules which should silently do nothing if that module is not imported.
-  flake.nixModules.myOptions = {lib, ...}: {
+  flake.nixosModules.myOptions = {lib, ...}: {
     options.my.constants = {
       tailnetDomain = lib.mkOption {
         type = lib.types.str;

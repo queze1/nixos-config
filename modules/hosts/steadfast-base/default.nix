@@ -8,7 +8,7 @@ in {
     ...
   }: {
     imports = [
-      self.nixModules.myOptions
+      self.nixosModules.myOptions
       self.nixosModules.sharedModules
 
       # Basic libraries
