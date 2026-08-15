@@ -14,6 +14,10 @@ in {
       self.nixosModules.sopsNix
       self.nixosModules.tailscale
 
+      # Nix-related
+      self.nixosModules.nixbuild
+      self.nixosModules.setupAccessTokens
+
       # Monitoring
       self.nixosModules.beszel
       self.nixosModules.beszelAgent
