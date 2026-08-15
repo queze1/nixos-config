@@ -58,6 +58,18 @@
               alerts = [{type = "discord";}];
             }
             {
+              name = "ForgeJo";
+              group = "Private Apps";
+              url = "https:/forgejo.osipol.uk/api/healthz";
+              conditions = [
+                "[STATUS] == 200"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
+                "[BODY].status == pass"
+              ];
+              alerts = [{type = "discord";}];
+            }
+
+            {
               name = "Immich";
               group = "Private Apps";
               url = "https://immich.osipol.uk/api/server/ping";
