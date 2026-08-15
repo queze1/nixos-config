@@ -25,6 +25,7 @@ in {
       self.nixosModules.beszel
       self.nixosModules.beszelClient
       self.nixosModules.forgejo
+      self.nixosModules.forgejo2github
       self.nixosModules.musicStack
       self.nixosModules.pihole
       self.nixosModules.resticServer
