@@ -4,16 +4,20 @@
     pkgs,
     ...
   }: {
-    # NOTE: no --api-key-file, need to use config file
     home.packages = [
       (pkgs.writeShellScriptBin "immich-go" ''
         exec ${pkgs.immich-go}/bin/immich-go \
-          --server https://immich.osipol.uk \
-          --api-key-file ${config.sops.secrets.immich-api-key.path} \
+          --config ${config.sops.templates."immich-go.toml".path} \
           "$@"
       '')
     ];
 
     sops.secrets.immich-api-key = {};
+
+    sops.templates."immich-go.toml".content = ''
+      [upload]
+      api-key = "${config.sops.placeholder.immich-api-key}"
+      server = "https://immich.osipol.uk"
+    '';
   };
 }

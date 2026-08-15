@@ -33,7 +33,7 @@
 
       # CLI apps
       self.homeModules.foot
-      # self.homeModules.immichGo
+      self.homeModules.immichGo
       self.homeModules.imv
       self.homeModules.nvf
       self.homeModules.yazi
