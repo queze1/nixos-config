@@ -6,6 +6,11 @@
       "/etc/NetworkManager/system-connections"
     ];
 
+    zramSwap = {
+      enable = true;
+      algorithm = "zstd";
+    };
+
     # Set Vim as default editor
     environment.variables = {
       EDITOR = "vim";
