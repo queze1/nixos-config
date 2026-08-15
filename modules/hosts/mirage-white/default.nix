@@ -31,6 +31,14 @@ in {
       memoryPercent = 100;
     };
 
+    # Minimise storage usage
+    boot.loader.grub.configurationLimit = 3;
+    nix.gc = {
+      automatic = true;
+      options = "--delete-old";
+    };
+    nix.settings.auto-optimise-store = true;
+
     nix.settings.experimental-features = ["nix-command" "flakes"];
 
     networking.hostName = hostname;
