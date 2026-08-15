@@ -112,10 +112,18 @@ in {
     system.stateVersion = "25.11";
   };
 
-  flake.nixosConfigurations.able-archer = inputs.nixpkgs.lib.nixosSystem {
-    modules = [
-      self.nixosModules.ableArcherConfiguration
-      self.nixosModules.ableArcherHardware
-    ];
-  };
+  flake.nixosConfigurations.able-archer = let
+    pkgs-stable = import inputs.nixpkgs-stable {
+      system = "aarch64-linux";
+      allowUnfree = true;
+    };
+  in
+    inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit pkgs-stable;};
+
+      modules = [
+        self.nixosModules.ableArcherConfiguration
+        self.nixosModules.ableArcherHardware
+      ];
+    };
 }

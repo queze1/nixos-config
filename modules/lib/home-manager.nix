@@ -17,12 +17,13 @@
     ];
   };
 
-  flake.nixModules.homeManager = {
+  flake.nixModules.homeManager = {pkgs-stable ? null, ...}: {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
     home-manager.extraSpecialArgs = {
       inherit
         inputs
+        pkgs-stable
         self
         ;
     };

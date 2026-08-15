@@ -5,7 +5,6 @@
 }: {
   flake.nixosModules.allPrograms = {
     imports = [
-      self.sharedModules.pkgsStableOverlay
       self.nixosModules.fish
       self.nixosModules.protonvpn
     ];
@@ -17,7 +16,11 @@
     programs.seahorse.enable = true;
   };
 
-  flake.homeModules.allPrograms = {pkgs, ...}: {
+  flake.homeModules.allPrograms = {
+    pkgs,
+    pkgs-stable,
+    ...
+  }: {
     imports = [
       inputs.nix-index-database.homeModules.default
 
@@ -44,34 +47,28 @@
       self.homeModules.vesktop
     ];
 
-    home.packages = with pkgs; [
-      calibre
-      gnome-clocks
-      kdePackages.okular
-      obs-studio
-      pinta
-      qalculate-qt
-      stable.celluloid
-      stable.qimgv
+    home.packages = [
+      pkgs.calibre
+      pkgs.gnome-clocks
+      pkgs.kdePackages.okular
+      pkgs.obs-studio
+      pkgs.pinta
+      pkgs.qalculate-qt
+      pkgs-stable.celluloid
+      pkgs-stable.qimgv
 
       # Nix-related CLI tools
       inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
 
       # CLI tools
-      clipboard-jh
-      fastfetch
-      ffmpeg
-      sops
-      stable.yt-dlp
-      tree
-      unzip
-      wl-clipboard
-      (pkgs.writeShellScriptBin "immich-go" ''
-        exec ${pkgs.immich-go}/bin/immich-go \
-          --server https://photos.example.com \
-          --api-key-file /run/secrets/immich-api-key \
-          "$@"
-      '')
+      pkgs.clipboard-jh
+      pkgs.fastfetch
+      pkgs.ffmpeg
+      pkgs.sops
+      pkgs-stable.yt-dlp
+      pkgs.tree
+      pkgs.unzip
+      pkgs.wl-clipboard
     ];
 
     programs.btop = {
@@ -81,18 +78,5 @@
       };
     };
     programs.nix-index-database.comma.enable = true;
-  };
-
-  flake.sharedModules.pkgsStableOverlay = {
-    # Set pkgs.stable to nixpkgs on stable branch
-    nixpkgs.overlays = [
-      # deadnix: skip
-      (final: prev: {
-        stable = import inputs.nixpkgs-stable {
-          system = final.stdenv.hostPlatform.system;
-          config.allowUnfree = true;
-        };
-      })
-    ];
   };
 }
