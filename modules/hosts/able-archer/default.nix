@@ -95,12 +95,15 @@ in {
   };
 
   flake.nixosConfigurations.able-archer = let
-    pkgs-stable = import inputs.nixpkgs-stable {
+    pkg-args = {
       system = "aarch64-linux";
-      allowUnfree = true;
+      config.allowUnfree = true;
     };
+    pkgs = import inputs.nixpkgs pkg-args;
+    pkgs-stable = import inputs.nixpkgs-stable pkg-args;
   in
     inputs.nixpkgs.lib.nixosSystem {
+      inherit pkgs;
       specialArgs = {inherit pkgs-stable;};
 
       modules = [

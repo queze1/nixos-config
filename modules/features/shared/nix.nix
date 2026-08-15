@@ -1,7 +1,5 @@
 {
   flake.nixosModules.sharedModules = {
-    nixpkgs.config.allowUnfree = true;
-
     nix.settings = {
       experimental-features = ["nix-command" "flakes"];
       download-buffer-size = 5000000; # 500 MB
