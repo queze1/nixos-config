@@ -31,5 +31,9 @@
     # steadfast-noon = {
     #   imports = [self.nixosModules.steadfastNoonConfiguration];
     # };
+
+    # mirage-white = {
+    #   imports = [self.nixosModules.mirageWhiteConfiguration];
+    # };
   };
 }
