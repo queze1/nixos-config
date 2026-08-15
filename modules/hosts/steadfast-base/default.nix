@@ -46,10 +46,10 @@ in {
     security.sudo.wheelNeedsPassword = false;
 
     # Automatically auth into Tailscale as a server
-    sops.secrets.tailscale-auth-key = {};
     services.tailscale = {
       authKeyFile = config.sops.secrets.tailscale-auth-key.path;
     };
+    sops.secrets.tailscale-auth-key = {};
 
     # Only allow SSH via Tailscale
     services.openssh.openFirewall = false;
