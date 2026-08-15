@@ -87,22 +87,6 @@ in {
       };
     };
 
-    # Force Audacity to use Wayland
-    nixpkgs.overlays = [
-      # deadnix: skip
-      (final: prev: {
-        audacity = prev.symlinkJoin {
-          name = "audacity-wayland-fix";
-          paths = [prev.audacity];
-          nativeBuildInputs = [prev.makeWrapper];
-          postBuild = ''
-            wrapProgram $out/bin/audacity \
-              --set GDK_BACKEND wayland
-          '';
-        };
-      })
-    ];
-
     environment.localBinInPath = true;
 
     # Save space
