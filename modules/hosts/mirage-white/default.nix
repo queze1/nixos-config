@@ -6,10 +6,17 @@
   hostname = "mirage-white";
 in {
   # Tiny EC2 instance
-  flake.nixosModules.mirageWhiteConfiguration = {
+  flake.nixosModules.mirageWhiteConfiguration = {config, ...}: {
     imports = [
       self.nixosModules.sopsNix
+      self.nixosModules.tailscale
     ];
+
+    # Automatically auth into Tailscale as a server
+    services.tailscale = {
+      authKeyFile = config.sops.secrets.tailscale-auth-key.path;
+    };
+    sops.secrets.tailscale-auth-key = {};
 
     zramSwap = {
       enable = true;
