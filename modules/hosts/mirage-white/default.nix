@@ -7,6 +7,10 @@
 in {
   # Tiny EC2 instance
   flake.nixosModules.mirageWhiteConfiguration = {
+    imports = [
+      self.nixosModules.sopsNix
+    ];
+
     zramSwap = {
       enable = true;
       memoryPercent = 100;
