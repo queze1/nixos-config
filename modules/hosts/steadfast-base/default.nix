@@ -43,6 +43,9 @@ in {
     # Allow SSH into root
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
 
+    # Enable passwordless sudo
+    security.sudo.wheelNeedsPassword = false;
+
     # Automatically auth into Tailscale as a server
     sops.secrets.tailscale-auth-key = {};
     services.tailscale = {
