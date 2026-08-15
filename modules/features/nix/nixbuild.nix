@@ -1,21 +1,9 @@
-{self, ...}: {
-  flake.nixosModules.nixbuild = {pkgs, ...}: {
-    imports = [self.nixosModules.nixbuildAsSubstituter];
-
-    nix = {
-      distributedBuilds = true;
-      buildMachines = [
-        {
-          hostName = "eu.nixbuild.net";
-          system = pkgs.stdenv.hostPlatform.system;
-          maxJobs = 100;
-          supportedFeatures = ["benchmark" "big-parallel"];
-        }
-      ];
-    };
-  };
-
-  flake.nixosModules.nixbuildAsSubstituter = {config, ...}: {
+{
+  flake.nixosModules.nixbuild = {
+    config,
+    pkgs,
+    ...
+  }: {
     sops.secrets.nixbuild-private-key = {};
 
     programs.ssh.extraConfig = ''
@@ -32,9 +20,16 @@
       };
     };
 
-    nix.settings = {
-      substituters = ["ssh://eu.nixbuild.net"];
-      trusted-public-keys = ["nixbuild.net/DHZ6OD-1:0B9aZ9YuXT6XH7PyKDlzcKYj/SjwEw2VzBJEfq7tPMM="];
+    nix = {
+      distributedBuilds = true;
+      buildMachines = [
+        {
+          hostName = "eu.nixbuild.net";
+          system = pkgs.stdenv.hostPlatform.system;
+          maxJobs = 100;
+          supportedFeatures = ["benchmark" "big-parallel"];
+        }
+      ];
     };
   };
 }
