@@ -36,6 +36,13 @@
             ENABLE_REVERSE_PROXY_AUTHENTICATION = true;
             ENABLE_REVERSE_PROXY_AUTO_REGISTRATION = true;
           };
+          security = {
+            # Should be ok because Forgejo only listens on a socket
+            REVERSE_PROXY_TRUSTED_PROXIES = "*";
+            REVERSE_PROXY_AUTHENTICATION_USER = "X-Webauth-Login";
+            REVERSE_PROXY_AUTHENTICATION_EMAIL = "X-Webauth-User";
+            REVERSE_PROXY_AUTHENTICATION_FULL_NAME = "X-Webauth-Name";
+          };
           session = {
             COOKIE_SECURE = true;
           };
@@ -63,6 +70,7 @@
       services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
         import cloudflare_dns
         import tailscale_auth
+
         reverse_proxy unix/${myCfg.socketPath}
       '';
       services.ddclient.domains = [myCfg.domain];
