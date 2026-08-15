@@ -11,7 +11,7 @@
       owner = "PatNei";
       repo = "GITHUB2FORGEJO";
       rev = "ac84e6e1a9e0d55a041a1d8e9ba7092eadd85433";
-      hash = lib.fakeHash;
+      hash = "sha256-E4j8PvIjVqVLc08fi3TLJjzVJ4YSeyAnd2ry639SxSg=";
     };
   in {
     options.my.apps.github2forgejo = {
