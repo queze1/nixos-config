@@ -18,6 +18,8 @@ jobs:
             attr: ".#nixosConfigurations.steadfast-dart.config.system.build.toplevel"
           - target: "steadfast-defender"
             attr: ".#nixosConfigurations.steadfast-defender.config.system.build.toplevel"
+          - target: "mirage-white"
+            attr: ".#nixosConfigurations.mirage-white.config.system.build.toplevel"
           - target: "iso-aarch64"
             attr: ".#packages.aarch64-linux.iso-system"
           - target: "iso-x86_64"
