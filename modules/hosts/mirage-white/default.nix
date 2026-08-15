@@ -17,6 +17,7 @@ in {
     # Automatically auth into Tailscale as a server
     services.tailscale = {
       authKeyFile = config.sops.secrets.tailscale-auth-key.path;
+      extraUpFlags = ["--hostname=${hostname}"];
     };
     sops.secrets.tailscale-auth-key = {};
 
