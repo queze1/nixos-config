@@ -10,8 +10,12 @@ in {
     imports = [
       self.nixosModules.myOptions
 
+      # System config
       self.nixosModules.sopsNix
       self.nixosModules.tailscale
+
+      # Services
+      self.nixosModules.beszelHub
     ];
 
     # Automatically auth into Tailscale as a server
