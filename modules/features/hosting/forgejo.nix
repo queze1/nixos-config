@@ -69,8 +69,8 @@
       # Reverse proxy with Tailscale Auth
       services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
         import cloudflare_dns
-        import tailscale_auth
-
+        @protected not path /api/*
+        import tailscale_auth @protected
         reverse_proxy unix/${myCfg.socketPath}
       '';
       services.ddclient.domains = [myCfg.domain];
