@@ -14,9 +14,13 @@ in {
       self.nixosModules.sopsNix
       self.nixosModules.tailscale
 
-      # Services
+      # Monitoring
       self.nixosModules.beszel
       self.nixosModules.beszelAgent
+
+      # Hosted services
+      self.nixosModules.cloudflared
+      self.nixosModules.gatus
     ];
 
     # Automatically auth into Tailscale as a server

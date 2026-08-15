@@ -19,7 +19,6 @@ in {
 
       # Hosted services
       self.nixosModules.beszelHub
-      self.nixosModules.gatus
       self.nixosModules.immich
       self.nixosModules.resticServer
     ];
