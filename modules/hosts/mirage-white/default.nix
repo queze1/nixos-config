@@ -40,6 +40,9 @@ in {
       memoryPercent = 100;
     };
 
+    # Automatically grow partition on boot
+    boot.growPartition = true;
+
     # Minimise Nix store size
     boot.loader.grub.configurationLimit = 3;
     nix.gc = {
