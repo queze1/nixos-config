@@ -3,8 +3,6 @@ name: nixbuild
 on:
   workflow_dispatch:
   pull_request:
-  push:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -95,4 +93,3 @@ jobs:
       - name: Fast-forward deployed branch
         run: |
           git push origin HEAD:refs/heads/deployed
-

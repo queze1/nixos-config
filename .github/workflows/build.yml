@@ -1,0 +1,53 @@
+name: build
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - target: "steadfast-dart"
+            attr: ".#nixosConfigurations.steadfast-dart.config.system.build.toplevel"
+            runner: ubuntu-latest
+          - target: "steadfast-defender"
+            attr: ".#nixosConfigurations.steadfast-defender.config.system.build.toplevel"
+            runner: ubuntu-latest
+          - target: "iso-aarch64"
+            attr: ".#packages.aarch64-linux.iso-system"
+            runner: ubuntu-24.04-arm
+          - target: "iso-x86_64"
+            attr: ".#packages.x86_64-linux.iso-system"
+            runner: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+      - uses: nixbuild/nix-quick-install-action@v35
+        with:
+          github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
+          nix_conf: experimental-features = nix-command flakes
+
+      - name: Cache Nix store and cache
+        uses: nix-community/cache-nix-action@v7
+        with:
+          primary-key: nix-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          restore-prefixes-first-match: |
+            nix-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-
+            nix-${{ runner.os }}-${{ matrix.target }}-
+            nix-${{ runner.os }}-
+          paths: |
+            ~/.cache/nix
+          gc-max-store-size-linux: 1G
+
+      - name: Build with Nix
+        run: |
+          nix build \
+            ${{ matrix.attr }} \
+            --print-build-logs \
+            --no-link
+
