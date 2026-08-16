@@ -6,7 +6,7 @@
   hostname = "steadfast-dart";
 in {
   # Newer home server
-  flake.nixosModules.steadfastDartConfiguration = {
+  flake.nixosModules.steadfastDartConfiguration = {pkgs, ...}: {
     imports = [
       self.nixosModules.steadfastBase
 
@@ -29,6 +29,10 @@ in {
       self.nixosModules.resticServer
       self.nixosModules.sillytavern
       self.nixosModules.vaultwarden
+    ];
+
+    environment.packages = [
+      inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
     ];
 
     # Set incrementing port numbers
