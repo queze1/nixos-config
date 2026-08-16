@@ -46,14 +46,16 @@ jobs:
       - uses: nixbuild/nixbuild-action@v25
         with:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
-          settings: |
-            caches = [
-              s3://nix-binary-cache?region=auto&endpoint=0f53fadc798c0583aac1c94b962f040a.r2.cloudflarestorage.com
-            ]
-            access-tokens = [
-              "s3://nix-binary-cache=${{ secrets.R2_ACCESS_KEY_ID }}:${{ secrets.R2_SECRET_ACCESS_KEY }}"
-            ]
-            ignore-cache-failures = false
+          # Doesn't work, but kept here for reference
+          # Still need to manually set over SSH
+          # settings: |
+          #   caches = [
+          #     s3://nix-binary-cache?region=auto&endpoint=0f53fadc798c0583aac1c94b962f040a.r2.cloudflarestorage.com
+          #   ]
+          #   access-tokens = [
+          #     "s3://nix-binary-cache=${{ secrets.R2_ACCESS_KEY_ID }}:${{ secrets.R2_SECRET_ACCESS_KEY }}"
+          #   ]
+          #   ignore-cache-failures = false
 
       - name: Build with nixbuild
         run: |
