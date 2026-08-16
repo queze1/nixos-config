@@ -18,9 +18,6 @@ in {
       self.nixosModules.sopsNix
       self.nixosModules.tailscale
 
-      # Nix-related
-      self.nixosModules.nixbuild
-
       # Hosted services
       self.nixosModules.cloudflared
       self.nixosModules.gatus
