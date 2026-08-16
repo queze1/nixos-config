@@ -46,27 +46,18 @@ jobs:
       - uses: nixbuild/nixbuild-action@v25
         with:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
-          # Doesn't work, but kept here for reference
-          # Still need to manually set over SSH
-          # settings: |
-          #   caches = [
-          #     s3://nix-binary-cache?region=auto&endpoint=0f53fadc798c0583aac1c94b962f040a.r2.cloudflarestorage.com
-          #   ]
-          #   access-tokens = [
-          #     "s3://nix-binary-cache=${{ secrets.R2_ACCESS_KEY_ID }}:${{ secrets.R2_SECRET_ACCESS_KEY }}"
-          #   ]
-          #   ignore-cache-failures = false
 
       - name: Build with nixbuild
         run: |
           nix build \
             ${{ matrix.attr }} \
             --print-build-logs \
-            --builders "ssh://eu.nixbuild.net x86_64-linux - 100 1 big-parallel,benchmark" \
-            --max-jobs 0 \
+            --eval-store auto \
+            --store ssh-ng://eu.nixbuild.net \
+            --builders "" \
             --no-link \
             --json > result.json
-
+      
       - name: Push build results to R2
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
@@ -74,6 +65,7 @@ jobs:
         run: |
           OUT_PATHS=$(jq -r '.[].outputs | to_entries[].value' result.json)
           nix copy \
+            --from ssh-ng://eu.nixbuild.net \
             --to "s3://nix-binary-cache?region=auto&endpoint=https://0f53fadc798c0583aac1c94b962f040a.r2.cloudflarestorage.com" \
             $OUT_PATHS
 
