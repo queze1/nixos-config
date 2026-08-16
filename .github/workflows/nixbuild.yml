@@ -62,10 +62,20 @@ jobs:
           nix build \
             ${{ matrix.attr }} \
             --print-build-logs \
-            --eval-store auto \
-            --store ssh-ng://eu.nixbuild.net \
-            --builders "" \
-            --no-link
+            --builders "ssh-ng://eu.nixbuild.net" \
+            --max-jobs 0 \
+            --no-link \
+            --json > result.json
+
+      - name: Push build results to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          OUT_PATHS=$(jq -r '.[].outputs | to_entries[].value' result.json)
+          nix copy \
+            --to "s3://nix-binary-cache?region=auto&endpoint=https://0f53fadc798c0583aac1c94b962f040a.r2.cloudflarestorage.com" \
+            $OUT_PATHS
 
   summary:
     name: "Summary"
