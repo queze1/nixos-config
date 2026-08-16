@@ -31,19 +31,7 @@ jobs:
         with:
           github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
           nix_conf: experimental-features = nix-command flakes
-
-      - name: Cache Nix store and cache
-        uses: nix-community/cache-nix-action@v7
-        with:
-          primary-key: nix-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
-          restore-prefixes-first-match: |
-            nix-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-
-            nix-${{ runner.os }}-${{ matrix.target }}-
-            nix-${{ runner.os }}-
-          paths: |
-            ~/.cache/nix
-          gc-max-store-size-linux: 1G
-
+      - uses: DeterminateSystems/magic-nix-cache-action@v14
       - name: Build with Nix
         run: |
           nix build \
