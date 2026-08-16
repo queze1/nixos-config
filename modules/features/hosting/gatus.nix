@@ -45,7 +45,7 @@
             };
           };
           endpoints = let
-            responseTimeLimit = "1000"; # 1000 ms
+            responseTimeLimit = "1500"; # 1500 ms
           in [
             {
               name = "Actual Budget";
