@@ -62,7 +62,7 @@ jobs:
           nix build \
             ${{ matrix.attr }} \
             --print-build-logs \
-            --builders "ssh-ng://eu.nixbuild.net" \
+            --builders "ssh://eu.nixbuild.net x86_64-linux - 100 1 big-parallel,benchmark" \
             --max-jobs 0 \
             --no-link \
             --json > result.json
