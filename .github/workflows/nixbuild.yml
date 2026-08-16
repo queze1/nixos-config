@@ -54,7 +54,8 @@ jobs:
             --print-build-logs \
             --eval-store auto \
             --store ssh-ng://eu.nixbuild.net \
-            --builders ""
+            --builders "" \
+            --no-link
 
   summary:
     name: "Summary"
