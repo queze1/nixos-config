@@ -18,14 +18,27 @@ in {
     environment.systemPackages = with pkgs; [
       htop
       ncdu
-      nix-du
       ssh-to-age
     ];
 
-    zramSwap.enable = true;
+    zramSwap = {
+      enable = true;
+      memoryPercent = 100;
+    };
 
     # Allow SSH into root
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
+
+    # Minimise Nix store size
+    boot.loader.grub.configurationLimit = 3;
+    nix.gc = {
+      automatic = true;
+      options = "--delete-old";
+    };
+    nix.settings.auto-optimise-store = true;
+
+    # Disable documentation
+    documentation.enable = false;
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
 
