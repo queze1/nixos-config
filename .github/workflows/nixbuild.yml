@@ -63,9 +63,11 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: |
+          OUT_PATHS=$(cat out-paths.txt)
           nix copy \
+            --from ssh-ng://eu.nixbuild.net \
             --to "s3://nix-binary-cache?region=auto&endpoint=https://0f53fadc798c0583aac1c94b962f040a.r2.cloudflarestorage.com" \
-            $(cat out-paths.txt)
+            $OUT_PATHS
 
   summary:
     name: "Summary"
