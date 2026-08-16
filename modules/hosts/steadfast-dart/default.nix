@@ -32,7 +32,7 @@ in {
     ];
 
     environment.etc = {
-      "test".text = "testing..";
+      "test".text = "testing.";
     };
 
     # To deploy to VPS without building on target
