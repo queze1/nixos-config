@@ -3,9 +3,10 @@
   self,
   ...
 }: let
+  sshKeys = import "${self}/ssh-keys.nix";
   hostname = "mirage-white";
 in {
-  # Tiny EC2 instance
+  # DigitalOcean droplet
   flake.nixosModules.mirageWhiteConfiguration = {
     config,
     pkgs,
@@ -15,8 +16,16 @@ in {
       self.nixosModules.myOptions
 
       # System config
+      self.nixosModules.openssh
       self.nixosModules.sopsNix
       self.nixosModules.tailscale
+
+      # Nix-related
+      self.nixosModules.nixbuild
+
+      # Hosted services
+      self.nixosModules.cloudflared
+      self.nixosModules.gatus
 
       # Monitoring
       self.nixosModules.beszel
@@ -27,9 +36,11 @@ in {
     environment.systemPackages = with pkgs; [
       htop
       ncdu
-      nix-du
       ssh-to-age
     ];
+
+    # Allow SSH into root
+    users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
 
     # Automatically auth into Tailscale as a server
     services.tailscale = {
@@ -42,9 +53,6 @@ in {
       enable = true;
       memoryPercent = 100;
     };
-
-    # Automatically grow partition on boot
-    boot.growPartition = true;
 
     # Minimise Nix store size
     boot.loader.grub.configurationLimit = 3;
@@ -65,7 +73,7 @@ in {
 
   flake.nixosConfigurations.${hostname} = inputs.nixpkgs-stable.lib.nixosSystem {
     pkgs = import inputs.nixpkgs-stable {
-      system = "aarch64-linux";
+      system = "x86_64-linux";
       config.allowUnfree = true;
     };
 

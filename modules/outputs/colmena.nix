@@ -48,28 +48,13 @@
 
       mirage-white = {
         deployment = {
-          targetHost = "ec2-52-66-130-51.ap-south-1.compute.amazonaws.com";
-          sshOptions = [
-            "-i"
-            "~/.ssh/aws-ec2.pem"
-          ];
-        };
-
-        imports = [
-          self.nixosModules.mirageWhiteConfiguration
-          self.nixosModules.mirageWhiteHardware
-        ];
-      };
-
-      mirage-black = {
-        deployment = {
           buildOnTarget = true;
           targetHost = "170.64.131.90";
         };
 
         imports = [
-          self.nixosModules.mirageBlackConfiguration
-          self.nixosModules.mirageBlackHardware
+          self.nixosModules.mirageWhiteConfiguration
+          self.nixosModules.mirageWhiteHardware
         ];
       };
     };
