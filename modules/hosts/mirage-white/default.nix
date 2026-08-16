@@ -24,7 +24,6 @@ in {
       self.nixosModules.setupAccessTokens
 
       # Hosted services
-      self.nixosModules.caddy
       self.nixosModules.cloudflared
       self.nixosModules.gatus
 
