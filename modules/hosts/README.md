@@ -30,3 +30,12 @@ mv persistent-preview persistent-restore
 reboot
 ```
 
+# Installing NixOS on Oracle Cloud
+Image: Canonical Ubuntu 22.04 
+```
+ssh ubuntu@YOUR_IP
+sudo su
+cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys
+curl https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect | NIX_CHANNEL=nixos-24.05 bash -x
+```
+
