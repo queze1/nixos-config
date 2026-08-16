@@ -48,7 +48,7 @@
 
       mirage-white = {
         deployment = {
-          targetHost = "ec2-43-204-216-74.ap-south-1.compute.amazonaws.com";
+          targetHost = "ec2-52-66-130-51.ap-south-1.compute.amazonaws.com";
           sshOptions = [
             "-i"
             "~/.ssh/aws-ec2.pem"
