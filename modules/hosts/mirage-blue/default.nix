@@ -7,12 +7,25 @@
   hostname = "mirage-blue";
 in {
   # 512mb Oracle Cloud instance
-  flake.nixosModules.mirageBlueConfiguration = {pkgs, ...}: {
+  flake.nixosModules.mirageBlueConfiguration = {
+    config,
+    pkgs,
+    ...
+  }: {
     imports = [
       self.nixosModules.myOptions
 
       # System config
       self.nixosModules.openssh
+      self.nixosModules.sopsNix
+      self.nixosModules.tailscale
+
+      # Nix-related
+      self.nixosModules.nixbuild
+
+      # Monitoring
+      self.nixosModules.beszel
+      self.nixosModules.beszelAgent
     ];
 
     # Helper programs
@@ -24,6 +37,13 @@ in {
 
     # Allow SSH into root
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
+
+    # Automatically auth into Tailscale as a server
+    services.tailscale = {
+      authKeyFile = config.sops.secrets.tailscale-auth-key.path;
+      extraUpFlags = ["--hostname=${hostname}"];
+    };
+    sops.secrets.tailscale-auth-key = {};
 
     zramSwap = {
       enable = true;
