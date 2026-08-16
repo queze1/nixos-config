@@ -32,6 +32,8 @@ in {
       self.nixosModules.beszelAgent
     ];
 
+    environment.etc."pull-deploy-canary".text = "v1\n";
+
     # Helper programs
     environment.systemPackages = with pkgs; [
       htop
