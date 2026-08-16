@@ -35,6 +35,7 @@ in {
       htop
       ncdu
       nix-du
+      ssh-to-age
     ];
 
     # Automatically auth into Tailscale as a server
