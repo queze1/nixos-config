@@ -11,7 +11,18 @@ in {
     imports = [
       self.nixosModules.myOptions
 
+      # System config
       self.nixosModules.openssh
+      self.nixosModules.sopsNix
+      self.nixosModules.tailscale
+
+      # Hosted services
+      self.nixosModules.cloudflared
+      self.nixosModules.gatus
+
+      # Monitoring
+      self.nixosModules.beszel
+      self.nixosModules.beszelAgent
     ];
 
     # Helper programs
