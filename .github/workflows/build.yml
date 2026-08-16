@@ -31,11 +31,35 @@ jobs:
         with:
           github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
           nix_conf: experimental-features = nix-command flakes
+
       - uses: DeterminateSystems/magic-nix-cache-action@v14
+
       - name: Build with Nix
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: |
           nix build \
             ${{ matrix.attr }} \
             --print-build-logs \
-            --no-link
+            --no-link \
+            --print-out-paths > out-paths
+          nix copy \
+            --to "s3://nix-binary-cache?region=auto&endpoint=https://0f53fadc798c0583aac1c94b962f040a.r2.cloudflarestorage.com" \
+            $(<out-paths)
+
+  # Add to deployed branch if build succeeded and the push was on main
+  promote:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Fast-forward deployed branch
+        run: |
+          git push origin HEAD:refs/heads/deployed
 
