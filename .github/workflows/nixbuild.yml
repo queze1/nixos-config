@@ -20,8 +20,6 @@ jobs:
             attr: ".#nixosConfigurations.steadfast-defender.config.system.build.toplevel"
           - target: "mirage-white"
             attr: ".#nixosConfigurations.mirage-white.config.system.build.toplevel"
-          - target: "mirage-black"
-            attr: ".#nixosConfigurations.mirage-black.config.system.build.toplevel"
           - target: "iso-aarch64"
             attr: ".#packages.aarch64-linux.iso-system"
           - target: "iso-x86_64"
