@@ -6,7 +6,11 @@
   hostname = "mirage-white";
 in {
   # Tiny EC2 instance
-  flake.nixosModules.mirageWhiteConfiguration = {config, ...}: {
+  flake.nixosModules.mirageWhiteConfiguration = {
+    config,
+    pkgs,
+    ...
+  }: {
     imports = [
       self.nixosModules.myOptions
 
@@ -26,6 +30,13 @@ in {
       # Monitoring
       self.nixosModules.beszel
       self.nixosModules.beszelAgent
+    ];
+
+    # Helper programs
+    environment.systemPackages = with pkgs; [
+      htop
+      ncdu
+      nix-du
     ];
 
     # Automatically auth into Tailscale as a server
