@@ -7,7 +7,11 @@
   hostname = "mirage-black";
 in {
   # DigitalOcean droplet
-  flake.nixosModules.mirageBlackConfiguration = {pkgs, ...}: {
+  flake.nixosModules.mirageBlackConfiguration = {
+    config,
+    pkgs,
+    ...
+  }: {
     imports = [
       self.nixosModules.myOptions
 
@@ -15,6 +19,9 @@ in {
       self.nixosModules.openssh
       self.nixosModules.sopsNix
       self.nixosModules.tailscale
+
+      # Nix-related
+      self.nixosModules.nixbuild
 
       # Hosted services
       self.nixosModules.cloudflared
@@ -32,13 +39,20 @@ in {
       ssh-to-age
     ];
 
+    # Allow SSH into root
+    users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
+
+    # Automatically auth into Tailscale as a server
+    services.tailscale = {
+      authKeyFile = config.sops.secrets.tailscale-auth-key.path;
+      extraUpFlags = ["--hostname=${hostname}"];
+    };
+    sops.secrets.tailscale-auth-key = {};
+
     zramSwap = {
       enable = true;
       memoryPercent = 100;
     };
-
-    # Allow SSH into root
-    users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
 
     # Minimise Nix store size
     boot.loader.grub.configurationLimit = 3;
