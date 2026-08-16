@@ -19,9 +19,7 @@ in {
       self.nixosModules.tailscale
 
       # Nix-related
-      self.nixosModules.comin
       self.nixosModules.nixbuild
-      self.nixosModules.setupAccessTokens
 
       # Hosted services
       self.nixosModules.cloudflared
@@ -31,8 +29,6 @@ in {
       self.nixosModules.beszel
       self.nixosModules.beszelAgent
     ];
-
-    environment.etc."pull-deploy-canary".text = "v1\n";
 
     # Helper programs
     environment.systemPackages = with pkgs; [
