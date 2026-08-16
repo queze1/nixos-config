@@ -41,5 +41,21 @@
           self.nixosModules.mirageWhiteHardware
         ];
       };
+
+      mirage-red = {
+        deployment.targetHost = "192.9.184.187";
+        imports = [
+          self.nixosModules.mirageRedConfiguration
+          self.nixosModules.mirageRedHardware
+        ];
+      };
+
+      mirage-blue = {
+        deployment.targetHost = "137.23.9.31";
+        imports = [
+          self.nixosModules.mirageBlueConfiguration
+          self.nixosModules.mirageBlueHardware
+        ];
+      };
     };
 }
