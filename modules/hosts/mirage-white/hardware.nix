@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.mirageBlackHardware = {
+  flake.nixosModules.mirageWhiteHardware = {
     modulesPath,
     lib,
     ...
