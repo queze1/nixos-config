@@ -60,5 +60,17 @@
           self.nixosModules.mirageWhiteHardware
         ];
       };
+
+      mirage-black = {
+        deployment = {
+          buildOnTarget = true;
+          targetHost = "170.64.131.90";
+        };
+
+        imports = [
+          self.nixosModules.mirageBlackConfiguration
+          self.nixosModules.mirageBlackHardware
+        ];
+      };
     };
 }
