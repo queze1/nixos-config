@@ -53,13 +53,11 @@ jobs:
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
-          nix shell nixpkgs#attic-client
-
-          attic login local https://attic.osipol.uk "$ATTIC_TOKEN"
-          attic use cache
+          nix run nixpkgs#attic-client login local https://attic.osipol.uk "$ATTIC_TOKEN"
+          nix run nixpkgs#attic-client use cache
 
           # Upload new paths to cache while building
-          attic watch-store cache &
+          nix run nixpkgs#attic-client watch-store cache &
           watch_store_pid=$!
           trap 'kill "$watch_store_pid" 2>/dev/null || true; wait "$watch_store_pid" 2>/dev/null || true' EXIT
 
@@ -70,7 +68,7 @@ jobs:
             --print-out-paths > out-paths
 
           # Push remaining paths
-          attic push cache $(<out-paths)
+          nix run nixpkgs#attic-client push cache $(<out-paths)
 
   # Add to deployed branch if build succeeded and the push was on main
   promote:
