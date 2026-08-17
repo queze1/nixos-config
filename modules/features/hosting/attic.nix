@@ -2,10 +2,55 @@
   flake.nixosModules.attic = {
     config,
     lib,
+    pkgs,
     ...
   }: let
     cfg = config.services.atticd;
     myCfg = config.my.apps.attic;
+
+    format = pkgs.formats.toml {};
+
+    checkedConfigFile =
+      pkgs.runCommand "checked-attic-server.toml"
+      {
+        configFile = format.generate "server.toml" cfg.settings;
+      }
+      ''
+        export ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64="$(${lib.getExe pkgs.openssl} genrsa -traditional 4096 | ${pkgs.coreutils}/bin/base64 -w0)"
+        export ATTIC_SERVER_DATABASE_URL="sqlite://:memory:"
+        ${lib.getExe cfg.package} --mode check-config -f $configFile
+        cat <$configFile >$out
+      '';
+
+    atticadmShim = pkgs.writeShellScript "atticadm" ''
+      if [ -n "$ATTICADM_PWD" ]; then
+        cd "$ATTICADM_PWD"
+        if [ "$?" != "0" ]; then
+          >&2 echo "Warning: Failed to change directory to $ATTICADM_PWD"
+        fi
+      fi
+
+      exec ${cfg.package}/bin/atticadm -f ${checkedConfigFile} "$@"
+    '';
+
+    # Patch to remove DynamicUser from
+    # https://github.com/NixOS/nixpkgs/blob/e5bdc4a41d4c072fe1e3787eaa0320a384741d44/nixos/modules/services/networking/atticd.nix
+    myAtticadmWrapper = pkgs.writeShellScriptBin "atticd-atticadm" ''
+      exec systemd-run \
+        --quiet \
+        --pipe \
+        --pty \
+        --same-dir \
+        --wait \
+        --collect \
+        --service-type=exec \
+        --property=EnvironmentFile=${cfg.environmentFile} \
+        --property=User=${cfg.user} \
+        --property=Environment=ATTICADM_PWD=$(pwd) \
+        --working-directory / \
+        -- \
+        ${atticadmShim} "$@"
+    '';
   in {
     options.my.apps.attic = {
       domain = lib.mkOption {
@@ -49,6 +94,10 @@
       };
       users.groups.${cfg.group} = {};
       systemd.services.atticd.serviceConfig.DynamicUser = lib.mkForce false;
+
+      environment.systemPackages = [
+        (lib.hiPrio myAtticadmWrapper)
+      ];
 
       # Preserve Attic data
       my.preservation.extraDirectories = [
