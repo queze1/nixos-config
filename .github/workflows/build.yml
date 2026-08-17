@@ -36,7 +36,15 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
 
-      - uses: DeterminateSystems/magic-nix-cache-action@v14
+      - name: Cache Nix cache
+        uses: actions/cache@v6.1.0
+        with:
+          path: ~/.cache/nix
+          key: nix-cache-${{ runner.os }}-${{ hashFiles('flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          restore-keys: |
+            nix-cache-${{ runner.os }}-${{ hashFiles('flake.lock') }}-
+            nix-cache-${{ runner.os }}-
+            nix-cache-
 
       - name: Build with Nix
         env:
