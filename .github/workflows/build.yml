@@ -42,8 +42,8 @@ jobs:
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
-          attic login local https://attic.osipol.uk "$ATTIC_TOKEN"
-          attic watch-store cache
+          nix run nixpkgs#attic-client login local https://attic.osipol.uk "$ATTIC_TOKEN"
+          nix run nixpkgs#attic-client watch-store cache
           nix build \
             ${{ matrix.attr }} \
             --print-build-logs \
