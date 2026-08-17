@@ -14,7 +14,11 @@
     };
   };
 
-  flake.nixosModules.beszelHub = {config, ...}: let
+  flake.nixosModules.beszelHub = {
+    config,
+    lib,
+    ...
+  }: let
     myCfg = config.my.beszel;
   in {
     services.beszel.hub = {
@@ -27,6 +31,13 @@
         TRUSTED_AUTH_HEADER = "X-Webauth-User";
       };
     };
+
+    users.users.beszel-hub = {
+      isSystemUser = true;
+      group = "beszel-hub";
+    };
+    users.groups.beszel-hub = {};
+    systemd.services.beszel-hub.serviceConfig.DynamicUser = lib.mkForce false;
 
     # Preserve Beszel state
     my.preservation.extraDirectories = [
