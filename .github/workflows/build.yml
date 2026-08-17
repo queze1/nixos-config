@@ -55,14 +55,19 @@ jobs:
         run: |
           nix run nixpkgs#attic-client login local https://attic.osipol.uk "$ATTIC_TOKEN"
           nix run nixpkgs#attic-client use cache
-          nix run nixpkgs#attic-client watch-store cache &
-          watch_store_pid=$!
-          trap 'kill "$watch_store_pid" 2>/dev/null || true; wait "$watch_store_pid" 2>/dev/null || true' EXIT
+
+          mkfifo attic-paths
+          nix run nixpkgs#attic-client push cache --stdin < attic-paths &
+          push_pid=$!
+          trap 'kill "$push_pid" 2>/dev/null || true; wait "$push_pid" 2>/dev/null || true; rm -f attic-paths' EXIT
 
           nix build \
             ${{ matrix.attr }} \
             --print-build-logs \
-            --no-link
+            --no-link \
+            --print-out-paths > attic-paths
+
+          wait "$push_pid"
 
   # Add to deployed branch if build succeeded and the push was on main
   promote:
