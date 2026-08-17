@@ -42,11 +42,7 @@ jobs:
           nix build \
             ${{ matrix.attr }} \
             --print-build-logs \
-            --no-link \
-            --print-out-paths > out-paths
-          nix copy \
-            --to "s3://nix-binary-cache?region=auto&endpoint=https://0f53fadc798c0583aac1c94b962f040a.r2.cloudflarestorage.com" \
-            $(<out-paths)
+            --no-link
 
   # Add to deployed branch if build succeeded and the push was on main
   promote:
