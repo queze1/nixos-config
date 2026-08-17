@@ -9,7 +9,7 @@
       usev6 = ''cmdv6, cmdv6="${tailscale} ip --6"'';
       protocol = "cloudflare";
       zone = "osipol.uk";
-      passwordFile = config.sops.secrets.osipol-cloudflare-api-token.path;
+      passwordFile = config.sops.secrets.cloudflare-api-token.path;
       username = "token";
     };
 
