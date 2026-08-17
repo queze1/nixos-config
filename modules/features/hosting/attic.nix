@@ -18,6 +18,11 @@
         default = 8080;
         description = "Port to run Attic on.";
       };
+      dataDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/var/lib/atticd";
+        description = "Path where Attic stores its data.";
+      };
     };
 
     config = {
@@ -28,17 +33,29 @@
           listen = "127.0.0.1:${toString myCfg.port}";
           allowed-hosts = [myCfg.domain];
           api-endpoint = "https://${myCfg.domain}/";
+          storage = {
+            type = "local";
+            path = "${myCfg.dataDir}/storage";
+          };
         };
       };
 
       sops.secrets.atticd-env.restartUnits = ["atticd.service"];
 
+      # Use a static user instead of dynamic user
+      users.users.${cfg.user} = {
+        isSystemUser = true;
+        group = cfg.group;
+      };
+      users.groups.${cfg.group} = {};
+      systemd.services.atticd.serviceConfig.DynamicUser = lib.mkForce false;
+
       # Preserve Attic data
       my.preservation.extraDirectories = [
         {
-          directory = "/var/lib/private/atticd";
-          user = cfg.user;
-          group = cfg.group;
+          directory = myCfg.dataDir;
+          user = "atticd";
+          group = "atticd";
           mode = "0700";
         }
       ];
