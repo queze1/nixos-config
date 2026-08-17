@@ -31,10 +31,6 @@ in {
       self.nixosModules.vaultwarden
     ];
 
-    environment.etc = {
-      "test".text = "testing.";
-    };
-
     # To deploy to VPS without building on target
     # colmena apply --nix-option tarball-ttl 0 --config github:queze1/nixos-config --no-build-on-target --on @cloud
     environment.systemPackages = [
