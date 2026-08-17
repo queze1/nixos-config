@@ -51,21 +51,16 @@
       pkgs.calibre
       pkgs.gnome-clocks
       pkgs.kdePackages.okular
-      pkgs.obs-studio
       pkgs.pinta
       pkgs.qalculate-qt
       pkgs-stable.celluloid
-      pkgs-stable.qimgv
 
       # Nix-related CLI tools
       inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
 
       # CLI tools
       pkgs.clipboard-jh
-      pkgs.fastfetch
-      pkgs.ffmpeg
       pkgs.sops
-      pkgs-stable.yt-dlp
       pkgs.tree
       pkgs.unzip
       pkgs.wl-clipboard
