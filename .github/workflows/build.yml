@@ -29,13 +29,21 @@ jobs:
           github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
           nix_conf: experimental-features = nix-command flakes
 
+      - name: Tailscale
+        uses: tailscale/github-action@v4.1.3
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+
       - uses: DeterminateSystems/magic-nix-cache-action@v14
 
       - name: Build with Nix
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
+          attic login local https://attic.osipol.uk "$ATTIC_TOKEN"
+          attic watch-store cache
           nix build \
             ${{ matrix.attr }} \
             --print-build-logs \
