@@ -146,6 +146,16 @@
               alerts = [{type = "discord";}];
             }
             {
+              name = "Attic";
+              group = "Private Services";
+              url = "https://attic.osipol.uk/";
+              conditions = [
+                "[STATUS] == 200"
+                "[RESPONSE_TIME] < ${responseTimeLimit}"
+              ];
+              alerts = [{type = "discord";}];
+            }
+            {
               name = "Pi-Hole DNS";
               group = "Private Services";
               url = "100.68.90.10"; # steadfast-dart
