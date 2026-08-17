@@ -42,8 +42,8 @@ jobs:
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
-          # Push to Attic binary cache while building
           nix run nixpkgs#attic-client login local https://attic.osipol.uk "$ATTIC_TOKEN"
+          nix run nixpkgs#attic-client use cache
           nix run nixpkgs#attic-client watch-store cache &
           watch_store_pid=$!
           trap 'kill "$watch_store_pid" 2>/dev/null || true; wait "$watch_store_pid" 2>/dev/null || true' EXIT
