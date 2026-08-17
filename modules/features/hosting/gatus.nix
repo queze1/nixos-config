@@ -17,11 +17,6 @@
         default = 8080;
         description = "Port to run Gatus on.";
       };
-      dataDir = lib.mkOption {
-        type = lib.types.str;
-        default = "/var/lib/gatus";
-        description = "Directory where Gatus stores its data.";
-      };
     };
 
     config = {
@@ -32,7 +27,7 @@
           web.address = "127.0.0.1";
           web.port = myCfg.port;
           storage.type = "sqlite";
-          storage.path = "${myCfg.dataDir}/data.db";
+          storage.path = "/var/lib/gatus/data.db";
           storage.maximum-number-of-results = 480; # 60 mins * 8 hours
           alerting.discord = {
             webhook-url = "$DISCORD_WEBHOOK_URL";
@@ -208,23 +203,8 @@
 
       sops.secrets.gatus-env.restartUnits = ["gatus.service"];
 
-      # Use a static user instead of dynamic user
-      users.users.gatus = {
-        isSystemUser = true;
-        group = "gatus";
-      };
-      users.groups.gatus = {};
-      systemd.services.gatus.serviceConfig.DynamicUser = lib.mkForce false;
-
       # Preserve Gatus data
-      my.preservation.extraDirectories = [
-        {
-          directory = myCfg.dataDir;
-          user = "gatus";
-          group = "gatus";
-          mode = "700";
-        }
-      ];
+      my.preservation.extraDirectories = ["/var/lib/private/gatus"];
 
       # Networking with Cloudflare tunnel
       services.cloudflared = {
