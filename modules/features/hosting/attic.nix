@@ -4,7 +4,7 @@
     lib,
     ...
   }: let
-    cfg = config.services.attcd;
+    cfg = config.services.atticd;
     myCfg = config.my.apps.attic;
   in {
     options.my.apps.attic = {
@@ -48,7 +48,7 @@
         group = cfg.group;
       };
       users.groups.${cfg.group} = {};
-      systemd.services.attcid.serviceConfig.DynamicUser = lib.mkForce false;
+      systemd.services.atticd.serviceConfig.DynamicUser = lib.mkForce false;
 
       # Preserve Attic data
       my.preservation.extraDirectories = [
