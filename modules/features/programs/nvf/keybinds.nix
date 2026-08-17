@@ -75,6 +75,23 @@
           silent = true;
           desc = "Save file";
         }
+        # Tab keybinds to indent/unindent in visual mode
+        {
+          key = "<Tab>";
+          mode = "v";
+          action = ">gv";
+          noremap = true;
+          silent = true;
+          desc = "Indent selection";
+        }
+        {
+          key = "<S-Tab>";
+          mode = "v";
+          action = "<gv";
+          noremap = true;
+          silent = true;
+          desc = "Unindent selection";
+        }
         # H to go to start (^), L to go to end (g_)
         {
           key = "H";
