@@ -19,6 +19,7 @@
   in {
     services.beszel.hub = {
       enable = true;
+      dataDir = "/var/lib/beszel";
       host = "127.0.0.1";
       port = myCfg.port;
       environment = {
@@ -30,7 +31,13 @@
     # Preserve Beszel state
     my.preservation.extraDirectories = [
       {
-        directory = "/var/lib/private/beszel-hub";
+        directory = "/var/lib/private/beszel";
+        user = "beszel-hub";
+        group = "beszel-hub";
+        mode = "0700";
+      }
+      {
+        directory = "/var/lib/beszel";
         user = "beszel-hub";
         group = "beszel-hub";
         mode = "0700";
@@ -39,7 +46,8 @@
 
     # Back up Beszel data
     my.restic.extraPaths = [
-      "/var/lib/private/beszel-hub"
+      "/var/lib/private/beszel"
+      "/var/lib/beszel"
     ];
 
     # Reverse proxy with Tailscale auth
