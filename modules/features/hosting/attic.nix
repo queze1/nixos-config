@@ -4,6 +4,7 @@
     lib,
     ...
   }: let
+    cfg = config.services.attcd;
     myCfg = config.my.apps.attic;
   in {
     options.my.apps.attic = {
@@ -40,6 +41,14 @@
       };
 
       sops.secrets.atticd-env.restartUnits = ["atticd.service"];
+
+      # Use a static user instead of dynamic user
+      users.users.${cfg.user} = {
+        isSystemUser = true;
+        group = cfg.group;
+      };
+      users.groups.${cfg.group} = {};
+      systemd.services.attcid.serviceConfig.DynamicUser = lib.mkForce false;
 
       # Preserve Attic data
       my.preservation.extraDirectories = [
