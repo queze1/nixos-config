@@ -9,6 +9,7 @@ in {
   flake.nixosModules.mirageWhiteConfiguration = {...}: {
     imports = [
       self.nixosModules.mirageBase
+      self.nixosModules.resticDefaults
 
       # Ingress & routing
       self.nixosModules.caddy
@@ -20,6 +21,16 @@ in {
       self.nixosModules.attic
       self.nixosModules.gatus
     ];
+
+    my.restic = {
+      backups.backblaze-b2 = {
+        timerConfig = {
+          OnCalendar = "daily";
+          RandomizedDelaySec = "4h";
+          Persistent = true;
+        };
+      };
+    };
 
     networking.hostName = hostname;
   };
