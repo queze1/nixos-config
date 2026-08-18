@@ -14,12 +14,9 @@ in {
     networking.hostName = hostname;
   };
 
-  flake.nixosConfigurations.${hostname} = inputs.nixpkgs-stable.lib.nixosSystem {
-    pkgs = import inputs.nixpkgs-stable {
-      system = "x86_64-linux";
-      config.allowUnfree = true;
-    };
-
+  flake.nixosConfigurations.${hostname} = self.factory.mkNixosSystem {
+    nixpkgs = inputs.nixpkgs-stable;
+    system = "x86_64-linux";
     modules = [
       self.nixosModules.mirageRedConfiguration
       self.nixosModules.mirageRedHardware
