@@ -32,10 +32,9 @@ jobs:
       - name: Cache Nix store and cache
         uses: nix-community/cache-nix-action@v7
         with:
-          primary-key: colmena-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          primary-key: colmena-${{ runner.os }}-hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
           restore-prefixes-first-match: |
-            colmena-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-
-            colmena-${{ runner.os }}-${{ matrix.target }}-
+            colmena-${{ runner.os }}-hashFiles('**/flake.lock') }}-
             colmena-${{ runner.os }}-
           paths: |
             ~/.cache/nix
