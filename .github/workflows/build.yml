@@ -55,11 +55,12 @@ jobs:
         uses: actions/cache@v6.1.0
         with:
           path: ~/.cache/nix
-          key: nix-cache-${{ runner.os }}-${{ hashFiles('flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          key: 
+            nix-cache-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
           restore-keys: |
-            nix-cache-${{ runner.os }}-${{ hashFiles('flake.lock') }}-
+            nix-cache-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-
+            nix-cache-${{ runner.os }}-${{ matrix.target }}-
             nix-cache-${{ runner.os }}-
-            nix-cache-
 
       - name: Build with Nix
         env:
