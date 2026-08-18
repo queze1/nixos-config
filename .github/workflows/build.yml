@@ -36,16 +36,17 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
 
-      - name: Cache Nix cache
-        uses: actions/cache@v6.1.0
+      - name: Cache Nix store and cache
+        uses: nix-community/cache-nix-action@v7
         with:
-          path: ~/.cache/nix
-          key: 
-            nix-cache-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
-          restore-keys: |
-            nix-cache-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-
-            nix-cache-${{ runner.os }}-${{ matrix.target }}-
-            nix-cache-${{ runner.os }}-
+          primary-key: nix-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          restore-prefixes-first-match: |
+            nix-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-
+            nix-${{ runner.os }}-${{ matrix.target }}-
+            nix-${{ runner.os }}-
+          paths: |
+            ~/.cache/nix
+          gc-max-store-size-linux: 1G
 
       - name: Build with Nix
         env:
@@ -68,17 +69,3 @@ jobs:
           # Push remaining paths
           nix run nixpkgs#attic-client push cache $(<out-paths)
 
-  # Add to deployed branch if build succeeded and the push was on main
-  promote:
-    needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-      - name: Fast-forward deployed branch
-        run: |
-          git push origin HEAD:refs/heads/deployed
