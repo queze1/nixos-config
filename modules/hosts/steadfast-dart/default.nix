@@ -24,6 +24,7 @@ in {
       self.nixosModules.arkRpVisualisation
       self.nixosModules.forgejo
       self.nixosModules.github2forgejo
+      self.nixosModules.filebrowserQuantum
       self.nixosModules.musicStack
       self.nixosModules.pihole
       self.nixosModules.resticServer
@@ -46,6 +47,7 @@ in {
     my.apps.sillytavern.port = 8005;
     my.apps.vaultwarden.port = 8006;
     my.apps.yubal.port = 8007;
+    my.apps.filebrowser-quantum.port = 8008;
 
     my.restic = {
       snapshotsDir = "/persistent/snapshots";
