@@ -12,13 +12,9 @@ in {
       self.nixosModules.resticDefaults
 
       # Ingress & routing
-      self.nixosModules.caddy
-      self.nixosModules.caddyCloudflareDNS
       self.nixosModules.cloudflared
-      self.nixosModules.ddns
 
       # Hosted services
-      self.nixosModules.attic
       self.nixosModules.gatus
     ];
 
