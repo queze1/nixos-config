@@ -79,8 +79,8 @@
           allowed-hosts = [myCfg.domain];
           api-endpoint = "https://${myCfg.domain}/";
           storage = {
-            type = "local";
-            path = "${myCfg.dataDir}/storage";
+            type = "s3";
+            endpoint = "https://0f53fadc798c0583aac1c94b962f040a.r2.cloudflarestorage.com/nix-binary-cache";
           };
         };
       };
