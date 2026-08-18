@@ -22,6 +22,10 @@ in {
       self.nixosModules.gatus
     ];
 
+    # Prevent port overlap
+    my.gatus.port = 8000;
+    my.attic.port = 8001;
+
     my.restic = {
       backups.backblaze-b2 = {
         timerConfig = {
