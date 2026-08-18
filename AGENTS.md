@@ -2,17 +2,22 @@
 
 ## Project Structure & Module Organization
 
-This is a Nix flake for NixOS hosts, an ISO, and deployment outputs.
-`flake.nix` defines inputs and imports the module tree.
+This flake uses `flake-parts` and `import-tree`: `flake.nix` imports every
+module beneath `modules/`. Flake-wide options and integration live in
+`modules/flake-parts.nix` and `modules/options.nix`.
 
-- `modules/hosts/<hostname>/` contains machine-specific configuration; use
-  `default.nix` as the host entry point and keep hardware facts alongside it.
-- `modules/features/` contains reusable configuration grouped by purpose:
-  `desktop`, `hosting`, `nix`, `programs`, `services`, `shared`, and `system`.
-- `modules/users/` defines users; `modules/lib/` holds shared integrations;
-  `modules/outputs/` defines ISO, Colmena, and helper outputs.
-- `assets/` stores static wallpapers, themes, and images. `templates/flake/`
-  is the default flake template.
+- `modules/hosts/<hostname>/` contains a host's `default.nix` and its hardware
+  inventory (`hardware.nix` or `facter.json`). Shared host-family configuration
+  is in `modules/hosts/*-base.nix`; `modules/hosts/README.md` maps hosts to
+  their intended roles.
+- `modules/features/` contains reusable NixOS and Home Manager modules, grouped
+  into `desktop`, `hosting` (with `infra/` for shared hosting infrastructure),
+  `nix`, `programs`, `services`, `shared`, and `system`.
+- `modules/users/` defines Home Manager user profiles. `modules/lib/` exposes
+  shared flake integrations, `modules/vm/` provides VM targets, and
+  `modules/outputs/` defines Colmena, ISO, and shell-script outputs.
+- `assets/` holds static desktop assets and themes; `templates/flake/` is the
+  default flake template. Root-level `ssh-keys.nix` contains public SSH keys.
 
 ## Reference tools
 
@@ -26,16 +31,6 @@ Use the NixOS MCP server as the primary reference for NixOS, Home Manager, nix-d
 | Package versions       | `mcp__nixos__nixhub_package_versions`, `mcp__nixos__nixhub_find_version`                                                 |
 | Flake search           | `mcp__nixos__nixos_flakes_search`                                                                                        |
 
-## Build, Test, and Development Commands
-
-Run `nix develop` for the pre-commit tooling. Use `nix flake check` before
-submitting changes; it evaluates the flake and its checks. Format Nix files
-with `alejandra .` (also enforced by the hook). Run `pre-commit run --all-files`
-for the complete local validation set.
-
-CI builds `able-archer`, `steadfast-dart`, `steadfast-defender`, and both ISO
-architectures. Use `./install.sh <target-ip> <hostname>` only for intentional
-machine provisioning; it invokes remote deployment.
 
 ## Coding Style & Naming Conventions
 
@@ -47,13 +42,6 @@ and imports; deadnix is enabled in the hooks. Do not hand-edit `flake.lock`
 unless changing inputs deliberately.
 
 Do not add code comments. The user writes and maintains comments themselves.
-
-## Testing Guidelines
-
-There is no separate unit-test suite. Treat flake evaluation, pre-commit, and
-the relevant `nix build` output as required verification. For changes to a
-host, build that host; for ISO changes, build the matching architecture. Avoid
-committing generated build results.
 
 ## Commit & Pull Request Guidelines
 
