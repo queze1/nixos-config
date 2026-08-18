@@ -30,7 +30,10 @@ in {
     ];
 
     # Allow SSH into root
-    users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
+    users.users.root.openssh.authorizedKeys.keys = [
+      sshKeys.ableArcherKey
+      sshKeys.colmenaGHAKey
+    ];
 
     # Automatically auth into Tailscale as a server
     services.tailscale = {

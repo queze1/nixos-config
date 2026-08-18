@@ -1,30 +1,21 @@
-name: build
+name: colmena
 
 on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ${{ matrix.runner }}
-    strategy:
-      matrix:
-        include:
-          - target: "mirage-white"
-            attr: ".#nixosConfigurations.mirage-white.config.system.build.toplevel"
-            runner: ubuntu-latest
-          - target: "mirage-red"
-            attr: ".#nixosConfigurations.mirage-red.config.system.build.toplevel"
-            runner: ubuntu-latest
-          - target: "mirage-blue"
-            attr: ".#nixosConfigurations.mirage-blue.config.system.build.toplevel"
-            runner: ubuntu-latest
-
+  colmena:
     steps:
       - uses: actions/checkout@v7
       - uses: nixbuild/nix-quick-install-action@v35
         with:
           github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
           nix_conf: experimental-features = nix-command flakes
+
+      - name: Start SSH agent
+        uses: webfactory/ssh-agent@v0.10.0
+        with:
+          ssh-private-key: ${{ secrets.COLMENA_SSH_PRIVATE_KEY }}
 
       - name: Tailscale
         uses: tailscale/github-action@v4.1.3
@@ -45,7 +36,7 @@ jobs:
             ~/.cache/nix
           gc-max-store-size-linux: 1G
 
-      - name: Build with Nix
+      - name: Apply with Colmena
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
@@ -57,12 +48,8 @@ jobs:
           watch_store_pid=$!
           trap 'kill "$watch_store_pid" 2>/dev/null || true; wait "$watch_store_pid" 2>/dev/null || true' EXIT
 
-          nix build \
-            ${{ matrix.attr }} \
-            --print-build-logs \
-            --no-link \
-            --print-out-paths > out-paths
+          nix run .#colmena apply --no-build-on-target --keep-result --on @cloud
 
-          # Push remaining paths
-          nix run nixpkgs#attic-client push cache $(<out-paths)
+          # Push remaining paths to cache
+          nix run nixpkgs#attic-client push cache .gcroots/*
 
