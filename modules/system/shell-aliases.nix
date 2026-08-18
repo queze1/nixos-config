@@ -1,8 +1,8 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
+  self,
   ...
 }: let
   cfg = config.my.shellAliases;
@@ -11,9 +11,9 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
-      inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.flake-update
-      inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nrs
-      inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nrb
+      self.packages.${pkgs.stdenv.hostPlatform.system}.flake-update
+      self.packages.${pkgs.stdenv.hostPlatform.system}.nrs
+      self.packages.${pkgs.stdenv.hostPlatform.system}.nrb
 
       pkgs.nix-output-monitor # prettier nix builds
     ];
