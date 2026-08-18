@@ -10,8 +10,14 @@ in {
     imports = [
       self.nixosModules.mirageBase
 
-      # Hosted services
+      # Ingress & routing
+      self.nixosModules.caddy
+      self.nixosModules.caddyCloudflareDNS
       self.nixosModules.cloudflared
+      self.nixosModules.ddns
+
+      # Hosted services
+      self.nixosModules.attic
       self.nixosModules.gatus
     ];
 
