@@ -100,6 +100,7 @@
           allowed-hosts = [myCfg.domain];
           api-endpoint = "https://${myCfg.domain}/";
           database.url = "postgresql:///atticd?host=/run/postgresql";
+          compression.type = "zstd";
           compression.level = 3; # save CPU
           storage = {
             type = "s3";
