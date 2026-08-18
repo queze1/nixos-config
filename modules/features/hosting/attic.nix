@@ -51,6 +51,16 @@
         -- \
         ${atticadmShim} "$@"
     '';
+
+    # Script to create a public cache
+    initialiseCache = pkgs.writeShellScript "initialise-attic-cache" ''
+      set -euo pipefail
+
+      token="$(${atticadmShim} make-token --sub "initialise cache" --validity "1h" --create-cache "cache")"
+      ${lib.getExe pkgs.attic-client} login default "https://${myCfg.domain}" "$token"
+      ${lib.getExe pkgs.attic-client} cache create cache --public
+      touch ${myCfg.dataDir}/.cache-initialized
+    '';
   in {
     options.my.apps.attic = {
       domain = lib.mkOption {
@@ -104,6 +114,24 @@
       environment.systemPackages = [
         (lib.hiPrio myAtticadmWrapper)
       ];
+
+      # Initialise a cache on startup
+      systemd.services.initialise-attic-cache = {
+        description = "Initialise Attic cache";
+        after = ["atticd.service"];
+        requires = ["atticd.service"];
+        wantedBy = ["multi-user.target"];
+        unitConfig.ConditionPathExists = "!${myCfg.dataDir}/.cache-initialized";
+        serviceConfig = {
+          Type = "oneshot";
+          User = cfg.user;
+          Group = cfg.group;
+          WorkingDirectory = myCfg.dataDir;
+          Environment = "HOME=${myCfg.dataDir}";
+          EnvironmentFile = cfg.environmentFile;
+          ExecStart = initialiseCache;
+        };
+      };
 
       # Preserve Attic data
       my.preservation.extraDirectories = [
