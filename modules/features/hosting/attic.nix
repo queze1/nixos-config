@@ -81,7 +81,8 @@
           storage = {
             type = "s3";
             region = "auto";
-            endpoint = "https://0f53fadc798c0583aac1c94b962f040a.r2.cloudflarestorage.com/nix-binary-cache";
+            endpoint = "https://0f53fadc798c0583aac1c94b962f040a.r2.cloudflarestorage.com";
+            bucket = "nix-binary-cache";
           };
         };
       };
