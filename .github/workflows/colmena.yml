@@ -10,10 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: nixbuild/nix-quick-install-action@v35
+      - uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
-          nix_conf: experimental-features = nix-command flakes
+          extra_nix_config: |
+            extra-substituters = https://attic.osipol.uk/cache
+            extra-trusted-public-keys = cache:C3spwmruXebNeOwAnYy98JGgTOnos586oMVmkYn/RYg=
 
       - name: Start SSH agent
         uses: webfactory/ssh-agent@v0.10.0
@@ -42,9 +44,6 @@ jobs:
       - name: Apply with Colmena
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
-          NIX_CONFIG: |
-            extra-substituters = https://attic.osipol.uk/cache
-            extra-trusted-public-keys = cache:C3spwmruXebNeOwAnYy98JGgTOnos586oMVmkYn/RYg=
         run: |
           nix run nixpkgs#attic-client login local https://attic.osipol.uk "$ATTIC_TOKEN"
 
