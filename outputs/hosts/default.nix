@@ -3,7 +3,9 @@
   lib,
   self,
   ...
-}: {
+}: let
+  commonModules = inputs.import-tree ../../modules;
+in {
   flake.factory.mkNixosSystem = {
     nixpkgs,
     system,
@@ -16,10 +18,9 @@
     };
     pkgs = import nixpkgs pkg-args;
   in
-    nixpkgs.lib.nixosSystem
-    {
+    nixpkgs.lib.nixosSystem {
       inherit pkgs;
-      modules = modules ++ [(inputs.import-tree ../../modules)];
+      modules = modules ++ commonModules;
       specialArgs = {inherit inputs self;} // lib.mapAttrs (_: nixpkgs: import nixpkgs pkg-args) extraPkgs;
     };
 }
