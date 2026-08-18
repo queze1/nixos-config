@@ -33,11 +33,11 @@ jobs:
       - name: Cache Nix store and cache
         uses: nix-community/cache-nix-action@v7
         with:
-          primary-key: nix-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          primary-key: nixbuild-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
           restore-prefixes-first-match: |
-            nix-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-
-            nix-${{ runner.os }}-${{ matrix.target }}-
-            nix-${{ runner.os }}-
+            nixbuild-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-
+            nixbuild-${{ runner.os }}-${{ matrix.target }}-
+            nixbuild-${{ runner.os }}-
           paths: |
             ~/.cache/nix
           gc-max-store-size-linux: 2G
