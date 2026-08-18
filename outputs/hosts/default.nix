@@ -1,8 +1,4 @@
-{
-  lib,
-  nixosModules,
-  ...
-}: {
+{lib, ...}: {
   flake.factory.mkNixosSystem = {
     nixpkgs,
     system,
@@ -17,8 +13,7 @@
   in
     nixpkgs.lib.nixosSystem
     {
-      inherit pkgs;
-      modules = modules ++ [nixosModules];
+      inherit pkgs modules;
       specialArgs = lib.mapAttrs (_: nixpkgs: import nixpkgs pkg-args) extraPkgs;
     };
 }
