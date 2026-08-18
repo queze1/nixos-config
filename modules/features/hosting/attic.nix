@@ -78,9 +78,15 @@
         default = "/var/lib/atticd";
         description = "Path where Attic stores its data.";
       };
+      useS3 = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Whether to use S3 as the storage backend.";
+      };
     };
 
     config = {
+      # Recommended for use in production
       services.postgresql = {
         enable = true;
         ensureDatabases = ["atticd"];
@@ -100,9 +106,7 @@
           allowed-hosts = [myCfg.domain];
           api-endpoint = "https://${myCfg.domain}/";
           database.url = "postgresql:///atticd?host=/run/postgresql";
-          compression.type = "zstd";
-          compression.level = 3; # save CPU
-          storage = {
+          storage = lib.mkIf myCfg.useS3 {
             type = "s3";
             region = "auto";
             endpoint = "https://0f53fadc798c0583aac1c94b962f040a.r2.cloudflarestorage.com";
@@ -147,12 +151,18 @@
         };
       };
 
-      # Preserve Attic data
+      # Preserve Attic data and Postgres
       my.preservation.extraDirectories = [
         {
           directory = myCfg.dataDir;
           user = "atticd";
           group = "atticd";
+          mode = "0700";
+        }
+        {
+          directory = config.services.postgresql.dataDir;
+          user = "postgres";
+          group = "postgres";
           mode = "0700";
         }
       ];
