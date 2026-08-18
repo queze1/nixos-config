@@ -93,7 +93,10 @@
         group = cfg.group;
       };
       users.groups.${cfg.group} = {};
-      systemd.services.atticd.serviceConfig.DynamicUser = lib.mkForce false;
+      systemd.services.atticd.serviceConfig = {
+        DynamicUser = lib.mkForce false;
+        RemoveIPC = true;
+      };
 
       environment.systemPackages = [
         (lib.hiPrio myAtticadmWrapper)

@@ -32,12 +32,16 @@
       };
     };
 
+    # Use a static user instead of dynamic user
     users.users.beszel-hub = {
       isSystemUser = true;
       group = "beszel-hub";
     };
     users.groups.beszel-hub = {};
-    systemd.services.beszel-hub.serviceConfig.DynamicUser = lib.mkForce false;
+    systemd.services.beszel-hub.serviceConfig = {
+      DynamicUser = lib.mkForce false;
+      RemoveIPC = true;
+    };
 
     # Preserve Beszel state
     my.preservation.extraDirectories = [
