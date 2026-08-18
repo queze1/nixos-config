@@ -5,6 +5,10 @@ on:
   push:
     branches: [ "main" ]
 
+# Prevent simultaneous deployments
+concurrency:
+  group: ${{ github.workflow }}
+
 jobs:
   colmena:
     runs-on: ubuntu-latest
