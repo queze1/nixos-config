@@ -98,6 +98,7 @@
         RemoveIPC = true;
       };
 
+      # Apply patch to disable DynamicUser
       environment.systemPackages = [
         (lib.hiPrio myAtticadmWrapper)
       ];
