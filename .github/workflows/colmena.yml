@@ -5,6 +5,7 @@ on:
 
 jobs:
   colmena:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: nixbuild/nix-quick-install-action@v35
