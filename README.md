@@ -74,4 +74,5 @@ ip addr
 1. [nixbuild GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/nixbuild.yml) builds NixOS configurations on [nixbuild.net](https://nixbuild.net/). If the build succeeds, fast-forwards the `deployed` branch to `main`.
 2. [comin](https://github.com/nlewo/comin/) pings the `deployed` branch, pulls and applies changes.
 3. [colmena GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/colmena.yml) uses [colmena](https://github.com/nix-community/colmena) to remotely deploy configurations to weak hosts (such as VPSes) which cannot rebuild locally. It pushes built configurations to a self-hosted [Attic](https://github.com/zhaofengli/attic) binary cache.
+4. On a pull request (usually an automated update), a [GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/build.yml) builds all NixOS configurations on GitHub runners and pushes the results to the binary cache.
 
