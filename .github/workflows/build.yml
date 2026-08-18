@@ -14,7 +14,7 @@ jobs:
         include:
           - target: "able-archer"
             attr: ".#nixosConfigurations.able-archer.config.system.build.toplevel"
-            runner: ubuntu-latest
+            runner: ubuntu-24.04-arm
           - target: "steadfast-dart"
             attr: ".#nixosConfigurations.steadfast-dart.config.system.build.toplevel"
             runner: ubuntu-latest
