@@ -1,9 +1,9 @@
 {lib, ...}: {
   flake.factory.mkNixosSystem = {
-    system,
     nixpkgs,
-    extraPkgs,
+    system,
     modules,
+    extraPkgs ? {},
   }: let
     pkg-args = {
       inherit system;

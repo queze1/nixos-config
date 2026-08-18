@@ -93,21 +93,13 @@ in {
     system.stateVersion = "25.11";
   };
 
-  flake.nixosConfigurations.able-archer = let
-    pkg-args = {
-      system = "aarch64-linux";
-      config.allowUnfree = true;
-    };
-    pkgs = import inputs.nixpkgs pkg-args;
-    pkgs-stable = import inputs.nixpkgs-stable pkg-args;
-  in
-    inputs.nixpkgs.lib.nixosSystem {
-      inherit pkgs;
-      specialArgs = {inherit pkgs-stable;};
-
-      modules = [
-        self.nixosModules.ableArcherConfiguration
-        self.nixosModules.ableArcherHardware
-      ];
-    };
+  flake.nixosConfigurations.able-archer = self.factory.mkNixosSystem {
+    nixpkgs = inputs.nixpkgs;
+    system = "aarch64-linux";
+    modules = [
+      self.nixosModules.ableArcherConfiguration
+      self.nixosModules.ableArcherHardware
+    ];
+    extraPkgs.pkgs-stable = inputs.nixpkgs-stable;
+  };
 }
