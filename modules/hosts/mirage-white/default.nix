@@ -20,7 +20,6 @@ in {
 
     # Prevent port overlap
     my.apps.gatus.port = 8000;
-    my.apps.attic.port = 8001;
 
     my.restic = {
       backups.backblaze-b2 = {
