@@ -42,9 +42,11 @@ jobs:
       - name: Apply with Colmena
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+          NIX_CONFIG: |
+            extra-substituters = https://attic.osipol.uk/cache
+            extra-trusted-public-keys = cache:C3spwmruXebNeOwAnYy98JGgTOnos586oMVmkYn/RYg=
         run: |
           nix run nixpkgs#attic-client login local https://attic.osipol.uk "$ATTIC_TOKEN"
-          nix run nixpkgs#attic-client use cache
 
           # Upload new paths to cache while building
           nix run nixpkgs#attic-client watch-store cache &
