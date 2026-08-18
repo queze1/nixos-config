@@ -81,6 +81,17 @@
     };
 
     config = {
+      services.postgresql = {
+        enable = true;
+        ensureDatabases = ["atticd"];
+        ensureUsers = [
+          {
+            name = "atticd";
+            ensureDBOwnership = true;
+          }
+        ];
+      };
+
       services.atticd = {
         enable = true;
         environmentFile = config.sops.secrets.atticd-env.path;
@@ -88,6 +99,8 @@
           listen = "127.0.0.1:${toString myCfg.port}";
           allowed-hosts = [myCfg.domain];
           api-endpoint = "https://${myCfg.domain}/";
+          database.url = "postgresql:///atticd?host=/run/postgresql";
+          compression.level = 3; # save CPU
           storage = {
             type = "s3";
             region = "auto";
