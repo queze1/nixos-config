@@ -17,13 +17,13 @@
     ];
 
     # Use my binary cache
-    # nix.settings = {
-    #   substituters = [
-    #     "https://attic.osipol.uk/cache"
-    #   ];
-    #   trusted-public-keys = [
-    #     "cache:w3c5g5bsYE34u8fzvESp8ic4woXn/9XdIJoWZXTREo8="
-    #   ];
-    # };
+    nix.settings = {
+      substituters = [
+        "https://attic.osipol.uk/cache"
+      ];
+      trusted-public-keys = [
+        "cache:C3spwmruXebNeOwAnYy98JGgTOnos586oMVmkYn/RYg="
+      ];
+    };
   };
 }
