@@ -6,7 +6,7 @@
   hostname = "mirage-white";
 in {
   # DigitalOcean droplet
-  flake.nixosModules.mirageWhiteConfiguration = {...}: {
+  flake.nixosModules.mirageWhiteConfiguration = {
     imports = [
       self.nixosModules.mirageBase
       self.nixosModules.resticDefaults
