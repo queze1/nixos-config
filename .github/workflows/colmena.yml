@@ -55,5 +55,5 @@ jobs:
           nix run .#colmena -- apply --no-build-on-target --keep-result --on @cloud
 
           # Push remaining paths to cache
-          nix run nixpkgs#attic-client push cache .gcroots/*
+          nix run nixpkgs#attic-client push cache $(nix path-info .#colmena) .gcroots/*
 
