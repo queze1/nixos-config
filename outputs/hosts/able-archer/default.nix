@@ -24,11 +24,6 @@ in {
       # Build-related
       self.nixosModules.setupAccessTokens
 
-      # System components
-      self.nixosModules.fonts
-      self.nixosModules.shellAliases
-      self.nixosModules.sound
-
       # Services
       self.nixosModules.btrbk
       self.nixosModules.docker
@@ -49,6 +44,11 @@ in {
       (self.factory.preservationForUser {username = "${mainUser}";})
       (self.factory.utmMountSharedDir {username = "${mainUser}";})
     ];
+
+    # System options
+    my.fonts.enable = true;
+    my.shellAliases.enable = true;
+    my.sound.enable = true;
 
     my.restic = {
       snapshotsDir = "/persistent/snapshots";

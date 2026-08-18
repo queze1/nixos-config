@@ -19,6 +19,6 @@
     {
       inherit pkgs;
       modules = modules ++ [(inputs.import-tree ../../modules)];
-      specialArgs = lib.mapAttrs (_: nixpkgs: import nixpkgs pkg-args) extraPkgs;
+      specialArgs = {inherit inputs;} // lib.mapAttrs (_: nixpkgs: import nixpkgs pkg-args) extraPkgs;
     };
 }
