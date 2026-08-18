@@ -14,9 +14,6 @@ in {
       self.nixosModules.sopsNix
       self.nixosModules.tailscale
 
-      # Nix-related
-      self.nixosModules.nixbuild # fallback, but shouldn't need to build
-
       # Monitoring
       self.nixosModules.beszel
       self.nixosModules.beszelAgent
