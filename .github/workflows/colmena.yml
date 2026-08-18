@@ -49,7 +49,7 @@ jobs:
           watch_store_pid=$!
           trap 'kill "$watch_store_pid" 2>/dev/null || true; wait "$watch_store_pid" 2>/dev/null || true' EXIT
 
-          nix run .#colmena apply --no-build-on-target --keep-result --on @cloud
+          nix run .#colmena -- apply --no-build-on-target --keep-result --on @cloud
 
           # Push remaining paths to cache
           nix run nixpkgs#attic-client push cache .gcroots/*
