@@ -38,7 +38,7 @@ jobs:
             nix-${{ runner.os }}-
           paths: |
             ~/.cache/nix
-          gc-max-store-size-linux: 1G
+          gc-max-store-size-linux: 2G
 
       - name: Apply with Colmena
         env:
