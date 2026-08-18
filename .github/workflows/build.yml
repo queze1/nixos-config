@@ -12,15 +12,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - target: "able-archer"
-            attr: ".#nixosConfigurations.able-archer.config.system.build.toplevel"
-            runner: ubuntu-24.04-arm
-          - target: "steadfast-dart"
-            attr: ".#nixosConfigurations.steadfast-dart.config.system.build.toplevel"
-            runner: ubuntu-latest
-          - target: "steadfast-defender"
-            attr: ".#nixosConfigurations.steadfast-defender.config.system.build.toplevel"
-            runner: ubuntu-latest
           - target: "mirage-white"
             attr: ".#nixosConfigurations.mirage-white.config.system.build.toplevel"
             runner: ubuntu-latest
@@ -29,12 +20,6 @@ jobs:
             runner: ubuntu-latest
           - target: "mirage-blue"
             attr: ".#nixosConfigurations.mirage-blue.config.system.build.toplevel"
-            runner: ubuntu-latest
-          - target: "iso-aarch64"
-            attr: ".#packages.aarch64-linux.iso-system"
-            runner: ubuntu-24.04-arm
-          - target: "iso-x86_64"
-            attr: ".#packages.x86_64-linux.iso-system"
             runner: ubuntu-latest
 
     steps:
