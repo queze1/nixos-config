@@ -16,5 +16,15 @@ in {
         dockerCompat = true;
       };
     };
+
+    # Preserve container storage so images aren't stored in RAM
+    my.preservation.extraDirectories = [
+      {
+        directory = "/var/lib/containers";
+        user = "root";
+        group = "root";
+        mode = "0700";
+      }
+    ];
   };
 }
