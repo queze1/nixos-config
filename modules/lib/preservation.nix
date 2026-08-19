@@ -25,11 +25,11 @@ in {
       default = [];
       description = "Extra files to preserve.";
     };
+
     users = lib.mkOption {
-      type = lib.types.attrsOf (lib.types.submodule ({...}: {
-        options.enable = lib.mkEnableOption "preservation for this user";
-      }));
-      default = {};
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      description = "Users whose home directories are preserved.";
     };
   };
 
@@ -85,7 +85,7 @@ in {
           ]
           ++ cfg.extraFiles
         );
-        users = lib.mapAttrs (username: _: {
+        users = lib.genAttrs cfg.users (username: {
           commonMountOptions = ["x-gvfs-hide"];
           directories = lib.unique (
             [
@@ -105,7 +105,7 @@ in {
             # Extract directories added with Home Manager
             ++ (config.home-manager.users.${username}.my.home.preservation.extraDirectories or [])
           );
-        }) (lib.filterAttrs (_: userCfg: userCfg.enable) cfg.users);
+        });
       };
     };
 
@@ -114,27 +114,30 @@ in {
     # By default, missing parent directories are always created with ownership
     # `root:root` and mode `0755`, as described in {manpage}`tmpfiles.d(5)`.
     # tmpfiles is the recommended way of fixing this.
-    systemd.tmpfiles.settings.preservation = lib.mkMerge (lib.mapAttrsToList (username: _: {
-      "/home/${username}/.config".d = {
-        user = username;
-        group = "users";
-        mode = "0755";
-      };
-      "/home/${username}/.local".d = {
-        user = username;
-        group = "users";
-        mode = "0755";
-      };
-      "/home/${username}/.local/share".d = {
-        user = username;
-        group = "users";
-        mode = "0755";
-      };
-      "/home/${username}/.local/state".d = {
-        user = username;
-        group = "users";
-        mode = "0755";
-      };
-    }) (lib.filterAttrs (_: userCfg: userCfg.enable) cfg.users));
+    systemd.tmpfiles.settings.preservation = lib.mkMerge (
+      map (username: {
+        "/home/${username}/.config".d = {
+          user = username;
+          group = "users";
+          mode = "0755";
+        };
+        "/home/${username}/.local".d = {
+          user = username;
+          group = "users";
+          mode = "0755";
+        };
+        "/home/${username}/.local/share".d = {
+          user = username;
+          group = "users";
+          mode = "0755";
+        };
+        "/home/${username}/.local/state".d = {
+          user = username;
+          group = "users";
+          mode = "0755";
+        };
+      })
+      cfg.users
+    );
   };
 }

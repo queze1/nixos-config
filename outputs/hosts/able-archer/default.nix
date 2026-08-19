@@ -47,7 +47,7 @@ in {
     };
     my.preservation = {
       enable = true;
-      users.${mainUser}.enable = true;
+      users = [mainUser];
     };
     my.users.${mainUser}.enable = true;
     my.shellAliases.enable = true;
