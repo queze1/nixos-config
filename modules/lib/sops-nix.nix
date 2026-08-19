@@ -15,16 +15,13 @@ in {
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      sops = {
-        # To generate a public age key from an SSH host key:
-        # nix shell nixpkgs#ssh-to-age nixpkgs#age -c sh -c 'sudo ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key | age-keygen -y'
-        age.sshKeyPaths = [
-          "/etc/ssh/ssh_host_ed25519_key"
-          "/persistent/etc/ssh/ssh_host_ed25519_key"
-        ];
-        defaultSopsFile = "${inputs.secrets}/secrets/${config.networking.hostName}.yaml";
-      };
+      sops.age.sshKeyPaths = [
+        "/etc/ssh/ssh_host_ed25519_key"
+        "/persistent/etc/ssh/ssh_host_ed25519_key"
+      ];
+      sops.defaultSopsFile = "${inputs.secrets}/secrets/${config.networking.hostName}.yaml";
     })
+
     (lib.mkIf cfg.homeManager.enable {
       assertions = [
         {
