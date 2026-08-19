@@ -261,8 +261,14 @@ in {
               "Mod+Shift+Minus".action.set-window-height = "-10%";
               "Mod+Shift+Equal".action.set-window-height = "+10%";
             }
-            (lib.genAttrs (map toString (lib.range 1 9)) (workspace: bind "focus-workspace" (builtins.fromJSON workspace)))
-            (lib.genAttrs (map (workspace: "Mod+Ctrl+${workspace}") (map toString (lib.range 1 9))) (key: bind "move-column-to-workspace" (builtins.fromJSON (lib.last (lib.splitString "+" key)))))
+            (lib.listToAttrs (map (workspace: {
+              name = toString workspace;
+              value = bind "focus-workspace" workspace;
+            }) (lib.range 1 9)))
+            (lib.listToAttrs (map (workspace: {
+              name = "Mod+Ctrl+${toString workspace}";
+              value = bind "move-column-to-workspace" workspace;
+            }) (lib.range 1 9)))
           ];
 
           spawn-at-startup =
