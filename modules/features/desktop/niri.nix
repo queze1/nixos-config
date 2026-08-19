@@ -5,6 +5,7 @@
   ...
 }: let
   isUtm = config.my.utm.enable;
+  usingExternalMonitor = false;
 in {
   config = lib.mkIf config.my.desktop.enable {
     programs.niri = {
@@ -102,10 +103,19 @@ in {
                 output = {
                   _args = ["Virtual-1"];
                   mode = {
-                    _args = ["2560x1664@60"];
-                    _props.custom = true;
+                    _args = [
+                      (
+                        if usingExternalMonitor
+                        then "1920x1080@60"
+                        else "2560x1664@60"
+                      )
+                    ];
+                    _props.custom = !usingExternalMonitor;
                   };
-                  scale = 2.0;
+                  scale =
+                    if usingExternalMonitor
+                    then 1.125
+                    else 2.0;
                 };
               }
               {
