@@ -4,10 +4,13 @@
   pkgs,
   ...
 }: let
+  cfg = config.my.desktop.niri;
   isUtm = config.my.utm.enable;
   usingExternalMonitor = false;
 in {
-  config = lib.mkIf config.my.desktop.enable {
+  options.my.desktop.niri.enable = lib.mkEnableOption "niri";
+
+  config = lib.mkIf cfg.enable {
     programs.niri = {
       enable = true;
       package = pkgs.niri;

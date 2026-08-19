@@ -3,8 +3,12 @@
   inputs,
   lib,
   ...
-}: {
-  config = lib.mkIf config.my.desktop.enable {
+}: let
+  cfg = config.my.desktop.noctalia;
+in {
+  options.my.desktop.noctalia.enable = lib.mkEnableOption "Noctalia";
+
+  config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [
       ({config, ...}: let
         settings = builtins.fromJSON (builtins.readFile ./settings.json);

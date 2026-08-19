@@ -30,7 +30,11 @@ in {
 
     # System options
     my.disko.btrfsEphemeralRoot.device = "/dev/vda";
-    my.desktop.enable = true;
+    my.desktop = {
+      enable = true;
+      niri.enable = true;
+      noctalia.enable = true;
+    };
     my.fonts.enable = true;
     my.homeManager = {
       enable = true;
