@@ -22,7 +22,7 @@ in {
         };
         noArgs = action: keys: lib.genAttrs keys (_: bind action []);
         noArgsWithProps = action: keys: props: lib.genAttrs keys (_: (bind action []) // {_props = props;});
-        browser = lib.removeSuffix ".desktop" (config.xdg.mimeApps.defaultApplications."x-scheme-handler/https" or "Default Browser");
+        defaultBrowser = lib.removeSuffix ".desktop" (config.xdg.mimeApps.defaultApplications."x-scheme-handler/https" or "Default Browser");
       in {
         wayland.windowManager.niri = {
           enable = true;
@@ -220,7 +220,7 @@ in {
                   spawn = ["foot" "--title" "Yazi: ~/" "--" "yazi"];
                 };
                 "Mod+B" = {
-                  _props.hotkey-overlay-title = "Open ${browser}";
+                  _props.hotkey-overlay-title = "Open ${defaultBrowser}";
                   spawn = ["xdg-open" "https://"];
                 };
                 "XF86AudioPlay" = {
