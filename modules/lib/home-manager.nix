@@ -26,17 +26,6 @@ in {
         pkgs-stable = cfg.pkgsStable;
       };
 
-      # Import shared options
-      sharedModules = [
-        ({lib, ...}: {
-          options.my.home.preservation.extraDirectories = lib.mkOption {
-            type = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
-            default = [];
-            description = "Extra user directories to preserve.";
-          };
-        })
-      ];
-
       # Backup with an incrementing number
       backupCommand = ''
         filename="$1"

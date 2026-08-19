@@ -34,6 +34,16 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home-manager.sharedModules = [
+      ({lib, ...}: {
+        options.my.home.preservation.extraDirectories = lib.mkOption {
+          type = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
+          default = [];
+          description = "Extra user directories to preserve.";
+        };
+      })
+    ];
+
     preservation = {
       enable = true;
       preserveAt."/persistent" = {
