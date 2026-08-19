@@ -6,9 +6,12 @@
   hostname = "autumn-forge";
 in {
   flake.darwinModules.autumnForgeConfiguration = {
-    imports = [
-      self.darwinModules.shellAliases
-    ];
+    environment.shellAliases = {
+      nrs = "sudo darwin-rebuild switch --flake github:queze/nixos-config#";
+      nrb = "sudo darwin-rebuild build --flake github:queze/nixos-config#";
+      nfc = "sudo darwin-rebuild check --flake github:queze/nixos-config#";
+      nrr = "sudo darwin-rebuild rollback";
+    };
 
     # Broken, see https://github.com/nix-darwin/nix-darwin/issues/1566
     # system.keyboard = {
