@@ -7,17 +7,16 @@ in {
     ...
   }: {
     imports = [
-      self.nixosModules.myOptions
-
       # System config
       self.nixosModules.openssh
-      self.nixosModules.sopsNix
       self.nixosModules.tailscale
 
       # Monitoring
       self.nixosModules.beszel
       self.nixosModules.beszelAgent
     ];
+
+    my.sops.enable = true;
 
     # Helper programs
     environment.systemPackages = with pkgs; [

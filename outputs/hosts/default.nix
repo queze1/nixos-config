@@ -20,7 +20,7 @@ in {
   in
     nixpkgs.lib.nixosSystem {
       inherit pkgs;
-      modules = modules ++ commonModules;
+      modules = modules ++ [commonModules];
       specialArgs = {inherit inputs self;} // lib.mapAttrs (_: nixpkgs: import nixpkgs pkg-args) extraPkgs;
     };
 }

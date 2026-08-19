@@ -5,18 +5,15 @@
 }: let
   hostname = "able-archer";
 in {
-  flake.nixosModules.ableArcherConfiguration = {lib, ...}: let
+  flake.nixosModules.ableArcherConfiguration = {
+    lib,
+    pkgs-stable,
+    ...
+  }: let
     mainUser = "queze";
   in {
     imports = [
-      self.nixosModules.myOptions
       self.nixosModules.sharedModules
-
-      # Basic libraries
-      (self.factory.diskoBrtfsEphemeralRoot
-        {device = "/dev/vda";})
-      self.nixosModules.preservation
-      self.nixosModules.sopsNix
 
       # UTM VM
       self.nixosModules.utm
@@ -37,18 +34,28 @@ in {
       self.nixosModules.allPrograms
 
       # User related stuff
-      self.nixosModules.homeManager
-      self.nixosModules.sopsNixWithHM
       self.nixosModules.utmHMIntegration
-      (self.factory.preservationForUser {username = "${mainUser}";})
       (self.factory.utmMountSharedDir {username = "${mainUser}";})
     ];
 
     # System options
+    my.disko.btrfsEphemeralRoot.device = "/dev/vda";
     my.fonts.enable = true;
+    my.homeManager = {
+      enable = true;
+      pkgsStable = pkgs-stable;
+    };
+    my.preservation = {
+      enable = true;
+      users.${mainUser}.enable = true;
+    };
     my.users.${mainUser}.enable = true;
     my.shellAliases.enable = true;
     my.sound.enable = true;
+    my.sops = {
+      enable = true;
+      homeManager.enable = true;
+    };
 
     my.restic = {
       snapshotsDir = "/persistent/snapshots";

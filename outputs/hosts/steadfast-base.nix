@@ -8,14 +8,7 @@ in {
     ...
   }: {
     imports = [
-      self.nixosModules.myOptions
       self.nixosModules.sharedModules
-
-      # Basic libraries
-      (self.factory.diskoBrtfsEphemeralRoot
-        {device = "/dev/nvme0n1";})
-      self.nixosModules.preservation
-      self.nixosModules.sopsNix
 
       # System config
       self.nixosModules.btrbk
@@ -34,6 +27,10 @@ in {
       self.nixosModules.beszel
       self.nixosModules.beszelAgent
     ];
+
+    my.disko.btrfsEphemeralRoot.device = "/dev/nvme0n1";
+    my.preservation.enable = true;
+    my.sops.enable = true;
 
     # Convenience programs
     environment.systemPackages = [
