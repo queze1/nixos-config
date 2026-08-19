@@ -31,7 +31,12 @@ in {
           if cfg.enable && defaults != []
           then lib.removeSuffix ".desktop" (lib.head defaults)
           else null;
-        defaultBrowser = lib.removeSuffix ".desktop" (lib.head (config.xdg.mimeApps.defaultApplications."x-scheme-handler/https" or ["Default Browser"]));
+        defaultBrowser = let
+          defaults = config.xdg.mimeApps.defaultApplications."x-scheme-handler/https";
+        in
+          if defaults != []
+          then lib.removeSuffix ".desktop" (lib.head defaults)
+          else null;
       in {
         wayland.windowManager.niri = {
           enable = true;
@@ -232,7 +237,10 @@ in {
                   spawn = ["foot" "--title" "Yazi: ~/" "--" "yazi"];
                 };
                 "Mod+B" = {
-                  _props.hotkey-overlay-title = "Open ${defaultBrowser}";
+                  _props.hotkey-overlay-title =
+                    if defaultBrowser != null
+                    then "Open Browser: ${defaultBrowser}"
+                    else "Open Browser";
                   spawn = ["xdg-open" "https://"];
                 };
                 "XF86AudioPlay" = {
