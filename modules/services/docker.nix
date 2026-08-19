@@ -1,5 +1,13 @@
 {
-  flake.nixosModules.docker = {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.my.docker;
+in {
+  options.my.docker.enable = lib.mkEnableOption "Docker";
+
+  config = lib.mkIf cfg.enable {
     virtualisation.docker = {
       enable = false;
 

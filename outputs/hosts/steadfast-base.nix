@@ -10,18 +10,9 @@ in {
     imports = [
       self.nixosModules.sharedModules
 
-      # System config
-      self.nixosModules.btrbk
-
       # Nix-related
       self.nixosModules.comin
       self.nixosModules.setupAccessTokens
-
-      # Services
-      self.nixosModules.fwudp
-      self.nixosModules.openssh
-      self.nixosModules.resticDefaults
-      self.nixosModules.tailscale
 
       # Monitoring
       self.nixosModules.beszel
@@ -29,8 +20,13 @@ in {
     ];
 
     my.disko.btrfsEphemeralRoot.device = "/dev/nvme0n1";
+    my.btrbk.enable = true;
+    my.fwupd.enable = true;
+    my.openssh.enable = true;
     my.preservation.enable = true;
+    my.restic.enable = true;
     my.sops.enable = true;
+    my.tailscale.enable = true;
 
     # Convenience programs
     environment.systemPackages = [

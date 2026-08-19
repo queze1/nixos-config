@@ -1,5 +1,13 @@
 {
-  flake.nixosModules.btrbk = {config, ...}: {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.my.btrbk;
+in {
+  options.my.btrbk.enable = lib.mkEnableOption "btrbk";
+
+  config = lib.mkIf cfg.enable {
     assertions = [
       {
         assertion = config.preservation.enable or false;

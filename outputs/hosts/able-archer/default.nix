@@ -18,23 +18,19 @@ in {
       # Build-related
       self.nixosModules.setupAccessTokens
 
-      # Services
-      self.nixosModules.btrbk
-      self.nixosModules.docker
-      self.nixosModules.resticDefaults
-      self.nixosModules.tailscale
-
       # Programs
       self.nixosModules.allPrograms
     ];
 
     # System options
     my.disko.btrfsEphemeralRoot.device = "/dev/vda";
+    my.btrbk.enable = true;
     my.desktop = {
       enable = true;
       niri.enable = true;
       noctalia.enable = true;
     };
+    my.docker.enable = true;
     my.fonts.enable = true;
     my.homeManager = {
       enable = true;
@@ -44,6 +40,7 @@ in {
       enable = true;
       users = [mainUser];
     };
+    my.restic.enable = true;
     my.users.${mainUser}.enable = true;
     my.shellAliases.enable = true;
     my.sound.enable = true;
@@ -56,6 +53,7 @@ in {
       enable = true;
       homeManager.enable = true;
     };
+    my.tailscale.enable = true;
 
     my.restic = {
       snapshotsDir = "/persistent/snapshots";

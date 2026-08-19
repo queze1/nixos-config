@@ -1,5 +1,13 @@
 {
-  flake.nixosModules.openssh = {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.my.openssh;
+in {
+  options.my.openssh.enable = lib.mkEnableOption "OpenSSH";
+
+  config = lib.mkIf cfg.enable {
     services.openssh = {
       enable = true;
       settings = {

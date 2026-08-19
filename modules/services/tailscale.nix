@@ -1,5 +1,13 @@
 {
-  flake.nixosModules.tailscale = {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.my.tailscale;
+in {
+  options.my.tailscale.enable = lib.mkEnableOption "Tailscale";
+
+  config = lib.mkIf cfg.enable {
     services.tailscale = {
       # Could use the "Modern Setup" in the wiki
       # But would rather not do things I don't understand
