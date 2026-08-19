@@ -24,18 +24,18 @@
         };
 
         home.shellAliases = {
-          noctalia-export = "noctalia-shell ipc call state all | nix run nixpkgs#jq .settings > ~/etc/nixos/modules/features/desktop/noctalia/noctalia.json";
+          noctalia-export = "noctalia-shell ipc call state all | nix run nixpkgs#jq .settings > ~/etc/nixos/modules/desktop/noctalia/settings.json";
         };
 
         home.file.profilePicture = {
           target = "${config.home.homeDirectory}/.face";
-          # Use relative path instead of ${self} for performance
-          source = ../../../../assets/pfp.png;
+          # Use relative path instead of ${self} to avoid reevaluating
+          source = ../../../assets/pfp.png;
         };
 
         home.file.".cache/noctalia/wallpapers.json" = {
           text = builtins.toJSON {
-            defaultWallpaper = ../../../../assets/laine-chinensy-temptation-v6.png;
+            defaultWallpaper = ../../../assets/laine-chinensy-temptation-v6.png;
           };
         };
 
