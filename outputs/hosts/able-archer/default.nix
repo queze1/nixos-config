@@ -24,15 +24,13 @@ in {
       self.nixosModules.resticDefaults
       self.nixosModules.tailscale
 
-      # Desktop environment
-      self.nixosModules.niriNoctalia
-
       # Programs
       self.nixosModules.allPrograms
     ];
 
     # System options
     my.disko.btrfsEphemeralRoot.device = "/dev/vda";
+    my.desktop.enable = true;
     my.fonts.enable = true;
     my.homeManager = {
       enable = true;
