@@ -95,7 +95,7 @@ in {
             };
 
             prefer-no-csd = {};
-            screenshot-path = "/mnt/utm/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
+            screenshot-path = "${config.xdg.userDirs.pictures}/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
 
             _children = [
               {
