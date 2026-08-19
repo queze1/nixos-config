@@ -40,13 +40,13 @@ in {
       self.nixosModules.homeManager
       self.nixosModules.sopsNixWithHM
       self.nixosModules.utmHMIntegration
-      self.nixosModules.${mainUser}
       (self.factory.preservationForUser {username = "${mainUser}";})
       (self.factory.utmMountSharedDir {username = "${mainUser}";})
     ];
 
     # System options
     my.fonts.enable = true;
+    my.users.${mainUser}.enable = true;
     my.shellAliases.enable = true;
     my.sound.enable = true;
 

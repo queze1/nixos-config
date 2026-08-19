@@ -33,8 +33,6 @@ in {
       # Monitoring
       self.nixosModules.beszel
       self.nixosModules.beszelAgent
-
-      self.nixosModules.commander
     ];
 
     # Convenience programs
@@ -42,6 +40,8 @@ in {
       pkgs.btop
       pkgs.tree
     ];
+
+    my.users.commander.enable = true;
 
     # Allow SSH into root
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
