@@ -40,6 +40,7 @@
     ];
   in {
     options.my.restic = {
+      enable = lib.mkEnableOption "restic";
       backups = lib.mkOption {
         type = lib.types.attrsOf myBackupSubmodule;
         default = {};
@@ -69,7 +70,7 @@
       };
     };
 
-    config = {
+    config = lib.mkIf myCfg.enable {
       assertions = [
         {
           assertion = myCfg.extraPaths == [] || myCfg.backups != {};

@@ -22,6 +22,7 @@ in {
     my.apps.gatus.port = 8000;
 
     my.restic = {
+      enable = true;
       backups.backblaze-b2 = {
         timerConfig = {
           OnCalendar = "daily";

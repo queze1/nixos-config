@@ -25,6 +25,7 @@ in {
     ];
 
     my.restic = {
+      enable = true;
       snapshotsDir = "/persistent/snapshots";
       extraPaths = [
         "/etc/ssh"
