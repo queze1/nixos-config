@@ -40,7 +40,6 @@ in {
       enable = true;
       users = [mainUser];
     };
-    my.restic.enable = true;
     my.users.${mainUser}.enable = true;
     my.shellAliases.enable = true;
     my.sound.enable = true;
@@ -56,6 +55,7 @@ in {
     my.tailscale.enable = true;
 
     my.restic = {
+      enable = true;
       snapshotsDir = "/persistent/snapshots";
       extraPaths = [
         "/etc/ssh"

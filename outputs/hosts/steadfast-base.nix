@@ -26,7 +26,12 @@ in {
     my.preservation.enable = true;
     my.restic.enable = true;
     my.sops.enable = true;
-    my.tailscale.enable = true;
+    my.tailscale = {
+      enable = true;
+      # Automatically auth into Tailscale as a server
+      autoAuth = true;
+      openSSHOnTailscale = true;
+    };
 
     # Convenience programs
     environment.systemPackages = [
@@ -41,16 +46,6 @@ in {
 
     # Enable passwordless sudo
     security.sudo.wheelNeedsPassword = false;
-
-    # Automatically auth into Tailscale as a server
-    services.tailscale = {
-      authKeyFile = config.sops.secrets.tailscale-auth-key.path;
-    };
-    sops.secrets.tailscale-auth-key = {};
-
-    # Only allow SSH via Tailscale
-    services.openssh.openFirewall = false;
-    networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = config.services.openssh.ports;
 
     # Declaratively configure wifi
     networking.networkmanager.ensureProfiles = {

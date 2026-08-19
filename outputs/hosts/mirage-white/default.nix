@@ -17,12 +17,11 @@ in {
       self.nixosModules.gatus
     ];
 
-    my.restic.enable = true;
-
     # Prevent port overlap
     my.apps.gatus.port = 8000;
 
     my.restic = {
+      enable = true;
       backups.backblaze-b2 = {
         timerConfig = {
           OnCalendar = "daily";

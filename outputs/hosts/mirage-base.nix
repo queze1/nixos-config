@@ -1,11 +1,7 @@
 {self, ...}: let
   sshKeys = import "${self}/ssh-keys.nix";
 in {
-  flake.nixosModules.mirageBase = {
-    config,
-    pkgs,
-    ...
-  }: {
+  flake.nixosModules.mirageBase = {pkgs, ...}: {
     imports = [
       # Monitoring
       self.nixosModules.beszel
@@ -14,7 +10,12 @@ in {
 
     my.openssh.enable = true;
     my.sops.enable = true;
-    my.tailscale.enable = true;
+    my.tailscale = {
+      enable = true;
+      # Automatically auth into Tailscale as a server
+      autoAuth = true;
+      setHostname = true;
+    };
 
     # Helper programs
     environment.systemPackages = with pkgs; [
@@ -28,13 +29,6 @@ in {
       sshKeys.ableArcherKey
       sshKeys.colmenaGHAKey
     ];
-
-    # Automatically auth into Tailscale as a server
-    services.tailscale = {
-      authKeyFile = config.sops.secrets.tailscale-auth-key.path;
-      extraUpFlags = ["--hostname=${config.networking.hostName}"];
-    };
-    sops.secrets.tailscale-auth-key = {};
 
     zramSwap = {
       enable = true;
