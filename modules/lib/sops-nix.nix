@@ -25,8 +25,8 @@ in {
     (lib.mkIf cfg.homeManager.enable {
       assertions = [
         {
-          assertion = cfg.enable && config.my.homeManager.enable;
-          message = "my.sops.homeManager.enable requires my.sops.enable and my.homeManager.enable.";
+          assertion = config.my.homeManager.enable;
+          message = "my.sops.homeManager.enable requires and my.homeManager.enable.";
         }
       ];
 

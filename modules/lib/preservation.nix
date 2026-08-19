@@ -25,7 +25,6 @@ in {
       default = [];
       description = "Extra files to preserve.";
     };
-
     users = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [];
