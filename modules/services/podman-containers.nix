@@ -17,7 +17,8 @@ in {
       };
     };
 
-    # Preserve container storage so images aren't stored in RAM
+    # Preserve container storage
+    # Consider disabling this and seeing what happens
     my.preservation.extraDirectories = [
       {
         directory = "/var/lib/containers";
