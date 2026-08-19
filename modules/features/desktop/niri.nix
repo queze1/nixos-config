@@ -22,7 +22,16 @@ in {
         };
         noArgs = action: keys: lib.genAttrs keys (_: bind action []);
         noArgsWithProps = action: keys: props: lib.genAttrs keys (_: (bind action []) // {_props = props;});
-        defaultBrowser = lib.removeSuffix ".desktop" (config.xdg.mimeApps.defaultApplications."x-scheme-handler/https" or "Default Browser");
+
+        # Detect default applications for keybind descriptions
+        defaultTerminal = let
+          cfg = config.xdg.terminal-exec;
+          defaults = cfg.settings.default or [];
+        in
+          if cfg.enable && defaults != []
+          then lib.removeSuffix ".desktop" (lib.head defaults)
+          else null;
+        defaultBrowser = lib.removeSuffix ".desktop" (lib.head (config.xdg.mimeApps.defaultApplications."x-scheme-handler/https" or ["Default Browser"]));
       in {
         wayland.windowManager.niri = {
           enable = true;
@@ -208,7 +217,10 @@ in {
               })
               {
                 "Mod+T" = {
-                  _props.hotkey-overlay-title = "Open a Terminal";
+                  _props.hotkey-overlay-title =
+                    if defaultTerminal != null
+                    then "Open a Terminal: ${defaultTerminal}"
+                    else "Open a Terminal";
                   spawn = "xdg-terminal-exec";
                 };
                 "Mod+N" = {
