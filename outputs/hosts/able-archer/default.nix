@@ -15,9 +15,6 @@ in {
     imports = [
       self.nixosModules.sharedModules
 
-      # UTM VM
-      self.nixosModules.utm
-
       # Build-related
       self.nixosModules.setupAccessTokens
 
@@ -32,10 +29,6 @@ in {
 
       # Programs
       self.nixosModules.allPrograms
-
-      # User related stuff
-      self.nixosModules.utmHMIntegration
-      (self.factory.utmMountSharedDir {username = "${mainUser}";})
     ];
 
     # System options
@@ -52,6 +45,11 @@ in {
     my.users.${mainUser}.enable = true;
     my.shellAliases.enable = true;
     my.sound.enable = true;
+    my.utm = {
+      enable = true;
+      homeManager.enable = true;
+      username = mainUser;
+    };
     my.sops = {
       enable = true;
       homeManager.enable = true;
