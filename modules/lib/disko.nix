@@ -7,7 +7,6 @@
 }: let
   btrfsCfg = config.my.disko.btrfsEphemeralRoot;
   simpleCfg = config.my.disko.simpleEfi;
-  tmpfsCfg = config.my.disko.tmpfsOnRoot;
 
   # Number of root backups to keep
   rootBackupLimit = 10;
@@ -23,13 +22,44 @@ in {
       type = lib.types.nullOr lib.types.str;
       default = null;
     };
-    tmpfsOnRoot.device = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      default = null;
-    };
   };
 
   config = lib.mkMerge [
+    # Simple filesystem, no swap
+    (lib.mkIf (simpleCfg.device != null) {
+      disko.devices.disk.main = {
+        device = simpleCfg.device;
+        type = "disk";
+        content = {
+          type = "gpt";
+          partitions = {
+            ESP = {
+              type = "EF00";
+              size = "500M";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+                mountOptions = ["umask=0077"];
+              };
+            };
+            root = {
+              size = "100%";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/";
+                extraArgs = [
+                  "-L"
+                  "nixos"
+                ];
+              };
+            };
+          };
+        };
+      };
+    })
+
     (lib.mkIf (btrfsCfg.device != null) {
       fileSystems."/nix".neededForBoot = true;
       fileSystems."/persistent".neededForBoot = true;
@@ -159,113 +189,6 @@ in {
                   "/nix" = {
                     mountOptions = ["noatime"];
                     mountpoint = "/nix";
-                  };
-                };
-              };
-            };
-          };
-        };
-      };
-    })
-
-    # Simple filesystem, no swap
-    (lib.mkIf (simpleCfg.device != null) {
-      disko.devices.disk.main = {
-        device = simpleCfg.device;
-        type = "disk";
-        content = {
-          type = "gpt";
-          partitions = {
-            ESP = {
-              type = "EF00";
-              size = "500M";
-              content = {
-                type = "filesystem";
-                format = "vfat";
-                mountpoint = "/boot";
-                mountOptions = ["umask=0077"];
-              };
-            };
-            root = {
-              size = "100%";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
-                extraArgs = [
-                  "-L"
-                  "nixos"
-                ];
-              };
-            };
-          };
-        };
-      };
-    })
-
-    # Mostly copied from https://www.vimjoyer.com/vid89-impermanent/disko
-    (lib.mkIf (tmpfsCfg.device != null) {
-      fileSystems."/nix".neededForBoot = true;
-      fileSystems."/persistent".neededForBoot = true;
-
-      disko.devices = {
-        nodev."/" = {
-          fsType = "tmpfs";
-          mountOptions = [
-            "size=25%"
-            "mode=755"
-          ];
-        };
-        disk.main = {
-          device = tmpfsCfg.device;
-          type = "disk";
-          content = {
-            type = "gpt";
-            partitions = {
-              boot = {
-                name = "boot";
-                size = "1M";
-                type = "EF02";
-              };
-              esp = {
-                name = "ESP";
-                size = "1G";
-                type = "EF00";
-                content = {
-                  type = "filesystem";
-                  format = "vfat";
-                  mountpoint = "/boot";
-                };
-              };
-              swap = {
-                size = "4G";
-                content.type = "swap";
-              };
-              root = {
-                name = "root";
-                size = "100%";
-                content = {
-                  type = "btrfs";
-                  extraArgs = [
-                    "-f"
-                    "-L"
-                    "nixos"
-                  ];
-                  subvolumes = {
-                    "/persistent" = {
-                      mountOptions = [
-                        "subvol=persistent"
-                        "noatime"
-                      ];
-                      mountpoint = "/persistent";
-                    };
-                    "/nix" = {
-                      mountOptions = [
-                        "subvol=nix"
-                        "noatime"
-                      ];
-                      mountpoint = "/nix";
-                    };
                   };
                 };
               };
