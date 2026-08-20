@@ -16,6 +16,17 @@ jobs:
         with:
           github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
 
+      - name: Cache Nix store and cache
+        uses: nix-community/cache-nix-action@v7
+        with:
+          primary-key: ${{ github.workflow }}-${{ runner.os }}-hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          restore-prefixes-first-match: |
+            ${{ github.workflow }}-${{ runner.os }}-hashFiles('**/flake.lock') }}-
+            ${{ github.workflow }}-${{ runner.os }}-
+          paths: |
+            ~/.cache/nix
+          gc-max-store-size-linux: 1G
+
       - name: Evaluate paths
         run: |
           nix eval --json .#nixosConfigurations --apply '
