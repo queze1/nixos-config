@@ -8,17 +8,23 @@
       system = "x86_64-linux";
       config.allowUnfree = true;
     };
+    commonModules = inputs.import-tree ../modules;
   in
     inputs.colmena.lib.makeHive {
       meta = {
         nixpkgs = pkgs_x86;
         allowApplyAll = false;
+        specialArgs = {inherit inputs self;};
       };
 
       defaults = {
-        deployment.targetUser = "root";
-        deployment.targetPort = 22;
-        deployment.buildOnTarget = true;
+        imports = [commonModules];
+
+        deployment = {
+          targetUser = "root";
+          targetPort = 22;
+          buildOnTarget = true;
+        };
       };
 
       steadfast-dart = {config, ...}: {
