@@ -1,9 +1,14 @@
 {
-  flake.nixosModules.nixbuild = {
-    config,
-    pkgs,
-    ...
-  }: {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  cfg = config.my.nixbuild;
+in {
+  options.my.nixbuild.enable = lib.mkEnableOption "nixbuild";
+
+  config = lib.mkIf cfg.enable {
     sops.secrets.nixbuild-private-key = {};
 
     programs.ssh.extraConfig = ''

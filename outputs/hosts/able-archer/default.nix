@@ -15,9 +15,6 @@ in {
     imports = [
       self.nixosModules.sharedModules
 
-      # Build-related
-      self.nixosModules.setupAccessTokens
-
       # Programs
       self.nixosModules.allPrograms
     ];
@@ -29,6 +26,9 @@ in {
       users = [mainUser];
     };
     my.btrbk.enable = true;
+
+    # Build-related
+    my.setupAccessTokens.enable = true;
 
     # Secret management
     my.sops = {
