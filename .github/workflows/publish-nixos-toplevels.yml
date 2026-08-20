@@ -43,14 +43,19 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           STORE_PATHS: ${{ runner.temp }}/store-paths.json
         run: |
-          release_tag="nixos-toplevels-$GITHUB_SHA"
+          release_tag="nixos-toplevels"
           release_timestamp="$(TZ=Australia/Sydney date +'%Y-%m-%d %H:%M:%S %Z')"
+          git push origin "$GITHUB_SHA:refs/tags/$release_tag" --force
 
           if gh release view "$release_tag" >/dev/null 2>&1; then
             gh release upload "$release_tag" "$STORE_PATHS#store-paths.json" --clobber
+            gh release edit "$release_tag" \
+              --title "NixOS Toplevels ($release_timestamp)" \
+              --notes 'NixOS system store paths.' \
+              --latest
           else
             gh release create "$release_tag" "$STORE_PATHS#store-paths.json" \
-              --target "$GITHUB_SHA" \
               --title "NixOS Toplevels ($release_timestamp)" \
-              --notes 'NixOS system store paths.'
+              --notes 'NixOS system store paths.' \
+              --latest
           fi
