@@ -22,38 +22,51 @@ in {
       self.nixosModules.allPrograms
     ];
 
-    # System options
+    # Disk configuration
     my.disko.btrfsEphemeralRoot.device = "/dev/vda";
-    my.btrbk.enable = true;
-    my.desktop = {
-      enable = true;
-      niri.enable = true;
-      noctalia.enable = true;
-    };
-    my.docker.enable = true;
-    my.fonts.enable = true;
-    my.homeManager = {
-      enable = true;
-      pkgsStable = pkgs-stable;
-    };
     my.preservation = {
       enable = true;
       users = [mainUser];
     };
-    my.users.${mainUser}.enable = true;
-    my.shellAliases.enable = true;
+    my.btrbk.enable = true;
+
+    # Secret management
+    my.sops = {
+      enable = true;
+      homeManager.enable = true;
+    };
+
+    # System components
     my.sound.enable = true;
+    my.shellAliases.enable = true;
+    my.fonts.enable = true;
+
+    # VM support
     my.utm = {
       enable = true;
       homeManager.enable = true;
       username = mainUser;
     };
-    my.sops = {
-      enable = true;
-      homeManager.enable = true;
-    };
+
+    # Services
+    my.docker.enable = true;
     my.tailscale.enable = true;
 
+    # Desktop environment
+    my.desktop = {
+      enable = true;
+      niri.enable = true;
+      noctalia.enable = true;
+    };
+
+    # User management
+    my.homeManager = {
+      enable = true;
+      pkgsStable = pkgs-stable;
+    };
+    my.users.${mainUser}.enable = true;
+
+    # Backups
     my.restic = {
       enable = true;
       snapshotsDir = "/persistent/snapshots";

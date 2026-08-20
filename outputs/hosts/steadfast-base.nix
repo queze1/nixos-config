@@ -19,13 +19,17 @@ in {
       self.nixosModules.beszelAgent
     ];
 
-    my.disko.btrfsEphemeralRoot.device = "/dev/nvme0n1";
+    # Disk configuration
+    my.disko.btrfsEphemeralRoot.device = "/dev/vda";
+    my.preservation.enable = true;
     my.btrbk.enable = true;
+
+    # Secret management
+    my.sops.enable = true;
+
+    # Services
     my.fwupd.enable = true;
     my.openssh.enable = true;
-    my.preservation.enable = true;
-    my.restic.enable = true;
-    my.sops.enable = true;
     my.tailscale = {
       enable = true;
       # Automatically auth into Tailscale as a server

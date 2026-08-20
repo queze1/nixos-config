@@ -8,11 +8,13 @@ in {
       self.nixosModules.beszelAgent
     ];
 
-    my.openssh.enable = true;
+    # Secret management
     my.sops.enable = true;
+
+    # Services
+    my.openssh.enable = true;
     my.tailscale = {
       enable = true;
-      # Automatically auth into Tailscale as a server
       autoAuth = true;
       setHostname = true;
     };
