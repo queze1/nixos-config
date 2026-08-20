@@ -44,12 +44,13 @@ jobs:
           STORE_PATHS: ${{ runner.temp }}/store-paths.json
         run: |
           release_tag="nixos-toplevels-$GITHUB_SHA"
+          release_timestamp="$(TZ=Australia/Sydney date +'%Y-%m-%d %H:%M:%S %Z')"
 
           if gh release view "$release_tag" >/dev/null 2>&1; then
             gh release upload "$release_tag" "$STORE_PATHS#store-paths.json" --clobber
           else
             gh release create "$release_tag" "$STORE_PATHS#store-paths.json" \
               --target "$GITHUB_SHA" \
-              --title "NixOS toplevels $GITHUB_SHA" \
+              --title "NixOS Toplevels ($release_timestamp)" \
               --notes 'NixOS system store paths.'
           fi
