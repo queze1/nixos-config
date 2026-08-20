@@ -36,10 +36,10 @@ jobs:
       - name: Cache Nix store and cache
         uses: nix-community/cache-nix-action@v7
         with:
-          primary-key: colmena-${{ runner.os }}-hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          primary-key: ${{ github.workflow }}-${{ runner.os }}-hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
           restore-prefixes-first-match: |
-            colmena-${{ runner.os }}-hashFiles('**/flake.lock') }}-
-            colmena-${{ runner.os }}-
+            ${{ github.workflow }}-${{ runner.os }}-hashFiles('**/flake.lock') }}-
+            ${{ github.workflow }}-${{ runner.os }}-
           paths: |
             ~/.cache/nix
           gc-max-store-size-linux: 2G
