@@ -37,7 +37,8 @@ ip addr
   - If internet doesn't work, run `nmtui`.
   - Remove `services.getty.autologinUser = "root"` if you set it for convenience.
 
-## Project Structure
+## Project Structure (OLD)
+Will and has changed, refactoring in progress
 ```
 .
 ├── assets                     # profile picture, default wallpaper, etc.
