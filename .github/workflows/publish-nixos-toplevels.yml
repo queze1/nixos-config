@@ -1,0 +1,38 @@
+name: Publish NixOS toplevels
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-nixos-toplevels:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
+
+      - name: Evaluate paths
+        run: |
+          nix eval --json .#nixosConfigurations --apply '
+            configs: builtins.mapAttrs (name: cfg: cfg.config.system.build.toplevel) configs
+          ' > "$RUNNER_TEMP/store-paths.json"
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STORE_PATHS: ${{ runner.temp }}/store-paths.json
+        run: |
+          if gh release view nixos-toplevels >/dev/null 2>&1; then
+            gh release upload nixos-toplevels "$STORE_PATHS#store-paths.json" --clobber
+          else
+            gh release create nixos-toplevels "$STORE_PATHS#store-paths.json" \
+              --target "$GITHUB_SHA" \
+              --title 'NixOS toplevels' \
+              --notes 'NixOS system store paths.' \
+              --latest=false
+          fi
