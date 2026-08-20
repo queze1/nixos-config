@@ -1,0 +1,61 @@
+name: Publish NixOS toplevels
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+concurrency:
+  group: ${{ github.workflow }}
+
+permissions:
+  contents: write
+
+jobs:
+  publish-nixos-toplevels:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
+
+      - name: Cache Nix store and cache
+        uses: nix-community/cache-nix-action@v7
+        with:
+          primary-key: ${{ github.workflow }}-${{ runner.os }}-hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          restore-prefixes-first-match: |
+            ${{ github.workflow }}-${{ runner.os }}-hashFiles('**/flake.lock') }}-
+            ${{ github.workflow }}-${{ runner.os }}-
+          paths: |
+            ~/.cache/nix
+          gc-max-store-size-linux: 1G
+
+      - name: Evaluate paths
+        run: |
+          nix eval --json .#nixosConfigurations --apply '
+            configs: builtins.mapAttrs (name: cfg: cfg.config.system.build.toplevel) configs
+          ' > "$RUNNER_TEMP/store-paths.json"
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STORE_PATHS: ${{ runner.temp }}/store-paths.json
+        run: |
+          release_tag="nixos-toplevels"
+          release_timestamp="$(TZ=Australia/Sydney date +'%Y-%m-%d %H:%M:%S %Z')"
+          git push origin "$GITHUB_SHA:refs/tags/$release_tag" --force
+
+          if gh release view "$release_tag" >/dev/null 2>&1; then
+            gh release upload "$release_tag" "$STORE_PATHS#store-paths.json" --clobber
+            gh release edit "$release_tag" \
+              --title "NixOS Toplevels ($release_timestamp)" \
+              --notes 'NixOS system store paths.' \
+              --latest
+          else
+            gh release create "$release_tag" "$STORE_PATHS#store-paths.json" \
+              --title "NixOS Toplevels ($release_timestamp)" \
+              --notes 'NixOS system store paths.' \
+              --latest
+          fi

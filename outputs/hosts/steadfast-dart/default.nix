@@ -50,6 +50,7 @@ in {
     # my.apps.filebrowser-quantum.port = 8008;
 
     my.restic = {
+      enable = true;
       snapshotsDir = "/persistent/snapshots";
       extraPaths = [
         "/etc/ssh"
