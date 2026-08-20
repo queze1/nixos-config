@@ -24,12 +24,6 @@
       type = lib.types.lazyAttrsOf lib.types.deferredModule;
       default = {};
     };
-
-    # Modules shared between nix-darwin and NixOS
-    nixModules = lib.mkOption {
-      type = lib.types.lazyAttrsOf lib.types.deferredModule;
-      default = {};
-    };
   };
 
   config = {
