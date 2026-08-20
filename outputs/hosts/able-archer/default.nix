@@ -5,50 +5,54 @@
 }: let
   hostname = "able-archer";
 in {
-  flake.nixosModules.ableArcherConfiguration = {lib, ...}: let
+  flake.nixosModules.ableArcherConfiguration = {
+    lib,
+    pkgs-stable,
+    ...
+  }: let
     mainUser = "queze";
   in {
     imports = [
-      self.nixosModules.myOptions
       self.nixosModules.sharedModules
-
-      # Basic libraries
-      (self.factory.diskoBrtfsEphemeralRoot
-        {device = "/dev/vda";})
-      self.nixosModules.preservation
-      self.nixosModules.sopsNix
-
-      # UTM VM
-      self.nixosModules.utm
 
       # Build-related
       self.nixosModules.setupAccessTokens
 
-      # System components
-      self.nixosModules.fonts
-      self.nixosModules.shellAliases
-      self.nixosModules.sound
-
-      # Services
-      self.nixosModules.btrbk
-      self.nixosModules.docker
-      self.nixosModules.resticDefaults
-      self.nixosModules.tailscale
-
-      # Desktop environment
-      self.nixosModules.niriNoctalia
-
       # Programs
       self.nixosModules.allPrograms
-
-      # User related stuff
-      self.nixosModules.homeManager
-      self.nixosModules.sopsNixWithHM
-      self.nixosModules.utmHMIntegration
-      self.nixosModules.${mainUser}
-      (self.factory.preservationForUser {username = "${mainUser}";})
-      (self.factory.utmMountSharedDir {username = "${mainUser}";})
     ];
+
+    # System options
+    my.disko.btrfsEphemeralRoot.device = "/dev/vda";
+    my.btrbk.enable = true;
+    my.desktop = {
+      enable = true;
+      niri.enable = true;
+      noctalia.enable = true;
+    };
+    my.docker.enable = true;
+    my.fonts.enable = true;
+    my.homeManager = {
+      enable = true;
+      pkgsStable = pkgs-stable;
+    };
+    my.preservation = {
+      enable = true;
+      users = [mainUser];
+    };
+    my.users.${mainUser}.enable = true;
+    my.shellAliases.enable = true;
+    my.sound.enable = true;
+    my.utm = {
+      enable = true;
+      homeManager.enable = true;
+      username = mainUser;
+    };
+    my.sops = {
+      enable = true;
+      homeManager.enable = true;
+    };
+    my.tailscale.enable = true;
 
     my.restic = {
       enable = true;

@@ -41,7 +41,7 @@ after the hostname. Let Alejandra format `.nix` files. Remove unused bindings
 and imports; deadnix is enabled in the hooks. Do not hand-edit `flake.lock`
 unless changing inputs deliberately.
 
-Do not add code comments. The user writes and maintains comments themselves.
+Do not add new code comments. The user writes and maintains comments themselves. When migrating code, keep any existing comments.
 
 ## Commit & Pull Request Guidelines
 
