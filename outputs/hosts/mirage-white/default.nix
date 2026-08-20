@@ -9,7 +9,6 @@ in {
   flake.nixosModules.mirageWhiteConfiguration = {
     imports = [
       self.nixosModules.mirageBase
-      self.nixosModules.resticDefaults
 
       # Ingress & routing
       self.nixosModules.cloudflared

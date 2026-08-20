@@ -10,8 +10,6 @@ in {
     imports = [
       self.nixosModules.steadfastBase
 
-      self.nixosModules.podmanContainers
-
       # Ingress & routing
       self.nixosModules.caddy
       self.nixosModules.caddyCloudflareDNS
@@ -37,6 +35,8 @@ in {
     environment.systemPackages = [
       inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
     ];
+
+    my.podmanContainers.enable = true;
 
     # Set incrementing port numbers
     my.apps.actual.port = 8000;

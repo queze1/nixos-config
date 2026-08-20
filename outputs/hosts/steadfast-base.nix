@@ -8,34 +8,30 @@ in {
     ...
   }: {
     imports = [
-      self.nixosModules.myOptions
       self.nixosModules.sharedModules
-
-      # Basic libraries
-      (self.factory.diskoBrtfsEphemeralRoot
-        {device = "/dev/nvme0n1";})
-      self.nixosModules.preservation
-      self.nixosModules.sopsNix
-
-      # System config
-      self.nixosModules.btrbk
 
       # Nix-related
       self.nixosModules.comin
       self.nixosModules.setupAccessTokens
 
-      # Services
-      self.nixosModules.fwudp
-      self.nixosModules.openssh
-      self.nixosModules.resticDefaults
-      self.nixosModules.tailscale
-
       # Monitoring
       self.nixosModules.beszel
       self.nixosModules.beszelAgent
-
-      self.nixosModules.commander
     ];
+
+    my.disko.btrfsEphemeralRoot.device = "/dev/nvme0n1";
+    my.btrbk.enable = true;
+    my.fwupd.enable = true;
+    my.openssh.enable = true;
+    my.preservation.enable = true;
+    my.restic.enable = true;
+    my.sops.enable = true;
+    my.tailscale = {
+      enable = true;
+      # Automatically auth into Tailscale as a server
+      autoAuth = true;
+      openSSHOnTailscale = true;
+    };
 
     # Convenience programs
     environment.systemPackages = [
@@ -43,21 +39,13 @@ in {
       pkgs.tree
     ];
 
+    my.users.commander.enable = true;
+
     # Allow SSH into root
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
 
     # Enable passwordless sudo
     security.sudo.wheelNeedsPassword = false;
-
-    # Automatically auth into Tailscale as a server
-    services.tailscale = {
-      authKeyFile = config.sops.secrets.tailscale-auth-key.path;
-    };
-    sops.secrets.tailscale-auth-key = {};
-
-    # Only allow SSH via Tailscale
-    services.openssh.openFirewall = false;
-    networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = config.services.openssh.ports;
 
     # Declaratively configure wifi
     networking.networkmanager.ensureProfiles = {
