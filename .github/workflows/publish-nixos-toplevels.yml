@@ -43,12 +43,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           STORE_PATHS: ${{ runner.temp }}/store-paths.json
         run: |
-          if gh release view nixos-toplevels >/dev/null 2>&1; then
-            gh release upload nixos-toplevels "$STORE_PATHS#store-paths.json" --clobber
+          release_tag="nixos-toplevels-$GITHUB_SHA"
+
+          if gh release view "$release_tag" >/dev/null 2>&1; then
+            gh release upload "$release_tag" "$STORE_PATHS#store-paths.json" --clobber
           else
-            gh release create nixos-toplevels "$STORE_PATHS#store-paths.json" \
+            gh release create "$release_tag" "$STORE_PATHS#store-paths.json" \
               --target "$GITHUB_SHA" \
-              --title 'NixOS toplevels' \
-              --notes 'NixOS system store paths.' \
-              --latest=false
+              --title "NixOS toplevels $GITHUB_SHA" \
+              --notes 'NixOS system store paths.'
           fi
