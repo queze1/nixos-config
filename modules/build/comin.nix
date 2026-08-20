@@ -1,7 +1,16 @@
-{inputs, ...}: {
-  flake.nixosModules.comin = {
-    imports = [inputs.comin.nixosModules.comin];
+{
+  config,
+  inputs,
+  lib,
+  ...
+}: let
+  cfg = config.my.comin;
+in {
+  imports = [inputs.comin.nixosModules.comin];
 
+  options.my.comin.enable = lib.mkEnableOption "Comin";
+
+  config = lib.mkIf cfg.enable {
     services.comin = {
       enable = true;
       remotes = [

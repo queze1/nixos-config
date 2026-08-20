@@ -10,10 +10,6 @@ in {
     imports = [
       self.nixosModules.sharedModules
 
-      # Nix-related
-      self.nixosModules.comin
-      self.nixosModules.setupAccessTokens
-
       # Monitoring
       self.nixosModules.beszel
       self.nixosModules.beszelAgent
@@ -23,6 +19,10 @@ in {
     my.disko.btrfsEphemeralRoot.device = "/dev/vda";
     my.preservation.enable = true;
     my.btrbk.enable = true;
+
+    # Build-related
+    my.comin.enable = true;
+    my.setupAccessTokens.enable = true;
 
     # Secret management
     my.sops.enable = true;
