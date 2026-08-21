@@ -2,11 +2,7 @@
   sshKeys = import "${self}/ssh-keys.nix";
 in {
   # Base configuration for home servers
-  flake.nixosModules.steadfastBase = {
-    config,
-    pkgs,
-    ...
-  }: {
+  flake.nixosModules.steadfastBase = {pkgs, ...}: {
     imports = [
       # Monitoring
       self.nixosModules.beszel
@@ -20,7 +16,10 @@ in {
       configurationLimit = 3;
     };
     my.localisation.enable = true;
-    my.networkManager.enable = true;
+    my.networkManager = {
+      enable = true;
+      homeWifi.enable = true;
+    };
     zramSwap.enable = true;
 
     # Disk configuration
@@ -63,44 +62,10 @@ in {
       pkgs.tree
     ];
 
+    # User management & security
     my.users.commander.enable = true;
-
-    # Allow SSH into root
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
-
-    # Enable passwordless sudo
     security.sudo.wheelNeedsPassword = false;
-
-    # Declaratively configure wifi
-    networking.networkmanager.ensureProfiles = {
-      environmentFiles = [config.sops.secrets.home-wifi-env.path];
-      profiles.home-wifi = {
-        connection = {
-          id = "$WIFI_SSID";
-          type = "wifi";
-          uuid = "$WIFI_UUID";
-          autoconnect = true;
-        };
-        ipv4 = {
-          method = "auto";
-        };
-        ipv6 = {
-          addr-gen-mode = "default";
-          method = "auto";
-        };
-        proxy = {};
-        wifi = {
-          mode = "infrastructure";
-          ssid = "$WIFI_SSID";
-        };
-        wifi-security = {
-          auth-alg = "open";
-          key-mgmt = "wpa-psk";
-          psk = "$WIFI_PSK";
-        };
-      };
-    };
-    sops.secrets.home-wifi-env = {};
 
     # Don't sleep on lid close
     services.logind.settings.Login = {
