@@ -9,13 +9,10 @@ in {
   flake.nixosModules.mirageWhiteConfiguration = {
     imports = [
       self.nixosModules.mirageBase
-
-      # Ingress & routing
-      self.nixosModules.cloudflared
-
-      # Hosted services
-      self.nixosModules.gatus
     ];
+
+    my.cloudflared.enable = true;
+    my.apps.gatus.enable = true;
 
     # Prevent port overlap
     my.apps.gatus.port = 8000;

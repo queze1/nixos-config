@@ -1,27 +1,26 @@
 {
-  flake.nixosModules.beszel = {lib, ...}: {
-    options.my.beszel = {
-      domain = lib.mkOption {
-        type = lib.types.str;
-        default = "beszel.osipol.uk";
-        description = "Domain to host Beszel Hub on.";
-      };
-      port = lib.mkOption {
-        type = lib.types.port;
-        default = 8090;
-        description = "Port to run Beszel Hub on.";
-      };
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.services.beszel.hub;
+  myCfg = config.my.apps.beszel-hub;
+in {
+  options.my.apps.beszel-hub = {
+    enable = lib.mkEnableOption "Beszel Hub";
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "beszel.osipol.uk";
+      description = "Domain to host Beszel Hub on.";
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 8090;
+      description = "Port to run Beszel Hub on.";
     };
   };
 
-  flake.nixosModules.beszelHub = {
-    config,
-    lib,
-    ...
-  }: let
-    cfg = config.services.beszel.hub;
-    myCfg = config.my.beszel;
-  in {
+  config = lib.mkIf myCfg.enable {
     services.beszel.hub = {
       enable = true;
       host = "127.0.0.1";
@@ -67,21 +66,5 @@
 
     # Only allow Caddy to access this port
     my.caddy.firewalledPorts = [myCfg.port];
-  };
-
-  flake.nixosModules.beszelAgent = {config, ...}: let
-    myCfg = config.my.beszel;
-  in {
-    services.beszel.agent = {
-      enable = true;
-      smartmon.enable = true;
-      environmentFile = config.sops.secrets.beszel-agent-env.path;
-      environment = {
-        HUB_URL = "https://${myCfg.domain}";
-        DISABLE_SSH = "true";
-      };
-    };
-
-    sops.secrets.beszel-agent-env.restartUnits = ["beszel-agent.service"];
   };
 }

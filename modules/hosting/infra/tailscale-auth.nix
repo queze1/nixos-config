@@ -1,5 +1,11 @@
 {
-  flake.nixosModules.tailscaleAuth = {config, ...}: {
+  config,
+  lib,
+  ...
+}: {
+  options.my.tailscaleAuth.enable = lib.mkEnableOption "Tailscale authentication";
+
+  config = lib.mkIf config.my.tailscaleAuth.enable {
     services.tailscaleAuth.enable = true;
 
     # Allow Caddy to authenticate requests with Tailscale

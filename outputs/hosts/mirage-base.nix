@@ -2,16 +2,11 @@
   sshKeys = import "${self}/ssh-keys.nix";
 in {
   flake.nixosModules.mirageBase = {pkgs, ...}: {
-    imports = [
-      # Monitoring
-      self.nixosModules.beszel
-      self.nixosModules.beszelAgent
-    ];
-
     # Secret management
     my.sops.enable = true;
 
     # Services
+    my.beszel-agent.enable = true;
     my.openssh.enable = true;
     my.tailscale = {
       enable = true;
