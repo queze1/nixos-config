@@ -4,11 +4,11 @@
   lib,
   ...
 }: let
-  cfg = config.my.comin;
+  cfg = config.my.deployment.comin;
 in {
   imports = [inputs.comin.nixosModules.comin];
 
-  options.my.comin.enable = lib.mkEnableOption "Comin";
+  options.my.deployment.comin.enable = lib.mkEnableOption "Comin";
 
   config = lib.mkIf cfg.enable {
     services.comin = {

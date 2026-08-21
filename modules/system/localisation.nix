@@ -1,5 +1,13 @@
 {
-  flake.nixosModules.sharedModules = {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.my.localisation;
+in {
+  options.my.localisation.enable = lib.mkEnableOption "Australian English localisation";
+
+  config = lib.mkIf cfg.enable {
     time.timeZone = "Australia/Sydney";
 
     i18n.defaultLocale = "en_GB.UTF-8";

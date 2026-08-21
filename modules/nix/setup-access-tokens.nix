@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.my.setupAccessTokens;
+  cfg = config.my.nix.accessTokens;
 in {
-  options.my.setupAccessTokens.enable = lib.mkEnableOption "Nix access tokens";
+  options.my.nix.accessTokens.enable = lib.mkEnableOption "Nix access tokens";
 
   config = lib.mkIf cfg.enable {
     # Needed to access the secrets GitHub repo
