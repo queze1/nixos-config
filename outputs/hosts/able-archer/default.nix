@@ -13,6 +13,13 @@ in {
       self.nixosModules.allPrograms
     ];
 
+    # VM support
+    my.utm = {
+      enable = true;
+      homeManager.enable = true;
+      username = mainUser;
+    };
+
     # System config
     my.boot = {
       systemdBoot.enable = true;
@@ -46,27 +53,6 @@ in {
       homeManager.enable = true;
     };
 
-    # Nix-related config
-    my.nix = {
-      enable = true;
-      settings.download-buffer-size = 5000000;
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 7d";
-      };
-      binaryCache.enable = true;
-      replHistory.enable = true;
-      accessTokens.enable = true;
-    };
-
-    # VM support
-    my.utm = {
-      enable = true;
-      homeManager.enable = true;
-      username = mainUser;
-    };
-
     # Services
     my.docker.enable = true;
     my.tailscale.enable = true;
@@ -81,6 +67,20 @@ in {
     # Personalisation
     my.shellAliases.enable = true;
     my.editor.vim.enable = true;
+
+    # Nix-related config
+    my.nix = {
+      enable = true;
+      settings.download-buffer-size = 5000000;
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 7d";
+      };
+      binaryCache.enable = true;
+      replHistory.enable = true;
+      accessTokens.enable = true;
+    };
 
     # Backups
     my.restic = {
