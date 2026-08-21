@@ -19,6 +19,7 @@ in {
 
     my.podmanContainers.enable = true;
 
+    # Ingress & routing
     my.cloudflared.enable = true;
     my.ddns.enable = true;
     my.tailscaleAuth.enable = true;

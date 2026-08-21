@@ -11,6 +11,7 @@ in {
       self.nixosModules.steadfastBase
     ];
 
+    # Ingress & routing
     my.cloudflared.enable = true;
     my.ddns.enable = true;
     my.tailscaleAuth.enable = true;
