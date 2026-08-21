@@ -16,6 +16,7 @@ in {
     networking.nftables.enable = true;
     networking.networkmanager.enable = true;
 
+    # Declarative wifi
     networking.networkmanager.ensureProfiles = lib.mkIf cfg.homeWifi.enable {
       environmentFiles = [config.sops.secrets.home-wifi-env.path];
       profiles.home-wifi = {
