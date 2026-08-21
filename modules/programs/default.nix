@@ -20,14 +20,15 @@ in {
         imports = [inputs.nix-index-database.homeModules.default];
 
         home.packages = [
-          pkgs.calibre
           pkgs.gnome-clocks
-          pkgs.kdePackages.okular
           pkgs.pinta
           pkgs.qalculate-qt
           pkgs-stable.celluloid
+
+          # CLI tools
           inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
           pkgs.clipboard-jh
+          pkgs.ncdu
           pkgs.sops
           pkgs.tree
           pkgs.unzip
