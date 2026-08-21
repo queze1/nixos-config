@@ -6,15 +6,9 @@
   hostname = "steadfast-dart";
 in {
   # Newer home server
-  flake.nixosModules.steadfastDartConfiguration = {pkgs, ...}: {
+  flake.nixosModules.steadfastDartConfiguration = {
     imports = [
       self.nixosModules.steadfastBase
-    ];
-
-    # To deploy to VPS without building on target
-    # colmena apply --nix-option tarball-ttl 0 --config github:queze1/nixos-config --no-build-on-target --on @cloud
-    environment.systemPackages = [
-      inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
     ];
 
     my.podmanContainers.enable = true;
