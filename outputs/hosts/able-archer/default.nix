@@ -8,11 +8,6 @@ in {
   flake.nixosModules.ableArcherConfiguration = {pkgs-stable, ...}: let
     mainUser = "queze";
   in {
-    imports = [
-      # Programs
-      self.nixosModules.allPrograms
-    ];
-
     # VM support
     my.utm = {
       enable = true;
@@ -62,6 +57,7 @@ in {
       enable = true;
       pkgsStable = pkgs-stable;
     };
+    my.programs.enableAll = true;
     my.users.${mainUser}.enable = true;
 
     # Personalisation
