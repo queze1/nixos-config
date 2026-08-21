@@ -37,16 +37,17 @@ in {
       memoryPercent = 100;
     };
 
-    # Minimise Nix store size
-    boot.loader.grub.configurationLimit = 3;
-    nix.gc = {
-      automatic = true;
-      options = "--delete-old";
-    };
-    nix.settings.auto-optimise-store = true;
+    # Minimise Nix store usage
+    my.boot.configurationLimit = 3;
     documentation.enable = false;
-
-    nix.settings.experimental-features = ["nix-command" "flakes"];
+    my.nix = {
+      enable = true;
+      settings.auto-optimise-store = true;
+      gc = {
+        automatic = true;
+        options = "--delete-old";
+      };
+    };
 
     system.stateVersion = "26.05";
   };

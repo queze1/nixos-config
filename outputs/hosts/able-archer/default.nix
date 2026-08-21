@@ -5,19 +5,32 @@
 }: let
   hostname = "able-archer";
 in {
-  flake.nixosModules.ableArcherConfiguration = {
-    lib,
-    pkgs-stable,
-    ...
-  }: let
+  flake.nixosModules.ableArcherConfiguration = {pkgs-stable, ...}: let
     mainUser = "queze";
   in {
     imports = [
-      self.nixosModules.sharedModules
-
       # Programs
       self.nixosModules.allPrograms
     ];
+
+    # System config
+    my.boot = {
+      systemdBoot.enable = true;
+      useLatestLtsKernel = true;
+      configurationLimit = 10;
+    };
+    my.sound.enable = true;
+    my.fonts.enable = true;
+    my.localisation.enable = true;
+    my.networkManager.enable = true;
+    zramSwap.enable = true;
+
+    # Desktop environment
+    my.desktop = {
+      enable = true;
+      niri.enable = true;
+      noctalia.enable = true;
+    };
 
     # Disk configuration
     my.disko.btrfsEphemeralRoot.device = "/dev/vda";
@@ -27,19 +40,25 @@ in {
     };
     my.btrbk.enable = true;
 
-    # Build-related
-    my.setupAccessTokens.enable = true;
-
     # Secret management
     my.sops = {
       enable = true;
       homeManager.enable = true;
     };
 
-    # System components
-    my.sound.enable = true;
-    my.shellAliases.enable = true;
-    my.fonts.enable = true;
+    # Nix-related config
+    my.nix = {
+      enable = true;
+      settings.download-buffer-size = 5000000;
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 7d";
+      };
+      binaryCache.enable = true;
+      replHistory.enable = true;
+      accessTokens.enable = true;
+    };
 
     # VM support
     my.utm = {
@@ -52,19 +71,16 @@ in {
     my.docker.enable = true;
     my.tailscale.enable = true;
 
-    # Desktop environment
-    my.desktop = {
-      enable = true;
-      niri.enable = true;
-      noctalia.enable = true;
-    };
-
     # User management
     my.homeManager = {
       enable = true;
       pkgsStable = pkgs-stable;
     };
     my.users.${mainUser}.enable = true;
+
+    # Personalisation
+    my.shellAliases.enable = true;
+    my.editor.vim.enable = true;
 
     # Backups
     my.restic = {
@@ -103,9 +119,6 @@ in {
         };
       };
     };
-
-    # Save space
-    nix.gc.options = lib.mkForce "--delete-older-than 7d";
 
     networking.hostName = hostname;
     system.stateVersion = "25.11";

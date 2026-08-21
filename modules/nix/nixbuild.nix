@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.my.nixbuild;
+  cfg = config.my.nix.nixbuild;
 in {
-  options.my.nixbuild.enable = lib.mkEnableOption "nixbuild";
+  options.my.nix.nixbuild.enable = lib.mkEnableOption "nixbuild";
 
   config = lib.mkIf cfg.enable {
     sops.secrets.nixbuild-private-key = {};

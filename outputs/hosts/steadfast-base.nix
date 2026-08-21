@@ -8,21 +8,25 @@ in {
     ...
   }: {
     imports = [
-      self.nixosModules.sharedModules
-
       # Monitoring
       self.nixosModules.beszel
       self.nixosModules.beszelAgent
     ];
 
+    # System config
+    my.boot = {
+      systemdBoot.enable = true;
+      useLatestLtsKernel = true;
+      configurationLimit = 3;
+    };
+    my.localisation.enable = true;
+    my.networkManager.enable = true;
+    zramSwap.enable = true;
+
     # Disk configuration
     my.disko.btrfsEphemeralRoot.device = "/dev/vda";
     my.preservation.enable = true;
     my.btrbk.enable = true;
-
-    # Build-related
-    my.comin.enable = true;
-    my.setupAccessTokens.enable = true;
 
     # Secret management
     my.sops.enable = true;
@@ -32,10 +36,26 @@ in {
     my.openssh.enable = true;
     my.tailscale = {
       enable = true;
-      # Automatically auth into Tailscale as a server
       autoAuth = true;
       openSSHOnTailscale = true;
     };
+
+    # Nix-related config
+    my.deployment.comin.enable = true;
+    my.nix = {
+      enable = true;
+      settings.download-buffer-size = 5000000;
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 30d";
+      };
+      binaryCache.enable = true;
+      accessTokens.enable = true;
+    };
+
+    # Personalisation
+    my.editor.vim.enable = true;
 
     # Convenience programs
     environment.systemPackages = [
@@ -101,9 +121,6 @@ in {
 
     # Turn off monitor after 1 minute idle
     boot.kernelParams = ["consoleblank=60"];
-
-    # Save space, use git history as the primary way to rollback instead of boot entries
-    boot.loader.systemd-boot.configurationLimit = 3;
 
     system.stateVersion = "25.11";
   };
