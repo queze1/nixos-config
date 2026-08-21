@@ -9,25 +9,6 @@ in {
   flake.nixosModules.steadfastDartConfiguration = {pkgs, ...}: {
     imports = [
       self.nixosModules.steadfastBase
-
-      # Ingress & routing
-      self.nixosModules.caddy
-      self.nixosModules.caddyCloudflareDNS
-      self.nixosModules.cloudflared
-      self.nixosModules.ddns
-      self.nixosModules.tailscaleAuth
-
-      # Self-hosted apps
-      self.nixosModules.actual
-      self.nixosModules.arkRpVisualisation
-      self.nixosModules.forgejo
-      self.nixosModules.github2forgejo
-      # self.nixosModules.filebrowserQuantum
-      self.nixosModules.musicStack
-      self.nixosModules.pihole
-      self.nixosModules.resticServer
-      self.nixosModules.sillytavern
-      self.nixosModules.vaultwarden
     ];
 
     # To deploy to VPS without building on target
@@ -37,6 +18,27 @@ in {
     ];
 
     my.podmanContainers.enable = true;
+
+    my.cloudflared.enable = true;
+    my.ddns.enable = true;
+    my.tailscaleAuth.enable = true;
+    my.caddy = {
+      enable = true;
+      cloudflareDns.enable = true;
+    };
+
+    # Hosted services
+    my.apps = {
+      actual.enable = true;
+      ark-rp-viz.enable = true;
+      forgejo.enable = true;
+      github2forgejo.enable = true;
+      music-stack.enable = true;
+      pihole.enable = true;
+      restic-server.enable = true;
+      sillytavern.enable = true;
+      vaultwarden.enable = true;
+    };
 
     # Set incrementing port numbers
     my.apps.actual.port = 8000;

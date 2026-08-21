@@ -1,23 +1,28 @@
 {
-  flake.nixosModules.caddy = {
-    config,
-    lib,
-    ...
-  }: let
-    cfg = config.services.caddy;
-    myCfg = config.my.caddy;
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  cfg = config.services.caddy;
+  myCfg = config.my.caddy;
 
-    uid = config.users.users.${cfg.user}.uid;
-    firewalledPortsStr = lib.join "," (lib.map toString myCfg.firewalledPorts);
-  in {
-    options.my.caddy.firewalledPorts = lib.mkOption {
+  uid = config.users.users.${cfg.user}.uid;
+  firewalledPortsStr = lib.join "," (lib.map toString myCfg.firewalledPorts);
+in {
+  options.my.caddy = {
+    enable = lib.mkEnableOption "Caddy";
+    cloudflareDns.enable = lib.mkEnableOption "Cloudflare DNS for Caddy";
+    firewalledPorts = lib.mkOption {
       type = lib.types.listOf lib.types.int;
       default = [];
       example = [8000 8001];
       description = "Ports to prevent any user from accessing other than Caddy.";
     };
+  };
 
-    config = {
+  config = lib.mkMerge [
+    (lib.mkIf myCfg.enable {
       services.caddy = {
         enable = true;
         globalConfig = ''
@@ -70,37 +75,30 @@
           '';
         };
       };
-    };
-  };
-
-  flake.nixosModules.caddyCloudflareDNS = {
-    config,
-    pkgs,
-    ...
-  }: let
-    cfg = config.services.caddy;
-  in {
-    services.caddy = {
-      package = pkgs.caddy.withPlugins {
-        plugins = [
-          "github.com/caddy-dns/cloudflare@v0.2.4"
-        ];
-        hash = "sha256-7GoH8YLCoPmPExQxoga2FHB58zQDoZVf1BBwkVi0SsQ=";
-      };
-      extraConfig = ''
-        (cloudflare_dns) {
-          tls {
-            dns cloudflare {file.${config.sops.secrets.cloudflare-api-token.path}}
-            propagation_timeout -1
-            propagation_delay 15s
+    })
+    (lib.mkIf myCfg.cloudflareDns.enable {
+      services.caddy = {
+        package = pkgs.caddy.withPlugins {
+          plugins = [
+            "github.com/caddy-dns/cloudflare@v0.2.4"
+          ];
+          hash = "sha256-7GoH8YLCoPmPExQxoga2FHB58zQDoZVf1BBwkVi0SsQ=";
+        };
+        extraConfig = ''
+          (cloudflare_dns) {
+            tls {
+              dns cloudflare {file.${config.sops.secrets.cloudflare-api-token.path}}
+              propagation_timeout -1
+              propagation_delay 15s
+            }
           }
-        }
-      '';
-    };
+        '';
+      };
 
-    sops.secrets.cloudflare-api-token = {
-      owner = cfg.user;
-      group = cfg.group;
-    };
-  };
+      sops.secrets.cloudflare-api-token = {
+        owner = cfg.user;
+        group = cfg.group;
+      };
+    })
+  ];
 }

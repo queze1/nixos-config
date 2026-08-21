@@ -9,21 +9,25 @@ in {
   flake.nixosModules.steadfastDefenderConfiguration = {
     imports = [
       self.nixosModules.steadfastBase
-
-      # Ingress & routing
-      self.nixosModules.caddy
-      self.nixosModules.caddyCloudflareDNS
-      self.nixosModules.cloudflared
-      self.nixosModules.ddns
-      self.nixosModules.tailscaleAuth
-
-      # Hosted services
-      self.nixosModules.attic
-      self.nixosModules.beszelHub
-      self.nixosModules.immich
-      self.nixosModules.resticServer
     ];
 
+    my.cloudflared.enable = true;
+    my.ddns.enable = true;
+    my.tailscaleAuth.enable = true;
+    my.caddy = {
+      enable = true;
+      cloudflareDns.enable = true;
+    };
+
+    # Hosted services
+    my.apps = {
+      attic.enable = true;
+      beszel-hub.enable = true;
+      immich.enable = true;
+      restic-server.enable = true;
+    };
+
+    # Backups
     my.restic = {
       enable = true;
       snapshotsDir = "/persistent/snapshots";

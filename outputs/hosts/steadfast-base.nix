@@ -3,12 +3,6 @@
 in {
   # Base configuration for home servers
   flake.nixosModules.steadfastBase = {pkgs, ...}: {
-    imports = [
-      # Monitoring
-      self.nixosModules.beszel
-      self.nixosModules.beszelAgent
-    ];
-
     # System config
     my.boot = {
       systemdBoot.enable = true;
@@ -31,6 +25,7 @@ in {
     my.sops.enable = true;
 
     # Services
+    my.beszel-agent.enable = true;
     my.fwupd.enable = true;
     my.openssh.enable = true;
     my.tailscale = {

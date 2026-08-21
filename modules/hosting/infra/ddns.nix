@@ -1,7 +1,13 @@
 {
-  flake.nixosModules.ddns = {config, ...}: let
-    tailscale = "${config.services.tailscale.package}/bin/tailscale";
-  in {
+  config,
+  lib,
+  ...
+}: let
+  tailscale = "${config.services.tailscale.package}/bin/tailscale";
+in {
+  options.my.ddns.enable = lib.mkEnableOption "dynamic DNS";
+
+  config = lib.mkIf config.my.ddns.enable {
     # Dynamically update Cloudflare DNS with Tailscale IP
     services.ddclient = {
       enable = true;

@@ -1,0 +1,233 @@
+{
+  config,
+  lib,
+  ...
+}: let
+  myCfg = config.my.apps.gatus;
+in {
+  options.my.apps.gatus = {
+    enable = lib.mkEnableOption "Gatus";
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "uptime.osipol.uk";
+      description = "Domain to host Gatus on.";
+    };
+    port = lib.mkOption {
+      type = lib.types.int;
+      default = 8080;
+      description = "Port to run Gatus on.";
+    };
+  };
+
+  config = lib.mkIf myCfg.enable {
+    services.gatus = {
+      enable = true;
+      environmentFile = config.sops.secrets.gatus-env.path;
+      settings = {
+        web.address = "127.0.0.1";
+        web.port = myCfg.port;
+        storage.type = "sqlite";
+        storage.path = "/var/lib/gatus/data.db";
+        storage.maximum-number-of-results = 480; # 60 mins * 8 hours
+        alerting.discord = {
+          webhook-url = "$DISCORD_WEBHOOK_URL";
+          message-content = "<@&1326330605113315358>";
+          default-alert = {
+            enabled = true;
+            send-on-resolved = true;
+            failure-threshold = 3;
+            success-threshold = 3;
+          };
+        };
+        endpoints = let
+          responseTimeLimit = "1500"; # 1500 ms
+        in [
+          {
+            name = "Actual Budget";
+            group = "Private Apps";
+            url = "https://actual.osipol.uk/health";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "ForgeJo";
+            group = "Private Apps";
+            url = "https://forgejo.osipol.uk/api/healthz";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+              "[BODY].status == pass"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "Immich";
+            group = "Private Apps";
+            url = "https://immich.osipol.uk/api/server/ping";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+              "[BODY].res == pong"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "MeTube";
+            group = "Private Apps";
+            url = "https://metube.osipol.uk/version";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "Navidrome";
+            group = "Private Apps";
+            url = "https://navidrome.osipol.uk/ping";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "MusicBrainz Picard";
+            group = "Private Apps";
+            url = "https://picard.osipol.uk/ping";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "SillyTavern";
+            group = "Private Apps";
+            url = "https://sillytavern.osipol.uk/ping";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "Vaultwarden";
+            group = "Private Apps";
+            url = "https://vaultwarden.osipol.uk/alive";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "Yubal";
+            group = "Private Apps";
+            url = "https://yubal.osipol.uk/api/health";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+              "[BODY].status == healthy"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "Beszel Hub";
+            group = "Private Services";
+            url = "https://beszel.osipol.uk/api/health";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "Attic";
+            group = "Private Services";
+            url = "https://attic.osipol.uk/";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "Pi-Hole DNS";
+            group = "Private Services";
+            url = "100.68.90.10"; # steadfast-dart
+            dns.query-name = "one.one.one.one";
+            dns.query-type = "A";
+            conditions = [
+              "[BODY] == any(1.1.1.1, 1.0.0.1)"
+              "[DNS_RCODE] == NOERROR"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "Pi-Hole Web";
+            group = "Private Services";
+            url = "https://pi-hole.osipol.uk/api/info/client";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "Restic Server (steadfast-defender)";
+            group = "Private Services";
+            url = "https://steadfast-defender.${config.my.constants.tailnetDomain}:8443";
+            conditions = [
+              "[STATUS] == 401"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "Restic Server (steadfast-dart)";
+            group = "Private Services";
+            url = "https://steadfast-dart.${config.my.constants.tailnetDomain}:8443";
+            conditions = [
+              "[STATUS] == 401"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
+            name = "ARK RP Visualisation";
+            group = "Public Websites";
+            url = "https://ark-rp-visualisation.osipol.uk/";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+        ];
+      };
+    };
+
+    sops.secrets.gatus-env.restartUnits = ["gatus.service"];
+
+    # Preserve Gatus data
+    my.preservation.extraDirectories = ["/var/lib/private/gatus"];
+
+    # Networking with Cloudflare tunnel
+    services.cloudflared = {
+      tunnels = {
+        "e33aff4b-47a8-411f-a7de-f01fa3e3c6b5" = {
+          credentialsFile = "${config.sops.secrets.gatus-cloudflare-creds.path}";
+          default = "http_status:404";
+          ingress = {
+            ${myCfg.domain} = "http://127.0.0.1:${toString myCfg.port}";
+          };
+        };
+      };
+    };
+    sops.secrets.gatus-cloudflare-creds = {};
+  };
+}
