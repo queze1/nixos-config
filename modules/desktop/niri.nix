@@ -6,7 +6,7 @@
 }: let
   cfg = config.my.desktop.niri;
   isUtm = config.my.utm.enable;
-  usingExternalMonitor = false;
+  usingExternalMonitor = true;
 in {
   options.my.desktop.niri.enable = lib.mkEnableOption "niri";
 
