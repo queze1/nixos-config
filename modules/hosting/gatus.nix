@@ -146,7 +146,7 @@ in {
             alerts = [{type = "discord";}];
           }
           {
-            name = "Attic";
+            name = "Attic Binary Cache";
             group = "Private Services";
             url = "https://attic.osipol.uk/";
             conditions = [
