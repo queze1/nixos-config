@@ -21,6 +21,11 @@ in {
     nixpkgs.lib.nixosSystem {
       inherit pkgs;
       modules = modules ++ [commonModules];
-      specialArgs = {inherit inputs self;} // lib.mapAttrs (_: nixpkgs: import nixpkgs pkg-args) extraPkgs;
+      specialArgs =
+        {
+          inherit inputs self;
+          sources = import ../../npins;
+        }
+        // lib.mapAttrs (_: nixpkgs: import nixpkgs pkg-args) extraPkgs;
     };
 }

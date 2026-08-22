@@ -1,4 +1,5 @@
 {
+  sources,
   pkgs,
   config,
   lib,
@@ -6,14 +7,6 @@
 }: let
   myCfg = config.my.apps.metube;
   musicDir = "/srv/music";
-
-  metubeImage = pkgs.dockerTools.pullImage {
-    imageName = "ghcr.io/alexta69/metube";
-    imageDigest = "sha256:c2920f86f888b5398e5a964e135417fe11418823988399e6ec230293dcc0bb31";
-    hash = "sha256-y2n7e52QbFMaqkTmYEDIkOcHbQlsfGueFc4MwVE2234=";
-    finalImageName = "ghcr.io/alexta69/metube";
-    finalImageTag = "latest";
-  };
 in {
   options.my.apps.metube = {
     enable = lib.mkEnableOption "MeTube" // {default = config.my.apps.music-stack.enable;};
@@ -70,7 +63,7 @@ in {
     virtualisation.oci-containers = {
       containers.metube = {
         image = "ghcr.io/alexta69/metube:latest";
-        imageFile = metubeImage;
+        imageFile = (sources."ghcr.io/alexta69/metube" {inherit pkgs;}).outPath;
         ports = ["${toString myCfg.port}:8081"];
         autoStart = true;
         podman.user = "metube";

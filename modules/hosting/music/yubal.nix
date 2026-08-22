@@ -1,19 +1,12 @@
 {
   config,
   lib,
+  sources,
   pkgs,
   ...
 }: let
   myCfg = config.my.apps.yubal;
   musicDir = "/srv/music";
-
-  yubalImage = pkgs.dockerTools.pullImage {
-    imageName = "ghcr.io/guillevc/yubal";
-    imageDigest = "sha256:1447663d19eb69e4c6c6d274e979a99c4013a7d0a7666ca1bf2127612cd639eb";
-    hash = "sha256-QLbHn9CqQ7iV/q5QzQHHfPWkEETO3ETmwX86WN/+uZo=";
-    finalImageName = "ghcr.io/guillevc/yubal";
-    finalImageTag = "latest";
-  };
 in {
   options.my.apps.yubal = {
     enable = lib.mkEnableOption "Yubal" // {default = config.my.apps.music-stack.enable;};
@@ -70,7 +63,7 @@ in {
     virtualisation.oci-containers = {
       containers.yubal = {
         image = "ghcr.io/guillevc/yubal:latest";
-        imageFile = yubalImage;
+        imageFile = (sources."ghcr.io/guillevc/yubal" {inherit pkgs;}).outPath;
         ports = ["${toString myCfg.port}:8000"];
         autoStart = true;
         podman.user = "yubal";
