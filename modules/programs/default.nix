@@ -2,9 +2,19 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.my.programs;
+  yt-dlp-patched = pkgs.yt-dlp.overrideAttrs rec {
+    version = "2026.08.19";
+    src = pkgs.fetchFromGitHub {
+      owner = "yt-dlp";
+      repo = "yt-dlp";
+      tag = version;
+      hash = "sha256-BM5ZeGTmHq+1xH6G/zsuCtjLgYgfRA11ya0zIHK5p4g=";
+    };
+  };
 in {
   options.my.programs.enableAll = lib.mkEnableOption "all programs";
 
@@ -27,6 +37,7 @@ in {
 
           # CLI tools
           inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
+          yt-dlp-patched
           pkgs.clipboard-jh
           pkgs.ncdu
           pkgs.sops
