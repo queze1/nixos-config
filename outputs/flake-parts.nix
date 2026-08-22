@@ -47,7 +47,7 @@
       pre-commit.settings.hooks = {
         alejandra = {
           enable = true;
-          exclude = ["npins/default.nix"];
+          settings.exclude = ["npins/default.nix"];
         };
         commitizen.enable = true;
         deadnix.enable = true;
