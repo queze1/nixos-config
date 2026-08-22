@@ -48,7 +48,6 @@ in {
           yt-dlp-patched
 
           # CLI tools
-          pkgs.clipboard-jh
           pkgs.ncdu
           pkgs.npins
           pkgs.sops

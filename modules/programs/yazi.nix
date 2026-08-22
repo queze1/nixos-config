@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.my.programs.yazi;
@@ -13,6 +14,10 @@ in {
       ({config, ...}: let
         cfg = config.xdg.userDirs;
       in {
+        home.packages = [
+          pkgs.clipboard-jh # used by system-clipboard
+        ];
+
         programs.yazi = {
           enable = true;
           shellWrapperName = "y";
