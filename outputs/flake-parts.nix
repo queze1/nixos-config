@@ -45,7 +45,10 @@
       devShells.default = config.pre-commit.devShell;
 
       pre-commit.settings.hooks = {
-        alejandra.enable = true;
+        alejandra = {
+          enable = true;
+          exclude = ["npins/default.nix"];
+        };
         commitizen.enable = true;
         deadnix.enable = true;
         flake-checker.enable = true;

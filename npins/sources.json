@@ -1,0 +1,26 @@
+{
+  "pins": {
+    "docker.io/mikenye/picard": {
+      "type": "Container",
+      "image_name": "docker.io/mikenye/picard",
+      "image_tag": "latest",
+      "image_digest": "sha256:bd001b14893367c39eba74e3aebade9e1e62c146f841d7e6582ae3a635cba907",
+      "hash": "sha256-E9klne4lTmaFyFdB+31wFqEOIJhTNqXjohoEi15IMQI="
+    },
+    "ghcr.io/alexta69/metube": {
+      "type": "Container",
+      "image_name": "ghcr.io/alexta69/metube",
+      "image_tag": "latest",
+      "image_digest": "sha256:c2920f86f888b5398e5a964e135417fe11418823988399e6ec230293dcc0bb31",
+      "hash": "sha256-y2n7e52QbFMaqkTmYEDIkOcHbQlsfGueFc4MwVE2234="
+    },
+    "ghcr.io/guillevc/yubal": {
+      "type": "Container",
+      "image_name": "ghcr.io/guillevc/yubal",
+      "image_tag": "latest",
+      "image_digest": "sha256:1447663d19eb69e4c6c6d274e979a99c4013a7d0a7666ca1bf2127612cd639eb",
+      "hash": "sha256-QLbHn9CqQ7iV/q5QzQHHfPWkEETO3ETmwX86WN/+uZo="
+    }
+  },
+  "version": 8
+}
