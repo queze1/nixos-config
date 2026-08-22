@@ -1,10 +1,19 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   myCfg = config.my.apps.picard;
   musicDir = "/srv/music";
+
+  picardImage = pkgs.dockerTools.pullImage {
+    imageName = "docker.io/mikenye/picard";
+    imageDigest = "sha256:bd001b14893367c39eba74e3aebade9e1e62c146f841d7e6582ae3a635cba907";
+    hash = "sha256-E9klne4lTmaFyFdB+31wFqEOIJhTNqXjohoEi15IMQI=";
+    finalImageName = "docker.io/mikenye/picard";
+    finalImageTag = "latest";
+  };
 in {
   options.my.apps.picard = {
     enable = lib.mkEnableOption "Picard" // {default = config.my.apps.music-stack.enable;};
@@ -61,6 +70,7 @@ in {
     virtualisation.oci-containers = {
       containers.picard = {
         image = "docker.io/mikenye/picard:latest";
+        imageFile = picardImage;
         ports = ["${toString myCfg.port}:5800"];
         autoStart = true;
         podman.user = "picard";
