@@ -44,11 +44,13 @@ in {
           pkgs.qalculate-qt
           pkgs-stable.celluloid
 
-          # CLI tools
           inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
           yt-dlp-patched
+
+          # CLI tools
           pkgs.clipboard-jh
           pkgs.ncdu
+          pkgs.npins
           pkgs.sops
           pkgs.tree
           pkgs.unzip
