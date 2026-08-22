@@ -14,15 +14,6 @@
       }: let
         hostName = osConfig.networking.hostName;
         flakePath = "${config.home.homeDirectory}/etc/nixos";
-        dafny-nvim = pkgs.vimUtils.buildVimPlugin {
-          name = "dafny-nvim";
-          src = pkgs.fetchFromGitHub {
-            owner = "CameronBadman";
-            repo = "dafny-nvim";
-            rev = "94e5b204ff2312f96207ee259f54f787a68733b1";
-            hash = "sha256-e/ndm/AURRZSGUL/slAkzri2XNcmCpz8fzQVI5ScXFI=";
-          };
-        };
       in {
         home.packages = [pkgs.dafny];
 
@@ -55,42 +46,6 @@
           debugger.nvim-dap = {
             enable = true;
             ui.enable = true;
-            sources = {
-              # Hack for assignment
-              os161-debugger = ''
-                dap.adapters.cppdbg = {
-                  type = 'executable',
-                  id = 'cppdbg',
-                  command = '${pkgs.vscode-extensions.ms-vscode.cpptools}/share/vscode/extensions/ms-vscode.cpptools/debugAdapters/bin/OpenDebugAD7',
-                }
-
-                dap.configurations.cpp = {
-                  {
-                    name = 'OS161 Debug',
-                    type = 'cppdbg',
-                    request = 'launch',
-                    program = vim.env.HOME .. '/cs3231/root/kernel',
-                    args = {},
-                    stopAtEntry = false,
-                    cwd = vim.env.HOME .. '/cs3231/root',
-                    environment = {},
-                    externalConsole = false,
-                    MIMode = 'gdb',
-                    miDebuggerServerAddress = 'unix:.sockets/gdb',
-                    miDebuggerPath = '/nix/store/j7hn67w0n3v13ifzys24qmszxm432cwk-os161-gdb-7.8/bin/os161-gdb',
-                    setupCommands = {
-                      {
-                        description = 'Enable pretty-printing for gdb',
-                        text = '-enable-pretty-printing',
-                        ignoreFailures = true,
-                      },
-                    },
-                  },
-                }
-
-                dap.configurations.c = dap.configurations.cpp
-              '';
-            };
           };
 
           # Autoformat on save
@@ -140,17 +95,6 @@
                 '');
               };
 
-              dafny = {
-                cmd = [
-                  "${pkgs.dafny}/bin/dafny"
-                  "server"
-                  "--solver-path"
-                  "${pkgs.z3}/bin/z3"
-                ];
-                filetypes = ["dfy" "dafny"];
-                root_markers = [".git"];
-              };
-
               nixd = {
                 settings = {
                   nixd = {
@@ -181,19 +125,6 @@
           };
 
           extraPlugins = {
-            vim-loves-dafny = {
-              package = pkgs.vimPlugins.vim-loves-dafny;
-              setup = '''';
-            };
-            dafny-nvim = {
-              package = dafny-nvim;
-              setup = ''
-                require("dafny").setup({
-                  counter_example_depth = 5,    -- depth passed to dafny/counterExample request
-                  counter_debounce_ms   = 1000, -- ms to wait after last symbolStatus before fetching counter examples
-                })
-              '';
-            };
             markdown-nvim = {
               package = pkgs.vimPlugins.markdown-nvim;
               setup = ''
