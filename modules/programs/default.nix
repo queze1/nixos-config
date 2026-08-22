@@ -6,8 +6,10 @@
   ...
 }: let
   cfg = config.my.programs;
+
+  ytDlpVersion = "2026.08.19";
   yt-dlp-patched = pkgs.yt-dlp.overrideAttrs rec {
-    version = "2026.08.19";
+    version = ytDlpVersion;
     src = pkgs.fetchFromGitHub {
       owner = "yt-dlp";
       repo = "yt-dlp";
@@ -19,6 +21,13 @@ in {
   options.my.programs.enableAll = lib.mkEnableOption "all programs";
 
   config = lib.mkIf cfg.enableAll {
+    assertions = [
+      {
+        assertion = lib.versionOlder pkgs.yt-dlp.version ytDlpVersion;
+        message = "yt-dlp override must be newer than upstream";
+      }
+    ];
+
     programs.seahorse.enable = true;
 
     home-manager.sharedModules = [
