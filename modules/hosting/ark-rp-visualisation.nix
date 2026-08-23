@@ -80,7 +80,7 @@ in {
         PrivateTmp = true;
         ProtectClock = true;
         ProtectControlGroups = true;
-        ProtectHome = "read-only";
+        ProtectHome = true;
         ProtectHostname = true;
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
