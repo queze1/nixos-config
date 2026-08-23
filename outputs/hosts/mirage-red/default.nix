@@ -11,6 +11,12 @@ in {
       self.nixosModules.mirageBase
     ];
 
+    my.cloudflared.enable = true;
+    my.apps.gatus = {
+      enable = true;
+      port = 8000;
+    };
+
     networking.hostName = hostname;
   };
 

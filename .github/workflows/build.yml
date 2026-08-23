@@ -27,9 +27,6 @@ jobs:
           - target: "iso-x86_64"
             attr: ".#packages.x86_64-linux.iso-system"
             runner: ubuntu-latest
-          - target: "mirage-white"
-            attr: ".#nixosConfigurations.mirage-white.config.system.build.toplevel"
-            runner: ubuntu-latest
           - target: "mirage-red"
             attr: ".#nixosConfigurations.mirage-red.config.system.build.toplevel"
             runner: ubuntu-latest
@@ -72,4 +69,3 @@ jobs:
 
           # Push remaining paths
           nix run nixpkgs#attic-client push cache $(<out-paths)
-

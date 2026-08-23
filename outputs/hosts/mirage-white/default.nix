@@ -5,7 +5,7 @@
 }: let
   hostname = "mirage-white";
 in {
-  # DigitalOcean droplet
+  # DigitalOcean droplet (UNUSED)
   flake.nixosModules.mirageWhiteConfiguration = {
     imports = [
       self.nixosModules.mirageBase

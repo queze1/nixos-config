@@ -43,14 +43,14 @@
       #   imports = [self.nixosModules.steadfastNoonConfiguration];
       # };
 
-      mirage-white = {
-        deployment.targetHost = "170.64.131.90";
-        deployment.tags = ["cloud"];
-        imports = [
-          self.nixosModules.mirageWhiteConfiguration
-          self.nixosModules.mirageWhiteHardware
-        ];
-      };
+      # mirage-white = {
+      #   deployment.targetHost = "170.64.131.90";
+      #   deployment.tags = ["cloud"];
+      #   imports = [
+      #     self.nixosModules.mirageWhiteConfiguration
+      #     self.nixosModules.mirageWhiteHardware
+      #   ];
+      # };
 
       mirage-red = {
         deployment.targetHost = "192.9.184.187";
