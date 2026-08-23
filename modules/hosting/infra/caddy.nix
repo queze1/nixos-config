@@ -30,10 +30,29 @@ in {
         '';
       };
 
-      # Initialise a directory to put the socket
       systemd.services.caddy.serviceConfig = {
+        # Initialise a directory to put the socket
         RuntimeDirectory = "caddy";
         RuntimeDirectoryMode = "0700";
+
+        # Hardening
+        ProtectSystem = "strict";
+        PrivateTmp = true;
+        ProtectClock = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectControlGroups = true;
+        RestrictSUIDSGID = true;
+        RestrictRealtime = true;
+        RestrictNamespaces = true;
+        LockPersonality = true;
+        RemoveIPC = true;
+        RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
+        SystemCallFilter = ["@system-service" "~@privileged @resources"];
+        SystemCallArchitectures = "native";
+        UMask = "0077";
       };
 
       # Preserve Caddy data
