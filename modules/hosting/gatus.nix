@@ -211,6 +211,32 @@ in {
       };
     };
 
+    # Hardening
+    systemd.services.gatus.serviceConfig = {
+      NoNewPrivileges = true;
+      PrivateBPF = true;
+      PrivateDevices = true;
+      PrivateIPC = true;
+      PrivateMounts = true;
+      PrivateTmp = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHome = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectSystem = "strict";
+      RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX"];
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      LockPersonality = true;
+      SystemCallArchitectures = "native";
+      SystemCallFilter = ["@system-service" "~@privileged"];
+      UMask = "0077";
+    };
+
     sops.secrets.gatus-env.restartUnits = ["gatus.service"];
 
     # Preserve Gatus data
