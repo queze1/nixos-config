@@ -11,6 +11,19 @@ in {
       self.nixosModules.mirageBase
     ];
 
+    my.caddy = {
+      enable = true;
+      cloudflareDns.enable = true;
+    };
+    my.ddns.enable = true;
+    my.tailscaleAuth.enable = true;
+
+    # Hosted services
+    my.apps.beszel-hub = {
+      enable = true;
+      domain = "test.beszel.osipol.uk";
+    };
+
     networking.hostName = hostname;
   };
 
