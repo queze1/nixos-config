@@ -12,9 +12,7 @@ in {
     ];
 
     # Ingress & routing
-    my.cloudflared.enable = true;
     my.ddns.enable = true;
-    my.tailscaleAuth.enable = true;
     my.caddy = {
       enable = true;
       cloudflareDns.enable = true;
@@ -23,7 +21,6 @@ in {
     # Hosted services
     my.apps = {
       attic.enable = true;
-      beszel-hub.enable = true;
       immich.enable = true;
       restic-server.enable = true;
     };

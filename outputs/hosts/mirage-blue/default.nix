@@ -19,10 +19,7 @@ in {
     my.tailscaleAuth.enable = true;
 
     # Hosted services
-    my.apps.beszel-hub = {
-      enable = true;
-      domain = "test.beszel.osipol.uk";
-    };
+    my.apps.beszel-hub.enable = true;
 
     networking.hostName = hostname;
   };
