@@ -1,8 +1,4 @@
-{
-  inputs,
-  self,
-  ...
-}: let
+{self, ...}: let
   hostname = "mirage-white";
 in {
   # DigitalOcean droplet (UNUSED)
@@ -32,12 +28,12 @@ in {
     networking.hostName = hostname;
   };
 
-  flake.nixosConfigurations.${hostname} = self.factory.mkNixosSystem {
-    nixpkgs = inputs.nixpkgs-stable;
-    system = "x86_64-linux";
-    modules = [
-      self.nixosModules.mirageWhiteConfiguration
-      self.nixosModules.mirageWhiteHardware
-    ];
-  };
+  # flake.nixosConfigurations.${hostname} = self.factory.mkNixosSystem {
+  #   nixpkgs = inputs.nixpkgs-stable;
+  #   system = "x86_64-linux";
+  #   modules = [
+  #     self.nixosModules.mirageWhiteConfiguration
+  #     self.nixosModules.mirageWhiteHardware
+  #   ];
+  # };
 }
