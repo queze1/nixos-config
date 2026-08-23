@@ -64,7 +64,7 @@ in {
       containers.yubal = {
         image = "ghcr.io/guillevc/yubal:latest";
         imageFile = (sources."ghcr.io/guillevc/yubal" {inherit pkgs;}).outPath;
-        ports = ["${toString myCfg.port}:8000"];
+        ports = ["127.0.0.1:${toString myCfg.port}:8000"];
         autoStart = true;
         podman.user = "yubal";
 
