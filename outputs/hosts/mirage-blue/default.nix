@@ -35,6 +35,7 @@ in {
         backupCleanupCommand = ''
           if [ -e /run/restic-backups-backblaze-b2/beszel-hub-was-active ]; then
             ${pkgs.systemd}/bin/systemctl start beszel-hub.service
+            rm -f /run/restic-backups-backblaze-b2/beszel-hub-was-active
           fi
         '';
         timerConfig = {
