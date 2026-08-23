@@ -64,7 +64,7 @@ in {
       containers.picard = {
         image = "docker.io/mikenye/picard:latest";
         imageFile = (sources."docker.io/mikenye/picard" {inherit pkgs;}).outPath;
-        ports = ["${toString myCfg.port}:5800"];
+        ports = ["127.0.0.1:${toString myCfg.port}:5800"];
         autoStart = true;
         podman.user = "picard";
 

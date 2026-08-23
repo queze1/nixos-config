@@ -64,7 +64,7 @@ in {
       containers.metube = {
         image = "ghcr.io/alexta69/metube:latest";
         imageFile = (sources."ghcr.io/alexta69/metube" {inherit pkgs;}).outPath;
-        ports = ["${toString myCfg.port}:8081"];
+        ports = ["127.0.0.1:${toString myCfg.port}:8081"];
         autoStart = true;
         podman.user = "metube";
 
