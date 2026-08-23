@@ -33,6 +33,7 @@
           initialize = lib.mkDefault true;
           environmentFile = lib.mkDefault config.sops.secrets."restic-${name}-env".path;
           package = lib.mkIf (cfg.snapshotsDir != null) (lib.mkDefault resticWrapper);
+          user = lib.mkDefault "restic-${name}";
         };
       }
     )
@@ -104,11 +105,10 @@ in {
 
     # Give each restic service ambient capacities instead of running as root
     # https://restic.readthedocs.io/en/latest/080_examples.html#backing-up-your-system-without-running-restic-as-root
-    systemd.services = lib.mapAttrs' (name: _:
+    systemd.services = lib.mapAttrs' (name: backup:
       lib.nameValuePair "restic-backups-${name}" {
         serviceConfig = {
-          DynamicUser = true;
-          User = lib.mkForce "restic-${name}";
+          DynamicUser = backup.user != "root";
           AmbientCapabilities = "CAP_DAC_READ_SEARCH";
           CapabilityBoundingSet = "CAP_DAC_READ_SEARCH";
         };
