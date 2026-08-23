@@ -2,22 +2,30 @@
 
 ## Project Structure & Module Organization
 
-This flake uses `flake-parts` and `import-tree`: `flake.nix` imports every
-module beneath `modules/`. Flake-wide options and integration live in
-`modules/flake-parts.nix` and `modules/options.nix`.
+This flake uses `flake-parts` and `import-tree`. `flake.nix` imports every
+module beneath `outputs/`; the NixOS system factory in `outputs/hosts/default.nix`
+imports the shared modules beneath `modules/`.
 
-- `modules/hosts/<hostname>/` contains a host's `default.nix` and its hardware
-  inventory (`hardware.nix` or `facter.json`). Shared host-family configuration
-  is in `modules/hosts/*-base.nix`; `modules/hosts/README.md` maps hosts to
-  their intended roles.
-- `modules/features/` contains reusable NixOS and Home Manager modules, grouped
-  into `desktop`, `hosting` (with `infra/` for shared hosting infrastructure),
-  `nix`, `programs`, `services`, `shared`, and `system`.
-- `modules/users/` defines Home Manager user profiles. `modules/lib/` exposes
-  shared flake integrations, `modules/vm/` provides VM targets, and
-  `modules/outputs/` defines Colmena, ISO, and shell-script outputs.
+- `outputs/` defines flake-level configuration and outputs: `flake-parts.nix`,
+  deployment output (`colmena.nix`), installer output (`iso.nix`), shell
+  scripts, and the current host configurations in `outputs/hosts/`. Host
+  directories contain a `default.nix` and, where needed, a `hardware.nix`;
+  host-family bases live alongside them as `*-base.nix`.
+- `modules/` contains reusable NixOS and Home Manager modules. Group modules by
+  concern: `desktop/`, `hosting/` (including `infra/` and `music/`), `nix/`,
+  `programs/` (including nested program modules such as `nvf/`), `services/`,
+  and `system/`. `modules/users/` defines Home Manager user profiles;
+  `modules/lib/` exposes shared integrations; `modules/deployment/` contains
+  deployment-related modules; `modules/vm/` provides VM targets; and
+  `constants.nix` contains shared constants.
 - `assets/` holds static desktop assets and themes; `templates/flake/` is the
   default flake template. Root-level `ssh-keys.nix` contains public SSH keys.
+
+The repository is in the middle of a migration. Treat the current
+`outputs/hosts/` layout as transitional: migrate reusable configuration into
+`modules/` when working in the affected area. The intended final state is for
+`outputs/` to contain only flake outputs, while host and reusable configuration
+lives under `modules/`.
 
 ## Reference tools
 
