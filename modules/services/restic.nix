@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   config,
   lib,
   options,
@@ -20,6 +21,44 @@
       fi
       echo "Working directory: $(${lib.getExe' pkgs.coreutils "pwd"})"
     fi
+    exec ${lib.getExe pkgs.restic} "$@"
+  '';
+
+  # Wrapper which runs restic with the environment of a different hostname
+  remoteResticWrapper = pkgs.writeShellScriptBin "restic-remote" ''
+    set -eu
+
+    if [ "$#" -lt 3 ]; then
+      echo "Usage: restic-remote <hostname> <backup-target> <restic-command> [arguments...]" >&2
+      exit 2
+    fi
+
+    hostname="$1"
+    backupTarget="$2"
+    shift 2
+
+    case "$hostname" in
+      *[!a-zA-Z0-9-]* | "")
+        echo "Invalid hostname: $hostname" >&2
+        exit 2
+        ;;
+    esac
+
+    case "$backupTarget" in
+      *[!a-zA-Z0-9-]* | "")
+        echo "Invalid backup target: $backupTarget" >&2
+        exit 2
+        ;;
+    esac
+
+    set -a
+    source <(
+      ${lib.getExe pkgs.sops} --decrypt \
+        --extract "[\"restic-$backupTarget-env\"]" \
+        "${inputs.secrets}/secrets/$hostname.yaml"
+    )
+    set +a
+
     exec ${lib.getExe pkgs.restic} "$@"
   '';
 
@@ -114,5 +153,9 @@ in {
         };
       })
     cfg.backups;
+
+    environment.systemPackages = [
+      remoteResticWrapper
+    ];
   };
 }
