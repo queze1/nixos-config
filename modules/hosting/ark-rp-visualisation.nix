@@ -68,13 +68,33 @@ in {
           PORT=${toString myCfg.port}
         '';
         EnvironmentFile = config.sops.secrets.ark-rp-visualisation-env.path;
+        StateDirectory = "ark-rp-viz";
 
         # Hardening
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        PrivateTmp = true;
+        MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
-        StateDirectory = "ark-rp-viz";
+        PrivateBPF = true;
+        PrivateDevices = true;
+        PrivateIPC = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = "read-only";
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectProc = "noaccess";
+        ProcSubset = "pid";
+        ProtectSystem = "strict";
+        RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX"];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        LockPersonality = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = ["@system-service" "~memfd_create"];
       };
     };
 
