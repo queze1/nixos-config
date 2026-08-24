@@ -44,19 +44,13 @@ jobs:
             ~/.cache/nix
           gc-max-store-size-linux: 2G
 
+      - name: Configure Attic cache
+        uses: ./.github/actions/attic-cache
+        with:
+          token: ${{ secrets.ATTIC_TOKEN }}
+
       - name: Apply with Colmena
-        env:
-          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
-          nix run nixpkgs#attic-client login local https://attic.osipol.uk "$ATTIC_TOKEN"
-
-          # Upload new paths to cache while building
-          nix run nixpkgs#attic-client watch-store cache &
-          watch_store_pid=$!
-          trap 'kill "$watch_store_pid" 2>/dev/null || true; wait "$watch_store_pid" 2>/dev/null || true' EXIT
-
           nix run .#colmena -- apply --no-build-on-target --keep-result --on @cloud
-
-          # Push remaining paths to cache
-          nix run nixpkgs#attic-client push cache $(nix path-info .#colmena) .gcroots/*
-
+          nix path-info .#colmena .gcroots/* > .attic-out-paths.tmp
+          mv .attic-out-paths.tmp .attic-out-paths

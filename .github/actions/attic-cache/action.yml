@@ -1,0 +1,24 @@
+name: Attic cache
+description: Authenticate with Attic, upload paths during the job, and push final build outputs
+
+inputs:
+  token:
+    description: Attic token
+    required: true
+  server:
+    description: Attic server URL
+    required: false
+    default: https://attic.osipol.uk
+  cache:
+    description: Attic cache name
+    required: false
+    default: cache
+  output-paths-file:
+    description: File containing final store paths to push after the job
+    required: false
+    default: .attic-out-paths
+
+runs:
+  using: node24
+  main: main.mjs
+  post: post.mjs

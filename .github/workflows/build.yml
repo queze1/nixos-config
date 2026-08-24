@@ -52,22 +52,16 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
 
+      - name: Configure Attic cache
+        uses: ./.github/actions/attic-cache
+        with:
+          token: ${{ secrets.ATTIC_TOKEN }}
+
       - name: Build with Nix
-        env:
-          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
-          nix run nixpkgs#attic-client login local https://attic.osipol.uk "$ATTIC_TOKEN"
-
-          # Upload new paths to cache while building
-          nix run nixpkgs#attic-client watch-store cache &
-          watch_store_pid=$!
-          trap 'kill "$watch_store_pid" 2>/dev/null || true; wait "$watch_store_pid" 2>/dev/null || true' EXIT
-
           nix build \
             ${{ matrix.attr }} \
             --print-build-logs \
             --no-link \
-            --print-out-paths > out-paths
-
-          # Push remaining paths
-          nix run nixpkgs#attic-client push cache $(<out-paths)
+            --print-out-paths > .attic-out-paths.tmp
+          mv .attic-out-paths.tmp .attic-out-paths
