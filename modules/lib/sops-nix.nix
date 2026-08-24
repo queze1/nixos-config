@@ -31,7 +31,11 @@ in {
       ];
 
       home-manager.sharedModules = [
-        ({osConfig, ...}: {
+        ({
+          config,
+          osConfig,
+          ...
+        }: {
           imports = [inputs.sops-nix.homeManagerModules.sops];
 
           sops.defaultSopsFile = "${inputs.secrets}/secrets/${osConfig.networking.hostName}-home.yaml";
