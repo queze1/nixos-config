@@ -29,6 +29,7 @@ ip addr
 ```
 4. On your source machine, run:
 ```bash
+# not general use, assumes a lot
 nix run .#install -- <target-machine-ip> <hostname>
 
 # configure secrets when prompted
