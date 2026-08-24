@@ -1,14 +1,16 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   myCfg = config.my.apps.vaultwarden;
   dataDir = "/var/lib/vaultwarden";
+  localTlsDir = "/var/lib/vaultwarden-local-tls";
 in {
   options.my.apps.vaultwarden = {
     enable = lib.mkEnableOption "Vaultwarden";
-    runLocally = lib.mkEnableOption "running Vaultwarden locally without reverse proxy";
+    runLocally = lib.mkEnableOption "running Vaultwarden locally with Nginx";
     domain = lib.mkOption {
       type = lib.types.str;
       default = "vaultwarden.osipol.uk";
@@ -27,8 +29,9 @@ in {
         enable = true;
         domain =
           if myCfg.runLocally
-          then "http://localhost:${toString myCfg.port}"
+          then "localhost"
           else myCfg.domain;
+        configureNginx = myCfg.runLocally;
         config = {
           ROCKET_ADDRESS = "127.0.0.1";
           ROCKET_PORT = myCfg.port;
@@ -49,6 +52,58 @@ in {
       # Backup Vaultwarden data
       my.restic.extraPaths = [dataDir];
     }
+
+    (lib.mkIf myCfg.runLocally {
+      # Listen on ports 80 and 443, use certs
+      services.nginx.virtualHosts.localhost = {
+        listen = [
+          {
+            addr = "127.0.0.1";
+            port = 80;
+          }
+          {
+            addr = "127.0.0.1";
+            port = 443;
+            ssl = true;
+          }
+        ];
+        sslCertificate = "${localTlsDir}/cert.pem";
+        sslCertificateKey = "${localTlsDir}/key.pem";
+      };
+
+      # Generate a self-signed certificate
+      systemd.services.vaultwarden-local-certificate = {
+        before = ["nginx.service"];
+        requiredBy = ["nginx.service"];
+        path = [pkgs.openssl];
+        script = ''
+          if [ ! -e "$STATE_DIRECTORY/cert.pem" ] || [ ! -e "$STATE_DIRECTORY/key.pem" ]; then
+            openssl req -x509 -newkey rsa:4096 -nodes -days 3650 \
+              -keyout "$STATE_DIRECTORY/key.pem" \
+              -out "$STATE_DIRECTORY/cert.pem" \
+              -subj "/CN=localhost" \
+              -addext "subjectAltName=DNS:localhost,IP:127.0.0.1,IP:::1"
+          fi
+        '';
+        serviceConfig = {
+          Type = "oneshot";
+          StateDirectory = "vaultwarden-local-tls";
+          StateDirectoryMode = "0700";
+          User = "nginx";
+          Group = "nginx";
+          UMask = "0077";
+        };
+      };
+
+      my.preservation.extraDirectories = [
+        {
+          directory = localTlsDir;
+          user = "nginx";
+          group = "nginx";
+          mode = "0700";
+        }
+      ];
+    })
 
     (lib.mkIf (!myCfg.runLocally) {
       services.vaultwarden.environmentFile = config.sops.secrets.vaultwarden-env.path;
