@@ -8,7 +8,7 @@
     system = "aarch64-linux";
     modules = [
       {my.hosts.able-archer.enable = true;}
-      (import ../../../modules/hosts/_hardware/able-archer.nix)
+      (import ../../modules/hosts/_hardware/able-archer.nix)
     ];
     extraPkgs.pkgs-stable = inputs.nixpkgs-stable;
   };
