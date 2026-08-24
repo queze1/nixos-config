@@ -11,8 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7.0.0
-      - name: Install Determinate Nix
-        uses: DeterminateSystems/determinate-nix-action@v3
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@main
         with:
@@ -28,8 +28,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7.0.0
-      - name: Install Determinate Nix
-        uses: DeterminateSystems/determinate-nix-action@v3
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
       - name: Update npins
         run: nix run nixpkgs#npins -- update
       - name: Create pull request
