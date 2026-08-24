@@ -38,37 +38,48 @@ nix run .#install -- <target-machine-ip> <hostname> [nixos-facter path]
   - If internet doesn't work, run `nmtui`.
   - Remove `services.getty.autologinUser = "root"` if you set it for convenience.
 
-## Project Structure (OLD)
-Will and has changed, refactoring in progress
+## Project Structure
+flake-parts for flake outputs, every nixosConfiguration does an import-tree on /modules, uses my.* options to toggle modules.
 ```
 .
-├── assets                     # profile picture, default wallpaper, etc.
-├── flake.nix                  # imports everything in /modules
+├── flake.nix                      # imports everything in /outputs
+├── assets                         # profile picture, default wallpaper, etc.
 ├── modules
-│   ├── features               # nix modules which add features
-│   │   ├── desktop            # - desktop environments (e.g. niri)
-│   │   ├── hosting            # - self-hosted apps and infra
-│   │   ├── nix                # - nix-related settings
-│   │   ├── programs           # - user programs (e.g. firefox)
-│   │   ├── services           # - system services (e.g. tailscale)
-│   │   ├── shared             # - config which every machine needs
-│   │   └── system             # - system configuration
-│   ├── flake-parts.nix
-│   ├── hosts                  # host definitions
-│   │   ├── able-archer        # - personal machine
-│   │   ├── steadfast-base     # - shared home server config
-│   │   └── steadfast-[...]    # - home servers
-│   ├── lib                    # helper libraries
-│   ├── options.nix            # shared options
-│   ├── outputs                # flake outputs
-│   │   ├── iso.nix            # - custom ISO images
-│   │   ├── colmena.nix        # - machines managed by colmena
+│   ├── constants.nix
+│   ├── deployment                 # deployment tooling (e.g. comin)
+│   ├── desktop                    # desktop environment (e.g. niri)
+│   ├── hosting                    # self-hosted applications & networking
+│   │   ├── infra
+│   │   ├── music
+│   │   │   ├── default.nix
+│   │   │   ├── ...
+│   │   │   └── navidrome.nix
 │   │   └── ...
-│   ├── users                  # user definitions
-│   │   ├── commander.nix
-│   │   └── queze.nix
-│   └── vm                     # workarounds for VMs
-└── README.md
+│   ├── hosts                      # host configuration
+│   │   ├── _hardware              # - hardware config
+│   │   ├── able-archer.nix        # - personal machine (UTM VM)
+│   │   ├── autumn-forge.nix       # - macos laptop
+│   │   ├── mirage-[..].nix        # - vpses
+│   │   ├── steadfast-[...].nix    # - home servers
+│   ├── lib                        # helper libraries (e.g. home manager)
+│   ├── nix                        # nix-related config (e.g. subsituters)
+│   ├── profiles                   # host profiles (e.g. home server, vps)
+│   ├── programs                   # user programs (e.g. firefox)
+│   ├── services                   # services (e.g. openssh, tailscale)
+│   ├── system                     # system config (e.g. boot, sound)
+│   ├── users                      # user definitions
+│   │   ├── commander.nix          # - server user
+│   │   └── queze.nix              # - personal user
+│   └── vm                         # workarounds for vms
+│       └── utm.nix
+├── npins                          # non-flake inputs (e.g. docker images)
+├── outputs                        # flake outputs
+│   ├── colmena.nix                # - machines managed by colmena
+│   ├── hosts                      # - host definitions
+│   ├── iso.nix                    # - custom iso images
+│   └── ...
+├── ssh-keys.nix                   # public ssh keys
+└── templates                      # flake templates
 ```
 
 ## CI/CD
