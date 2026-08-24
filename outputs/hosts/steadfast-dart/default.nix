@@ -40,7 +40,7 @@ in {
     my.apps.ark-rp-viz.port = 8001;
     my.apps.metube.port = 8002;
     my.apps.picard.port = 8003;
-    my.apps.pihole.ports = ["8004"];
+    my.apps.pihole.port = 8004;
     my.apps.sillytavern.port = 8005;
     my.apps.vaultwarden.port = 8006;
     my.apps.yubal.port = 8007;

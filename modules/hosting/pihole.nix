@@ -55,10 +55,10 @@ in {
       default = "pi-hole.osipol.uk";
       description = "Domain to host the Pi-Hole web server on.";
     };
-    ports = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [];
-      description = "Port(s) for the Pi-Hole webserver to serve on.";
+    port = lib.mkOption {
+      type = lib.types.int;
+      default = 8080;
+      description = "Port for the Pi-Hole webserver to serve on.";
     };
   };
   config = lib.mkIf myCfg.enable {
@@ -87,7 +87,7 @@ in {
 
     services.pihole-web = {
       enable = true;
-      ports = myCfg.ports;
+      ports = [myCfg.port];
     };
 
     # Configure secrets
@@ -143,13 +143,13 @@ in {
       ${myCfg.domain} = {
         extraConfig = ''
           import cloudflare_dns
-          reverse_proxy localhost:${toString myCfg.ports}
+          reverse_proxy localhost:${toString myCfg.port}
         '';
       };
     };
     services.ddclient.domains = [myCfg.domain];
 
     # Only allow Caddy to access this port
-    my.caddy.firewalledPorts = map lib.toIntBase10 myCfg.ports;
+    my.caddy.firewalledPorts = [myCfg.port];
   };
 }
