@@ -84,12 +84,21 @@ in {
       snapshotsDir = "/persistent/snapshots";
       extraPaths = [
         "/etc/ssh"
-        "/home/${mainUser}/.ssh"
+        "/passwd"
+        "/var/lib/nixos"
+        "/var/lib/tailscale"
+
+        # Personal folders
+        "/home/${mainUser}/Documents"
+        "/home/${mainUser}/Desktop"
+        "/home/${mainUser}/Music"
+        "/home/${mainUser}/Videos"
         "/home/${mainUser}/Coding"
         "/home/${mainUser}/cs3231"
         "/home/${mainUser}/etc/nixos"
-        "/passwd"
-        "/var/lib/tailscale"
+
+        "/home/${mainUser}/.ssh"
+        "/home/${mainUser}/.mozilla"
       ];
       extraExclude = [
         ".Trash-1000"
