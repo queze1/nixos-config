@@ -28,6 +28,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-anywhere = {
+      url = "github:nix-community/nixos-anywhere";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     preservation.url = "github:nix-community/preservation";
     sops-nix = {
       url = "github:Mic92/sops-nix";

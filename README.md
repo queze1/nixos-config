@@ -29,7 +29,7 @@ ip addr
 ```
 4. On your source machine, run:
 ```bash
-./install.sh <target-machine-ip> <hostname>
+nix run .#install -- <target-machine-ip> <hostname>
 
 # configure secrets when prompted
 ```
@@ -43,7 +43,6 @@ Will and has changed, refactoring in progress
 .
 ├── assets                     # profile picture, default wallpaper, etc.
 ├── flake.nix                  # imports everything in /modules
-├── install.sh                 # script to bootstrap a machine with nixos-anywhere
 ├── modules
 │   ├── features               # nix modules which add features
 │   │   ├── desktop            # - desktop environments (e.g. niri)
@@ -76,4 +75,3 @@ Will and has changed, refactoring in progress
 2. [comin](https://github.com/nlewo/comin/) pings the `deployed` branch, pulls and applies changes.
 3. [colmena GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/colmena.yml) uses [colmena](https://github.com/nix-community/colmena) to remotely deploy configurations to weak hosts (such as VPSes) which cannot rebuild locally. It pushes built configurations to a self-hosted [Attic](https://github.com/zhaofengli/attic) binary cache.
 4. On a pull request (usually an automated update), a [GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/build.yml) builds all NixOS configurations on GitHub runners and pushes the results to the binary cache.
-
