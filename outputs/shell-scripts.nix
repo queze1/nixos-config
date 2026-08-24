@@ -3,15 +3,7 @@
     lib,
     pkgs,
     ...
-  }: let
-    # Generate a script which wraps a nixos-rebuild command with nom
-    mkPrettyNixosRebuild = name: cmd:
-      pkgs.writeShellScriptBin name ''
-        sudo -v &&
-        sudo nixos-rebuild ${cmd} "$@" |&
-        ${lib.getExe pkgs.nix-output-monitor}
-      '';
-  in {
+  }: {
     packages = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
       # flake-update: Update and commit NixOS config flake
       flake-update = pkgs.writeShellScriptBin "flake-update" ''
@@ -43,10 +35,6 @@
           git stash pop || echo "Stash pop resulted in conflicts. Please resolve manually."
         fi
       '';
-
-      # nrs/nrb: prettified nixos-rebuild
-      nrs = mkPrettyNixosRebuild "nrs" "switch --flake ~/etc/nixos#";
-      nrb = mkPrettyNixosRebuild "nrb" "boot --flake ~/etc/nixos#";
     };
   };
 }
