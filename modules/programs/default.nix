@@ -2,32 +2,13 @@
   config,
   inputs,
   lib,
-  pkgs,
   ...
 }: let
   cfg = config.my.programs;
-
-  ytDlpVersion = "2026.08.19";
-  yt-dlp-patched = pkgs.yt-dlp.overrideAttrs rec {
-    version = ytDlpVersion;
-    src = pkgs.fetchFromGitHub {
-      owner = "yt-dlp";
-      repo = "yt-dlp";
-      tag = version;
-      hash = "sha256-BM5ZeGTmHq+1xH6G/zsuCtjLgYgfRA11ya0zIHK5p4g=";
-    };
-  };
 in {
   options.my.programs.enableAll = lib.mkEnableOption "all programs";
 
   config = lib.mkIf cfg.enableAll {
-    assertions = [
-      {
-        assertion = lib.versionOlder pkgs.yt-dlp.version ytDlpVersion;
-        message = "yt-dlp override must be newer than upstream";
-      }
-    ];
-
     programs.seahorse.enable = true;
 
     home-manager.sharedModules = [
@@ -44,10 +25,8 @@ in {
           pkgs.qalculate-qt
           pkgs-stable.celluloid
 
-          inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
-          yt-dlp-patched
-
           # CLI tools
+          inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
           pkgs.ncdu
           pkgs.npins
           pkgs.sops
