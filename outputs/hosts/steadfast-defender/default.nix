@@ -20,6 +20,7 @@ in {
 
     # Hosted services
     my.apps = {
+      autoAssignPorts = true;
       attic.enable = true;
       immich.enable = true;
       restic-server.enable = true;
