@@ -81,6 +81,7 @@ in {
     # Backups
     my.restic = {
       enable = true;
+      createRemoteWrapper = true;
       snapshotsDir = "/persistent/snapshots";
       extraPaths = [
         "/etc/ssh"
