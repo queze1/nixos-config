@@ -58,7 +58,6 @@ in {
       };
     };
 
-    hardware.facter.reportPath = ./facter.json;
     networking.hostName = hostname;
   };
 

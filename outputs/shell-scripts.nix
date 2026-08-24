@@ -49,13 +49,14 @@
         ];
         text = ''
           if [ "$#" -lt 2 ]; then
-            echo "Usage: $0 <target-ip> <hostname>"
+            echo "Usage: $0 <target-ip> <hostname> [facter-path]"
             echo "Example: $0 192.168.1.100 able-archer"
             exit 1
           fi
 
           TARGET_IP=$1
           HOSTNAME=$2
+          FACTER_PATH="''${3:-$HOME/Coding/nixos-secrets/facter/$HOSTNAME.json}"
           USER_RUN_DIR="/run/user/$(id -u)"
           TMP_DIR=$(mktemp -d "$USER_RUN_DIR/nixos-anywhere-deploy.XXXXXX")
 
@@ -68,7 +69,6 @@
 
           PERSISTENT_ETC_SSH_DIR="$TMP_DIR/persistent/etc/ssh"
           HOST_KEY_PATH="$PERSISTENT_ETC_SSH_DIR/ssh_host_ed25519_key"
-          PERSISTENT_FACTER_PATH="$TMP_DIR/persistent/facter.json"
 
           echo "========================================================="
           echo "Generating SSH host keys..."
@@ -76,6 +76,14 @@
 
           mkdir -p "$PERSISTENT_ETC_SSH_DIR"
           ssh-keygen -t ed25519 -f "$HOST_KEY_PATH" -N "" -q
+
+          echo
+          echo "========================================================="
+          echo "Generating facter report..."
+          echo "========================================================="
+          mkdir -p "$(dirname "$FACTER_PATH")"
+          ssh "root@$TARGET_IP" nix shell nixpkgs#nixos-facter -c nixos-facter > "$FACTER_PATH"
+          echo "Path: $FACTER_PATH"
 
           echo
           echo "========================================================="
@@ -90,7 +98,6 @@
             nixos-anywhere
             --flake ".#$HOSTNAME"
             --extra-files "$TMP_DIR"
-            --generate-hardware-config nixos-facter "$PERSISTENT_FACTER_PATH"
             --build-on remote
             "root@$TARGET_IP"
           )

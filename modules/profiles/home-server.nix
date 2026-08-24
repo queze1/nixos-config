@@ -1,11 +1,13 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   self,
   ...
 }: let
   cfg = config.my.profiles.home-server;
+  hostname = config.networking.hostName;
   sshKeys = import "${self}/ssh-keys.nix";
 in {
   options.my.profiles.home-server.enable = lib.mkEnableOption "home server profile";
@@ -91,6 +93,7 @@ in {
     # Turn off monitor after 1 minute idle
     boot.kernelParams = ["consoleblank=60"];
 
+    hardware.facter.reportPath = "${inputs.secrets}/facter/${hostname}.json";
     system.stateVersion = "25.11";
   };
 }
