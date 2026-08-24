@@ -50,7 +50,7 @@
         text = ''
           if [ "$#" -lt 2 ]; then
             echo "Usage: $0 <target-ip> <hostname> [facter-path]"
-            echo "Example: $0 192.168.1.100 able-archer"
+            echo "Example: $0 192.168.1.100 able-archer $HOME/Coding/nixos-secrets/facter/$HOSTNAME.json"
             exit 1
           fi
 
@@ -71,19 +71,25 @@
           HOST_KEY_PATH="$PERSISTENT_ETC_SSH_DIR/ssh_host_ed25519_key"
 
           echo "========================================================="
+          echo "Generating facter report..."
+          echo "========================================================="
+          # Based on https://github.com/nix-community/nixos-anywhere/blob/ad8fa24e11eef167fd72d49fafefa3f840312d71/src/nixos-anywhere.sh
+          nix_options=(
+            --extra-experimental-features 'nix-command flakes'
+            "--no-write-lock-file"
+          )
+          mkdir -p "$(dirname "$FACTER_PATH")"
+          ssh "root@$TARGET_IP" \
+            nix shell "''${nix_options[@]@Q}" nixpkgs#nixos-facter -c nixos-facter > "$FACTER_PATH"
+          echo "Path: $FACTER_PATH"
+
+          echo
+          echo "========================================================="
           echo "Generating SSH host keys..."
           echo "========================================================="
 
           mkdir -p "$PERSISTENT_ETC_SSH_DIR"
           ssh-keygen -t ed25519 -f "$HOST_KEY_PATH" -N "" -q
-
-          echo
-          echo "========================================================="
-          echo "Generating facter report..."
-          echo "========================================================="
-          mkdir -p "$(dirname "$FACTER_PATH")"
-          ssh "root@$TARGET_IP" nix shell nixpkgs#nixos-facter -c nixos-facter > "$FACTER_PATH"
-          echo "Path: $FACTER_PATH"
 
           echo
           echo "========================================================="
