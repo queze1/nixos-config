@@ -10,9 +10,6 @@ in {
     my.cloudflared.enable = true;
     my.apps.gatus.enable = true;
 
-    # Prevent port overlap
-    my.apps.gatus.port = 8000;
-
     # Backups
     my.restic = {
       enable = true;

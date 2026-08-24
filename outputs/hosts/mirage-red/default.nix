@@ -12,10 +12,7 @@ in {
     ];
 
     my.cloudflared.enable = true;
-    my.apps.gatus = {
-      enable = true;
-      port = 8000;
-    };
+    my.apps.gatus.enable = true;
 
     networking.hostName = hostname;
   };
