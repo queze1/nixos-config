@@ -30,13 +30,13 @@
       steadfast-dart = {config, ...}: {
         deployment.targetHost = config.networking.hostName;
         deployment.tags = ["local"];
-        imports = [self.nixosModules.steadfastDartConfiguration];
+        imports = [{my.hosts.steadfast-dart.enable = true;}];
       };
 
       steadfast-defender = {config, ...}: {
         deployment.targetHost = config.networking.hostName;
         deployment.tags = ["local"];
-        imports = [self.nixosModules.steadfastDefenderConfiguration];
+        imports = [{my.hosts.steadfast-defender.enable = true;}];
       };
 
       # steadfast-noon = {
@@ -56,8 +56,8 @@
         deployment.targetHost = "192.9.184.187";
         deployment.tags = ["cloud"];
         imports = [
-          self.nixosModules.mirageRedConfiguration
-          self.nixosModules.mirageRedHardware
+          {my.hosts.mirage-red.enable = true;}
+          (import ../modules/hosts/_hardware/mirage-red.nix)
         ];
       };
 
@@ -65,8 +65,8 @@
         deployment.targetHost = "137.23.9.31";
         deployment.tags = ["cloud"];
         imports = [
-          self.nixosModules.mirageBlueConfiguration
-          self.nixosModules.mirageBlueHardware
+          {my.hosts.mirage-blue.enable = true;}
+          (import ../modules/hosts/_hardware/mirage-blue.nix)
         ];
       };
     };
