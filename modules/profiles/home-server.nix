@@ -1,8 +1,17 @@
-{self, ...}: let
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}: let
+  cfg = config.my.profiles.home-server;
   sshKeys = import "${self}/ssh-keys.nix";
 in {
-  # Base configuration for home servers
-  flake.nixosModules.steadfastBase = {pkgs, ...}: {
+  options.my.profiles.home-server.enable = lib.mkEnableOption "home server profile";
+
+  config = lib.mkIf cfg.enable {
+    # Base configuration for home servers
     # System config
     my.boot = {
       systemdBoot.enable = true;

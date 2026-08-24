@@ -7,9 +7,7 @@
 in {
   # Newer home server
   flake.nixosModules.steadfastDartConfiguration = {
-    imports = [
-      self.nixosModules.steadfastBase
-    ];
+    my.profiles.home-server.enable = true;
 
     my.podmanContainers.enable = true;
 

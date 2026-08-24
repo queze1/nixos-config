@@ -1,7 +1,16 @@
-{self, ...}: let
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}: let
+  cfg = config.my.profiles.vps;
   sshKeys = import "${self}/ssh-keys.nix";
 in {
-  flake.nixosModules.mirageBase = {pkgs, ...}: {
+  options.my.profiles.vps.enable = lib.mkEnableOption "VPS profile";
+
+  config = lib.mkIf cfg.enable {
     # Secret management
     my.sops.enable = true;
 

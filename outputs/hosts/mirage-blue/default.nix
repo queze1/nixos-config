@@ -7,9 +7,7 @@
 in {
   # 512mb Oracle Cloud instance
   flake.nixosModules.mirageBlueConfiguration = {pkgs, ...}: {
-    imports = [
-      self.nixosModules.mirageBase
-    ];
+    my.profiles.vps.enable = true;
 
     my.caddy = {
       enable = true;

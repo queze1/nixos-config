@@ -1,11 +1,9 @@
-{self, ...}: let
+let
   hostname = "mirage-white";
 in {
   # DigitalOcean droplet (UNUSED)
   flake.nixosModules.mirageWhiteConfiguration = {
-    imports = [
-      self.nixosModules.mirageBase
-    ];
+    my.profiles.vps.enable = true;
 
     my.cloudflared.enable = true;
     my.apps.gatus.enable = true;

@@ -7,9 +7,7 @@
 in {
   # ThinkPad home server
   flake.nixosModules.steadfastDefenderConfiguration = {
-    imports = [
-      self.nixosModules.steadfastBase
-    ];
+    my.profiles.home-server.enable = true;
 
     # Ingress & routing
     my.ddns.enable = true;

@@ -7,9 +7,7 @@
 in {
   # 512mb Oracle Cloud instance
   flake.nixosModules.mirageRedConfiguration = {...}: {
-    imports = [
-      self.nixosModules.mirageBase
-    ];
+    my.profiles.vps.enable = true;
 
     my.cloudflared.enable = true;
     my.apps.gatus.enable = true;
