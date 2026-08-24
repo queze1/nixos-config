@@ -80,6 +80,7 @@
 in {
   options.my.restic = {
     enable = lib.mkEnableOption "Restic defaults";
+    createRemoteWrapper = lib.mkEnableOption "the restic-remote wrapper";
     backups = lib.mkOption {
       type = lib.types.attrsOf myBackupSubmodule;
       default = {};
@@ -154,8 +155,6 @@ in {
       })
     cfg.backups;
 
-    environment.systemPackages = [
-      remoteResticWrapper
-    ];
+    environment.systemPackages = lib.optional cfg.createRemoteWrapper remoteResticWrapper;
   };
 }
