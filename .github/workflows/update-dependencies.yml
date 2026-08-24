@@ -1,0 +1,45 @@
+name: Update Dependencies
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 6' # run weekly on Saturday at midnight
+
+jobs:
+  update-flake-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.0
+      - name: Install Determinate Nix
+        uses: DeterminateSystems/determinate-nix-action@v3
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@main
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          nix-options: --access-tokens github.com=${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
+          pr-title: "Update Nix flake inputs"
+          pr-labels: |
+            automated
+            flake-update
+
+  update-npins:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.0
+      - name: Install Determinate Nix
+        uses: DeterminateSystems/determinate-nix-action@v3
+      - name: Update npins
+        run: nix run nixpkgs#npins -- update
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          add-paths: npins/sources.json
+          branch: update-npins
+          commit-message: "chore: update npins"
+          title: "Update npins"
+          labels: |
+            automated
+            npins-update
