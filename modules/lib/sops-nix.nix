@@ -35,11 +35,11 @@ in {
           imports = [inputs.sops-nix.homeManagerModules.sops];
 
           sops.defaultSopsFile = "${inputs.secrets}/secrets/${osConfig.networking.hostName}-home.yaml";
-          sops.age.keyFile = ".config/sops/age/keys.txt";
+          sops.age.sshKeyPaths = [
+            "${config.home.homeDirectory}/.ssh/id_ed25519"
+          ];
         })
       ];
-
-      my.preservation.extraUserDirectories = [".config/sops/age"];
     })
   ];
 }
