@@ -89,7 +89,7 @@ in {
             echo "system-puller: no store path published for $hostname" >&2
           elif [ "$store_path" = "$last_store_path" ]; then
             :
-          elif ! nix-store --realise "$store_path" --option max-jobs 0 --option builders ""; then
+          elif ! nix build "$store_path" --no-link --max-jobs 0 --builders ""; then
             echo "system-puller: failed to fetch the system closure: $store_path" >&2
           else
             echo "switching to system closure: $store_path"
