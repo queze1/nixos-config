@@ -1,7 +1,7 @@
 {inputs, ...}: {
   perSystem = {pkgs, ...}: {
     packages.filebrowser-quantum = pkgs.buildGoModule (let
-      version = "unstable-2026-08-25";
+      version = "unstable-${inputs.filebrowser-quantum.lastModifiedDate}";
       frontend = pkgs.buildNpmPackage {
         pname = "filebrowser-quantum-frontend";
         inherit version;
@@ -20,6 +20,7 @@
       pname = "filebrowser-quantum";
       inherit version;
       src = inputs.filebrowser-quantum;
+
       sourceRoot = "source/backend";
       vendorHash = "sha256-d0YY7FovQeMlxoNL1wz2pSiWeGd3l05L6MOSuX0FT4U=";
       subPackages = ["."];
@@ -38,6 +39,8 @@
         wrapProgram $out/bin/filebrowser-quantum \
           --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.ffmpeg]}
       '';
+
+      meta.mainProgram = "filebrowser-quantum";
     });
   };
 }
