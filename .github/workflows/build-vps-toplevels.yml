@@ -1,0 +1,131 @@
+name: Build VPS toplevels
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+concurrency:
+  group: ${{ github.workflow }}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - target: "mirage-red"
+            attr: ".#nixosConfigurations.mirage-red.config.system.build.toplevel"
+          - target: "mirage-blue"
+            attr: ".#nixosConfigurations.mirage-blue.config.system.build.toplevel"
+
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
+          extra_nix_config: |
+            extra-substituters = https://attic.osipol.uk/cache
+            extra-trusted-public-keys = cache:C3spwmruXebNeOwAnYy98JGgTOnos586oMVmkYn/RYg=
+
+      - name: Tailscale
+        uses: tailscale/github-action@v4.1.3
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+
+      - name: Cache Nix store and cache
+        uses: nix-community/cache-nix-action@v7
+        with:
+          primary-key: ${{ github.workflow }}-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          restore-prefixes-first-match: |
+            ${{ github.workflow }}-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-
+            ${{ github.workflow }}-${{ runner.os }}-${{ matrix.target }}-
+            ${{ github.workflow }}-${{ runner.os }}-
+          paths: |
+            ~/.cache/nix
+          gc-max-store-size-linux: 2G
+
+      - name: Configure Attic cache
+        uses: ./.github/actions/attic-cache
+        with:
+          token: ${{ secrets.ATTIC_TOKEN }}
+
+      - name: Build with Nix
+        run: |
+          nix build \
+            ${{ matrix.attr }} \
+            --print-build-logs \
+            --no-link \
+            --print-out-paths > .attic-out-paths.tmp
+          mv .attic-out-paths.tmp .attic-out-paths
+
+      - name: Upload toplevel path
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.target }}-toplevel
+          path: .attic-out-paths
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Download toplevel paths
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-toplevel"
+          path: toplevels
+
+      - name: Create store paths
+        run: |
+          store_paths='{}'
+
+          for artifact in toplevels/*-toplevel; do
+            host="${artifact##*/}"
+            host="${host%-toplevel}"
+            store_path="$(< "$artifact/.attic-out-paths")"
+
+            [[ "$store_path" == /nix/store/* ]]
+            store_paths="$(
+              jq -cn \
+                --argjson paths "$store_paths" \
+                --arg host "$host" \
+                --arg store_path "$store_path" \
+                '$paths + {($host): $store_path}'
+            )"
+          done
+
+          # Check that hostnames appear in store-paths.json
+          jq -e '
+            keys == ["mirage-blue", "mirage-red"] and
+            all(.[]; test("^/nix/store/[^/]+$"))
+          ' <<< "$store_paths" > store-paths.json
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STORE_PATHS: store-paths.json
+        run: |
+          release_tag="nixos-toplevels"
+          release_timestamp="$(TZ=Australia/Sydney date +'%Y-%m-%d %H:%M:%S %Z')"
+          git push origin "$GITHUB_SHA:refs/tags/$release_tag" --force
+
+          if gh release view "$release_tag" >/dev/null 2>&1; then
+            gh release upload "$release_tag" "$STORE_PATHS#store-paths.json" --clobber
+            gh release edit "$release_tag" \
+              --title "NixOS Toplevels ($release_timestamp)" \
+              --notes 'NixOS system store paths.' \
+              --latest
+          else
+            gh release create "$release_tag" "$STORE_PATHS#store-paths.json" \
+              --title "NixOS Toplevels ($release_timestamp)" \
+              --notes 'NixOS system store paths.' \
+              --latest
+          fi
