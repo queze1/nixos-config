@@ -2,9 +2,11 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }: let
   myCfg = config.my.apps.filebrowser-quantum;
+  package = self.packages.${pkgs.stdenv.hostPlatform.system}.filebrowser-quantum;
 
   dataDir = "/var/lib/filebrowser-quantum";
   user = "filebrowser-quantum";
@@ -25,27 +27,20 @@
       externalUrl = "https://${myCfg.domain}";
       trustProxyHeaders = true;
     };
-    auth.adminUsername = "admin";
-  };
-
-  package = pkgs.stdenvNoCC.mkDerivation {
-    pname = "filebrowser-quantum";
-    version = "2.0.1-beta";
-    src = pkgs.fetchurl {
-      url = "https://github.com/gtsteffaniak/filebrowser/releases/download/v2.0.1-beta/linux-amd64-filebrowser";
-      hash = "sha256-4Rb5Msn5GGgUBuzFPuz+UrQ28p0IQ6UgizXC7AVs+2g=";
+    auth = {
+      adminUsername = "admin";
+      methods.proxy = {
+        enabled = true;
+        header = "X-Webauth-User";
+      };
     };
-    dontUnpack = true;
-    installPhase = ''
-      install -Dm755 $src $out/bin/filebrowser-quantum
-    '';
   };
 in {
   options.my.apps.filebrowser-quantum = {
     enable = lib.mkEnableOption "FileBrowser Quantum";
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "files.osipol.uk";
+      default = "filebrowser.osipol.uk";
       description = "Domain to host FileBrowser Quantum on.";
     };
     port = lib.mkOption {
@@ -61,10 +56,10 @@ in {
       after = ["network.target"];
       wantedBy = ["multi-user.target"];
       preStart = ''
-        mkdir -p ${dataDir}/files ${dataDir}/cache
+        mkdir -p ${dataDir}/files
       '';
       serviceConfig = {
-        ExecStart = "${package}/bin/filebrowser-quantum -c ${configFile}";
+        ExecStart = "${lib.getExe package} -c ${configFile}";
         User = user;
         Group = user;
         WorkingDirectory = dataDir;
@@ -109,8 +104,16 @@ in {
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
       import cloudflare_dns
-      import tailscale_auth
-      reverse_proxy 127.0.0.1:${toString myCfg.port}
+
+      @public path /public/*
+      handle @public {
+        reverse_proxy 127.0.0.1:${toString myCfg.port}
+      }
+
+      handle {
+        import tailscale_auth
+        reverse_proxy 127.0.0.1:${toString myCfg.port}
+      }
     '';
     services.ddclient.domains = [myCfg.domain];
     my.caddy.firewalledPorts = [myCfg.port];
