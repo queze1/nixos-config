@@ -14,7 +14,10 @@
       meta = {
         nixpkgs = pkgs_x86;
         allowApplyAll = false;
-        specialArgs = {inherit inputs self;};
+        specialArgs = {
+          inherit inputs self;
+          sources = import ../npins;
+        };
       };
 
       defaults = {
