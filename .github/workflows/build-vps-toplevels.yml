@@ -84,12 +84,8 @@ jobs:
           pattern: "*-toplevel"
           path: toplevels
 
-      - name: Gather store paths (debug)
+      - name: Create store paths
         run: |
-          echo "::group::Listing downloaded artifacts"
-          ls -la toplevels/
-          echo "::endgroup::"
-
           : > store-paths.tsv
           for artifact in toplevels/*-toplevel; do
             host="${artifact##*/}"
@@ -103,12 +99,10 @@ jobs:
             printf '%s\t%s\n' "$host" "$store_path" >> store-paths.tsv
           done
 
-          echo "::group::Raw TSV output"
+          echo "::group::TSV output"
           cat store-paths.tsv
           echo "::endgroup::"
 
-      - name: Build store-paths.json
-        run: |
           jq -R -s '
             split("\n")
             | map(select(length > 0) | split("\t") | {(.[0]): .[1]})
