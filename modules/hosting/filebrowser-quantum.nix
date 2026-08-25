@@ -79,17 +79,39 @@ in {
         ExecStart = "${lib.getExe package} -c ${configFile}";
         User = user;
         Group = user;
-        WorkingDirectory = dataDir;
         EnvironmentFile = config.sops.secrets.filebrowser-quantum-env.path;
         Restart = "on-failure";
-        ReadWritePaths = myCfg.sources;
 
+        WorkingDirectory = dataDir;
+        ReadWritePaths = myCfg.sources;
         StateDirectory = "filebrowser-quantum";
         StateDirectoryMode = "0700";
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        PrivateTmp = true;
+
+        # Hardening
+        MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
+        PrivateBPF = true;
+        PrivateDevices = true;
+        PrivateIPC = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectProc = "noaccess";
+        ProcSubset = "pid";
+        ProtectSystem = "strict";
+        RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX"];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        LockPersonality = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = ["@system-service" "~memfd_create"];
       };
     };
 
