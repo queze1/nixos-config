@@ -82,4 +82,4 @@ jobs:
           fetch-depth: 0
       - name: Fast-forward deployed branch
         run: |
-          git push origin HEAD:refs/heads/deployed
+          git push --force origin HEAD:refs/heads/deployed
