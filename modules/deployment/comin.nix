@@ -27,7 +27,7 @@ in {
           branches.main.name = "deployed";
           # Use access token to poll faster
           auth.access_token_path = config.sops.secrets.github-access-token.path;
-          poller.period = 15;
+          poller.period = 10;
         }
       ];
     };
