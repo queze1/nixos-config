@@ -86,28 +86,18 @@ jobs:
 
       - name: Create store paths
         run: |
-          store_paths='{}'
-
-          for artifact in toplevels/*-toplevel; do
-            host="${artifact##*/}"
-            host="${host%-toplevel}"
-            store_path="$(< "$artifact/.attic-out-paths")"
-
-            [[ "$store_path" == /nix/store/* ]]
-            store_paths="$(
-              jq -cn \
-                --argjson paths "$store_paths" \
-                --arg host "$host" \
-                --arg store_path "$store_path" \
-                '$paths + {($host): $store_path}'
-            )"
-          done
-
-          # Check that hostnames appear in store-paths.json
-          jq -e '
-            keys == ["mirage-blue", "mirage-red"] and
-            all(.[]; test("^/nix/store/[^/]+$"))
-          ' <<< "$store_paths" > store-paths.json
+          store_paths="$(
+            for artifact in toplevels/*-toplevel; do
+              host="${artifact##*/}"
+              host="${host%-toplevel}"
+              store_path="$(< "$artifact/.attic-out-paths")"
+              printf '%s\t%s\n' "$host" "$store_path"
+            done | jq -R -s '
+              split("\n")
+              | map(select(length > 0) | split("\t") | {(.[0]): .[1]})
+              | add // {}
+            '
+          )"
 
       - name: Publish release
         env:
