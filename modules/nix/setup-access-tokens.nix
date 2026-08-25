@@ -9,11 +9,7 @@ in {
 
   # Needed to access the secrets GitHub repo
   config = lib.mkIf cfg.enable {
-    sops.secrets.github-access-token = {
-      mode = "0440";
-      group = "github-access-token";
-    };
-    users.groups.github-access-token = {};
+    sops.secrets.github-access-token = {};
 
     sops.templates.nix-access-tokens = {
       content = "access-tokens = github.com=${config.sops.placeholder.github-access-token}";

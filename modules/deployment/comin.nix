@@ -18,8 +18,6 @@ in {
       }
     ];
 
-    users.users.comin.extraGroups = ["github-access-token"];
-
     services.comin = {
       enable = true;
       remotes = [
