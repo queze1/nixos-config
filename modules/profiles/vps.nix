@@ -13,7 +13,7 @@ in {
   config = lib.mkIf cfg.enable {
     # Secret management
     my.sops.enable = true;
-    my.deployment.release-switcher.enable = true;
+    my.deployment.system-puller.enable = true;
 
     # Services
     my.beszel-agent.enable = true;
