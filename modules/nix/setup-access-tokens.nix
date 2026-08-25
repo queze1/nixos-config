@@ -7,14 +7,22 @@
 in {
   options.my.nix.accessTokens.enable = lib.mkEnableOption "Nix access tokens";
 
+  # Needed to access the secrets GitHub repo
   config = lib.mkIf cfg.enable {
-    # Needed to access the secrets GitHub repo
-    sops.secrets.nix-access-tokens = {
+    sops.secrets.github-access-token = {
+      mode = "0440";
+      group = "github-access-token";
+    };
+    users.groups.github-access-token = {};
+
+    sops.templates.nix-access-tokens = {
+      content = "access-tokens = github.com=${config.sops.placeholder.github-access-token}";
       mode = "0440";
       group = "wheel"; # give access to sudoers
     };
+
     nix.extraOptions = ''
-      !include ${config.sops.secrets.nix-access-tokens.path}
+      !include ${config.sops.templates.nix-access-tokens.path}
     '';
   };
 }

@@ -8,7 +8,7 @@
 in {
   imports = [inputs.comin.nixosModules.comin];
 
-  options.my.deployment.comin.enable = lib.mkEnableOption "Comin";
+  options.my.deployment.comin.enable = lib.mkEnableOption "comin";
 
   config = lib.mkIf cfg.enable {
     assertions = [
@@ -18,6 +18,8 @@ in {
       }
     ];
 
+    users.users.comin.extraGroups = ["github-access-token"];
+
     services.comin = {
       enable = true;
       remotes = [
@@ -25,7 +27,8 @@ in {
           name = "origin";
           url = "https://github.com/queze1/nixos-config.git";
           branches.main.name = "deployed";
-          auth.access_token_path = config.sops.secrets.nix-access-tokens.path;
+          # Use access token to poll faster
+          auth.access_token_path = config.sops.secrets.github-access-token.path;
           poller.period = 15;
         }
       ];
