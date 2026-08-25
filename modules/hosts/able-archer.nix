@@ -127,6 +127,11 @@ in {
           Persistent = false;
         };
       };
+      backups.personal-backup = {
+        # Managed by Backrest on host machine
+        timerConfig = null;
+        paths = lib.mkForce [];
+      };
     };
 
     networking.hostName = "able-archer";
