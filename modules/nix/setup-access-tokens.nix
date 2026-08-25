@@ -7,7 +7,7 @@
 in {
   options.my.nix.accessTokens.enable = lib.mkEnableOption "Nix access tokens";
 
-  # Needed to access the secrets GitHub repo
+  # Use a token with access to the secrets repo if rebuilding locally
   config = lib.mkIf cfg.enable {
     sops.secrets.github-access-token = {};
 
