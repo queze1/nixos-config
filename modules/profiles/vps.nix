@@ -55,10 +55,6 @@ in {
       };
     };
 
-    environment.etc = {
-      "test".text = "test";
-    };
-
     system.stateVersion = "26.05";
   };
 }
