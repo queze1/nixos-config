@@ -28,9 +28,7 @@
       externalUrl = "https://${myCfg.domain}";
       trustProxyHeaders = true;
     };
-    userDefaults.account.permissions = {
-      admin = true;
-    };
+    # userDefaults.account.permissions.admin = true; # uncomment for first use
     auth = {
       adminUsername = "admin";
       methods.proxy = {
