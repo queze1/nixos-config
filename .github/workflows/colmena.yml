@@ -2,8 +2,6 @@ name: colmena
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
 
 # Prevent simultaneous deployments
 concurrency:
