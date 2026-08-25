@@ -28,6 +28,12 @@
       externalUrl = "https://${myCfg.domain}";
       trustProxyHeaders = true;
     };
+    userDefaults.account.permissions = {
+      create = true;
+      delete = true;
+      modify = true;
+      share = true;
+    };
     auth = {
       adminUsername = "admin";
       methods.proxy = {
