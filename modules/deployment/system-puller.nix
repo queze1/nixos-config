@@ -33,6 +33,7 @@ in {
         Restart = "always";
         RestartSec = "10s";
         RuntimeDirectory = "system-puller";
+        WorkingDirectory = "/run/system-puller";
       };
       script = ''
         set -u
@@ -41,9 +42,8 @@ in {
         assets_url="https://api.github.com/repos/queze1/nixos-config/releases/assets"
         token_file=${lib.escapeShellArg config.sops.secrets.github-access-token.path}
         hostname=${lib.escapeShellArg config.networking.hostName}
-        runtime_directory="/run/system-puller"
-        release_file="$runtime_directory/release.json"
-        store_paths_file="$runtime_directory/store-paths.json"
+        release_file="release.json"
+        store_paths_file="store-paths.json"
         last_store_path="$(readlink -f /run/current-system)"
 
         while true; do
@@ -89,7 +89,7 @@ in {
             echo "system-puller: no store path published for $hostname" >&2
           elif [ "$store_path" = "$last_store_path" ]; then
             :
-          elif ! nix build "$store_path" --no-link --max-jobs 0 --builders ""; then
+          elif ! nix build "$store_path" --max-jobs 0 --builders ""; then
             echo "system-puller: failed to fetch the system closure: $store_path" >&2
           else
             echo "switching to system closure: $store_path"
