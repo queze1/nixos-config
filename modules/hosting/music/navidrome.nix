@@ -33,6 +33,7 @@ in {
         "Address" = "unix:${myCfg.socketPath}";
         "MusicFolder" = musicDir;
         "Scanner.Schedule" = "0 * * * *";
+        "Scanner.PurgeMissing" = "always";
         "CoverArtPriority" = "embedded, cover.*, folder.*, front.*, external";
         "PID.Album" = "musicbrainz_albumid|album";
         "Backup.Path" = "${myCfg.dataDir}/backup";
