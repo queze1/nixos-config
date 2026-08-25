@@ -24,6 +24,7 @@
       vendorHash = "sha256-d0YY7FovQeMlxoNL1wz2pSiWeGd3l05L6MOSuX0FT4U=";
       subPackages = ["."];
       doCheck = false;
+      nativeBuildInputs = [pkgs.makeWrapper];
 
       preBuild = ''
         cp -r ${frontend}/. internal/web/embed
@@ -31,6 +32,11 @@
 
       postInstall = ''
         mv $out/bin/backend $out/bin/filebrowser-quantum
+      '';
+
+      postFixup = ''
+        wrapProgram $out/bin/filebrowser-quantum \
+          --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.ffmpeg]}
       '';
     });
   };
