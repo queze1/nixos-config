@@ -36,9 +36,9 @@ jobs:
       - name: Cache Nix store and cache
         uses: nix-community/cache-nix-action@v7
         with:
-          primary-key: ${{ github.workflow }}-${{ runner.os }}-hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
+          primary-key: ${{ github.workflow }}-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
           restore-prefixes-first-match: |
-            ${{ github.workflow }}-${{ runner.os }}-hashFiles('**/flake.lock') }}-
+            ${{ github.workflow }}-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}-
             ${{ github.workflow }}-${{ runner.os }}-
           paths: |
             ~/.cache/nix
