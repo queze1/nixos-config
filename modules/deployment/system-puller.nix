@@ -94,6 +94,8 @@ in {
             echo "system-puller: store path is unavailable from Attic: $store_path" >&2
           else
             last_store_path="$store_path"
+            echo "pulling system closure: $store_path"
+            nix copy "$store_path"
             if ! nixos-rebuild switch --no-reexec --store-path "$store_path"; then
               echo "system-puller: failed to switch to $store_path" >&2
             fi
