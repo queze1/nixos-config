@@ -84,20 +84,45 @@ jobs:
           pattern: "*-toplevel"
           path: toplevels
 
-      - name: Create store paths
+      - name: Gather store paths (debug)
         run: |
-          store_paths="$(
-            for artifact in toplevels/*-toplevel; do
-              host="${artifact##*/}"
-              host="${host%-toplevel}"
-              store_path="$(< "$artifact/.attic-out-paths")"
-              printf '%s\t%s\n' "$host" "$store_path"
-            done | jq -R -s '
-              split("\n")
-              | map(select(length > 0) | split("\t") | {(.[0]): .[1]})
-              | add // {}
-            '
-          )"
+          echo "::group::Listing downloaded artifacts"
+          ls -la toplevels/
+          echo "::endgroup::"
+
+          : > store-paths.tsv
+          for artifact in toplevels/*-toplevel; do
+            host="${artifact##*/}"
+            host="${host%-toplevel}"
+            store_path="$(< "$artifact/.attic-out-paths")"
+
+            echo "Artifact dir: $artifact"
+            echo "  -> host:       $host"
+            echo "  -> store_path: $store_path"
+
+            printf '%s\t%s\n' "$host" "$store_path" >> store-paths.tsv
+          done
+
+          echo "::group::Raw TSV output"
+          cat store-paths.tsv
+          echo "::endgroup::"
+
+      - name: Build store-paths.json
+        run: |
+          jq -R -s '
+            split("\n")
+            | map(select(length > 0) | split("\t") | {(.[0]): .[1]})
+            | add // {}
+          ' store-paths.tsv > store-paths.json
+
+          echo "::group::Generated store-paths.json"
+          cat store-paths.json
+          echo "::endgroup::"
+
+          if [ ! -s store-paths.json ]; then
+            echo "::error::store-paths.json is missing or empty!"
+            exit 1
+          fi
 
       - name: Publish release
         env:
