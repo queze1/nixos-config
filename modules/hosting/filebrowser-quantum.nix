@@ -30,10 +30,6 @@
     };
     userDefaults.account.permissions = {
       admin = true;
-      create = true;
-      delete = true;
-      modify = true;
-      share = true;
     };
     auth = {
       adminUsername = "admin";
