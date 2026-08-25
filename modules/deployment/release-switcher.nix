@@ -18,7 +18,6 @@ in {
       wants = ["network-online.target"];
       after = [
         "network-online.target"
-        "sops-nix.service"
       ];
       path = with pkgs; [
         bash
@@ -31,6 +30,7 @@ in {
         Type = "simple";
         Restart = "always";
         RestartSec = "10s";
+        RuntimeDirectory = "release-switcher";
       };
       script = ''
         set -u
@@ -40,12 +40,12 @@ in {
         cache_url="https://attic.osipol.uk/cache"
         token_file=${lib.escapeShellArg config.sops.secrets.github-access-token.path}
         hostname=${lib.escapeShellArg config.networking.hostName}
+        runtime_directory="/run/release-switcher"
+        release_file="$runtime_directory/release.json"
+        store_paths_file="$runtime_directory/store-paths.json"
         last_store_path="$(readlink -f /run/current-system)"
 
         while true; do
-          temporary_directory="$(mktemp -d)"
-          release_file="$temporary_directory/release.json"
-          store_paths_file="$temporary_directory/store-paths.json"
           token="$(< "$token_file")"
 
           if ! curl --fail --silent --show-error \
@@ -53,21 +53,18 @@ in {
             --header "Authorization: Bearer $token" \
             "$release_url" > "$release_file"; then
             echo "release-switcher: failed to retrieve the latest release" >&2
-            rm -rf "$temporary_directory"
             sleep 10
             continue
           fi
 
           if ! asset_id="$(jq -r 'first(.assets[] | select(.name == "store-paths.json") | .id) // empty' "$release_file")"; then
             echo "release-switcher: failed to parse the latest release" >&2
-            rm -rf "$temporary_directory"
             sleep 10
             continue
           fi
 
           if [ -z "$asset_id" ]; then
             echo "release-switcher: latest release has no store-paths.json asset" >&2
-            rm -rf "$temporary_directory"
             sleep 10
             continue
           fi
@@ -77,19 +74,15 @@ in {
             --header "Authorization: Bearer $token" \
             "$assets_url/$asset_id" > "$store_paths_file"; then
             echo "release-switcher: failed to retrieve store-paths.json" >&2
-            rm -rf "$temporary_directory"
             sleep 10
             continue
           fi
 
           if ! store_path="$(jq -r --arg hostname "$hostname" '.[$hostname] // empty' "$store_paths_file")"; then
             echo "release-switcher: failed to parse store-paths.json" >&2
-            rm -rf "$temporary_directory"
             sleep 10
             continue
           fi
-
-          rm -rf "$temporary_directory"
 
           if [ -z "$store_path" ]; then
             echo "release-switcher: no store path published for $hostname" >&2
