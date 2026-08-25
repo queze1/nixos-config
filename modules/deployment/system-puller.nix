@@ -39,7 +39,6 @@ in {
 
         release_url="https://api.github.com/repos/queze1/nixos-config/releases/latest"
         assets_url="https://api.github.com/repos/queze1/nixos-config/releases/assets"
-        cache_url="https://attic.osipol.uk/cache"
         token_file=${lib.escapeShellArg config.sops.secrets.github-access-token.path}
         hostname=${lib.escapeShellArg config.networking.hostName}
         runtime_directory="/run/system-puller"
@@ -90,13 +89,13 @@ in {
             echo "system-puller: no store path published for $hostname" >&2
           elif [ "$store_path" = "$last_store_path" ]; then
             :
-          elif ! nix path-info "$store_path" --store "$cache_url" > /dev/null; then
-            echo "system-puller: store path is unavailable from Attic: $store_path" >&2
+          elif ! nix-store --realise "$store_path" --option max-jobs 0 --option builders ""; then
+            echo "system-puller: failed to fetch the system closure: $store_path" >&2
           else
-            last_store_path="$store_path"
-            echo "pulling system closure: $store_path"
-            nix copy "$store_path"
-            if ! nixos-rebuild switch --no-reexec --store-path "$store_path"; then
+            echo "switching to system closure: $store_path"
+            if nixos-rebuild switch --no-reexec --store-path "$store_path"; then
+              last_store_path="$store_path"
+            else
               echo "system-puller: failed to switch to $store_path" >&2
             fi
           fi
