@@ -82,6 +82,8 @@ in {
         WorkingDirectory = dataDir;
         EnvironmentFile = config.sops.secrets.filebrowser-quantum-env.path;
         Restart = "on-failure";
+        ReadWritePaths = myCfg.sources;
+
         StateDirectory = "filebrowser-quantum";
         StateDirectoryMode = "0700";
         ProtectSystem = "strict";
