@@ -90,7 +90,7 @@ in {
             echo "system-puller: no store path published for $hostname" >&2
           elif [ "$store_path" = "$last_store_path" ]; then
             :
-          elif ! nix path-info --recursive "$store_path" --store "$cache_url" > /dev/null; then
+          elif ! nix path-info "$store_path" --store "$cache_url" > /dev/null; then
             echo "system-puller: store path is unavailable from Attic: $store_path" >&2
           else
             last_store_path="$store_path"
