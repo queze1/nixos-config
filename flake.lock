@@ -129,6 +129,22 @@
         "type": "github"
       }
     },
+    "filebrowser-quantum": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787618007,
+        "narHash": "sha256-SyDwiYhjkTFRoouywoQ/rvcbTZVEKWkCj0UM+j6M1DM=",
+        "owner": "gtsteffaniak",
+        "repo": "filebrowser",
+        "rev": "609e1d648225fafc0b4ceb7bdd4ff67e787bea31",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gtsteffaniak",
+        "repo": "filebrowser",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -679,6 +695,7 @@
         "colmena": "colmena",
         "comin": "comin",
         "disko": "disko",
+        "filebrowser-quantum": "filebrowser-quantum",
         "flake-parts": "flake-parts",
         "git-hooks-nix": "git-hooks-nix",
         "home-manager": "home-manager",
