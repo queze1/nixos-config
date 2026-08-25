@@ -120,18 +120,13 @@ in {
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
       import cloudflare_dns
-
-      @public path /public/*
-      handle @public {
-        reverse_proxy 127.0.0.1:${toString myCfg.port}
-      }
-
-      handle {
-        import tailscale_auth
-        reverse_proxy 127.0.0.1:${toString myCfg.port}
-      }
+      @protected not path /public/* /health
+      import tailscale_auth @protected
+      reverse_proxy 127.0.0.1:${toString myCfg.port}
     '';
     services.ddclient.domains = [myCfg.domain];
+
+    # Only allow Caddy to access this port
     my.caddy.firewalledPorts = [myCfg.port];
   };
 }
