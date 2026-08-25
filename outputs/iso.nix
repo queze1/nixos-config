@@ -36,32 +36,29 @@ in {
     isoPath = "${isoImage}/${isoSystem.config.image.filePath}";
 
     # Wrapper around xorriso-dd-target to burn an ISO
-    mkIsoBurnerScript = name: let
-      innerScript = pkgs.writeShellScript "burn-iso-image-internal" ''
-        exec xorriso-dd-target \
-          -with_sudo -plug_test -DO_WRITE \
-          -image_file ${isoPath} \
-          "$@"
-      '';
-    in
-      pkgs.buildFHSEnv {
+    mkIsoBurner = name:
+      pkgs.writeShellApplication {
         inherit name;
-        targetPkgs = pkgs:
-          with pkgs; [
-            libisoburn # contains xorriso-dd-target
-            util-linux # contains lsblk
-            coreutils # contains basic commands (cat, mkdir, etc.)
-            gnugrep
-            gnused
-            sudo
-          ];
-        runScript = "${innerScript}";
+        runtimeInputs = with pkgs; [
+          libisoburn
+          util-linux
+          coreutils
+          gnugrep
+          gnused
+          sudo
+        ];
+        text = ''
+          exec xorriso-dd-target \
+            -with_sudo -plug_test -DO_WRITE \
+            -image_file ${isoPath} \
+            "$@"
+        '';
       };
   in {
     packages = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
       iso-system = isoSystem.config.system.build.toplevel;
       iso-image = isoImage;
-      burn-iso-image = mkIsoBurnerScript "burn-iso-image";
+      burn-iso-image = mkIsoBurner "burn-iso-image";
     };
   };
 }
