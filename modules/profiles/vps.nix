@@ -13,6 +13,7 @@ in {
   config = lib.mkIf cfg.enable {
     # Secret management
     my.sops.enable = true;
+    my.deployment.release-switcher.enable = true;
 
     # Services
     my.beszel-agent.enable = true;
@@ -46,6 +47,7 @@ in {
     documentation.enable = false;
     my.nix = {
       enable = true;
+      binaryCache.enable = true;
       settings.auto-optimise-store = true;
       gc = {
         automatic = true;
