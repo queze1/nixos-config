@@ -61,8 +61,8 @@ jobs:
             ${{ matrix.attr }} \
             --print-build-logs \
             --no-link \
-            --print-out-paths > .attic-out-paths.tmp
-          mv .attic-out-paths.tmp .attic-out-paths
+            --print-out-paths > .attic-out-paths
+          nix run nixpkgs#attic-client push cache $(<.attic-out-paths)
 
       - name: Upload toplevel path
         uses: actions/upload-artifact@v4

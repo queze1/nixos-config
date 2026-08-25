@@ -1,5 +1,5 @@
 name: Attic cache
-description: Authenticate with Attic, upload paths during the job, and push final build outputs
+description: Authenticate with Attic and upload paths built during the job
 
 inputs:
   token:
@@ -13,12 +13,18 @@ inputs:
     description: Attic cache name
     required: false
     default: cache
-  output-paths-file:
-    description: File containing final store paths to push after the job
-    required: false
-    default: .attic-out-paths
-
 runs:
-  using: node24
-  main: main.mjs
-  post: post.mjs
+  using: composite
+  steps:
+    - name: Authenticate with Attic
+      shell: bash
+      env:
+        ATTIC_TOKEN: ${{ inputs.token }}
+        ATTIC_SERVER: ${{ inputs.server }}
+      run: nix run nixpkgs#attic-client -- login local "$ATTIC_SERVER" "$ATTIC_TOKEN"
+
+    - name: Watch Nix store
+      shell: bash
+      env:
+        ATTIC_CACHE: ${{ inputs.cache }}
+      run: setsid nix run nixpkgs#attic-client -- watch-store "$ATTIC_CACHE" < /dev/null > /dev/null 2>&1 &

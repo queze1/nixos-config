@@ -52,5 +52,5 @@ jobs:
       - name: Apply with Colmena
         run: |
           nix run .#colmena -- apply --no-build-on-target --keep-result --on @cloud
-          nix path-info .#colmena .gcroots/* > .attic-out-paths.tmp
-          mv .attic-out-paths.tmp .attic-out-paths
+          nix path-info .#colmena .gcroots/* > .attic-out-paths
+          nix run nixpkgs#attic-client push cache $(<.attic-out-paths)
