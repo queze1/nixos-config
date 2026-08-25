@@ -29,6 +29,7 @@
       trustProxyHeaders = true;
     };
     userDefaults.account.permissions = {
+      admin = true;
       create = true;
       delete = true;
       modify = true;
