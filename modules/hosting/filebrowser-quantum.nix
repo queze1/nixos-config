@@ -9,17 +9,18 @@
   package = self.packages.${pkgs.stdenv.hostPlatform.system}.filebrowser-quantum;
 
   dataDir = "/var/lib/filebrowser-quantum";
-  user = "filebrowser-quantum";
+  defaultSource = "${dataDir}/files";
+  user = myCfg.user;
   configFile = (pkgs.formats.yaml {}).generate "filebrowser-quantum.yaml" {
     server = {
       database.path = "${dataDir}/filebrowser.sqlite";
       cacheDir = "${dataDir}/cache";
-      sources = [
-        {
-          path = "${dataDir}/files";
+      sources =
+        map (path: {
+          inherit path;
           config.defaultEnabled = true;
-        }
-      ];
+        })
+        (lib.optional myCfg.useDefaultSource defaultSource ++ myCfg.sources);
     };
     http = {
       port = myCfg.port;
@@ -38,6 +39,21 @@
 in {
   options.my.apps.filebrowser-quantum = {
     enable = lib.mkEnableOption "FileBrowser Quantum";
+    user = lib.mkOption {
+      type = lib.types.str;
+      default = "filebrowser-quantum";
+      description = "User running FileBrowser Quantum.";
+    };
+    sources = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      description = "Directories exposed by FileBrowser Quantum.";
+    };
+    useDefaultSource = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether to expose FileBrowser Quantum's data directory.";
+    };
     domain = lib.mkOption {
       type = lib.types.str;
       default = "filebrowser.osipol.uk";
@@ -55,8 +71,8 @@ in {
       description = "FileBrowser Quantum";
       after = ["network.target"];
       wantedBy = ["multi-user.target"];
-      preStart = ''
-        mkdir -p ${dataDir}/files
+      preStart = lib.optionalString myCfg.useDefaultSource ''
+        mkdir -p ${defaultSource}
       '';
       serviceConfig = {
         ExecStart = "${lib.getExe package} -c ${configFile}";
