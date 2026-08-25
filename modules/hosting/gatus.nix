@@ -53,6 +53,17 @@ in {
             alerts = [{type = "discord";}];
           }
           {
+            name = "FileBrowser Quantum";
+            group = "Private Apps";
+            url = "https://filebrowser.osipol.uk/health";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+              "[BODY].message == ok"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
             name = "ForgeJo";
             group = "Private Apps";
             url = "https://forgejo.osipol.uk/api/healthz";
