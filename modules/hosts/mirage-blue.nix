@@ -34,8 +34,8 @@ in {
           "vaultwarden.service"
         ];
         timerConfig = {
-          OnCalendar = "daily";
-          RandomizedDelaySec = "4h";
+          OnCalendar = "*-*-* */4:00:00"; # every 4 hours
+          RandomizedDelaySec = "1h";
           Persistent = true;
         };
       };
