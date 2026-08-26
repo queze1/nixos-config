@@ -21,6 +21,7 @@ in {
       default = 8007;
       description = "Port to run Vaultwarden on.";
     };
+    allowSignups = lib.mkEnableOption "allowing signups" // {default = myCfg.runLocally;};
   };
 
   config = lib.mkIf myCfg.enable (lib.mkMerge [
@@ -35,7 +36,7 @@ in {
         config = {
           ROCKET_ADDRESS = "127.0.0.1";
           ROCKET_PORT = myCfg.port;
-          SIGNUPS_ALLOWED = myCfg.runLocally;
+          SIGNUPS_ALLOWED = ! myCfg.allowSignups;
         };
       };
 
