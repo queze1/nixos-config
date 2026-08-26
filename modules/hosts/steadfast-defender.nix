@@ -18,12 +18,14 @@ in {
       enable = true;
       cloudflareDns.enable = true;
     };
+    my.tailscaleAuth.enable = true;
 
     # Hosted services
     my.apps = {
       autoAssignPorts = true;
       attic.enable = true;
       immich.enable = true;
+      paperless.enable = true;
       restic-server.enable = true;
     };
 
