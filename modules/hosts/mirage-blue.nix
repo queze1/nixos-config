@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   cfg = config.my.hosts.mirage-blue;
@@ -30,19 +29,10 @@ in {
     my.restic = {
       enable = true;
       backups.backblaze-b2 = {
-        user = "root";
-        backupPrepareCommand = ''
-          if ${pkgs.systemd}/bin/systemctl is-active --quiet beszel-hub.service; then
-            touch /run/restic-backups-backblaze-b2/beszel-hub-was-active
-            ${pkgs.systemd}/bin/systemctl stop beszel-hub.service
-          fi
-        '';
-        backupCleanupCommand = ''
-          if [ -e /run/restic-backups-backblaze-b2/beszel-hub-was-active ]; then
-            ${pkgs.systemd}/bin/systemctl start beszel-hub.service
-            rm -f /run/restic-backups-backblaze-b2/beszel-hub-was-active
-          fi
-        '';
+        restartServices = [
+          "beszel-hub.service"
+          "vaultwarden.service"
+        ];
         timerConfig = {
           OnCalendar = "daily";
           RandomizedDelaySec = "4h";

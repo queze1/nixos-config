@@ -10,6 +10,30 @@
   toSubpath = p: lib.path.removePrefix /. (/. + p);
   backupSubmodule = options.services.restic.backups.type.nestedTypes.elemType.getSubModules;
 
+  combineCommands = commands: let
+    nonEmptyCommands = lib.filter (command: command != null && command != "") commands;
+  in
+    if nonEmptyCommands == []
+    then null
+    else lib.concatStringsSep "\n" nonEmptyCommands;
+
+  serviceRestartHooks = services: {
+    prepare = lib.concatStringsSep "\n" (lib.imap0 (index: service: ''
+        if ${lib.getExe' pkgs.systemd "systemctl"} is-active --quiet ${lib.escapeShellArg service}; then
+          touch "$RUNTIME_DIRECTORY/restart-service-${toString index}"
+          ${lib.getExe' pkgs.systemd "systemctl"} stop ${lib.escapeShellArg service}
+        fi
+      '')
+      services);
+    cleanup = lib.concatStringsSep "\n" (lib.imap0 (index: service: ''
+        if [ -e "$RUNTIME_DIRECTORY/restart-service-${toString index}" ]; then
+          ${lib.getExe' pkgs.systemd "systemctl"} start ${lib.escapeShellArg service}
+          rm -f "$RUNTIME_DIRECTORY/restart-service-${toString index}"
+        fi
+      '')
+      services);
+  };
+
   # Wrapper that cds into the latest snapshot before executing restic backup
   resticWrapper = pkgs.writeShellScriptBin "restic" ''
     set -e
@@ -63,20 +87,37 @@
   '';
 
   # Define a submodule which sets pre-evaluation defaults
-  myBackupSubmodule = lib.types.submodule [
-    (
-      {name, ...}: {
-        imports = backupSubmodule;
+  myBackupSubmodule = let
+    systemConfig = config;
+  in
+    lib.types.submodule [
+      (
+        {
+          name,
+          config,
+          ...
+        }: {
+          imports = backupSubmodule;
 
-        config = {
-          initialize = lib.mkDefault true;
-          environmentFile = lib.mkDefault config.sops.secrets."restic-${name}-env".path;
-          package = lib.mkIf (cfg.snapshotsDir != null) (lib.mkDefault resticWrapper);
-          user = lib.mkDefault "restic-${name}";
-        };
-      }
-    )
-  ];
+          options.restartServices = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            default = [];
+            description = "Systemd services to stop before the backup and restart afterward if they were active.";
+          };
+
+          config = {
+            initialize = lib.mkDefault true;
+            environmentFile = lib.mkDefault systemConfig.sops.secrets."restic-${name}-env".path;
+            package = lib.mkIf (cfg.snapshotsDir != null) (lib.mkDefault resticWrapper);
+            user = lib.mkDefault (
+              if config.restartServices != []
+              then "root"
+              else "restic-${name}"
+            );
+          };
+        }
+      )
+    ];
 in {
   options.my.restic = {
     enable = lib.mkEnableOption "Restic defaults";
@@ -111,12 +152,18 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.extraPaths == [] || cfg.backups != {};
-        message = "my.restic.extraPaths is set, but no my.restic.backups are defined.";
-      }
-    ];
+    assertions =
+      [
+        {
+          assertion = cfg.extraPaths == [] || cfg.backups != {};
+          message = "my.restic.extraPaths is set, but no my.restic.backups are defined.";
+        }
+      ]
+      ++ lib.mapAttrsToList (name: backup: {
+        assertion = backup.restartServices == [] || backup.user == "root";
+        message = "my.restic.backups.${name}.restartServices requires user = \"root\".";
+      })
+      cfg.backups;
 
     # For every backup, define an environment file secret
     sops.secrets =
@@ -125,9 +172,13 @@ in {
       })
       cfg.backups;
 
-    services.restic.backups = lib.mapAttrs (_: backup:
-      backup
+    services.restic.backups = lib.mapAttrs (_: backup: let
+      restartHooks = serviceRestartHooks backup.restartServices;
+    in
+      (builtins.removeAttrs backup ["restartServices"])
       // {
+        backupPrepareCommand = combineCommands [backup.backupPrepareCommand restartHooks.prepare];
+        backupCleanupCommand = combineCommands [restartHooks.cleanup backup.backupCleanupCommand];
         paths = let
           allPaths = backup.paths ++ cfg.extraPaths;
         in
@@ -147,8 +198,8 @@ in {
     # https://restic.readthedocs.io/en/latest/080_examples.html#backing-up-your-system-without-running-restic-as-root
     systemd.services = lib.mapAttrs' (name: backup:
       lib.nameValuePair "restic-backups-${name}" {
-        serviceConfig = {
-          DynamicUser = backup.user != "root";
+        serviceConfig = lib.mkIf (backup.user != "root") {
+          DynamicUser = true;
           AmbientCapabilities = "CAP_DAC_READ_SEARCH";
           CapabilityBoundingSet = "CAP_DAC_READ_SEARCH";
         };
