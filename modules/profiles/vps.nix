@@ -34,7 +34,6 @@ in {
     # Allow SSH into root
     users.users.root.openssh.authorizedKeys.keys = [
       sshKeys.ableArcherKey
-      sshKeys.colmenaGHAKey
     ];
 
     zramSwap = {
