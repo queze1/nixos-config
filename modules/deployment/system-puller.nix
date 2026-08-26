@@ -103,6 +103,7 @@ in {
             if "$store_path/bin/switch-to-configuration" check; then
               echo "switching to system closure: $store_path"
               if nixos-rebuild switch --no-reexec --store-path "$store_path"; then
+                :
               else
                 echo "system-puller: failed to switch to $store_path" >&2
               fi
