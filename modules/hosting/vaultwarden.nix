@@ -36,7 +36,7 @@ in {
         config = {
           ROCKET_ADDRESS = "127.0.0.1";
           ROCKET_PORT = myCfg.port;
-          SIGNUPS_ALLOWED = ! myCfg.allowSignups;
+          SIGNUPS_ALLOWED = myCfg.allowSignups;
         };
       };
 
