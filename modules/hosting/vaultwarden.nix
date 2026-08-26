@@ -53,6 +53,20 @@ in {
       my.restic.extraPaths = [dataDir];
     }
 
+    (lib.mkIf (!myCfg.runLocally) {
+      # Reverse proxy
+      services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
+        import cloudflare_dns
+        @protected not path /alive
+        import tailscale_auth @protected
+        reverse_proxy 127.0.0.1:${toString myCfg.port}
+      '';
+      services.ddclient.domains = [myCfg.domain];
+
+      # Only allow Caddy to access this port
+      my.caddy.firewalledPorts = [myCfg.port];
+    })
+
     (lib.mkIf myCfg.runLocally {
       # Listen on ports 80 and 443, use certs
       services.nginx.virtualHosts.localhost = {
@@ -103,24 +117,6 @@ in {
           mode = "0700";
         }
       ];
-    })
-
-    (lib.mkIf (!myCfg.runLocally) {
-      services.vaultwarden.environmentFile = config.sops.secrets.vaultwarden-env.path;
-
-      sops.secrets.vaultwarden-env = {
-        restartUnits = ["vaultwarden.service"];
-      };
-
-      # Reverse proxy
-      services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
-        import cloudflare_dns
-        reverse_proxy 127.0.0.1:${toString myCfg.port}
-      '';
-      services.ddclient.domains = [myCfg.domain];
-
-      # Only allow Caddy to access this port
-      my.caddy.firewalledPorts = [myCfg.port];
     })
   ]);
 }

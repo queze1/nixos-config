@@ -716,11 +716,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1787644643,
-        "narHash": "sha256-oJlmCF/rHKfTfNd9Le2Dsv1A4oAHsGAisNdJ8pmncfU=",
+        "lastModified": 1787710102,
+        "narHash": "sha256-DUqaV77Gzb7S5yA5tRBACXBtt5kUW1F2VF3ofoFWENI=",
         "owner": "queze1",
         "repo": "nixos-secrets",
-        "rev": "12b2ab70946fc725af83e906c1b9c7400af897ce",
+        "rev": "57ad738e4de1e54864df3954336d2001bb0476d4",
         "type": "github"
       },
       "original": {
