@@ -21,7 +21,14 @@ in {
     my.tailscaleAuth.enable = true;
 
     # Hosted services
-    my.apps.beszel-hub.enable = true;
+    my.apps = {
+      beszel-hub.enable = true;
+      vaultwarden = {
+        enable = true;
+        domain = "test.vaultwarden.osipol.uk";
+        allowSignups = true;
+      };
+    };
 
     # Backups
     my.restic = {
