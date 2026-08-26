@@ -33,7 +33,19 @@ in {
       {
         directory = cfg.dataDir;
         user = cfg.user;
-        group = config.users.users.${cfg.user}.group;
+        group = cfg.group;
+        mode = "0700";
+      }
+      {
+        directory = cfg.consumptionDir;
+        user = cfg.user;
+        group = cfg.group;
+        mode = "0700";
+      }
+      {
+        directory = cfg.mediaDir;
+        user = cfg.user;
+        group = cfg.group;
         mode = "0700";
       }
       {
