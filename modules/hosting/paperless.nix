@@ -29,6 +29,7 @@ in {
       database.createLocally = true;
     };
 
+    # Preserve Paperless data and Postgres database
     my.preservation.extraDirectories =
       map (directory: {
         inherit directory;
@@ -49,6 +50,8 @@ in {
     # my.restic.extraPaths = [cfg.dataDir];
 
     # TODO: Find health endpoint and exclude that
+
+    # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
       import cloudflare_dns
       import tailscale_auth
