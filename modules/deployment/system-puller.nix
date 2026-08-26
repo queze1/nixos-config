@@ -53,6 +53,24 @@ in {
         store_paths_file="store-paths.json"
         last_store_path="$(readlink -f /run/current-system)"
 
+        switch_to_system() {
+          local system_path="$1"
+
+          if "$system_path/bin/switch-to-configuration" check; then
+            echo "switching to system closure: $system_path"
+            if ! nixos-rebuild switch --no-reexec --store-path "$system_path"; then
+              echo "system-puller: failed to switch to $system_path" >&2
+            fi
+          else
+            echo "system-puller: switch inhibitor detected" >&2
+            if nixos-rebuild boot --no-reexec --store-path "$system_path"; then
+              reboot
+            else
+              echo "system-puller: failed to set $system_path as the boot configuration" >&2
+            fi
+          fi
+        }
+
         while true; do
           token="$(< "$token_file")"
 
@@ -96,24 +114,13 @@ in {
             echo "system-puller: no store path published for $hostname" >&2
           elif [ "$store_path" = "$last_store_path" ]; then
             :
-          elif ! nix build "$store_path" --max-jobs 0 --builders "" --print-build-logs; then
-            echo "system-puller: failed to fetch the system closure: $store_path" >&2
           else
-            last_store_path="$store_path"
-            if "$store_path/bin/switch-to-configuration" check; then
-              echo "switching to system closure: $store_path"
-              if nixos-rebuild switch --no-reexec --store-path "$store_path"; then
-                :
-              else
-                echo "system-puller: failed to switch to $store_path" >&2
-              fi
+            echo "system-puller: found new system closure: $store_path"
+            if ! nix build "$store_path" --max-jobs 0 --builders "" --print-build-logs; then
+              echo "system-puller: failed to fetch the system closure: $store_path" >&2
             else
-              echo "system-puller: switch inhibitor detected" >&2
-              if nixos-rebuild boot --no-reexec --store-path "$store_path"; then
-                reboot
-              else
-                echo "system-puller: failed to set $store_path as the boot configuration" >&2
-              fi
+              last_store_path="$store_path"
+              switch_to_system "$store_path"
             fi
           fi
 
