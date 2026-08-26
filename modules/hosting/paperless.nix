@@ -29,32 +29,21 @@ in {
       database.createLocally = true;
     };
 
-    my.preservation.extraDirectories = [
-      {
-        directory = cfg.dataDir;
-        user = cfg.user;
-        group = config.users.users.${cfg.user}.group; # use cfg.group in unstable
-        mode = "0700";
-      }
-      {
-        directory = cfg.consumptionDir;
+    my.preservation.extraDirectories =
+      map (directory: {
+        inherit directory;
         user = cfg.user;
         group = config.users.users.${cfg.user}.group;
         mode = "0700";
-      }
-      {
-        directory = cfg.mediaDir;
-        user = cfg.user;
-        group = config.users.users.${cfg.user}.group;
-        mode = "0700";
-      }
-      {
-        directory = config.services.postgresql.dataDir;
-        user = "postgres";
-        group = "postgres";
-        mode = "0700";
-      }
-    ];
+      }) [cfg.dataDir cfg.consumptionDir cfg.mediaDir]
+      ++ [
+        {
+          directory = config.services.postgresql.dataDir;
+          user = "postgres";
+          group = "postgres";
+          mode = "0700";
+        }
+      ];
 
     # TODO: Set up document exporter instead
     # my.restic.extraPaths = [cfg.dataDir];
