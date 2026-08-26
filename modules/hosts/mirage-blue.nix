@@ -23,11 +23,7 @@ in {
     # Hosted services
     my.apps = {
       beszel-hub.enable = true;
-      vaultwarden = {
-        enable = true;
-        domain = "test.vaultwarden.osipol.uk";
-        allowSignups = true;
-      };
+      vaultwarden.enable = true;
     };
 
     # Backups
