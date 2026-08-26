@@ -33,19 +33,19 @@ in {
       {
         directory = cfg.dataDir;
         user = cfg.user;
-        group = cfg.group;
+        group = config.users.users.${cfg.user}.group; # use cfg.group in unstable
         mode = "0700";
       }
       {
         directory = cfg.consumptionDir;
         user = cfg.user;
-        group = cfg.group;
+        group = config.users.users.${cfg.user}.group;
         mode = "0700";
       }
       {
         directory = cfg.mediaDir;
         user = cfg.user;
-        group = cfg.group;
+        group = config.users.users.${cfg.user}.group;
         mode = "0700";
       }
       {
