@@ -61,20 +61,6 @@
     backupTarget="$2"
     shift 2
 
-    case "$hostname" in
-      *[!a-zA-Z0-9-]* | "")
-        echo "Invalid hostname: $hostname" >&2
-        exit 2
-        ;;
-    esac
-
-    case "$backupTarget" in
-      *[!a-zA-Z0-9-]* | "")
-        echo "Invalid backup target: $backupTarget" >&2
-        exit 2
-        ;;
-    esac
-
     set -a
     source <(
       ${lib.getExe pkgs.sops} --decrypt \
