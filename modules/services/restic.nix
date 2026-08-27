@@ -161,7 +161,7 @@ in {
     services.restic.backups = lib.mapAttrs (_: backup: let
       restartHooks = serviceRestartHooks backup.restartServices;
     in
-      (builtins.removeAttrs backup ["restartServices"])
+      (removeAttrs backup ["restartServices"])
       // {
         backupPrepareCommand = combineCommands [backup.backupPrepareCommand restartHooks.prepare];
         backupCleanupCommand = combineCommands [restartHooks.cleanup backup.backupCleanupCommand];
