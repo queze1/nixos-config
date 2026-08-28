@@ -77,7 +77,7 @@ in {
           {
             name = "Paperless";
             group = "Private Apps";
-            url = "https://paperless.osipol.uk/";
+            url = "https://paperless.osipol.uk/ping";
             conditions = [
               "[STATUS] == 200"
               "[RESPONSE_TIME] < ${responseTimeLimit}"
