@@ -56,7 +56,7 @@ in {
 
       # /ping: reverse proxy to / and return its status code
       handle_path /ping {
-        reverse_proxy localhost:${toString myCfg.port} {
+        reverse_proxy 127.0.0.1:${toString myCfg.port} {
           handle_response {
             respond "{rp.status_code}"
           }
