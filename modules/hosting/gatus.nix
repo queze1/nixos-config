@@ -75,6 +75,16 @@ in {
             alerts = [{type = "discord";}];
           }
           {
+            name = "Paperless";
+            group = "Private Apps";
+            url = "https://paperless.osipol.uk/";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
             name = "Immich";
             group = "Private Apps";
             url = "https://immich.osipol.uk/api/server/ping";

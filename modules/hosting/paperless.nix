@@ -27,6 +27,7 @@ in {
       port = myCfg.port;
       domain = myCfg.domain;
       database.createLocally = true;
+      exporter.enable = true;
     };
 
     # Preserve Paperless data and Postgres database
@@ -46,16 +47,26 @@ in {
         }
       ];
 
-    # TODO: Set up document exporter instead
-    # my.restic.extraPaths = [cfg.dataDir];
-
-    # TODO: Find health endpoint and exclude that
+    # Backup Paperless backups
+    my.restic.extraPaths = [cfg.exporter.directory];
 
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
       import cloudflare_dns
-      import tailscale_auth
-      reverse_proxy 127.0.0.1:${toString myCfg.port}
+
+      # /ping: reverse proxy to / and return its status code
+      handle_path /ping {
+        reverse_proxy localhost:${toString myCfg.port} {
+          handle_response {
+            respond "{rp.status_code}"
+          }
+        }
+      }
+
+      handle {
+        import tailscale_auth
+        reverse_proxy 127.0.0.1:${toString myCfg.port}
+      }
     '';
     services.ddclient.domains = [myCfg.domain];
     my.caddy.firewalledPorts = [myCfg.port];
