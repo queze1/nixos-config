@@ -41,7 +41,7 @@ in {
     my.openssh.enable = true;
     my.tailscale = {
       enable = true;
-      autoAuth = true;
+      useAuthKey = true;
       openSSHOnTailscale = true;
     };
 

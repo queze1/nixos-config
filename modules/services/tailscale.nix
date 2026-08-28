@@ -7,7 +7,7 @@
 in {
   options.my.tailscale = {
     enable = lib.mkEnableOption "Tailscale";
-    autoAuth = lib.mkEnableOption "automatic authentication using a Tailscale auth key";
+    useAuthKey = lib.mkEnableOption "using an auth key";
     setHostname = lib.mkEnableOption "explicitly setting the Tailscale hostname to the hostname defined in Nix";
     openSSHOnTailscale = lib.mkEnableOption "opening OpenSSH ports on the Tailscale interface";
   };
@@ -15,11 +15,11 @@ in {
   config = lib.mkIf cfg.enable {
     services.tailscale = {
       enable = true;
-      authKeyFile = lib.mkIf cfg.autoAuth config.sops.secrets.tailscale-auth-key.path;
+      authKeyFile = lib.mkIf cfg.useAuthKey config.sops.secrets.tailscale-auth-key.path;
       extraUpFlags = lib.mkIf cfg.setHostname ["--hostname=${config.networking.hostName}"];
     };
 
-    sops.secrets = lib.mkIf cfg.autoAuth {
+    sops.secrets = lib.mkIf cfg.useAuthKey {
       tailscale-auth-key = {};
     };
 
