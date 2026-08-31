@@ -10,11 +10,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1788138792,
-        "narHash": "sha256-Os/z3Nqh2amx3tCyrFyMvetagTB471NYQPdAEocws1k=",
+        "lastModified": 1788143230,
+        "narHash": "sha256-37A4eWuOZ0FobPnpavcpRueunxjrPFTPqpMvHTFU08M=",
         "owner": "queze1",
         "repo": "ark-rp-visualisation",
-        "rev": "dfd32255f974ef4c8d25ea26d3ad4f0e0ddf3f17",
+        "rev": "4966c7ef8986be853df59b658417342747d29aab",
         "type": "github"
       },
       "original": {
