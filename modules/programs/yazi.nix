@@ -27,13 +27,14 @@ in {
             opener = {
               imv = [
                 {
-                  run = ''imv -n "$1" .'';
+                  run = ''${lib.getExe pkgs.imv} -n %s1 %d1'';
+                  block = true;
                   desc = "View image in imv";
                 }
               ];
               pinta = [
                 {
-                  run = ''pinta "$1"'';
+                  run = ''${lib.getExe pkgs.pinta} %s'';
                   desc = "Edit image with pinta";
                 }
               ];
