@@ -67,6 +67,7 @@ in {
                 { key = { "l", "b" }, path = "~/.local/bin",              desc = "Local bin"      },
                 { key = { "l", "t" }, path = "~/.local/state",            desc = "Local state"    },
                 { key = "C",          path = "~/Coding",                  desc = "Coding"         },
+                { key = "N",          path = "~/etc/nixos",               desc = "NixOS config"   },
                 { key = "m",          path = "${cfg.music}",              desc = "Music"          },
                 { key = "d",          path = "${cfg.download}",           desc = "Downloads"      },
                 { key = "D",          path = "${cfg.documents}",          desc = "Documents"      },
