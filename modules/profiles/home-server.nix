@@ -42,7 +42,7 @@ in {
     my.tailscale = {
       enable = true;
       useAuthKey = true;
-      openSSHOnTailscale = true;
+      openSSHOnlyOnTailscale = true;
     };
 
     # Nix-related config

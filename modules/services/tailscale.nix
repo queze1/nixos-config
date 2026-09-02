@@ -9,7 +9,7 @@ in {
     enable = lib.mkEnableOption "Tailscale";
     useAuthKey = lib.mkEnableOption "using an auth key";
     setHostname = lib.mkEnableOption "explicitly setting the Tailscale hostname to the hostname defined in Nix";
-    openSSHOnTailscale = lib.mkEnableOption "opening OpenSSH ports on the Tailscale interface";
+    openSSHOnlyOnTailscale = lib.mkEnableOption "allowing OpenSSH access only through the Tailscale interface";
   };
 
   config = lib.mkIf cfg.enable {
@@ -23,8 +23,8 @@ in {
       tailscale-auth-key = {};
     };
 
-    services.openssh.openFirewall = lib.mkIf cfg.openSSHOnTailscale false;
-    networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = lib.mkIf cfg.openSSHOnTailscale config.services.openssh.ports;
+    services.openssh.openFirewall = lib.mkIf cfg.openSSHOnlyOnTailscale false;
+    networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = lib.mkIf cfg.openSSHOnlyOnTailscale config.services.openssh.ports;
 
     # Preserve Tailscale data
     my.preservation.extraDirectories = [
