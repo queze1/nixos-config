@@ -36,6 +36,7 @@ in {
       pihole.enable = true;
       restic-server.enable = true;
       sillytavern.enable = true;
+      # open-webui.enable = true;
     };
 
     # To deploy to VPS without building on target
