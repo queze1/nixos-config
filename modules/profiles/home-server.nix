@@ -12,8 +12,8 @@
 in {
   options.my.profiles.home-server.enable = lib.mkEnableOption "home server profile";
 
+  # Base configuration for home servers
   config = lib.mkIf cfg.enable {
-    # Base configuration for home servers
     # System config
     my.boot = {
       systemdBoot.enable = true;
@@ -38,11 +38,14 @@ in {
     # Services
     my.beszel-agent.enable = true;
     my.fwupd.enable = true;
-    my.openssh.enable = true;
+    my.openssh = {
+      enable = true;
+      openFirewall = false;
+    };
     my.tailscale = {
       enable = true;
       useAuthKey = true;
-      openSSHOnlyOnTailscale = true;
+      extraUpFlags = ["--ssh"];
     };
 
     # Nix-related config
