@@ -51,10 +51,57 @@
           pkgs.calibre
         ];
         text = ''
-          BLOG_DIR="''${1:?Usage: $0 <backup_dir> [title] [author] [output.azw3]}"
-          TITLE="''${2:?Usage: $0 <backup_dir> [title] [author] [output.azw3]}"
-          AUTHOR="''${3:?Usage: $0 <backup_dir> [title] [author] [output.azw3]}"
-          OUT="''${4:?Usage: $0 <backup_dir> [title] [author] [output.azw3]}"
+          usage() {
+            echo "Usage: $0 <backup_dir> <title> <author> <output.azw3> [--begin YYYY-MM] [--end YYYY-MM]"
+          }
+
+          BEGIN=""
+          END=""
+          POSITIONAL=()
+
+          while [ "$#" -gt 0 ]; do
+            case "$1" in
+              --begin)
+                BEGIN="''${2:?Error: --begin requires a YYYY-MM value}"
+                shift 2
+                ;;
+              --end)
+                END="''${2:?Error: --end requires a YYYY-MM value}"
+                shift 2
+                ;;
+              --help)
+                usage
+                exit 0
+                ;;
+              *)
+                POSITIONAL+=("$1")
+                shift
+                ;;
+            esac
+          done
+
+          [ "''${#POSITIONAL[@]}" -eq 4 ] || {
+            usage >&2
+            exit 1
+          }
+
+          BLOG_DIR="''${POSITIONAL[0]}"
+          TITLE="''${POSITIONAL[1]}"
+          AUTHOR="''${POSITIONAL[2]}"
+          OUT="''${POSITIONAL[3]}"
+
+          [[ -z "$BEGIN" || "$BEGIN" =~ ^[0-9]{4}-[0-9]{2}$ ]] || {
+            echo "Error: --begin must be in YYYY-MM format." >&2
+            exit 1
+          }
+          [[ -z "$END" || "$END" =~ ^[0-9]{4}-[0-9]{2}$ ]] || {
+            echo "Error: --end must be in YYYY-MM format." >&2
+            exit 1
+          }
+          [[ -z "$BEGIN" || -z "$END" || "$BEGIN" < "$END" || "$BEGIN" == "$END" ]] || {
+            echo "Error: --begin must not be after --end." >&2
+            exit 1
+          }
 
           ARCHIVE_DIR="$BLOG_DIR/archive"
           COMBINED="$BLOG_DIR/_combined.html"
@@ -69,10 +116,15 @@
           {
             printf '<html><head><meta charset="utf-8"><title>%s</title></head><body>\n' "$TITLE"
             while IFS= read -r f; do
+              filename="''${f##*/}"
+              month="''${filename:0:7}"
+              if { [ -n "$BEGIN" ] && [[ "$month" < "$BEGIN" ]]; } || { [ -n "$END" ] && [[ "$month" > "$END" ]]; }; then
+                continue
+              fi
               printf '<div class="pagebreak">\n'
               sed -e 's:\.\./media:media:g' -e 's:\.\./backup:backup:g' "$f"
               printf '</div>\n'
-            done < <(find "$ARCHIVE_DIR" -maxdepth 1 -name '*.html' | sort)
+            done < <(find "$ARCHIVE_DIR" -maxdepth 1 -name '????-??-p*.html' | sort)
             printf '</body></html>\n'
           } > "$COMBINED"
 
