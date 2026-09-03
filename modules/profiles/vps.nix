@@ -8,14 +8,20 @@
   cfg = config.my.profiles.vps;
   sshKeys = import "${self}/ssh-keys.nix";
 in {
-  options.my.profiles.vps.enable = lib.mkEnableOption "VPS profile";
+  options.my.profiles.vps = {
+    enable = lib.mkEnableOption "VPS profile";
+    bootstrap = lib.mkEnableOption "settings useful for bootstrapping";
+  };
 
   config = lib.mkIf cfg.enable {
     # Secret management
     my.sops.enable = true;
 
     # Services
-    my.openssh.enable = true;
+    my.openssh = {
+      enable = true;
+      openFirewall = cfg.bootstrap;
+    };
     my.tailscale = {
       enable = true;
       useAuthKey = true;
@@ -56,7 +62,6 @@ in {
         options = "--delete-old";
       };
     };
-
     my.localisation.enable = true;
 
     system.stateVersion = "26.05";
