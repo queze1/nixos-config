@@ -10,7 +10,10 @@
   hostname = config.networking.hostName;
   sshKeys = import "${self}/ssh-keys.nix";
 in {
-  options.my.profiles.home-server.enable = lib.mkEnableOption "home server profile";
+  options.my.profiles.home-server = {
+    enable = lib.mkEnableOption "home server profile";
+    bootstrap = lib.mkEnableOption "settings useful for bootstrapping";
+  };
 
   # Base configuration for home servers
   config = lib.mkIf cfg.enable {
@@ -40,7 +43,7 @@ in {
     my.fwupd.enable = true;
     my.openssh = {
       enable = true;
-      # openFirewall = false;
+      openFirewall = cfg.bootstrap;
     };
     my.tailscale = {
       enable = true;
@@ -75,6 +78,7 @@ in {
     my.users.commander.enable = true;
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
     security.sudo.wheelNeedsPassword = false;
+    services.getty.autologinUser = lib.mkIf cfg.bootstrap "root"; # autologin if bootstrapping
 
     # Don't sleep on lid close
     services.logind.settings.Login = {

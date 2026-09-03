@@ -34,9 +34,6 @@ nix run .#install -- <target-machine-ip> <hostname> [nixos-facter path]
 
 # configure secrets when prompted
 ```
-5. For home servers:
-  - If internet doesn't work, run `nmtui`.
-  - Remove `services.getty.autologinUser = "root"` if you set it for convenience.
 
 ## Project Structure
 flake-parts for flake outputs, every nixosConfiguration does an import-tree on /modules, uses my.* options to toggle modules.
