@@ -40,7 +40,7 @@ in {
     my.fwupd.enable = true;
     my.openssh = {
       enable = true;
-      openFirewall = false;
+      # openFirewall = false;
     };
     my.tailscale = {
       enable = true;
