@@ -7,11 +7,11 @@
 in {
   # Alias nix.gc and nix.settings under my.nix.*
   imports = [
-    (lib.mkAliasOptionModule ["my" "nix" "gc"] [
-      "nix"
-      "gc"
-    ])
-    (lib.mkAliasOptionModule ["my" "nix" "settings"]
+    (lib.mkAliasOptionModule
+      ["my" "nix" "gc"]
+      ["nix" "gc"])
+    (lib.mkAliasOptionModule
+      ["my" "nix" "settings"]
       ["nix" "settings"])
   ];
 
