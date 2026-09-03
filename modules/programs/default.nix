@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  self,
   ...
 }: let
   cfg = config.my.programs;
@@ -34,6 +35,9 @@ in {
           pkgs.tree
           pkgs.unzip
           pkgs.wl-clipboard
+
+          # Scripts
+          self.packages.${pkgs.stdenv.hostPlatform.system}.tumblr-to-azw3
         ];
 
         programs.btop = {
