@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  tailscale = "${config.services.tailscale.package}/bin/tailscale";
+  tailscale = lib.getExe config.services.tailscale.package;
 in {
   options.my.ddns.enable = lib.mkEnableOption "dynamic DNS";
 

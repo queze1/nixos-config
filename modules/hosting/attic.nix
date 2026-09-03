@@ -29,7 +29,7 @@
       fi
     fi
 
-    exec ${cfg.package}/bin/atticadm -f ${checkedConfigFile} "$@"
+    exec ${lib.getExe' cfg.package "atticadm"} -f ${checkedConfigFile} "$@"
   '';
 
   # Patch to remove DynamicUser from

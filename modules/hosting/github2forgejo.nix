@@ -50,7 +50,7 @@ in {
         pkgs.ncurses
       ];
       serviceConfig = {
-        ExecStart = "${pkgs.bash}/bin/bash ${source}/github-forgejo-migrate.sh";
+        ExecStart = "${lib.getExe pkgs.bash} ${source}/github-forgejo-migrate.sh";
         EnvironmentFile = config.sops.secrets.github2forgejo-env.path;
         Type = "oneshot";
         User = cfg.user;

@@ -9,7 +9,9 @@ in {
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [
-      ({pkgs, ...}: {
+      ({pkgs, ...}: let
+        mogrify = lib.getExe' pkgs.imagemagick "mogrify";
+      in {
         xdg.mimeApps = {
           enable = true;
           defaultApplications = {
@@ -37,8 +39,8 @@ in {
               "<Down>" = "pan 0 -50";
 
               # Rotate with imagemagick
-              "<Shift+R>" = "exec ${pkgs.imagemagick}/bin/mogrify -rotate 90 $imv_current_file";
-              "<Shift+E>" = "exec ${pkgs.imagemagick}/bin/mogrify -rotate -90 $imv_current_file";
+              "<Shift+R>" = "exec ${mogrify} -rotate 90 $imv_current_file";
+              "<Shift+E>" = "exec ${mogrify} -rotate -90 $imv_current_file";
             };
           };
         };

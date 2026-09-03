@@ -6,6 +6,7 @@
   ...
 }: let
   myCfg = config.my.apps.ark-rp-viz;
+  ark-rp-visualisation = inputs.ark-rp-visualisation.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in {
   options.my.apps.ark-rp-viz = {
     enable = lib.mkEnableOption "ARK RP Visualisation";
@@ -59,7 +60,7 @@ in {
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
-        ExecStart = "${inputs.ark-rp-visualisation.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/ark-rp-visualisation";
+        ExecStart = lib.getExe ark-rp-visualisation;
         User = "ark-rp-viz";
         Group = "ark-rp-viz";
         Restart = "always";

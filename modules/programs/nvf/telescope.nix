@@ -23,7 +23,7 @@
             ];
             setupOpts = {
               defaults.vimgrep_arguments = lib.mkForce [
-                "${pkgs.ripgrep}/bin/rg"
+                (lib.getExe pkgs.ripgrep)
                 "--color=never"
                 "--no-heading"
                 "--with-filename"

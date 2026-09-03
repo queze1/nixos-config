@@ -16,7 +16,7 @@ in {
       }: {
         home.packages = [
           (pkgs.writeShellScriptBin "immich-go" ''
-            exec ${pkgs.immich-go}/bin/immich-go \
+            exec ${lib.getExe pkgs.immich-go} \
               --config ${config.sops.templates."immich-go.toml".path} \
               "$@"
           '')

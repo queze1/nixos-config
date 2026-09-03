@@ -26,7 +26,7 @@ in {
           enable = true;
           settings = {
             main = {
-              shell = "${pkgs.fish}/bin/fish";
+              shell = lib.getExe pkgs.fish;
               font = "Liberation Mono:size=12";
             };
             colors-dark = {

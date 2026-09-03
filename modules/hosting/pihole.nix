@@ -114,7 +114,7 @@ in {
       wants = ["pihole-ftl.service"];
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${piholeBackupScript}/bin/pihole-backup";
+        ExecStart = lib.getExe piholeBackupScript;
         User = cfg.user;
       };
     };
