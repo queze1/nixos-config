@@ -54,6 +54,10 @@
       url = "github:queze1/ark-rp-visualisation";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tumblr-utils = {
+      url = "github:queze1/tumblr-utils"; # fork of https://github.com/cebtenzzre/tumblr-utils
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Applications
     noctalia = {

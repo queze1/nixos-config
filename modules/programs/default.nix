@@ -27,6 +27,7 @@ in {
 
           # CLI tools
           inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
+          inputs.tumblr-utils.packages.${pkgs.stdenv.hostPlatform.system}.default
           pkgs.ncdu
           pkgs.npins
           pkgs.sops
