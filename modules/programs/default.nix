@@ -37,7 +37,7 @@ in {
           pkgs.wl-clipboard
 
           # Scripts
-          self.packages.${pkgs.stdenv.hostPlatform.system}.tumblr-to-azw3
+          self.packages.${pkgs.stdenv.hostPlatform.system}.tumblr-to-ebook
         ];
 
         programs.btop = {
