@@ -5,6 +5,13 @@
 }: let
   cfg = config.my.openssh;
 in {
+  # Alias services.openssh.openFirewall under my.openssh.*
+  imports = [
+    (lib.mkAliasOptionModule
+      ["my" "openssh" "openFirewall"]
+      ["services" "openssh" "openFirewall"])
+  ];
+
   options.my.openssh.enable = lib.mkEnableOption "OpenSSH";
 
   config = lib.mkIf cfg.enable {
