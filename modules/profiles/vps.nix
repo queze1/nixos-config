@@ -41,9 +41,7 @@ in {
     ];
 
     # Allow SSH into root
-    users.users.root.openssh.authorizedKeys.keys = [
-      sshKeys.ableArcherKey
-    ];
+    users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
 
     zramSwap = {
       enable = true;
