@@ -64,7 +64,7 @@ in {
     my.users.${mainUser}.enable = true;
 
     # Personalisation
-    my.shellAliases.enable = true;
+    my.shortcuts.enable = true;
     my.editor.vim.enable = true;
 
     # Nix-related config
