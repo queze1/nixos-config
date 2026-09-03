@@ -48,7 +48,7 @@ in {
     my.tailscale = {
       enable = true;
       useAuthKey = true;
-      extraUpFlags = ["--ssh"];
+      extraUpFlags = ["--ssh"]; # use Tailscale SSH
     };
 
     # Nix-related config
