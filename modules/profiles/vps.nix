@@ -13,16 +13,19 @@ in {
   config = lib.mkIf cfg.enable {
     # Secret management
     my.sops.enable = true;
-    my.deployment.system-puller.enable = true;
 
     # Services
-    my.beszel-agent.enable = true;
     my.openssh.enable = true;
     my.tailscale = {
       enable = true;
       useAuthKey = true;
       setHostname = true;
+      extraUpFlags = ["--ssh"];
     };
+    my.deployment.system-puller.enable = true;
+
+    # Monitoring
+    my.beszel-agent.enable = true;
 
     # Helper programs
     environment.systemPackages = with pkgs; [
