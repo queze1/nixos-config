@@ -5,7 +5,6 @@
 }: let
   cfg = config.my.tailscale;
 in {
-  # Alias services.tailscale.extraUpFlags under my.tailscale.*
   imports = [
     (lib.mkAliasOptionModule
       ["my" "tailscale" "extraUpFlags"]

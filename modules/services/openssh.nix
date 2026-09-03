@@ -5,7 +5,6 @@
 }: let
   cfg = config.my.openssh;
 in {
-  # Alias services.openssh.openFirewall under my.openssh.*
   imports = [
     (lib.mkAliasOptionModule
       ["my" "openssh" "openFirewall"]
