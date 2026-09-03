@@ -38,6 +38,7 @@
         fi
       '';
 
+      # install: Bootstrap a machine with nixos-anywhere
       install = pkgs.writeShellApplication {
         name = "install";
         runtimeInputs = [
