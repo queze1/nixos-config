@@ -11,7 +11,6 @@ in {
   # ThinkPad home server
   config = lib.mkIf cfg.enable {
     my.profiles.home-server.enable = true;
-    my.profiles.home-server.bootstrap = true;
 
     # Ingress & routing
     my.ddns.enable = true;
