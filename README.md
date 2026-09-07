@@ -11,11 +11,13 @@ Uptime tracker: [https://uptime.osipol.uk/](https://uptime.osipol.uk/)
 - Terminal: [foot](https://codeberg.org/dnkl/foot)
 - Shell: [Fish](https://fishshell.com/)
 
-## Features
-- [sops-nix](https://github.com/Mic92/sops-nix) - To securely manage secrets.
-- [nixos-anywhere](https://github.com/nix-community/nixos-anywhere) - To remotely install NixOS with a single CLI command.
-- [disko](https://github.com/nix-community/disko) - For declarative disk management.
-- [preservation](https://github.com/nix-community/preservation) - For an ephemeral root setup.
+# Features
+- Hosts multiple services including a password management server ([Vaultwarden](https://github.com/dani-garcia/vaultwarden)), music server ([Navidrome](https://www.navidrome.org/)), and Nix binary cache ([attic](https://github.com/zhaofengli/attic)).
+- Pull-based deployment with [comin](https://github.com/nlewo/comin) and GitHub Actions.
+- Secret management with [sops-nix](https://github.com/Mic92/sops-nix).
+- Automated backups with [Restic](https://restic.net/).
+- Uptime monitoring with [Gatus](https://gatus.io).
+- System monitoring with [Beszel](https://www.beszel.dev/).
 
 ## Installation
 1. Build the custom ISO and burn it onto a USB with `nix run github:queze1/nixos-config#burn-iso-image`.
@@ -34,6 +36,12 @@ nix run .#install -- <target-machine-ip> <hostname> [nixos-facter path]
 
 # configure secrets when prompted
 ```
+
+## CI/CD
+1. [nixbuild GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/nixbuild.yml) builds NixOS configurations on [nixbuild.net](https://nixbuild.net/). If the build succeeds, fast-forwards the `deployed` branch to `main`.
+2. [comin](https://github.com/nlewo/comin/) periodically pings the `deployed` branch. On a new commit, it pulls the branch, builds its NixOS configuration, and switches.
+3. The [Build VPS Toplevels](https://github.com/queze1/nixos-config/blob/main/.github/workflows/build-vps-toplevels.yml) GitHub action builds the NixOS configurations of VPSes, pushes them to a self-hosted [Attic](https://github.com/zhaofengli/attic) binary cache, and creates a GitHub release with their store paths. The [system-puller](https://github.com/queze1/nixos-config/blob/main/modules/deployment/system-puller.nix) systemd service periodically polls the latest GitHub release. When a new NixOS configuration is published, it will fetch its system closure from the binary cache and switch to it.
+4. On an automated flake update pull request, a [GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/build.yml) builds all NixOS configurations on GitHub runners and pushes the results to the binary cache.
 
 ## Project Structure
 flake-parts for flake outputs, every nixosConfiguration does an import-tree on /modules, uses my.* options to toggle modules.
@@ -79,8 +87,3 @@ flake-parts for flake outputs, every nixosConfiguration does an import-tree on /
 └── templates                      # flake templates
 ```
 
-## CI/CD
-1. [nixbuild GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/nixbuild.yml) builds NixOS configurations on [nixbuild.net](https://nixbuild.net/). If the build succeeds, fast-forwards the `deployed` branch to `main`.
-2. [comin](https://github.com/nlewo/comin/) periodically pings the `deployed` branch. On a new commit, it pulls the branch, builds its NixOS configuration, and switches.
-3. The [Build VPS Toplevels](https://github.com/queze1/nixos-config/blob/main/.github/workflows/build-vps-toplevels.yml) GitHub action builds the NixOS configurations of VPSes, pushes them to a self-hosted [Attic](https://github.com/zhaofengli/attic) binary cache, and creates a GitHub release with their store paths. The [system-puller](https://github.com/queze1/nixos-config/blob/main/modules/deployment/system-puller.nix) systemd service periodically polls the latest GitHub release. When a new NixOS configuration is published, it will fetch its system closure from the binary cache and switch to it.
-4. On an automated flake update pull request, a [GitHub Action](https://github.com/queze1/nixos-config/blob/main/.github/workflows/build.yml) builds all NixOS configurations on GitHub runners and pushes the results to the binary cache.
