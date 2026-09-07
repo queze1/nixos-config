@@ -18,8 +18,7 @@ beneath `modules/`.
   modules; `modules/vm/` provides VM targets; and `constants.nix` contains
   shared constants. Every module is imported. Each module must expose a
   `my.*` toggle that defaults to disabled.
-- `assets/` holds static desktop assets and themes; `templates/flake/` is the
-  default flake template. Root-level `ssh-keys.nix` contains public SSH keys.
+- `templates/flake/` is the default flake template. Root-level `ssh-keys.nix` contains public SSH keys.
 
 ## Reference tools
 
