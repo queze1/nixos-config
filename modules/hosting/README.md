@@ -42,19 +42,3 @@ A "typical" private service looks like:
   - NOTE: ["Podman accepts but does not forward ipv6 traffic in rootless mode by default"](https://github.com/podman-container-tools/podman/issues/25674)
     - Reverse proxy to `127.0.0.1` instead of `localhost` for Podman containers.
 
-# Overview
-- Actual Budget 
-- Ark RP Visualisation - Public service, uses Cloudflare Tunnel.
-- Garage - Unused.
-- Music services - All use `music` group to share access to `/srv/music`
-  - Navidrome 
-  - MeTube - Uses rootless Podman container.
-  - Yubal - Uses rootless Podman container.
-  - Picard (on Docker)  - Uses rootless Podman container.
-- Pi-Hole - Opens port 53 on Tailscale for DNS. Runs custom backup script daily to dump Teleporter backup. No `tailscale-nginx-auth` (Pi-Hole handles its own auth).
-- rest-server - Runs in append-only mode.
-- SillyTavern
-- Vaultwarden - Password manager.
-- Gatus - Uptime tracker.
-- Bezsel  - System usage tracker.
-- Forgejo - GitHub repository mirror.
