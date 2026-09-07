@@ -33,13 +33,12 @@ in {
 
         home.file.profilePicture = {
           target = "${config.home.homeDirectory}/.face";
-          # Use relative path instead of ${self} to avoid reevaluating
-          source = ../../../assets/pfp.png;
+          source = "${inputs.secrets}/assets/pfp.png";
         };
 
         home.file.".cache/noctalia/wallpapers.json" = {
           text = builtins.toJSON {
-            defaultWallpaper = ../../../assets/laine-chinensy-temptation-v6.png;
+            defaultWallpaper = "${inputs.secrets}/assets/laine-chinensy-temptation-v6.png";
           };
         };
 

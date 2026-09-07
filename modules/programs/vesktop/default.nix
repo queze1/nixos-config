@@ -1,12 +1,13 @@
 {
   config,
+  inputs,
   lib,
-  self,
   ...
 }: let
   cfg = config.my.programs.vesktop;
-  # Dynamically find themes in assets/themes
-  themesDir = "${self}/assets/themes";
+
+  # Dynamically find themes in secrets repo
+  themesDir = "${inputs.secrets}/assets/themes";
   themeDirContents = builtins.readDir themesDir;
 
   themeNames =
