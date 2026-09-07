@@ -2,7 +2,7 @@
 
 My personal NixOS config. I do things on my computer and self-host stuff.
 
-Uptime tracker: [https://uptime.osipol.uk/](https://uptime.osipol.uk/)
+**Uptime tracker:** [https://uptime.osipol.uk/](https://uptime.osipol.uk/)
 
 ## Software
 - Window manager: [niri](https://github.com/niri-wm/niri)
