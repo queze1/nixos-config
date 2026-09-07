@@ -1,20 +1,21 @@
 # WIP DOCS
 Most services are intended to be private.
+
 This means they should only allow the path:
 1. I (i.e. my machine, on my Tailnet) go to a human-readable HTTPS url.
 2. Service authenticates me and responds.
 
-In practice, steps look like:
+For a private web service, this looks like:
 1. Cloudflare DNS (e.g. [yubal.osipol.uk/](https://yubal.osipol.uk/)) points to a Tailscale IP (e.g. 100.68.90.10).
   - `ddns.nix` keeps the DNS record pointing to the machine running the service.
-  - Caddy Cloudflare DNS plugin handles DNS chalenge.
-  - Clients attempting to access the URL from the public internet are blocked here.
+  - Caddy Cloudflare DNS plugin handles DNS challenge.
+  - Clients from the public internet are blocked as Tailscale IP addresses are unreachable from the public internet.
 2. Client attempts to access the host, typically on port 443.
   - Ports 80 and 443 are open only on Tailscale, blocking connections from LAN.
   - Tailscale ACL is configured to block by default for devices not in `autogroup:owner` (i.e. my laptop and 2 phones) by default, with exceptions added where needed (e.g. port 443). 
-3. Caddy authenticates incoming requests and redirects them to the correct service.
-  - No service ports are opened (e.g. `8000`), since clients should not be able to bypass Caddy.
-  - To prevent local processes from bypassing Caddy, Unix sockets are used wherever possible, but where they are not, a firewall in `caddy.nix` is used to block outgoing connections to service ports, unless they are from the Caddy user.
+3. Caddy redirects incoming requests them to the correct service.
+  - Proxied service ports are not exposed externally, so clients cannot bypass Caddy.
+  - To prevent local processes from bypassing Caddy, Unix sockets are used wherever possible, but where they are not, a firewall in `caddy.nix` is used to block TCP connections in loopback to service ports, unless they are from the Caddy user.
   - Services which servers do not need to access use `tailscale-nginx-auth` for authentication.
     - NOTE: `tailscale-nginx-auth` automatically blocks tagged devices, so this cannot be used for services such as `rest-server`, which servers access.
 4. Service receives the request and responds.
@@ -41,4 +42,8 @@ A "typical" private service looks like:
   - Add the domain to `ddclient`.
   - NOTE: ["Podman accepts but does not forward ipv6 traffic in rootless mode by default"](https://github.com/podman-container-tools/podman/issues/25674)
     - Reverse proxy to `127.0.0.1` instead of `localhost` for Podman containers.
+
+Public services use Cloudflare Tunnel for ingress.
+
+Pi-Hole DNS opens port 53 and listens on the Tailscale interface only.
 
