@@ -9,5 +9,6 @@ in {
     nixpkgs = inputs.nixpkgs-stable;
     system = "x86_64-linux";
     modules = [{my.hosts.steadfast-defender.enable = true;}];
+    extraPkgs.pkgs-unstable = inputs.nixpkgs;
   };
 }

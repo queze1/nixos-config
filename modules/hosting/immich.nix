@@ -1,6 +1,8 @@
 {
   config,
   lib,
+  pkgs,
+  pkgs-unstable,
   ...
 }: let
   cfg = config.services.immich;
@@ -21,8 +23,16 @@ in {
   };
 
   config = lib.mkIf myCfg.enable {
+    assertions = [
+      {
+        assertion = (pkgs.immich.meta.knownVulnerabilities or []) != [];
+        message = "Immich in stable branch has no known vulnerabilities, use that instead of unstable";
+      }
+    ];
+
     services.immich = {
       enable = true;
+      package = pkgs-unstable.immich; # use unstable branch as Immich in stable is insecure
       host = "127.0.0.1";
       port = myCfg.port;
       settings.server.externalDomain = "https://${myCfg.domain}";
