@@ -11,13 +11,44 @@ My personal NixOS config. I do things on my computer and self-host stuff.
 - Terminal: [foot](https://codeberg.org/dnkl/foot)
 - Shell: [Fish](https://fishshell.com/)
 
-# Features
+## Features
 - Hosts multiple services including a password management server ([Vaultwarden](https://github.com/dani-garcia/vaultwarden)), music server ([Navidrome](https://www.navidrome.org/)), and Nix binary cache ([attic](https://github.com/zhaofengli/attic)).
 - Pull-based deployment with [comin](https://github.com/nlewo/comin) and GitHub Actions.
 - Secret management with [sops-nix](https://github.com/Mic92/sops-nix).
 - Automated backups with [Restic](https://restic.net/).
 - Uptime monitoring with [Gatus](https://gatus.io).
 - System monitoring with [Beszel](https://www.beszel.dev/).
+
+## Showcase
+<details open>
+<summary>Home servers</summary>
+<br>
+
+<img src="assets/home-servers.jpg" alt="My two home servers" width="600">
+
+</details>
+
+<details>
+<summary>Gatus</summary>
+
+<br>
+
+<img src="assets/gatus-08-09-2026.png" alt="Gatus uptime dashboard" width="600">
+<img src="assets/gatus2-08-09-2026.png" alt="Gatus uptime dashboard (page 2)" width="600">
+
+</details>
+
+<details>
+<summary>Beszel</summary>
+
+<br>
+
+<img src="assets/beszel-2026-09-08.png" alt="Beszel system monitoring dashboard (all systems)" width="600">
+<img src="assets/beszel2-2026-09-08.png" alt="Beszel system monitoring dashboard (steadfast-dart)" width="600">
+<img src="assets/beszel3-2026-09-08.png" alt="Beszel system monitoring dashboard (steadfast-dart page 2)" width="600">
+<img src="assets/beszel4-2026-09-08.png" alt="Beszel system monitoring dashboard (steadfast-dart page 3)" width="600">
+
+</details>
 
 ## Installation
 1. Build the custom ISO and burn it onto a USB with `nix run github:queze1/nixos-config#burn-iso-image`.
