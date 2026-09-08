@@ -24,7 +24,7 @@ My personal NixOS config. I do things on my computer and self-host stuff.
 <summary>Home servers</summary>
 <br>
 
-<img src="assets/home-servers.jpg" alt="My two home servers" width="600">
+<img src="docs/home-servers.jpg" alt="My two home servers" width="600">
 <blockquote>
   My two home servers (from left: <em>steadfast-defender</em>, <em>steadfast-dart</em>).
 </blockquote>
@@ -37,7 +37,7 @@ My personal NixOS config. I do things on my computer and self-host stuff.
 
 <br>
 
-<img src="assets/gatus-08-09-2026.png" alt="Gatus uptime dashboard" width="600">
+<img src="docs/gatus-08-09-2026.png" alt="Gatus uptime dashboard" width="600">
 <blockquote>
   Screenshot of <a href="https://uptime.osipol.uk">uptime.osipol.uk</a> (as of 08/09/2026)
 </blockquote>
@@ -49,12 +49,12 @@ My personal NixOS config. I do things on my computer and self-host stuff.
 
 <br>
 
-<img src="assets/beszel-2026-09-08.png" alt="Beszel server monitoring dashboard (all systems)" width="600">
+<img src="docs/beszel-2026-09-08.png" alt="Beszel server monitoring dashboard (all systems)" width="600">
 <blockquote>
   Server overview.
 </blockquote>
 
-<img src="assets/beszel2-2026-09-08.png" alt="Beszel server monitoring dashboard (steadfast-dart)" width="600">
+<img src="docs/beszel2-2026-09-08.png" alt="Beszel server monitoring dashboard (steadfast-dart)" width="600">
 <blockquote>
   View for a single server.
 </blockquote>
@@ -90,7 +90,7 @@ flake-parts for flake outputs, every nixosConfiguration does an import-tree on /
 ```
 .
 ├── flake.nix                      # imports everything in /outputs
-├── assets                         # assets for README.md
+├── docs                           # assets for README.md
 ├── modules
 │   ├── constants.nix
 │   ├── deployment                 # deployment tooling (e.g. comin)
