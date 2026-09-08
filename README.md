@@ -38,13 +38,14 @@ My personal NixOS config. I do things on my computer and self-host stuff.
 </details>
 
 <details>
-<summary>System monitoring dashboard</summary>
+<summary>Server monitoring</summary>
 
 <br>
 
-<img src="assets/beszel-2026-09-08.png" alt="Beszel system monitoring dashboard (all systems)" width="600">
-<p>Overview of all systems.</p>
-<img src="assets/beszel2-2026-09-08.png" alt="Beszel system monitoring dashboard (steadfast-dart)" width="600">
+<img src="assets/beszel-2026-09-08.png" alt="Beszel server monitoring dashboard (all systems)" width="600">
+<p><em>Overview of all servers.</em></p>
+<img src="assets/beszel2-2026-09-08.png" alt="Beszel server monitoring dashboard (steadfast-dart)" width="600">
+<p><em>View of steadfast-dart.</em></p>
 
 </details>
 
