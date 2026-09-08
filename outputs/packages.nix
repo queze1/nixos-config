@@ -1,13 +1,13 @@
 {inputs, ...}: {
   perSystem = {pkgs, ...}: {
-    packages.filebrowser-quantum = pkgs.buildGoModule (let
+    packages.filebrowser-quantum = pkgs.buildGo127Module (let
       version = "unstable-${inputs.filebrowser-quantum.lastModifiedDate}";
       frontend = pkgs.buildNpmPackage {
         pname = "filebrowser-quantum-frontend";
         inherit version;
         src = inputs.filebrowser-quantum;
         sourceRoot = "source/frontend";
-        npmDepsHash = "sha256-9UMr7Lm2Z0NSmeFdYEoeUo0/ASzWGke5swAOyyecV30=";
+        npmDepsHash = "sha256-pF524vtMXXmgmgncKD84yUVJhPVX/fqMQmdBACfsG/Q=";
         postPatch = ''
           chmod -R u+w ../backend
         '';
@@ -22,7 +22,7 @@
       src = inputs.filebrowser-quantum;
 
       sourceRoot = "source/backend";
-      vendorHash = "sha256-d0YY7FovQeMlxoNL1wz2pSiWeGd3l05L6MOSuX0FT4U=";
+      vendorHash = "sha256-GfeKD/VtUfp2ld3irRkBxGWO2ixcuU0ODjtwgzGFOv8=";
       subPackages = ["."];
       doCheck = false;
       nativeBuildInputs = [pkgs.makeWrapper];
