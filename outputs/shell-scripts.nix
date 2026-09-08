@@ -14,7 +14,7 @@
           pkgs.coreutils
           pkgs.findutils
           pkgs.gnused
-          pkgs.calibre
+          pkgs.calibre-no-speech
         ];
         text = ''
           usage() {
