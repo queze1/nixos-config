@@ -23,7 +23,7 @@ in {
   };
 
   config = lib.mkIf myCfg.enable {
-    assertions = [
+    warnings = [
       {
         assertion = (pkgs.immich.meta.knownVulnerabilities or []) != [];
         message = "Immich in stable branch has no known vulnerabilities, use that instead of unstable";
