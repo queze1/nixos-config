@@ -2,7 +2,7 @@
 
 My personal NixOS config. I do things on my computer and self-host stuff.
 
-**Uptime tracker:** [https://uptime.osipol.uk/](https://uptime.osipol.uk/)
+Uptime tracker: [https://uptime.osipol.uk/](https://uptime.osipol.uk/)
 
 ## Software
 - Window manager: [niri](https://github.com/niri-wm/niri)
@@ -19,14 +19,14 @@ My personal NixOS config. I do things on my computer and self-host stuff.
 - Uptime monitoring with [Gatus](https://gatus.io).
 - System monitoring with [Beszel](https://www.beszel.dev/).
 
-## Showcase
+## Gallery
 <details open>
 <summary>Home servers</summary>
 <br>
 
 <img src="docs/home-servers.jpg" alt="My two home servers" width="600">
 <blockquote>
-  My two home servers (from left: <em>steadfast-defender</em>, <em>steadfast-dart</em>).
+  My two home servers (from left: <em>steadfast-defender</em>, <em>steadfast-dart</em>), as of September 2026.
 </blockquote>
 
   
@@ -51,12 +51,12 @@ My personal NixOS config. I do things on my computer and self-host stuff.
 
 <img src="docs/beszel-2026-09-08.png" alt="Beszel server monitoring dashboard (all systems)" width="600">
 <blockquote>
-  Server overview.
+  Server overview (as of 08/09/2026).
 </blockquote>
 
 <img src="docs/beszel2-2026-09-08.png" alt="Beszel server monitoring dashboard (steadfast-dart)" width="600">
 <blockquote>
-  View for a single server.
+  View for a single server (as of 08/09/2026).
 </blockquote>
 
 </details>
