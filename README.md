@@ -29,24 +29,22 @@ My personal NixOS config. I do things on my computer and self-host stuff.
 </details>
 
 <details>
-<summary>Gatus</summary>
+<summary>Uptime dashboard</summary>
 
 <br>
 
 <img src="assets/gatus-08-09-2026.png" alt="Gatus uptime dashboard" width="600">
-<img src="assets/gatus2-08-09-2026.png" alt="Gatus uptime dashboard (page 2)" width="600">
 
 </details>
 
 <details>
-<summary>Beszel</summary>
+<summary>System monitoring dashboard</summary>
 
 <br>
 
 <img src="assets/beszel-2026-09-08.png" alt="Beszel system monitoring dashboard (all systems)" width="600">
+<p>Overview of all systems.</p>
 <img src="assets/beszel2-2026-09-08.png" alt="Beszel system monitoring dashboard (steadfast-dart)" width="600">
-<img src="assets/beszel3-2026-09-08.png" alt="Beszel system monitoring dashboard (steadfast-dart page 2)" width="600">
-<img src="assets/beszel4-2026-09-08.png" alt="Beszel system monitoring dashboard (steadfast-dart page 3)" width="600">
 
 </details>
 
