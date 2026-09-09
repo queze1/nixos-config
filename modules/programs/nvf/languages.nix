@@ -21,15 +21,9 @@
           languages = {
             clang.enable = true;
             go.enable = true;
-            java.enable = true;
             markdown = {
               enable = true;
               extensions.render-markdown-nvim.enable = true;
-            };
-            make = {
-              enable = true;
-              format.enable = true;
-              extraDiagnostics.enable = true;
             };
             nix = {
               enable = true;
