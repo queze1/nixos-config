@@ -2,9 +2,6 @@ result
 *.qcow2
 .Trash-1000
 
-# Used by install.sh to temporarily store private keys before they are bootstrapped with secrets
-.tmp
-
 # Devenv
 .devenv*
 devenv.local.nix
