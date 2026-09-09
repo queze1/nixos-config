@@ -20,6 +20,7 @@
         programs.nvf.settings.vim = {
           languages = {
             clang.enable = true;
+            go.enable = true;
             java.enable = true;
             markdown = {
               enable = true;
