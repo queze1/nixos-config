@@ -15,6 +15,10 @@ in {
     my.cloudflared.enable = true;
     my.apps.gatus.enable = true;
 
+    system.activationScripts.test-message.text = ''
+      echo "Test deployment successful"
+    '';
+
     networking.hostName = "mirage-red";
   };
 }
