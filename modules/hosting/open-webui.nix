@@ -10,7 +10,7 @@ in {
     enable = lib.mkEnableOption "Open WebUI";
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "openwebui.osipol.uk";
+      default = "open-webui.osipol.uk";
       description = "Domain to host Open WebUI on.";
     };
     port = lib.mkOption {
