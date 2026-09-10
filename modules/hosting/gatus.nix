@@ -136,6 +136,16 @@ in {
             ];
           }
           {
+            name = "SearXNG";
+            group = "Private Apps";
+            url = "https://searxng.osipol.uk/";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
             name = "SillyTavern";
             group = "Private Apps";
             url = "https://sillytavern.osipol.uk/ping";
