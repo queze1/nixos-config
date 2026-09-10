@@ -21,10 +21,11 @@ in {
         imports = [inputs.nix-index-database.homeModules.default];
 
         home.packages = [
+          pkgs-stable.celluloid
           pkgs.gnome-clocks
+          pkgs.openshot-qt
           pkgs.pinta
           pkgs.qalculate-qt
-          pkgs-stable.celluloid
 
           # CLI tools
           inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
