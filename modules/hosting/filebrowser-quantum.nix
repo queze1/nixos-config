@@ -79,7 +79,6 @@ in {
         ExecStart = "${lib.getExe package} -c ${configFile}";
         User = user;
         Group = user;
-        EnvironmentFile = config.sops.secrets.filebrowser-quantum-env.path;
         Restart = "on-failure";
 
         WorkingDirectory = dataDir;
@@ -122,12 +121,6 @@ in {
       home = dataDir;
     };
     users.groups.${user} = {};
-
-    sops.secrets.filebrowser-quantum-env = {
-      owner = user;
-      group = user;
-      restartUnits = ["filebrowser-quantum.service"];
-    };
 
     # Preserve FileBrowser data
     my.preservation.extraDirectories = [
