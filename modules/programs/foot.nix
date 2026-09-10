@@ -30,7 +30,7 @@ in {
               font = "Liberation Mono:size=12";
             };
             colors-dark = {
-              # alpha = 0.92;
+              alpha = 0.92;
 
               # https://github.com/catppuccin/foot/blob/main/themes/catppuccin-mocha.ini
               cursor = "11111b f5e0dc";
