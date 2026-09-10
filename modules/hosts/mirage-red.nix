@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   cfg = config.my.hosts.mirage-red;
@@ -15,13 +14,6 @@ in {
 
     my.cloudflared.enable = true;
     my.apps.gatus.enable = true;
-
-    environment.systemPackages = [
-      (pkgs.writeShellScriptBin
-        "my-script" ''
-          echo "If you're seeing this, it means the deployment worked."
-        '')
-    ];
 
     networking.hostName = "mirage-red";
   };
