@@ -245,7 +245,10 @@ in {
     ];
 
     # Backup Sillytavern data
-    my.restic.extraPaths = ["${myCfg.dataDir}/data"];
+    my.restic = {
+      extraPaths = ["${myCfg.dataDir}/data"];
+      extraExclude = ["${myCfg.dataDir}/data/_cache"];
+    };
 
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts = {
