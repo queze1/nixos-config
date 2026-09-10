@@ -33,10 +33,10 @@ in {
       forgejo.enable = true;
       github2forgejo.enable = true;
       music-stack.enable = true;
+      open-webui.enable = true;
       pihole.enable = true;
       restic-server.enable = true;
       sillytavern.enable = true;
-      # open-webui.enable = true;
     };
 
     # To deploy to VPS without building on target
