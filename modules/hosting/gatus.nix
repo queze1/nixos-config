@@ -106,6 +106,16 @@ in {
             alerts = [{type = "discord";}];
           }
           {
+            name = "MusicBrainz Picard";
+            group = "Private Apps";
+            url = "https://picard.osipol.uk/ping";
+            conditions = [
+              "[STATUS] == 200"
+              "[RESPONSE_TIME] < ${responseTimeLimit}"
+            ];
+            alerts = [{type = "discord";}];
+          }
+          {
             name = "Navidrome";
             group = "Private Apps";
             url = "https://navidrome.osipol.uk/ping";
@@ -116,14 +126,14 @@ in {
             alerts = [{type = "discord";}];
           }
           {
-            name = "MusicBrainz Picard";
+            name = "Open WebUI";
             group = "Private Apps";
-            url = "https://picard.osipol.uk/ping";
+            url = "https://openwebui.osipol.uk/health";
             conditions = [
               "[STATUS] == 200"
               "[RESPONSE_TIME] < ${responseTimeLimit}"
+              "[BODY].status == true"
             ];
-            alerts = [{type = "discord";}];
           }
           {
             name = "SillyTavern";

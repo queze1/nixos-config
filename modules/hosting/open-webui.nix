@@ -5,12 +5,13 @@
 }: let
   cfg = config.services.open-webui;
   myCfg = config.my.apps.open-webui;
+  dataDir = "${cfg.stateDir}/data";
 in {
   options.my.apps.open-webui = {
     enable = lib.mkEnableOption "Open WebUI";
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "open-webui.osipol.uk";
+      default = "openwebui.osipol.uk";
       description = "Domain to host Open WebUI on.";
     };
     port = lib.mkOption {
@@ -49,7 +50,7 @@ in {
       restartUnits = ["open-webui.service"];
     };
 
-    # Preserve Open WebUI data
+    # Preserve Open WebUI directory
     my.preservation.extraDirectories = [
       {
         directory = cfg.stateDir;
@@ -60,12 +61,16 @@ in {
     ];
 
     # Backup Open WebUI data
-    my.restic.extraPaths = [cfg.stateDir];
+    my.restic = {
+      extraPaths = [dataDir];
+      extraExclude = ["${dataDir}/cache"];
+    };
 
     # Reverse proxy with Tailscale auth
     services.caddy.virtualHosts.${myCfg.domain}.extraConfig = ''
       import cloudflare_dns
-      import tailscale_auth
+      @protected not path /health
+      import tailscale_auth @protected
       reverse_proxy localhost:${toString myCfg.port}
     '';
     services.ddclient.domains = [myCfg.domain];
