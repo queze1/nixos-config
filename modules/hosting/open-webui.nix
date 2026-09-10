@@ -26,7 +26,6 @@ in {
       host = "127.0.0.1";
       port = myCfg.port;
       environment = {
-        ENABLE_SIGNUP = false;
         WEBUI_URL = "https://${myCfg.domain}";
       };
       environmentFile = config.sops.secrets.open-webui-env.path;
