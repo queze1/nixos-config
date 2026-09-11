@@ -27,7 +27,6 @@ in {
       immich.enable = true;
       paperless.enable = true;
       restic-server.enable = true;
-      searxng.enable = true;
     };
 
     # Backups
