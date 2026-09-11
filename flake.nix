@@ -18,18 +18,15 @@
       flake = false;
     };
 
-    # Flake helpers
+    # Nix utilities
     flake-parts.url = "github:hercules-ci/flake-parts";
-    git-hooks-nix.url = "github:cachix/git-hooks.nix";
     import-tree.url = "github:vic/import-tree";
-
-    # Libraries
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-anywhere = {
-      url = "github:nix-community/nixos-anywhere";
+    git-hooks-nix = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     preservation.url = "github:nix-community/preservation";
@@ -46,6 +43,10 @@
     };
     comin = {
       url = "github:nlewo/comin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-anywhere = {
+      url = "github:nix-community/nixos-anywhere";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
