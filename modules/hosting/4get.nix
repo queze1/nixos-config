@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
   myCfg = config.my.apps._4get;
@@ -9,7 +10,8 @@
   user = "4get";
   group = "4get";
   dataDir = "/var/lib/4get";
-  webRoot = "${dataDir}/www";
+  webRoot = inputs.fourget.outPath; # test to see how much will break without being able to modify stuff
+  # webRoot = "${dataDir}/www";
   phpPackage = pkgs.php.withExtensions (
     {
       enabled,
