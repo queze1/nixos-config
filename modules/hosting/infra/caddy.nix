@@ -50,7 +50,7 @@ in {
         LockPersonality = true;
         RemoveIPC = true;
         RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK"];
-        SystemCallFilter = ["@system-service" "~@privileged"];
+        SystemCallFilter = ["@system-service"];
         SystemCallArchitectures = "native";
         UMask = "0077";
       };
