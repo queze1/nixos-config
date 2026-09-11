@@ -89,10 +89,6 @@
       inputs.uv2nix.follows = "uv2nix";
       inputs.pyproject-build-systems.follows = "pyproject-build-systems";
     };
-    tumblr-utils = {
-      url = "github:queze1/tumblr-utils"; # fork of https://github.com/cebtenzzre/tumblr-utils
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Non-flake applications
     github2forgejo = {
@@ -103,7 +99,7 @@
       url = "github:gtsteffaniak/filebrowser";
       flake = false;
     };
-    tumblr-utils-original = {
+    tumblr-backup = {
       url = "github:cebtenzzre/tumblr-utils";
       flake = false;
     };

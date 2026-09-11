@@ -52,7 +52,7 @@
       inherit (pkgs.callPackages inputs.pyproject-nix.build.util {}) mkApplication;
 
       workspace = inputs.uv2nix.lib.workspace.loadWorkspace {
-        workspaceRoot = inputs.tumblr-utils-original;
+        workspaceRoot = inputs.tumblr-backup;
       };
       overlay = workspace.mkPyprojectOverlay {
         sourcePreference = "wheel";
