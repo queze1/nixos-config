@@ -15,6 +15,7 @@ in {
     enable = lib.mkEnableOption "Tailscale";
     useAuthKey = lib.mkEnableOption "using an auth key";
     setHostname = lib.mkEnableOption "explicitly setting the Tailscale hostname to the hostname defined in Nix";
+    ssh = lib.mkEnableOption "using Tailscale SSH";
     openSSHOnlyOnTailscale = lib.mkEnableOption "opening OpenSSH ports only on the Tailscale interface";
     exitNode = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
@@ -27,6 +28,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = !cfg.ssh || !cfg.openSSHOnlyOnTailscale;
+        message = "my.tailscale.openSSHOnlyOnTailscale is redundant with Tailscale SSH";
+      }
+    ];
+
     services.tailscale = {
       enable = true;
       authKeyFile = lib.mkIf cfg.useAuthKey config.sops.secrets.tailscale-auth-key.path;
@@ -41,6 +49,7 @@ in {
       extraUpFlags =
         []
         ++ lib.optional cfg.setHostname "--hostname=${config.networking.hostName}"
+        ++ lib.optional cfg.ssh "--ssh"
         ++ lib.optional cfg.exitNode "--exit-node=${cfg.exitNode}"
         ++ lib.optional cfg.advertiseExitNode "--advertise-exit-node";
     };

@@ -26,7 +26,7 @@ in {
       enable = true;
       useAuthKey = true;
       setHostname = true;
-      extraUpFlags = ["--ssh"]; # use Tailscale SSH
+      ssh = true;
     };
     my.deployment.system-puller.enable = true;
 
