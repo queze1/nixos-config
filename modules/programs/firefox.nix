@@ -47,8 +47,8 @@ in {
 
             search = {
               force = true;
-              default = "brave";
-              privateDefault = "brave";
+              default = "Brave";
+              privateDefault = "Brave";
 
               engines = {
                 "Brave" = {
