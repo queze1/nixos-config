@@ -23,11 +23,28 @@ in {
     services.searx = {
       enable = true;
       environmentFile = config.sops.secrets.searxng-env.path;
-      settings.server = {
-        bind_address = "127.0.0.1";
-        port = myCfg.port;
-        base_url = "https://${myCfg.domain}";
-        secret_key = "$SEARX_SECRET_KEY";
+      settings = {
+        server = {
+          bind_address = "127.0.0.1";
+          port = myCfg.port;
+          base_url = "https://${myCfg.domain}";
+          secret_key = "$SEARX_SECRET_KEY";
+        };
+        engines = [
+          {
+            name = "braveapi";
+            api_key = "$BRAVE_API_KEY";
+            inactive = false;
+          }
+          {
+            name = "google";
+            disabled = true;
+          }
+          {
+            name = "duckduckgo";
+            disabled = true;
+          }
+        ];
       };
     };
 
