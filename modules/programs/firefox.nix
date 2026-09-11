@@ -3,21 +3,21 @@
   lib,
   ...
 }: let
-  cfg = config.my.programs.firefox;
+  myCfg = config.my.programs.firefox;
 in {
   options.my.programs.firefox.enable = lib.mkEnableOption "Firefox" // {default = config.my.programs.enableAll;};
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf myCfg.enable {
     home-manager.sharedModules = [
       ({
         config,
         pkgs,
         ...
-      }: {
+      }: let
+        cfg = config.programs.firefox;
+      in {
         # Preserve Firefox data
-        my.home.preservation.extraDirectories = [
-          ".mozilla"
-        ];
+        my.home.preservation.extraDirectories = [cfg.configPath];
 
         # Set Firefox as default browser
         xdg.mimeApps.defaultApplications = {
