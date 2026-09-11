@@ -33,6 +33,10 @@ in {
         assertion = !cfg.ssh || !cfg.openSSHOnlyOnTailscale;
         message = "my.tailscale.openSSHOnlyOnTailscale is redundant with Tailscale SSH";
       }
+      {
+        assertion = cfg.useAuthKey || config.services.tailscale.extraUpFlags == [];
+        message = "extraUpFlags are only applied if an auth key is used";
+      }
     ];
 
     services.tailscale = {
