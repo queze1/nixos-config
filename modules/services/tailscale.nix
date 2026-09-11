@@ -15,7 +15,7 @@ in {
     enable = lib.mkEnableOption "Tailscale";
     useAuthKey = lib.mkEnableOption "using an auth key";
     setHostname = lib.mkEnableOption "explicitly setting the Tailscale hostname to the hostname defined in Nix";
-    ssh = lib.mkEnableOption "using Tailscale SSH";
+    ssh = lib.mkEnableOption "Tailscale SSH";
     openSSHOnlyOnTailscale = lib.mkEnableOption "opening OpenSSH ports only on the Tailscale interface";
     exitNode = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
