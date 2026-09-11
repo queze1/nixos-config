@@ -1,17 +1,12 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
 }: let
   cfg = config.services.forgejo;
   myCfg = config.my.apps.github2forgejo;
-  source = pkgs.fetchFromGitHub {
-    owner = "PatNei";
-    repo = "GITHUB2FORGEJO";
-    rev = "ac84e6e1a9e0d55a041a1d8e9ba7092eadd85433";
-    hash = "sha256-E4j8PvIjVqVLc08fi3TLJjzVJ4YSeyAnd2ry639SxSg=";
-  };
 in {
   options.my.apps.github2forgejo = {
     enable = lib.mkEnableOption "GitHub to Forgejo mirroring";
@@ -50,7 +45,7 @@ in {
         pkgs.ncurses
       ];
       serviceConfig = {
-        ExecStart = "${lib.getExe pkgs.bash} ${source}/github-forgejo-migrate.sh";
+        ExecStart = "${lib.getExe pkgs.bash} ${inputs.github2forgejo}/github-forgejo-migrate.sh";
         EnvironmentFile = config.sops.secrets.github2forgejo-env.path;
         Type = "oneshot";
         User = cfg.user;
