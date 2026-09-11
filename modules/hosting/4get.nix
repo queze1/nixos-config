@@ -51,7 +51,7 @@ in {
       }
     ];
 
-    # Create a system user for 4get
+    # Create a system user to run 4get
     users.users.${user} = {
       isSystemUser = true;
       inherit group;
