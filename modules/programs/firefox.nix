@@ -47,10 +47,40 @@ in {
 
             search = {
               force = true;
-              default = "ddg";
-              privateDefault = "ddg";
+              default = "brave";
+              privateDefault = "brave";
 
               engines = {
+                "Brave" = {
+                  urls = [
+                    {
+                      template = "https://search.brave.com/search";
+                      params = [
+                        {
+                          name = "q";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  icon = "https://cdn.search.brave.com/serp/v1/static/brand/12832ccf4a94a6fe2ecc75f7ee0df48677abeab018d165ce25b7414477384367-favicon-96x96.png";
+                  definedAliases = ["@brave"];
+                };
+                "SearXNG" = {
+                  urls = [
+                    {
+                      template = "https://searxng.osipol.uk/search";
+                      params = [
+                        {
+                          name = "q";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  icon = "https://searxng.osipol.uk/favicon.ico";
+                  definedAliases = ["@searxng"];
+                };
                 "Nix Packages" = {
                   urls = [
                     {
