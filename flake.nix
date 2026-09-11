@@ -72,6 +72,12 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Non-flake applications
+    github2forgejo = {
+      url = "github:PatNei/GITHUB2FORGEJO";
+      flake = false;
+    };
     filebrowser-quantum = {
       url = "github:gtsteffaniak/filebrowser";
       flake = false;

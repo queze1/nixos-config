@@ -264,6 +264,22 @@
         "type": "github"
       }
     },
+    "github2forgejo": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780950357,
+        "narHash": "sha256-E4j8PvIjVqVLc08fi3TLJjzVJ4YSeyAnd2ry639SxSg=",
+        "owner": "PatNei",
+        "repo": "GITHUB2FORGEJO",
+        "rev": "ac84e6e1a9e0d55a041a1d8e9ba7092eadd85433",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PatNei",
+        "repo": "GITHUB2FORGEJO",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": "nixpkgs_3"
@@ -748,6 +764,7 @@
         "filebrowser-quantum": "filebrowser-quantum",
         "flake-parts": "flake-parts",
         "git-hooks-nix": "git-hooks-nix",
+        "github2forgejo": "github2forgejo",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "nix-darwin": "nix-darwin",
