@@ -2,11 +2,9 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }: let
   myCfg = config.my.apps._4get;
-  package = self.packages.${pkgs.stdenv.hostPlatform.system}._4get;
 
   user = "4get";
   group = "4get";
@@ -41,41 +39,6 @@ in {
         "pm.start_servers" = 2;
         "pm.min_spare_servers" = 1;
         "pm.max_spare_servers" = 3;
-      };
-    };
-
-    # Set up the 4get directory
-    systemd.services.phpfpm-_4get = {
-      path = [pkgs.coreutils pkgs.imagemagick];
-      preStart = ''
-        chown ${user}:${group} ${dataDir}
-        if [ ! -e ${dataDir}/package ] || [ "$(cat ${dataDir}/package)" != ${package} ]; then
-          rm -rf ${webRoot}.new
-          mkdir -p ${webRoot}.new
-          cp -a ${package}/share/4get/. ${webRoot}.new/
-
-          if [ -e ${webRoot}/data/config.php ]; then
-            mkdir -p ${webRoot}.new/data
-            cp -a ${webRoot}/data/config.php ${webRoot}.new/data/config.php
-          fi
-
-          if [ -d ${webRoot}/icons ]; then
-            rm -rf ${webRoot}.new/icons
-            mv ${webRoot}/icons ${webRoot}.new/icons
-          fi
-
-          mkdir -p ${webRoot}.new/icons
-          chmod -R u=rwX,g=rX,o= ${webRoot}.new
-          chmod -R u=rwX,g=rX,o= ${webRoot}.new/icons
-          rm -rf ${webRoot}
-          mv ${webRoot}.new ${webRoot}
-          chown -R ${user}:${group} ${webRoot}
-          printf %s ${package} > ${dataDir}/package
-        fi
-      '';
-      serviceConfig = {
-        StateDirectory = "4get";
-        StateDirectoryMode = "0750";
       };
     };
 
