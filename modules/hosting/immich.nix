@@ -23,10 +23,12 @@ in {
   };
 
   config = lib.mkIf myCfg.enable {
-    warnings =
-      if (pkgs.immich.meta.knownVulnerabilities or []) != []
-      then ["Immich in stable branch has no known vulnerabilities, use that instead of unstable"]
-      else [];
+    assertions = [
+      {
+        assertion = lib.versionOlder pkgs.immich.version "3.0.0";
+        message = "Immich in the stable branch is on 3.x.x; use that instead";
+      }
+    ];
 
     services.immich = {
       enable = true;
