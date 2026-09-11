@@ -1,4 +1,5 @@
 {inputs, ...}: {
+  # Applications which need to be manually packaged into Nix
   perSystem = {pkgs, ...}: {
     packages.filebrowser-quantum = pkgs.buildGo127Module (let
       version = "unstable-${inputs.filebrowser-quantum.lastModifiedDate}";
@@ -42,5 +43,10 @@
 
       meta.mainProgram = "filebrowser-quantum";
     });
+
+    tumblr-utils = let
+      workspace = inputs.uv2nix.lib.workspace.loadWorkspace {workspaceRoot = ./.;};
+    in
+      workspace;
   };
 }

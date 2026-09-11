@@ -769,6 +769,7 @@
         "sops-nix": "sops-nix",
         "system-clipboard-yazi": "system-clipboard-yazi",
         "tumblr-utils": "tumblr-utils",
+        "tumblr-utils-original": "tumblr-utils-original",
         "uv2nix": "uv2nix_2"
       }
     },
@@ -934,6 +935,22 @@
       },
       "original": {
         "owner": "queze1",
+        "repo": "tumblr-utils",
+        "type": "github"
+      }
+    },
+    "tumblr-utils-original": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788527060,
+        "narHash": "sha256-IHlhT/80CQl0TgYlCIkyqKLaDYvIqNeQ/fq+t0eaknw=",
+        "owner": "cebtenzzre",
+        "repo": "tumblr-utils",
+        "rev": "6cfccadb8ce00a3b7a356f1bdfa9b86c60bc6cce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cebtenzzre",
         "repo": "tumblr-utils",
         "type": "github"
       }

@@ -103,6 +103,10 @@
       url = "github:gtsteffaniak/filebrowser";
       flake = false;
     };
+    tumblr-utils-original = {
+      url = "github:cebtenzzre/tumblr-utils";
+      flake = false;
+    };
 
     # Yazi plugins
     bunny-yazi = {
