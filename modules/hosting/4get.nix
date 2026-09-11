@@ -95,6 +95,8 @@ in {
       home = dataDir;
     };
     users.groups.${group} = {};
+
+    # Give Caddy access to 4get
     users.users.${config.services.caddy.user}.extraGroups = [group];
 
     # Reverse proxy
