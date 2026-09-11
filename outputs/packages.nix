@@ -1,6 +1,10 @@
 {inputs, ...}: {
   # Applications which need to be manually packaged into Nix
-  perSystem = {pkgs, ...}: {
+  perSystem = {
+    lib,
+    pkgs,
+    ...
+  }: {
     packages.filebrowser-quantum = pkgs.buildGo127Module (let
       version = "unstable-${inputs.filebrowser-quantum.lastModifiedDate}";
       frontend = pkgs.buildNpmPackage {
@@ -44,9 +48,19 @@
       meta.mainProgram = "filebrowser-quantum";
     });
 
-    tumblr-utils = let
-      workspace = inputs.uv2nix.lib.workspace.loadWorkspace {workspaceRoot = ./.;};
+    packages.tumblr-utils = let
+      workspace = inputs.uv2nix.lib.workspace.loadWorkspace {
+        workspaceRoot = inputs.tumblr-utils-original;
+      };
+
+      workspaceText =
+        lib.generators.toPretty {
+          multiline = true;
+        }
+        workspace;
     in
-      workspace;
+      pkgs.writeShellScriptBin "tumblr-utils-test" ''
+        printf '%s\n' ${lib.escapeShellArg workspaceText}
+      '';
   };
 }
