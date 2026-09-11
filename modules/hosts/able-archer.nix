@@ -53,7 +53,10 @@ in {
 
     # Services
     my.docker.enable = true;
-    my.tailscale.enable = true;
+    my.tailscale = {
+      enable = true;
+      exitNode = "100.68.90.10"; # proxy through steadfast-dart
+    };
 
     # User management
     my.homeManager = {
