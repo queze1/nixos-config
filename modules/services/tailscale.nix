@@ -39,9 +39,9 @@ in {
       enable = true;
       authKeyFile = lib.mkIf cfg.useAuthKey config.sops.secrets.tailscale-auth-key.path;
       useRoutingFeatures =
-        if cfg.exitNode && cfg.advertiseExitNode
+        if (cfg.exitNode != null) && cfg.advertiseExitNode
         then "both"
-        else if cfg.exitNode
+        else if cfg.exitNode != null
         then "client"
         else if cfg.advertiseExitNode
         then "server"
