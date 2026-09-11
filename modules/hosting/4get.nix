@@ -31,8 +31,8 @@ in {
     services.phpfpm.pools._4get = {
       inherit user group phpPackage;
       settings = {
-        "listen.owner" = config.services.caddy.user;
-        "listen.group" = config.services.caddy.group;
+        "listen.owner" = user;
+        "listen.group" = group;
         "listen.mode" = "0660";
         "pm" = "dynamic";
         "pm.max_children" = 10;
