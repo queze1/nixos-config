@@ -50,7 +50,7 @@ in {
         []
         ++ lib.optional cfg.setHostname "--hostname=${config.networking.hostName}"
         ++ lib.optional cfg.ssh "--ssh"
-        ++ lib.optional cfg.exitNode "--exit-node=${cfg.exitNode}"
+        ++ lib.optional (cfg.exitNode != null) "--exit-node=${cfg.exitNode}"
         ++ lib.optional cfg.advertiseExitNode "--advertise-exit-node";
     };
 
