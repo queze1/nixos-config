@@ -8,6 +8,10 @@
       system = "x86_64-linux";
       config.allowUnfree = true;
     };
+    pkgs-unstable_x86 = import inputs.nixpkgs {
+      system = "x86_64-linux";
+      config.allowUnfree = true;
+    };
     commonModules = inputs.import-tree ../modules;
   in
     inputs.colmena.lib.makeHive {
@@ -16,6 +20,7 @@
         allowApplyAll = false;
         specialArgs = {
           inherit inputs self;
+          pkgs-unstable = pkgs-unstable_x86;
           sources = import ../npins;
         };
       };
