@@ -251,6 +251,22 @@
         "type": "github"
       }
     },
+    "fourget": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788913415,
+        "narHash": "sha256-ZAu7bkmD2Ap7EiPyp0Xv81MQOTLIdevPRtrwPJiUEZw=",
+        "ref": "refs/heads/master",
+        "rev": "734926240d2e40abd9bbde072a741b1cfc682432",
+        "revCount": 483,
+        "type": "git",
+        "url": "https://git.lolcat.ca/lolcat/4get"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.lolcat.ca/lolcat/4get"
+      }
+    },
     "git-hooks-nix": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -701,6 +717,7 @@
         "disko": "disko",
         "filebrowser-quantum": "filebrowser-quantum",
         "flake-parts": "flake-parts",
+        "fourget": "fourget",
         "git-hooks-nix": "git-hooks-nix",
         "github2forgejo": "github2forgejo",
         "home-manager": "home-manager",

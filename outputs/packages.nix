@@ -107,5 +107,16 @@
         inherit venv;
         package = pythonSet.tumblr-backup;
       };
+
+    packages._4get = pkgs.stdenvNoCC.mkDerivation {
+      pname = "4get";
+      version = "unstable-${inputs.fourget.lastModifiedDate}";
+      src = inputs.fourget;
+
+      installPhase = ''
+        install -d $out/share/4get
+        cp -r . $out/share/4get
+      '';
+    };
   };
 }

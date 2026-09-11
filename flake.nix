@@ -103,6 +103,10 @@
       url = "github:cebtenzzre/tumblr-utils";
       flake = false;
     };
+    fourget = {
+      url = "git+https://git.lolcat.ca/lolcat/4get";
+      flake = false;
+    };
 
     # Yazi plugins
     bunny-yazi = {

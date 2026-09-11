@@ -23,6 +23,7 @@ in {
     # Hosted services
     my.apps = {
       autoAssignPorts = true;
+      _4get.enable = true;
       attic.enable = true;
       immich.enable = true;
       paperless.enable = true;
