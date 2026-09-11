@@ -50,16 +50,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Personal repos
-    ark-rp-visualisation = {
-      url = "github:queze1/ark-rp-visualisation";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    tumblr-utils = {
-      url = "github:queze1/tumblr-utils"; # fork of https://github.com/cebtenzzre/tumblr-utils
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Applications
     noctalia = {
       url = "github:noctalia-dev/noctalia/legacy-v4";
@@ -71,6 +61,36 @@
     };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Packaging
+    pyproject-nix = {
+      url = "github:pyproject-nix/pyproject.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    uv2nix = {
+      url = "github:pyproject-nix/uv2nix";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pyproject-build-systems = {
+      url = "github:pyproject-nix/build-system-pkgs";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+      inputs.uv2nix.follows = "uv2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Personal applications
+    ark-rp-visualisation = {
+      url = "github:queze1/ark-rp-visualisation";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+      inputs.uv2nix.follows = "uv2nix";
+      inputs.pyproject-build-systems.follows = "pyproject-build-systems";
+    };
+    tumblr-utils = {
+      url = "github:queze1/tumblr-utils"; # fork of https://github.com/cebtenzzre/tumblr-utils
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
