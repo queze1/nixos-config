@@ -37,11 +37,19 @@ in {
             inactive = false;
           }
           {
-            name = "google";
+            name = "brave";
             disabled = true;
           }
           {
             name = "duckduckgo";
+            disabled = true;
+          }
+          {
+            name = "google";
+            disabled = true;
+          }
+          {
+            name = "startpage";
             disabled = true;
           }
         ];
