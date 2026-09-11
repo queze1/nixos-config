@@ -61,7 +61,7 @@ in {
         dates = "weekly";
         options = "--delete-older-than 30d";
       };
-      # binaryCache.enable = true;
+      binaryCache.enable = true;
       accessTokens.enable = true;
     };
 
