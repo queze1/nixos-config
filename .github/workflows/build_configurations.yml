@@ -1,11 +1,13 @@
-name: Build & Push to Binary Cache
-description: Build all NixOS configurations & populate binary cache
+name: Build Configurations
+description: Build all NixOS configurations & push to binary cache
 
 on:
+  workflow_dispatch:
   pull_request:
 
 jobs:
   build:
+    # Only runs on a flake update
     if: >-
       contains(github.event.pull_request.labels.*.name, 'automated') &&
       contains(github.event.pull_request.labels.*.name, 'flake-update')
