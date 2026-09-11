@@ -5,10 +5,10 @@
 }: let
   cfg = config.my.programs.qutebrowser;
 in {
-  options.my.programs.qutebrowser.enable = lib.mkEnableOption "qutebrowser" // {default = config.my.programs.enableAll;};
+  # Disabled by default, still being blocked by gmail
+  options.my.programs.qutebrowser.enable = lib.mkEnableOption "qutebrowser";
 
   config = lib.mkIf cfg.enable {
-    # Still being blocked by Gmail
     home-manager.sharedModules = [
       {
         programs.qutebrowser = {
