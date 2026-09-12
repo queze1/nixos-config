@@ -45,7 +45,6 @@ in {
     my.preservation.extraUserDirectories = [
       "Coding"
       "etc/nixos"
-      "cs3231"
     ];
   };
 }
