@@ -7,6 +7,64 @@
 }: let
   cfg = config.my.disko;
 
+  # Use a nixos-facter report to guess the main disk
+  # 1. Get disks from the report
+  # 2. Exclude disks with "usb" in their class list
+  # 3. Select the largest disk
+  # 4. Get the first /dev/by-id Unix device path
+  facterReport = config.hardware.facter.report;
+  facterDisks = facterReport.hardware.disk or [];
+  eligibleFacterDisks =
+    lib.filter (
+      disk: !(lib.elem "usb" (disk.class_list or []))
+    )
+    facterDisks;
+  facterDiskSize = disk: let
+    sizeResource =
+      lib.findFirst (
+        resource: (resource.type or null) == "size"
+      )
+      null (disk.resources or []);
+  in
+    if sizeResource == null
+    then throw "my.disko.useFacterDevice requires every eligible facter disk to have a size resource."
+    else if !(sizeResource ? value_1 && sizeResource ? value_2)
+    then throw "my.disko.useFacterDevice requires every facter disk size resource to have value_1 and value_2."
+    else sizeResource.value_1 * sizeResource.value_2;
+  largestFacterDisk =
+    if eligibleFacterDisks == []
+    then throw "my.disko.useFacterDevice found no eligible disks in the facter report."
+    else
+      lib.foldl' (
+        largest: disk:
+          if facterDiskSize disk > facterDiskSize largest
+          then disk
+          else largest
+      ) (builtins.head eligibleFacterDisks) (builtins.tail eligibleFacterDisks);
+  detectedFacterDevice =
+    if !cfg.useFacterDevice
+    then null
+    else if facterReport == {}
+    then throw "my.disko.useFacterDevice requires a hardware.facter.report."
+    else if !(largestFacterDisk ? unix_device_names)
+    then throw "my.disko.useFacterDevice requires the selected facter disk to have unix_device_names."
+    else let
+      byIdPath =
+        lib.findFirst (
+          name: lib.hasPrefix "/dev/disk/by-id/" name
+        )
+        null
+        largestFacterDisk.unix_device_names;
+    in
+      if byIdPath == null
+      then throw "my.disko.useFacterDevice requires the selected facter disk to have a /dev/disk/by-id/ path."
+      else byIdPath;
+
+  device =
+    if cfg.useFacterDevice
+    then cfg.facterDevice
+    else cfg.device;
+
   # Number of root backups to keep
   rootBackupLimit = 10;
 in {
@@ -26,22 +84,33 @@ in {
       default = null;
       description = "The device path of the main disk.";
     };
+    useFacterDevice = lib.mkEnableOption "guess the device path from the nixos-facter report";
+    facterDevice = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      readOnly = true;
+      default = detectedFacterDevice;
+      description = "Device path detected in the nixos-facter report.";
+    };
   };
 
   config = lib.mkMerge [
     {
       assertions = [
         {
-          assertion = cfg.profile == null || cfg.device != null;
-          message = "my.disko.device must be set when a disko profile is enabled.";
+          assertion = cfg.profile == null || device != null;
+          message = "No device configured for disko profile";
+        }
+        {
+          assertion = !(cfg.device != null && cfg.useFacterDevice);
+          message = "my.disko.device and my.disko.useFacterDevice are incompatible";
         }
       ];
     }
 
     # Simple filesystem, no swap
-    (lib.mkIf (cfg.profile == "simpleEfi" && cfg.device != null) {
+    (lib.mkIf (cfg.profile == "simpleEfi" && device != null) {
       disko.devices.disk.main = {
-        device = cfg.device;
+        device = device;
         type = "disk";
         content = {
           type = "gpt";
@@ -73,7 +142,7 @@ in {
       };
     })
 
-    (lib.mkIf (cfg.profile == "btrfsEphemeralRoot" && cfg.device != null) {
+    (lib.mkIf (cfg.profile == "btrfsEphemeralRoot" && device != null) {
       fileSystems."/nix".neededForBoot = true;
       fileSystems."/persistent".neededForBoot = true;
 
@@ -160,7 +229,7 @@ in {
       };
 
       disko.devices.disk.main = {
-        device = cfg.device;
+        device = device;
         type = "disk";
         content = {
           type = "gpt";

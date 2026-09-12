@@ -33,7 +33,7 @@ in {
     # Disk configuration
     my.disko = {
       profile = "btrfsEphemeralRoot";
-      device = "/dev/vda";
+      useFacterDevice = true;
     };
     my.preservation.enable = true;
     my.btrbk.enable = true;

@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs-stable,
   ...
@@ -33,7 +34,7 @@ in {
     # Disk configuration
     my.disko = {
       profile = "btrfsEphemeralRoot";
-      device = "/dev/vda";
+      useFacterDevice = true;
     };
     my.preservation = {
       enable = true;
@@ -79,6 +80,7 @@ in {
     # TODO: Add backups
 
     networking.hostName = "iron-hammer";
+    hardware.facter.reportPath = "${inputs.secrets}/facter/iron-hammer.json";
     system.stateVersion = "26.11";
   };
 }
