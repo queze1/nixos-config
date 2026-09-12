@@ -3,13 +3,13 @@
   self,
   ...
 }: let
-  hostname = "autumn-forge";
+  hostname = "silver-arrow";
 in {
   flake.darwinConfigurations.${hostname} = inputs.nix-darwin.lib.darwinSystem {
     specialArgs = {inherit self;};
     modules = [
-      (import ../../modules/hosts/autumn-forge.nix)
-      {my.hosts.autumn-forge.enable = true;}
+      (import ../../modules/hosts/silver-arrow.nix)
+      {my.hosts.silver-arrow.enable = true;}
     ];
   };
 }
