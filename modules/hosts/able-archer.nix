@@ -104,8 +104,9 @@ in {
         "/home/${mainUser}/cs3231"
         "/home/${mainUser}/etc/nixos"
 
-        "/home/${mainUser}/.ssh"
+        "/home/${mainUser}/.config/sops/age"
         "/home/${mainUser}/.mozilla"
+        "/home/${mainUser}/.ssh"
       ];
       extraExclude = [
         ".Trash-1000"
