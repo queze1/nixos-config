@@ -3,7 +3,7 @@
   self,
   ...
 }: let
-  hostname = "iron-hamer";
+  hostname = "iron-hammer";
 in {
   flake.nixosConfigurations.${hostname} = self.factory.mkNixosSystem {
     nixpkgs = inputs.nixpkgs;
