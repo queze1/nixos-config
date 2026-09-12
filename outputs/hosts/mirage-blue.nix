@@ -9,8 +9,8 @@ in {
     nixpkgs = inputs.nixpkgs-stable;
     system = "x86_64-linux";
     modules = [
-      {my.hosts.mirage-blue.enable = true;}
-      (import ../../modules/hosts/_hardware/mirage-blue.nix)
+      {my.hosts.${hostname}.enable = true;}
+      (import ../../modules/hosts/_hardware/${hostname}.nix)
     ];
   };
 }

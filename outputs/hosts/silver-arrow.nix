@@ -8,8 +8,8 @@ in {
   flake.darwinConfigurations.${hostname} = inputs.nix-darwin.lib.darwinSystem {
     specialArgs = {inherit self;};
     modules = [
-      (import ../../modules/hosts/silver-arrow.nix)
-      {my.hosts.silver-arrow.enable = true;}
+      (import ../../modules/hosts/${hostname}.nix)
+      {my.hosts.${hostname}.enable = true;}
     ];
   };
 }
