@@ -106,6 +106,7 @@ flake-parts for flake outputs, every nixosConfiguration does an import-tree on /
 │   │   ├── _hardware              # - hardware config
 │   │   ├── able-archer.nix        # - personal machine (UTM VM)
 │   │   ├── silver-arrow.nix       # - macos laptop
+│   │   ├── iron-hammer.nix        # - mini pc
 │   │   ├── mirage-[..].nix        # - vpses
 │   │   ├── steadfast-[...].nix    # - home servers
 │   ├── lib                        # helper libraries (e.g. home manager)
