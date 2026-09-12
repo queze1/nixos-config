@@ -12,7 +12,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.shellAliases = let
-      darwinRebuild = "sudo darwin-rebuild --refresh --flake github1:queze/nixos-config#${hostname}";
+      darwinRebuild = "sudo darwin-rebuild --refresh --flake github:queze1/nixos-config#${hostname}";
     in {
       nrs = "${darwinRebuild} switch";
       nrb = "${darwinRebuild} boot";
