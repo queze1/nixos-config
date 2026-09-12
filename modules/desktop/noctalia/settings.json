@@ -130,7 +130,7 @@
     "screenOverrides": []
   },
   "general": {
-    "avatarImage": "~/.face",
+    "avatarImage": "/nix/store/fzl6sk7jzd6i7w01sy0w3hjjaxl3k75j-source/assets/pfp.png",
     "dimmerOpacity": 0.3,
     "showScreenCorners": false,
     "forceBlackScreenCorners": false,

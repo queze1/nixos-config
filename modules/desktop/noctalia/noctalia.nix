@@ -15,6 +15,7 @@ in {
         modifiedSettings =
           settings
           // {
+            general.avatarImage = "${inputs.secrets}/assets/pfp.png";
             wallpaper = {
               enabled = true;
               directory = "${config.xdg.userDirs.pictures}/Wallpapers";
@@ -31,11 +32,6 @@ in {
 
         home.shellAliases = {
           noctalia-export = "noctalia-shell ipc call state all | nix run nixpkgs#jq .settings > ~/etc/nixos/modules/desktop/noctalia/settings.json";
-        };
-
-        home.file.profilePicture = {
-          target = "${config.home.homeDirectory}/.face";
-          source = "${inputs.secrets}/assets/pfp.png";
         };
 
         # Stop showing welcome message
