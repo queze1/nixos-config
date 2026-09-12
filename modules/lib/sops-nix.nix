@@ -31,10 +31,10 @@ in {
       ];
 
       home-manager.sharedModules = [
-        ({osConfig, ...}: {
+        ({config, ...}: {
           imports = [inputs.sops-nix.homeManagerModules.sops];
 
-          sops.defaultSopsFile = "${inputs.secrets}/secrets/${osConfig.networking.hostName}-home.yaml";
+          sops.defaultSopsFile = "${inputs.secrets}/secrets/${config.home.username}-user.yaml";
           sops.age.keyFile = ".config/sops/age/keys.txt";
         })
       ];
