@@ -45,10 +45,12 @@ in {
         };
       };
     };
+
     sops.secrets = lib.mkIf cfg.homeWifi.enable {
       home-wifi-env = {};
     };
 
+    # Preserve configured connections
     my.preservation.extraDirectories = [
       "/etc/NetworkManager/system-connections"
     ];
