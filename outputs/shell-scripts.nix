@@ -186,6 +186,7 @@
             --flake ".#$HOSTNAME"
             --extra-files "$TMP_DIR"
             --build-on remote
+            --no-substitute-on-destination
             "root@$TARGET_IP"
           )
 
