@@ -31,7 +31,10 @@ in {
     zramSwap.enable = true;
 
     # Disk configuration
-    my.disko.btrfsEphemeralRoot.device = "/dev/vda";
+    my.disko = {
+      profile = "btrfsEphemeralRoot";
+      device = "/dev/vda";
+    };
     my.preservation.enable = true;
     my.btrbk.enable = true;
 

@@ -31,7 +31,10 @@ in {
     };
 
     # Disk configuration
-    my.disko.btrfsEphemeralRoot.device = "/dev/sda"; # TODO: check what the device name actually is
+    my.disko = {
+      profile = "btrfsEphemeralRoot";
+      device = "/dev/vda";
+    };
     my.preservation = {
       enable = true;
       users = [mainUser];

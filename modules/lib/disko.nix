@@ -5,8 +5,7 @@
   pkgs,
   ...
 }: let
-  btrfsCfg = config.my.disko.btrfsEphemeralRoot;
-  simpleCfg = config.my.disko.simpleEfi;
+  cfg = config.my.disko;
 
   # Number of root backups to keep
   rootBackupLimit = 10;
@@ -14,21 +13,35 @@ in {
   imports = [inputs.disko.nixosModules.default];
 
   options.my.disko = {
-    btrfsEphemeralRoot.device = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
+    profile = lib.mkOption {
+      type = lib.types.nullOr (lib.types.enum [
+        "simpleEfi"
+        "btrfsEphemeralRoot"
+      ]);
       default = null;
+      description = "The disko partitioning profile to use.";
     };
-    simpleEfi.device = lib.mkOption {
+    device = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default = null;
+      description = "The device path of the main disk.";
     };
   };
 
   config = lib.mkMerge [
+    {
+      assertions = [
+        {
+          assertion = cfg.profile == null || cfg.device != null;
+          message = "my.disko.device must be set when a disko profile is enabled.";
+        }
+      ];
+    }
+
     # Simple filesystem, no swap
-    (lib.mkIf (simpleCfg.device != null) {
+    (lib.mkIf (cfg.profile == "simpleEfi" && cfg.device != null) {
       disko.devices.disk.main = {
-        device = simpleCfg.device;
+        device = cfg.device;
         type = "disk";
         content = {
           type = "gpt";
@@ -60,7 +73,7 @@ in {
       };
     })
 
-    (lib.mkIf (btrfsCfg.device != null) {
+    (lib.mkIf (cfg.profile == "btrfsEphemeralRoot" && cfg.device != null) {
       fileSystems."/nix".neededForBoot = true;
       fileSystems."/persistent".neededForBoot = true;
 
@@ -147,7 +160,7 @@ in {
       };
 
       disko.devices.disk.main = {
-        device = btrfsCfg.device;
+        device = cfg.device;
         type = "disk";
         content = {
           type = "gpt";
