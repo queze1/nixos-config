@@ -4,16 +4,17 @@
   self,
   ...
 }: let
-  cfg = config.my.hosts.autumn-forge;
+  cfg = config.my.hosts.silver-arrow;
+  hostname = config.networking.hostName;
 in {
-  options.my.hosts.autumn-forge.enable =
-    lib.mkEnableOption "autumn-forge host configuration";
+  options.my.hosts.silver-arrow.enable =
+    lib.mkEnableOption "silver-arrow host configuration";
 
   config = lib.mkIf cfg.enable {
     environment.shellAliases = {
-      nrs = "sudo darwin-rebuild switch --flake github:queze/nixos-config#";
-      nrb = "sudo darwin-rebuild build --flake github:queze/nixos-config#";
-      nfc = "sudo darwin-rebuild check --flake github:queze/nixos-config#";
+      nrs = "sudo darwin-rebuild switch --flake github:queze/nixos-config#${hostname}";
+      nrb = "sudo darwin-rebuild build --flake github:queze/nixos-config#${hostname}";
+      nfc = "sudo darwin-rebuild check --flake github:queze/nixos-config#${hostname}";
       nrr = "sudo darwin-rebuild rollback";
     };
 
@@ -30,6 +31,6 @@ in {
     system.configurationRevision = self.rev or self.dirtyRev or null;
     system.stateVersion = 6;
     nixpkgs.hostPlatform = "aarch64-darwin";
-    networking.hostName = "autumn-forge";
+    networking.hostName = "silver-arrow";
   };
 }
