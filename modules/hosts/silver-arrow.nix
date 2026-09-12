@@ -11,10 +11,12 @@ in {
     lib.mkEnableOption "silver-arrow host configuration";
 
   config = lib.mkIf cfg.enable {
-    environment.shellAliases = {
-      nrs = "sudo darwin-rebuild switch --flake github:queze/nixos-config#${hostname}";
-      nrb = "sudo darwin-rebuild build --flake github:queze/nixos-config#${hostname}";
-      nfc = "sudo darwin-rebuild check --flake github:queze/nixos-config#${hostname}";
+    environment.shellAliases = let
+      darwinRebuild = "sudo darwin-rebuild --refresh --flake github1:queze/nixos-config#${hostname}";
+    in {
+      nrs = "${darwinRebuild} switch";
+      nrb = "${darwinRebuild} boot";
+      nfc = "${darwinRebuild} check";
       nrr = "sudo darwin-rebuild rollback";
     };
 
