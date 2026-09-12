@@ -243,16 +243,10 @@
     "enabled": true,
     "overviewEnabled": false,
     "directory": "/mnt/utm/Pictures/Wallpapers",
-    "monitorDirectories": [
-      {
-        "directory": "/home/queze/Pictures/Wallpapers",
-        "name": "Virtual-1",
-        "wallpaper": ""
-      }
-    ],
+    "monitorDirectories": [],
     "enableMultiMonitorDirectories": false,
     "showHiddenFiles": false,
-    "viewMode": "browse",
+    "viewMode": "single",
     "setWallpaperOnAllMonitors": true,
     "linkLightAndDarkWallpapers": true,
     "fillMode": "crop",

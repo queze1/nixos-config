@@ -16,7 +16,9 @@ in {
           settings
           // {
             wallpaper = {
+              enabled = true;
               directory = "${config.xdg.userDirs.pictures}/Wallpapers";
+              default.path = "${inputs.secrets}/assets/laine-chinensy-temptation-v6.png";
             };
           };
       in {
@@ -34,12 +36,6 @@ in {
         home.file.profilePicture = {
           target = "${config.home.homeDirectory}/.face";
           source = "${inputs.secrets}/assets/pfp.png";
-        };
-
-        home.file.".cache/noctalia/wallpapers.json" = {
-          text = builtins.toJSON {
-            defaultWallpaper = "${inputs.secrets}/assets/laine-chinensy-temptation-v6.png";
-          };
         };
 
         # Stop showing welcome message
