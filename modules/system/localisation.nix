@@ -26,6 +26,7 @@ in {
     services.xserver.xkb = {
       layout = "us";
       variant = "";
+      options = "caps:escape"; # bind Caps Lock -> Escape
     };
 
     console.keyMap = "us";
