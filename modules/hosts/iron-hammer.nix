@@ -73,7 +73,7 @@ in {
         dates = "weekly";
         options = "--delete-older-than 7d";
       };
-      # binaryCache.enable = true;
+      binaryCache.enable = true;
       replHistory.enable = true;
       accessTokens.enable = true;
     };
