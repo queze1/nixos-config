@@ -216,6 +216,10 @@ in {
                   _props.hotkey-overlay-title = "Open Settings: noctalia-shell";
                   spawn-sh = "noctalia-shell ipc call settings toggle";
                 };
+                "Ctrl+Alt+L" = {
+                  _props.hotkey-overlay-title = "Lock Screen: noctalia-shell";
+                  spawn-sh = "noctalia-shell ipc call lockScreen lock";
+                };
                 "Mod+Shift+W" = {
                   _props.hotkey-overlay-title = "Change Wallpaper: noctalia-shell";
                   spawn-sh = "noctalia-shell ipc call wallpaper toggle";
