@@ -132,10 +132,7 @@ in {
               }
               {
                 window-rule = {
-                  match._props = {
-                    app-id = "foot";
-                    title = "^Yazi:.*";
-                  };
+                  match._props.title = "^Yazi:.*";
                   default-column-width.proportion = 1.0;
                 };
               }
@@ -243,7 +240,16 @@ in {
                 };
                 "Mod+N" = {
                   _props.hotkey-overlay-title = "Open Neovim: nvim";
-                  spawn = ["xdg-terminal-exec" "nvim"];
+                  # Run nvim as a transient service so systemd cleans up orphans
+                  spawn = [
+                    "systemd-run"
+                    "--user"
+                    "--collect"
+                    "--property=SendSIGHUP=yes"
+                    "xdg-terminal-exec"
+                    "--"
+                    "nvim"
+                  ];
                 };
                 "Mod+Y" = {
                   _props.hotkey-overlay-title = "Open Yazi: yazi";
