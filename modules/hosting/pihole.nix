@@ -70,7 +70,8 @@ in {
             # Cloudflare DNS
             "1.1.1.1"
             "1.0.0.1"
-            # "2606:4700:4700::1111" # servers don't have IPV6 for some reason
+            # Servers don't have IPv6 for some reason
+            # "2606:4700:4700::1111"
             # "2606:4700:4700::1001"
           ];
           listeningMode = "SINGLE";
