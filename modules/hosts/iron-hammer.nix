@@ -49,6 +49,8 @@ in {
     };
 
     # Services
+    my.deployment.comin.enable = true;
+    my.beszel-agent.enable = true;
     my.tailscale.enable = true;
 
     # User management
@@ -64,7 +66,6 @@ in {
     my.editor.vim.enable = true;
 
     # Nix-related config
-    my.deployment.comin.enable = true;
     my.nix = {
       enable = true;
       settings.download-buffer-size = 5000000;
