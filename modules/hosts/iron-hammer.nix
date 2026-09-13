@@ -64,6 +64,7 @@ in {
     my.editor.vim.enable = true;
 
     # Nix-related config
+    my.deployment.comin.enable = true;
     my.nix = {
       enable = true;
       settings.download-buffer-size = 5000000;
