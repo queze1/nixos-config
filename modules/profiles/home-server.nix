@@ -42,6 +42,7 @@ in {
     my.sops.enable = true;
 
     # Services
+    my.deployment.comin.enable = true;
     my.beszel-agent.enable = true;
     my.fwupd.enable = true;
     my.openssh = {
@@ -55,7 +56,6 @@ in {
     };
 
     # Nix-related config
-    my.deployment.comin.enable = true;
     my.nix = {
       enable = true;
       settings.download-buffer-size = 5000000;
