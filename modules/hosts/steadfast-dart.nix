@@ -39,7 +39,6 @@ in {
       open-webui.enable = true;
       pihole.enable = true;
       restic-server.enable = true;
-      searxng.enable = true;
       sillytavern.enable = true;
     };
 
