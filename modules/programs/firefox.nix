@@ -15,7 +15,7 @@ in {
         ...
       }: {
         # Preserve Firefox data
-        my.home.preservation.extraDirectories = [config.programs.firefox.configPath];
+        my.home.preservation.extraDirectories = [".mozilla/firefox"];
 
         # Set Firefox as default browser
         xdg.mimeApps.defaultApplications = {
