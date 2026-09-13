@@ -59,4 +59,5 @@ curl https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect |
   - Issue 2: Firefox wasn't being preserved in the right directory (due to not following "don't fix it if it isn't broken"). After rebuilding, the old Mozilla directory was overwritten, so had to login Firefox accounts again.
   - Issue 3: Bitwarden extension wasn't autofilling like normal. IDK why the settings changed, but fixed it.
   - Issue 4: Noctalia default wallpaper broke because I "fixed" it when wasn't broken by using a v5 setting, when I was still on v4. Had to revert the change, log in and out.
+8. Add iron-hammer to CI, nixbuild and build configurations
 
