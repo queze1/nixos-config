@@ -30,24 +30,8 @@ in {
           base_url = "https://${myCfg.domain}";
           secret_key = "$SEARX_SECRET_KEY";
         };
-        search.formats = ["html" "csv" "json" "rss"]; # allow all formats
-        engines = [
-          {
-            # Reliable but not pretty for non-bot use
-            name = "braveapi";
-            api_key = "$BRAVE_API_KEY";
-            inactive = false;
-            disabled = true;
-          }
-          {
-            name = "duckduckgo";
-            disabled = true;
-          }
-          {
-            name = "google";
-            disabled = true;
-          }
-        ];
+        # Allow all formats
+        search.formats = ["html" "csv" "json" "rss"];
       };
     };
 
