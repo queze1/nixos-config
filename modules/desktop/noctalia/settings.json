@@ -130,8 +130,8 @@
     "screenOverrides": []
   },
   "general": {
-    "avatarImage": "/nix/store/fzl6sk7jzd6i7w01sy0w3hjjaxl3k75j-source/assets/pfp.png",
-    "dimmerOpacity": 0.3,
+    "avatarImage": "/nix/store/5cypzvax3vvbhf4q47z3mjzm2r1gw54v-source/assets/pfp.png",
+    "dimmerOpacity": 0.2,
     "showScreenCorners": false,
     "forceBlackScreenCorners": false,
     "scaleRatio": 1.1,
@@ -155,7 +155,7 @@
     "language": "",
     "allowPanelsOnScreenWithoutBar": true,
     "showChangelogOnStartup": true,
-    "telemetryEnabled": true,
+    "telemetryEnabled": false,
     "enableLockScreenCountdown": true,
     "lockScreenCountdownDuration": 10000,
     "autoStartAuth": false,
@@ -196,8 +196,8 @@
   "ui": {
     "fontDefault": "Liberation Mono",
     "fontFixed": "Liberation Mono",
-    "fontDefaultScale": 1,
-    "fontFixedScale": 1,
+    "fontDefaultScale": 1.05,
+    "fontFixedScale": 1.05,
     "tooltipsEnabled": true,
     "scrollbarAlwaysVisible": true,
     "boxBorderEnabled": true,
@@ -242,7 +242,7 @@
   "wallpaper": {
     "enabled": true,
     "overviewEnabled": false,
-    "directory": "/mnt/utm/Pictures/Wallpapers",
+    "directory": "/home/queze/Pictures/Wallpapers",
     "monitorDirectories": [],
     "enableMultiMonitorDirectories": false,
     "showHiddenFiles": false,
@@ -581,32 +581,7 @@
     "syncGsettings": true
   },
   "templates": {
-    "activeTemplates": [
-      {
-        "enabled": true,
-        "id": "gtk"
-      },
-      {
-        "enabled": true,
-        "id": "kcolorscheme"
-      },
-      {
-        "enabled": true,
-        "id": "niri"
-      },
-      {
-        "enabled": true,
-        "id": "pywalfox"
-      },
-      {
-        "enabled": true,
-        "id": "qt"
-      },
-      {
-        "enabled": true,
-        "id": "discord"
-      }
-    ],
+    "activeTemplates": [],
     "enableUserTheming": false
   },
   "nightLight": {
