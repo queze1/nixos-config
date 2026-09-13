@@ -17,9 +17,7 @@ in {
           // {
             general.avatarImage = "${inputs.secrets}/assets/pfp.png";
             wallpaper = {
-              enabled = true;
               directory = "${config.xdg.userDirs.pictures}/Wallpapers";
-              default.path = "${inputs.secrets}/assets/laine-chinensy-temptation-v6.png";
             };
           };
       in {
@@ -32,6 +30,12 @@ in {
 
         home.shellAliases = {
           noctalia-export = "noctalia-shell ipc call state all | nix run nixpkgs#jq .settings > ~/etc/nixos/modules/desktop/noctalia/settings.json";
+        };
+
+        home.file.".cache/noctalia/wallpapers.json" = {
+          text = builtins.toJSON {
+            defaultWallpaper = "${inputs.secrets}/assets/laine-chinensy-temptation-v6.png";
+          };
         };
 
         # Stop showing welcome message
