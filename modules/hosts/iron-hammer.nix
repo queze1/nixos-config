@@ -51,7 +51,10 @@ in {
     # Services
     my.deployment.comin.enable = true;
     my.beszel-agent.enable = true;
-    my.tailscale.enable = true;
+    my.tailscale = {
+      enable = true;
+      ssh = true;
+    };
 
     # User management
     my.homeManager = {
