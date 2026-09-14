@@ -19,9 +19,6 @@ in {
       hashedPasswordFile = "/persistent/passwd"; # sudo sh -c 'mkpasswd -m yescrypt > /persistent/passwd'
     };
 
-    # Required for devenv
-    nix.settings.trusted-users = [username];
-
     home-manager.users.${username} = {config, ...}: {
       programs.ssh = {
         enable = true;
