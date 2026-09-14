@@ -48,25 +48,27 @@ in {
     my.restic = {
       enable = true;
       snapshotsDir = "/persistent/snapshots";
-      backups.backblaze-b2 = {
-        timerConfig = {
-          OnCalendar = "daily";
-          RandomizedDelaySec = "4h";
-          Persistent = true;
+      backups = {
+        backblaze-b2 = {
+          timerConfig = {
+            OnCalendar = "daily";
+            RandomizedDelaySec = "4h";
+            Persistent = true;
+          };
         };
-      };
-      backups.local-server = {
-        timerConfig = {
-          OnCalendar = "hourly";
-          RandomizedDelaySec = "15m";
-          Persistent = true;
+        local-server = {
+          timerConfig = {
+            OnCalendar = "hourly";
+            RandomizedDelaySec = "15m";
+            Persistent = true;
+          };
         };
-      };
-      backups.local-server2 = {
-        timerConfig = {
-          OnCalendar = "hourly";
-          RandomizedDelaySec = "15m";
-          Persistent = true;
+        local-server2 = {
+          timerConfig = {
+            OnCalendar = "hourly";
+            RandomizedDelaySec = "15m";
+            Persistent = true;
+          };
         };
       };
     };
