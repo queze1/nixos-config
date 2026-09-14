@@ -73,7 +73,7 @@ in {
                 { key = "D",          path = "${cfg.documents}",          desc = "Documents"      },
                 { key = "p",          path = "${cfg.pictures}",           desc = "Pictures"       },
                 { key = "v",          path = "${cfg.videos}",             desc = "Videos"         },
-                { key = "o",          path = "${cfg.documents}/obsidian", desc = "Obsidian vault" },
+                { key = "o",          path = "~/Documents/obsidian",      desc = "Obsidian vault" },
                 { key = "M",          path = "${cfg.documents}/Media",    desc = "Media"          },
               },
               desc_strategy = "path", -- If desc isn't present, use "path" or "filename", default is "path"
