@@ -56,9 +56,8 @@ in {
               style = "mocha";
             };
             statusline.lualine.enable = true;
-            visuals.indent-blankline = {
-              enable = true;
-            };
+            visuals.indent-blankline.enable = true;
+            binds.whichKey.enable = true;
 
             # ----------------------------------------
             # Editing

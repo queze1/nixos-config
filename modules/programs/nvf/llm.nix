@@ -63,14 +63,6 @@
               silent = true;
             }
           ];
-
-          binds.whichKey = {
-            enable = true;
-            register = {
-              # Workaround for bugged Harpoon WhichKey
-              "<leader>a" = lib.mkForce "Toggle CodeCompanion Chat";
-            };
-          };
         };
       })
     ];
