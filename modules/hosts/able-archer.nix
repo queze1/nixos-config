@@ -101,7 +101,6 @@ in {
         "/home/${mainUser}/Music"
         "/home/${mainUser}/Videos"
         "/home/${mainUser}/Coding"
-        "/home/${mainUser}/cs3231"
         "/home/${mainUser}/etc/nixos"
 
         "/home/${mainUser}/.config/sops/age"
