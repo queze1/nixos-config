@@ -9,9 +9,7 @@
         ${config.pre-commit.shellHook}
       '';
 
-      packages =
-        config.pre-commit.settings.enabledPackages
-        ++ [pkgs.mcp-nixos];
+      packages = config.pre-commit.settings.enabledPackages;
     };
 
     pre-commit.settings.hooks = {
