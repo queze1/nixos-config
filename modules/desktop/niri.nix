@@ -39,7 +39,7 @@ in {
         noctalia = lib.getExe config.programs.noctalia-shell.package;
         systemdRun = lib.getExe' pkgs.systemd "systemd-run";
         playerctl = lib.getExe pkgs.playerctl;
-        spiceVdagent = lib.getExe pkgs.spice-vdagent;
+        spiceVdagent = lib.getExe' pkgs.spice-vdagent "spice-vdagent";
 
         # Detect default applications for keybind descriptions
         defaultTerminal = let
