@@ -5,7 +5,7 @@
 }: let
   cfg = config.my.programs.cloudflaredClient;
 in {
-  options.my.programs.cloudflaredClient.enable = lib.mkEnableOption "cloudflared client" // {default = config.my.programs.enableAll;};
+  options.my.programs.cloudflaredClient.enable = lib.mkEnableOption "cloudflared client";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

@@ -7,9 +7,9 @@
 }: let
   cfg = config.my.programs;
 in {
-  options.my.programs.enableAll = lib.mkEnableOption "all programs";
+  options.my.programs.enableDefault = lib.mkEnableOption "default programs";
 
-  config = lib.mkIf cfg.enableAll {
+  config = lib.mkIf cfg.enableDefault {
     programs.seahorse.enable = true;
 
     home-manager.sharedModules = [

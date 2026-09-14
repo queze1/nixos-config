@@ -5,7 +5,7 @@
 }: let
   cfg = config.my.programs.devenv;
 in {
-  options.my.programs.devenv.enable = lib.mkEnableOption "devenv" // {default = config.my.programs.enableAll;};
+  options.my.programs.devenv.enable = lib.mkEnableOption "devenv";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

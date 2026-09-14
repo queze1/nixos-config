@@ -5,7 +5,7 @@
 }: let
   cfg = config.my.programs.direnv;
 in {
-  options.my.programs.direnv.enable = lib.mkEnableOption "direnv" // {default = config.my.programs.enableAll;};
+  options.my.programs.direnv.enable = lib.mkEnableOption "direnv";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

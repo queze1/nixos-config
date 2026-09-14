@@ -5,7 +5,7 @@
 }: let
   cfg = config.my.programs.immichGo;
 in {
-  options.my.programs.immichGo.enable = lib.mkEnableOption "immich-go" // {default = config.my.programs.enableAll;};
+  options.my.programs.immichGo.enable = lib.mkEnableOption "immich-go";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

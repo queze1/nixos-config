@@ -21,7 +21,7 @@
     })
     themeNames);
 in {
-  options.my.programs.vesktop.enable = lib.mkEnableOption "Vesktop" // {default = config.my.programs.enableAll;};
+  options.my.programs.vesktop.enable = lib.mkEnableOption "Vesktop";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

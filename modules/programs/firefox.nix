@@ -5,7 +5,7 @@
 }: let
   cfg = config.my.programs.firefox;
 in {
-  options.my.programs.firefox.enable = lib.mkEnableOption "Firefox" // {default = config.my.programs.enableAll;};
+  options.my.programs.firefox.enable = lib.mkEnableOption "Firefox";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

@@ -5,7 +5,7 @@
 }: let
   cfg = config.my.programs.llmTools;
 in {
-  options.my.programs.llmTools.enable = lib.mkEnableOption "LLM tools" // {default = config.my.programs.enableAll;};
+  options.my.programs.llmTools.enable = lib.mkEnableOption "LLM tools";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

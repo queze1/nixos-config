@@ -5,7 +5,7 @@
 }: let
   cfg = config.my.programs.bitwarden;
 in {
-  options.my.programs.bitwarden.enable = lib.mkEnableOption "Bitwarden" // {default = config.my.programs.enableAll;};
+  options.my.programs.bitwarden.enable = lib.mkEnableOption "Bitwarden";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

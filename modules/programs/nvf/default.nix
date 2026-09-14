@@ -6,7 +6,7 @@
 }: let
   cfg = config.my.programs.nvf;
 in {
-  options.my.programs.nvf.enable = lib.mkEnableOption "NVF" // {default = config.my.programs.enableAll;};
+  options.my.programs.nvf.enable = lib.mkEnableOption "NVF";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

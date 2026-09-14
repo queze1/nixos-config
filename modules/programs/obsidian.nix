@@ -5,7 +5,7 @@
 }: let
   cfg = config.my.programs.obsidian;
 in {
-  options.my.programs.obsidian.enable = lib.mkEnableOption "Obsidian" // {default = config.my.programs.enableAll;};
+  options.my.programs.obsidian.enable = lib.mkEnableOption "Obsidian";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

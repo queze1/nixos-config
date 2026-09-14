@@ -58,7 +58,22 @@ in {
       enable = true;
       pkgsStable = pkgs-stable;
     };
-    my.programs.enableAll = true;
+    my.programs = {
+      enableDefault = true;
+      bitwarden.enable = true;
+      direnv.enable = true;
+      fish.enable = true;
+      firefox.enable = true;
+      foot.enable = true;
+      git.enable = true;
+      immichGo.enable = true;
+      imv.enable = true;
+      llmTools.enable = true;
+      nvf.enable = true;
+      obsidian.enable = true;
+      vesktop.enable = true;
+      yazi.enable = true;
+    };
     my.users.${mainUser}.enable = true;
 
     # Personalisation

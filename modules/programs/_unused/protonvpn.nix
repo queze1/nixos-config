@@ -6,7 +6,7 @@
 }: let
   cfg = config.my.programs.protonvpn;
 in {
-  options.my.programs.protonvpn.enable = lib.mkEnableOption "Proton VPN" // {default = config.my.programs.enableAll;};
+  options.my.programs.protonvpn.enable = lib.mkEnableOption "Proton VPN";
 
   config = lib.mkIf cfg.enable {
     networking.firewall.checkReversePath = lib.mkForce false;

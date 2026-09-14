@@ -5,7 +5,7 @@
 }: let
   cfg = config.my.programs.keepassxc;
 in {
-  options.my.programs.keepassxc.enable = lib.mkEnableOption "KeePassXC" // {default = config.my.programs.enableAll;};
+  options.my.programs.keepassxc.enable = lib.mkEnableOption "KeePassXC";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

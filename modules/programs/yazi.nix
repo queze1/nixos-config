@@ -7,7 +7,7 @@
 }: let
   cfg = config.my.programs.yazi;
 in {
-  options.my.programs.yazi.enable = lib.mkEnableOption "Yazi" // {default = config.my.programs.enableAll;};
+  options.my.programs.yazi.enable = lib.mkEnableOption "Yazi";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

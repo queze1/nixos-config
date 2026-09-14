@@ -5,7 +5,7 @@
 }: let
   cfg = config.my.programs.foot;
 in {
-  options.my.programs.foot.enable = lib.mkEnableOption "foot" // {default = config.my.programs.enableAll;};
+  options.my.programs.foot.enable = lib.mkEnableOption "foot";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

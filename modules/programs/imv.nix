@@ -5,7 +5,7 @@
 }: let
   cfg = config.my.programs.imv;
 in {
-  options.my.programs.imv.enable = lib.mkEnableOption "imv" // {default = config.my.programs.enableAll;};
+  options.my.programs.imv.enable = lib.mkEnableOption "imv";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

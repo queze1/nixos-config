@@ -5,7 +5,7 @@
 }: let
   cfg = config.my.programs.git;
 in {
-  options.my.programs.git.enable = lib.mkEnableOption "Git" // {default = config.my.programs.enableAll;};
+  options.my.programs.git.enable = lib.mkEnableOption "Git";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [
