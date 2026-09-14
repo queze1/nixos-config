@@ -17,7 +17,11 @@ in {
     };
 
     home-manager.sharedModules = [
-      ({config, ...}: let
+      ({
+        config,
+        pkgs,
+        ...
+      }: let
         bind = action: args: {
           ${action} =
             if args == []
@@ -26,6 +30,16 @@ in {
         };
         noArgs = action: keys: lib.genAttrs keys (_: bind action []);
         noArgsWithProps = action: keys: props: lib.genAttrs keys (_: (bind action []) // {_props = props;});
+
+        # Nix command paths
+        xdgTerminalExec = lib.getExe config.xdg.terminal-exec.package;
+        foot = lib.getExe config.programs.foot.package;
+        yazi = lib.getExe config.programs.yazi.package;
+        xdgOpen = lib.getExe' pkgs.xdg-utils "xdg-open";
+        noctalia = lib.getExe config.programs.noctalia-shell.package;
+        systemdRun = lib.getExe' pkgs.systemd "systemd-run";
+        playerctl = lib.getExe pkgs.playerctl;
+        spiceVdagent = lib.getExe pkgs.spice-vdagent;
 
         # Detect default applications for keybind descriptions
         defaultTerminal = let
@@ -42,6 +56,13 @@ in {
           then lib.removeSuffix ".desktop" (lib.head defaults)
           else null;
       in {
+        assertions = [
+          {
+            assertion = config.xdg.terminal-exec.enable;
+            message = "niri depends on xdg-terminal-exec for default terminal selection";
+          }
+        ];
+
         wayland.windowManager.niri = {
           enable = true;
 
@@ -206,33 +227,33 @@ in {
               (lib.mkIf config.programs.noctalia-shell.enable {
                 "Mod+Space" = {
                   _props.hotkey-overlay-title = "Open Launcher: noctalia-shell";
-                  spawn-sh = "noctalia-shell ipc call launcher toggle";
+                  spawn-sh = "${noctalia} ipc call launcher toggle";
                 };
                 "Mod+S" = {
                   _props.hotkey-overlay-title = "Open Control Centre: noctalia-shell";
-                  spawn-sh = "noctalia-shell ipc call controlCenter toggle";
+                  spawn-sh = "${noctalia} ipc call controlCenter toggle";
                 };
                 "Mod+Comma" = {
                   _props.hotkey-overlay-title = "Open Settings: noctalia-shell";
-                  spawn-sh = "noctalia-shell ipc call settings toggle";
+                  spawn-sh = "${noctalia} ipc call settings toggle";
                 };
                 "Ctrl+Alt+L" = {
                   _props.hotkey-overlay-title = "Lock Screen: noctalia-shell";
-                  spawn-sh = "noctalia-shell ipc call lockScreen lock";
+                  spawn-sh = "${noctalia} ipc call lockScreen lock";
                 };
                 "Mod+Shift+W" = {
                   _props.hotkey-overlay-title = "Change Wallpaper: noctalia-shell";
-                  spawn-sh = "noctalia-shell ipc call wallpaper toggle";
+                  spawn-sh = "${noctalia} ipc call wallpaper toggle";
                 };
                 "Mod+Shift+M" = {
                   _props.hotkey-overlay-title = "Toggle Theme: noctalia-shell";
-                  spawn-sh = "noctalia-shell ipc call darkMode toggle";
+                  spawn-sh = "${noctalia} ipc call darkMode toggle";
                 };
-                "XF86AudioRaiseVolume".spawn = ["noctalia-shell" "ipc" "call" "volume" "increase"];
-                "XF86AudioLowerVolume".spawn = ["noctalia-shell" "ipc" "call" "volume" "decrease"];
-                "XF86AudioMute".spawn = ["noctalia-shell" "ipc" "call" "volume" "muteOutput"];
-                "XF86MonBrightnessUp".spawn = ["noctalia-shell" "ipc" "call" "brightness" "increase"];
-                "XF86MonBrightnessDown".spawn = ["noctalia-shell" "ipc" "call" "brightness" "decrease"];
+                "XF86AudioRaiseVolume".spawn = [noctalia "ipc" "call" "volume" "increase"];
+                "XF86AudioLowerVolume".spawn = [noctalia "ipc" "call" "volume" "decrease"];
+                "XF86AudioMute".spawn = [noctalia "ipc" "call" "volume" "muteOutput"];
+                "XF86MonBrightnessUp".spawn = [noctalia "ipc" "call" "brightness" "increase"];
+                "XF86MonBrightnessDown".spawn = [noctalia "ipc" "call" "brightness" "decrease"];
               })
               {
                 "Mod+T" = {
@@ -240,47 +261,47 @@ in {
                     if defaultTerminal != null
                     then "Open a Terminal: ${defaultTerminal}"
                     else "Open a Terminal";
-                  spawn = "xdg-terminal-exec";
+                  spawn = xdgTerminalExec;
                 };
                 "Mod+N" = {
                   _props.hotkey-overlay-title = "Open Neovim: nvim";
                   # Run nvim as a transient service so systemd cleans up orphans
                   spawn = [
-                    "systemd-run"
+                    systemdRun
                     "--user"
                     "--collect"
                     "--property=SendSIGHUP=yes"
-                    "xdg-terminal-exec"
+                    xdgTerminalExec
                     "--"
-                    "nvim"
+                    "nvim" # use PATH instead of explicitly using nvf package
                   ];
                 };
                 "Mod+Y" = {
                   _props.hotkey-overlay-title = "Open Yazi: yazi";
-                  spawn = ["foot" "--title" "Yazi: ~/" "--" "yazi"];
+                  spawn = [foot "--title" "Yazi: ~/" "--" yazi]; # xdg-terminal-exec can't set --title
                 };
                 "Mod+B" = {
                   _props.hotkey-overlay-title =
                     if defaultBrowser != null
                     then "Open Browser: ${defaultBrowser}"
                     else "Open Browser";
-                  spawn = ["xdg-open" "https://"];
+                  spawn = [xdgOpen "https://"];
                 };
                 "XF86AudioPlay" = {
                   _props.allow-when-locked = true;
-                  spawn-sh = "playerctl play-pause";
+                  spawn-sh = "${playerctl} play-pause";
                 };
                 "XF86AudioStop" = {
                   _props.allow-when-locked = true;
-                  spawn-sh = "playerctl stop";
+                  spawn-sh = "${playerctl} stop";
                 };
                 "XF86AudioPrev" = {
                   _props.allow-when-locked = true;
-                  spawn-sh = "playerctl previous";
+                  spawn-sh = "${playerctl} previous";
                 };
                 "XF86AudioNext" = {
                   _props.allow-when-locked = true;
-                  spawn-sh = "playerctl next";
+                  spawn-sh = "${playerctl} next";
                 };
                 "Mod+Shift+WheelScrollDown" = {
                   _props.cooldown-ms = 150;
@@ -313,8 +334,8 @@ in {
               }) (lib.range 1 9)))
             ];
 
-            spawn-at-startup = lib.mkIf config.programs.noctalia-shell.enable "noctalia-shell";
-            spawn-sh-at-startup = lib.mkIf isUtm "spice-vdagent -x";
+            spawn-at-startup = lib.mkIf config.programs.noctalia-shell.enable noctalia;
+            spawn-sh-at-startup = lib.mkIf isUtm "${spiceVdagent} -x";
           };
         };
       })
