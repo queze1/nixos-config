@@ -15,7 +15,7 @@
       configFile = format.generate "server.toml" cfg.settings;
     }
     ''
-      export ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64="$(${lib.getExe pkgs.openssl} genrsa -traditional 4096 | ${pkgs.coreutils}/bin/base64 -w0)"
+      export ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64="$(${lib.getExe pkgs.openssl} genrsa -traditional 4096 | ${lib.getExe' pkgs.coreutils "base64"} -w0)"
       export ATTIC_SERVER_DATABASE_URL="sqlite://:memory:"
       ${lib.getExe cfg.package} --mode check-config -f $configFile
       cat <$configFile >$out
