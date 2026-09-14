@@ -1,55 +1,25 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   config = lib.mkIf config.my.programs.nvf.enable {
     home-manager.sharedModules = [
       ({lib, ...}: {
-        # Preserve copilot.nvim token
-        my.home.preservation.extraDirectories = [
-          ".config/github-copilot"
-        ];
-
         programs.nvf.settings.vim = {
           # LLM integration
-          assistant = {
-            copilot = {
-              enable = false;
-              setupOpts = {
-                suggestion.enabled = false;
-              };
-            };
-            codecompanion-nvim = {
-              enable = true;
-              setupOpts = {
-                interactions = {
-                  chat = {
-                    adapter = {
-                      name = "copilot";
-                    };
-                  };
-                  inline = {
-                    adapter = "copilot";
-                  };
-                  cli = {
-                    agent = "codex";
-                    agents = {
-                      codex = {
-                        cmd = "codex";
-                        args = {};
-                        description = "OpenAI Codex CLI";
-                      };
-                      copilot = {
-                        cmd = "copilot";
-                        args = {};
-                        description = "Copilot CLI";
-                      };
-                      cursor = {
-                        cmd = "cursor";
-                        args = {};
-                        description = "Cursor CLI";
-                      };
+          assistant.codecompanion-nvim = {
+            enable = true;
+            setupOpts = {
+              interactions = {
+                cli = {
+                  agent = "codex";
+                  agents = {
+                    codex = {
+                      cmd = lib.getExe pkgs.codex;
+                      args = {};
+                      description = "OpenAI Codex CLI";
                     };
                   };
                 };
