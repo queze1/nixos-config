@@ -68,6 +68,13 @@ in {
             Persistent = false;
           };
         };
+        local-server2 = {
+          timerConfig = {
+            OnCalendar = "02:00";
+            RandomizedDelaySec = "1h";
+            Persistent = false;
+          };
+        };
         personal-backup = {
           # Managed by Backrest on host machine
           timerConfig = null;
