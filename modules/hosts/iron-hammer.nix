@@ -31,14 +31,15 @@ in {
     my.programs = {
       bitwarden.enable = true;
       direnv.enable = true;
-      fish.enable = true;
       firefox.enable = true;
+      fish.enable = true;
       foot.enable = true;
       git.enable = true;
       imv.enable = true;
       llmTools.enable = true;
       nvf.enable = true;
       obsidian.enable = true;
+      steam.enable = true;
       vesktop.enable = true;
       yazi.enable = true;
     };
