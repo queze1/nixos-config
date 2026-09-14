@@ -8,7 +8,14 @@
 in {
   imports = [inputs.comin.nixosModules.comin];
 
-  options.my.deployment.comin.enable = lib.mkEnableOption "comin";
+  options.my.deployment.comin = {
+    enable = lib.mkEnableOption "comin";
+    branch = lib.mkOption {
+      type = lib.types.str;
+      default = "deployed";
+      description = "The branch to deploy from.";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     assertions = [
@@ -24,7 +31,7 @@ in {
         {
           name = "origin";
           url = "https://github.com/queze1/nixos-config.git";
-          branches.main.name = "deployed";
+          branches.main.name = cfg.branch;
           # Use access token to poll faster
           auth.access_token_path = config.sops.secrets.github-access-token.path;
           poller.period = 10;
