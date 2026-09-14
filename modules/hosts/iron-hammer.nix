@@ -2,34 +2,15 @@
   config,
   inputs,
   lib,
-  pkgs-stable,
   ...
 }: let
   cfg = config.my.hosts.iron-hammer;
-  mainUser = "queze";
 in {
   options.my.hosts.iron-hammer.enable =
     lib.mkEnableOption "iron-hammer host configuration";
 
   config = lib.mkIf cfg.enable {
-    # System config
-    my.boot = {
-      systemdBoot.enable = true;
-      useLatestLtsKernel = true;
-      configurationLimit = 10;
-    };
-    my.sound.enable = true;
-    my.fonts.enable = true;
-    my.localisation.enable = true;
-    my.networkManager.enable = true;
-    zramSwap.enable = true;
-
-    # Desktop environment
-    my.desktop = {
-      enable = true;
-      niri.enable = true;
-      noctalia.enable = true;
-    };
+    my.profiles.pc.enable = true;
 
     # Disk configuration
     my.disko = {
@@ -38,35 +19,22 @@ in {
     };
     my.preservation = {
       enable = true;
-      users = [mainUser];
+      users = ["queze"];
     };
     my.btrbk.enable = true;
-
-    # Secret management
-    my.sops = {
-      enable = true;
-      homeManager.enable = true;
-    };
 
     # Services
     my.deployment.comin.enable = true;
     my.beszel-agent.enable = true;
-    my.tailscale.enable = true;
 
-    # User management
-    my.homeManager = {
-      enable = true;
-      pkgsStable = pkgs-stable;
-    };
+    # Programs
     my.programs = {
-      enableDefault = true;
       bitwarden.enable = true;
       direnv.enable = true;
       fish.enable = true;
       firefox.enable = true;
       foot.enable = true;
       git.enable = true;
-      immichGo.enable = true;
       imv.enable = true;
       llmTools.enable = true;
       nvf.enable = true;
@@ -74,27 +42,6 @@ in {
       vesktop.enable = true;
       yazi.enable = true;
     };
-    my.users.${mainUser}.enable = true;
-
-    # Personalisation
-    my.shortcuts.enable = true;
-    my.editor.vim.enable = true;
-
-    # Nix-related config
-    my.nix = {
-      enable = true;
-      settings.download-buffer-size = 5000000;
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 7d";
-      };
-      binaryCache.enable = true;
-      replHistory.enable = true;
-      accessTokens.enable = true;
-    };
-
-    # TODO: Add backups
 
     networking.hostName = "iron-hammer";
     hardware.facter.reportPath = "${inputs.secrets}/facter/iron-hammer.json";
