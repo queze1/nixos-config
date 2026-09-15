@@ -14,7 +14,8 @@ in {
   config = lib.mkIf cfg.enable {
     my.profiles.home-server.enable = true;
 
-    my.podmanContainers.enable = true;
+    # Required by apps using OCI containers
+    virtualisation.podman.enable = true;
 
     # Ingress & routing
     my.cloudflared.enable = true;
