@@ -3,16 +3,11 @@ description: Build all custom packages & push to binary cache
 
 on:
   workflow_dispatch:
-  pull_request:
   push:
     branches: [ "main" ]
 
 jobs:
   build:
-    if: >-
-      contains(github.event.pull_request.labels.*.name, 'automated') &&
-      contains(github.event.pull_request.labels.*.name, 'flake-update') ||
-      github.event_name != 'pull_request'
     runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
@@ -51,7 +46,20 @@ jobs:
         with:
           token: ${{ secrets.ATTIC_TOKEN }}
 
+      - name: Check Attic cache
+        id: cache
+        run: |
+          out_path="$(nix eval --raw \
+            ".#packages.${{ matrix.system }}.${{ matrix.package }}.outPath")"
+
+          if nix path-info --store https://attic.osipol.uk/cache "$out_path" > /dev/null; then
+            echo "hit=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "hit=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build with Nix
+        if: steps.cache.outputs.hit != 'true'
         run: |
           nix build \
             ".#packages.${{ matrix.system }}.${{ matrix.package }}" \
@@ -60,6 +68,7 @@ jobs:
             --print-out-paths > .attic-out-paths
 
       - name: Upload to Attic cache
-        if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
+        if: >-
+          steps.cache.outputs.hit != 'true'
         run: |
           nix run nixpkgs#attic-client push cache $(<.attic-out-paths)
