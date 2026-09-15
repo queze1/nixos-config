@@ -38,15 +38,27 @@ in {
                   desc = "Edit image with pinta";
                 }
               ];
+              unrar = [
+                {
+                  run = ''${lib.getExe pkgs.unrar} x %s1'';
+                  block = true;
+                  desc = "Extract archive with unrar";
+                }
+              ];
             };
             open = {
               prepend_rules = [
+                {
+                  url = "*.rar";
+                  use = [
+                    "unrar"
+                  ];
+                }
                 {
                   mime = "image/*";
                   use = [
                     "imv"
                     "pinta"
-                    "view"
                   ];
                 }
               ];
