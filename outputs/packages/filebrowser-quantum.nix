@@ -1,6 +1,6 @@
 {inputs, ...}: {
   perSystem = {pkgs, ...}: {
-    packages.filebrowser-quantum = pkgs.buildGo127Module (let
+    myPackages.filebrowser-quantum = pkgs.buildGo127Module (let
       version = "unstable-${inputs.filebrowser-quantum.lastModifiedDate}";
       frontend = pkgs.buildNpmPackage {
         pname = "filebrowser-quantum-frontend";
