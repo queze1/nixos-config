@@ -25,6 +25,9 @@ in {
             users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
             networking.networkmanager.enable = true;
 
+            # Recommended default in 26.11
+            boot.zfs.forceImportRoot = false;
+
             # Recommended in https://gist.github.com/baryluk/70a99b5f26df4671378dd05afef97fce
             isoImage.squashfsCompression = "zstd -Xcompression-level 6 -b 1M";
             nixpkgs.hostPlatform = system;
