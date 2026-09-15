@@ -5,6 +5,8 @@
     pkgs,
     ...
   }: {
+    packages.creamlinux-installer = import inputs.creamlinux-installer {inherit pkgs;};
+
     packages.filebrowser-quantum = pkgs.buildGo127Module (let
       version = "unstable-${inputs.filebrowser-quantum.lastModifiedDate}";
       frontend = pkgs.buildNpmPackage {
