@@ -59,14 +59,14 @@ in {
             Persistent = true;
           };
         };
-        local-server = {
+        steadfast-defender = {
           timerConfig = {
             OnCalendar = "hourly";
             RandomizedDelaySec = "15m";
             Persistent = true;
           };
         };
-        local-server2 = {
+        steadfast-dart = {
           timerConfig = {
             OnCalendar = "hourly";
             RandomizedDelaySec = "15m";
