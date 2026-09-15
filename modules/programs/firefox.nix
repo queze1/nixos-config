@@ -12,15 +12,11 @@ in {
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [
-      ({
-        config,
-        pkgs,
-        ...
-      }: let
+      ({pkgs, ...}: let
         configPath =
           if cfg.useLegacyDefault
           then ".mozilla/firefox"
-          else "${config.xdg.configHome}/mozilla/firefox";
+          else ".config/mozilla/firefox";
       in {
         # Preserve Firefox data
         my.home.preservation.extraDirectories = [configPath];
