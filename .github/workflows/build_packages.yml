@@ -20,6 +20,7 @@ jobs:
         package:
           - filebrowser-quantum
           - tumblr-backup
+          - creamlinux-installer
         system:
           - x86_64-linux
           - aarch64-linux
