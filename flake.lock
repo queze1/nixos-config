@@ -93,6 +93,22 @@
         "type": "github"
       }
     },
+    "creamlinux-installer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783846734,
+        "narHash": "sha256-sV23mp0XnJHf4oSqqvFLFfvSkssHzxafqYMNw3HGEdg=",
+        "owner": "Novattz",
+        "repo": "creamlinux-installer",
+        "rev": "7c16b63b41f984a1f480fa14ce78da4cc4869a66",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Novattz",
+        "repo": "creamlinux-installer",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -249,22 +265,6 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "type": "github"
-      }
-    },
-    "fourget": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1788913415,
-        "narHash": "sha256-ZAu7bkmD2Ap7EiPyp0Xv81MQOTLIdevPRtrwPJiUEZw=",
-        "ref": "refs/heads/master",
-        "rev": "734926240d2e40abd9bbde072a741b1cfc682432",
-        "revCount": 483,
-        "type": "git",
-        "url": "https://git.lolcat.ca/lolcat/4get"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://git.lolcat.ca/lolcat/4get"
       }
     },
     "git-hooks-nix": {
@@ -714,10 +714,10 @@
         "bunny-yazi": "bunny-yazi",
         "colmena": "colmena",
         "comin": "comin",
+        "creamlinux-installer": "creamlinux-installer",
         "disko": "disko",
         "filebrowser-quantum": "filebrowser-quantum",
         "flake-parts": "flake-parts",
-        "fourget": "fourget",
         "git-hooks-nix": "git-hooks-nix",
         "github2forgejo": "github2forgejo",
         "home-manager": "home-manager",
