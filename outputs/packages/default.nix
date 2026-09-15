@@ -1,9 +1,9 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
-  perSystem = {config, ...}: {
+{inputs, ...}: {
+  perSystem = {
+    config,
+    pkgs,
+    ...
+  }: {
     # Merge myPackages into packages
     packages = config.myPackages;
 
