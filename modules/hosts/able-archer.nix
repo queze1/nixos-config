@@ -29,9 +29,6 @@ in {
     };
     my.btrbk.enable = true;
 
-    # Services
-    my.docker.enable = true;
-
     # Programs
     my.programs = {
       bitwarden.enable = true;
