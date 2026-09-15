@@ -107,10 +107,6 @@
       url = "github:PatNei/GITHUB2FORGEJO";
       flake = false;
     };
-    fourget = {
-      url = "git+https://git.lolcat.ca/lolcat/4get";
-      flake = false;
-    };
 
     # Yazi plugins
     bunny-yazi = {
