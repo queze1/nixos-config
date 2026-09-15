@@ -31,17 +31,18 @@ in {
           pkgs.qalculate-qt
           pkgs-stable.celluloid
 
-          # CLI tools
-          pkgs.ncdu
+          # Development
+          pkgs.act
           pkgs.npins
           pkgs.sops
+          colmena
+
+          # CLI tools
+          pkgs.ncdu
           pkgs.tree
           pkgs.unzip
           pkgs.wl-clipboard
-          colmena
           tumblrBackup
-
-          # Scripts
           tumblrToEbook
         ];
 
