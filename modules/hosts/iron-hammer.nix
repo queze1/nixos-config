@@ -39,7 +39,10 @@ in {
       llmTools.enable = true;
       nvf.enable = true;
       obsidian.enable = true;
-      steam.enable = true;
+      steam = {
+        enable = true;
+        creamlinux.enable = true;
+      };
       vesktop.enable = true;
       yazi.enable = true;
     };
