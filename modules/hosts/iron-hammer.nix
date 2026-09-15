@@ -39,7 +39,10 @@ in {
       llmTools.enable = true;
       nvf.enable = true;
       obsidian.enable = true;
-      steam.enable = true;
+      steam = {
+        enable = true;
+        creamlinux.enable = true;
+      };
       vesktop.enable = true;
       yazi.enable = true;
     };
@@ -56,14 +59,14 @@ in {
             Persistent = true;
           };
         };
-        local-server = {
+        steadfast-defender = {
           timerConfig = {
             OnCalendar = "hourly";
             RandomizedDelaySec = "15m";
             Persistent = true;
           };
         };
-        local-server2 = {
+        steadfast-dart = {
           timerConfig = {
             OnCalendar = "hourly";
             RandomizedDelaySec = "15m";

@@ -4,6 +4,8 @@
     pkgs,
     ...
   }: {
+    packages.creamlinux-installer = import inputs.creamlinux-installer {inherit pkgs;};
+
     packages.tumblr-backup = let
       inherit (pkgs.callPackages inputs.pyproject-nix.build.util {}) mkApplication;
 

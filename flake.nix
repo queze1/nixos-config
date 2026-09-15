@@ -91,8 +91,8 @@
     };
 
     # Non-flake applications
-    github2forgejo = {
-      url = "github:PatNei/GITHUB2FORGEJO";
+    creamlinux-installer = {
+      url = "github:Novattz/creamlinux-installer";
       flake = false;
     };
     filebrowser-quantum = {
@@ -103,8 +103,8 @@
       url = "github:cebtenzzre/tumblr-utils";
       flake = false;
     };
-    fourget = {
-      url = "git+https://git.lolcat.ca/lolcat/4get";
+    github2forgejo = {
+      url = "github:PatNei/GITHUB2FORGEJO";
       flake = false;
     };
 

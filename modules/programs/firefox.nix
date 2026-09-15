@@ -5,17 +5,21 @@
 }: let
   cfg = config.my.programs.firefox;
 in {
-  options.my.programs.firefox.enable = lib.mkEnableOption "Firefox";
+  options.my.programs.firefox = {
+    enable = lib.mkEnableOption "Firefox";
+    useLegacyDefault = lib.mkEnableOption "using the legacy default for Firefox config path";
+  };
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [
-      ({
-        config,
-        pkgs,
-        ...
-      }: {
+      ({pkgs, ...}: let
+        configPath =
+          if cfg.useLegacyDefault
+          then ".mozilla/firefox"
+          else ".config/mozilla/firefox";
+      in {
         # Preserve Firefox data
-        my.home.preservation.extraDirectories = [".mozilla/firefox"];
+        my.home.preservation.extraDirectories = [configPath];
 
         # Set Firefox as default browser
         xdg.mimeApps.defaultApplications = {
@@ -26,7 +30,7 @@ in {
 
         programs.firefox = {
           enable = true;
-          configPath = "${config.home.homeDirectory}/.mozilla/firefox";
+          inherit configPath;
           policies = {
             DisableTelemetry = true;
             GenerativeAI = false;

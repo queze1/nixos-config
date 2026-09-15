@@ -29,15 +29,15 @@ in {
     };
     my.btrbk.enable = true;
 
-    # Services
-    my.docker.enable = true;
-
     # Programs
     my.programs = {
       bitwarden.enable = true;
       direnv.enable = true;
       fish.enable = true;
-      firefox.enable = true;
+      firefox = {
+        enable = true;
+        useLegacyDefault = true;
+      };
       foot.enable = true;
       git.enable = true;
       immichGo.enable = true;
@@ -61,14 +61,14 @@ in {
             Persistent = false;
           };
         };
-        local-server = {
+        steadfast-defender = {
           timerConfig = {
             OnCalendar = "02:00";
             RandomizedDelaySec = "1h";
             Persistent = false;
           };
         };
-        local-server2 = {
+        steadfast-dart = {
           timerConfig = {
             OnCalendar = "02:00";
             RandomizedDelaySec = "1h";

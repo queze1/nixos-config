@@ -199,7 +199,7 @@ in {
           {
             name = "Pi-Hole DNS";
             group = "Private Services";
-            url = "100.68.90.10"; # steadfast-dart
+            url = "100.85.118.26"; # mirage-blue
             dns.query-name = "one.one.one.one";
             dns.query-type = "A";
             conditions = [
