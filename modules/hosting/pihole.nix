@@ -149,8 +149,6 @@ in {
       };
     };
     services.ddclient.domains = [myCfg.domain];
-
-    # Only allow Caddy to access this port
     my.caddy.firewalledPorts = [myCfg.port];
   };
 }
