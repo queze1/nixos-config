@@ -68,7 +68,10 @@ in {
       bitwarden.enable = true;
       direnv.enable = true;
       fish.enable = true;
-      firefox.enable = true;
+      firefox = {
+        enable = true;
+        useLegacyDefault = true;
+      };
       foot.enable = true;
       git.enable = true;
       immichGo.enable = true;
