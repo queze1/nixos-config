@@ -21,7 +21,9 @@ in {
 
     # Hosted services
     my.apps = {
+      autoAssignPorts = true;
       beszel-hub.enable = true;
+      pihole.enable = true;
       vaultwarden.enable = true;
     };
 
