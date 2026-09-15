@@ -14,9 +14,6 @@ in {
   config = lib.mkIf cfg.enable {
     my.profiles.home-server.enable = true;
 
-    # Use as a proxy
-    my.tailscale.advertiseExitNode = true;
-
     my.podmanContainers.enable = true;
 
     # Ingress & routing

@@ -80,8 +80,11 @@ in {
     # User management & security
     my.users.commander.enable = true;
     users.users.root.openssh.authorizedKeys.keys = [sshKeys.ableArcherKey];
-    security.sudo.wheelNeedsPassword = false;
-    services.getty.autologinUser = lib.mkIf cfg.bootstrap "root"; # autologin if bootstrapping
+    services.getty = lib.mkIf cfg.bootstrap {
+      # Could be bypassed if someone rebooted into an old generation when autologin was still set?
+      autologinOnce = true;
+      autologinUser = "root";
+    };
 
     # Don't sleep on lid close
     services.logind.settings.Login = {
