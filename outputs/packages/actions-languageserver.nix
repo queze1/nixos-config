@@ -2,8 +2,9 @@
   perSystem = {pkgs, ...}: let
     src = inputs.actions-languageservices;
     version = (builtins.fromJSON (builtins.readFile "${src}/languageserver/package.json")).version;
-    restApiDescription = pkgs.fetchgit {
-      url = "https://github.com/github/rest-api-description.git";
+    restApiDescription = pkgs.fetchFromGitHub {
+      owner = "github";
+      repo = "rest-api-description";
       rev = "5e28810649ba41b5483753ba74f976f83856a504";
       hash = "sha256-cf5Bww0aT8ftBcHaX6ST17DbXEqlUsMKhxkl6z4yy5c=";
     };
