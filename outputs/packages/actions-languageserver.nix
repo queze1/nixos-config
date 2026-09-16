@@ -2,6 +2,7 @@
   perSystem = {pkgs, ...}: let
     src = inputs.actions-languageservices;
     version = (builtins.fromJSON (builtins.readFile "${src}/languageserver/package.json")).version;
+
     patchedSrc =
       pkgs.runCommand "actions-languageservices-patched" {
         nativeBuildInputs = [
@@ -32,12 +33,13 @@
 
     myPackages.actions-languageserver = pkgs.buildNpmPackage {
       pname = "actions-languageserver";
-      inherit src version;
+      inherit version;
+      src = patchedSrc;
 
-      nativeBuildInputs = [pkgs.git];
+      nativeBuildInputs = [pkgs.git pkgs.openssh];
 
       npmWorkspace = "languageserver";
-      npmDeps = pkgs.importNpmLock {npmRoot = src;};
+      npmDeps = pkgs.importNpmLock {npmRoot = patchedSrc;};
       npmConfigHook = pkgs.importNpmLock.npmConfigHook;
       npmFlags = ["--loglevel" "verbose"];
     };
