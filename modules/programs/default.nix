@@ -32,6 +32,7 @@ in {
           pkgs-stable.celluloid
 
           # Development
+          pkgs.act
           pkgs.github-cli
           pkgs.npins
           pkgs.sops

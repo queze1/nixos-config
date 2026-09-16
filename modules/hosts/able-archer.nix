@@ -29,6 +29,8 @@ in {
     };
     my.btrbk.enable = true;
 
+    virtualisation.docker.rootless.enable = true;
+
     # Programs
     my.programs = {
       bitwarden.enable = true;
