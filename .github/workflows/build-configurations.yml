@@ -62,7 +62,8 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.find-configurations.outputs.configurations) }}
+      matrix:
+        include: ${{ fromJSON(needs.find-configurations.outputs.configurations) }}
 
     uses: ./.github/workflows/build-with-attic.yml
     with:
