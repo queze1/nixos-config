@@ -11,14 +11,17 @@ on:
         description: Attic server URL
         required: false
         default: https://attic.osipol.uk
+        type: string
       cache:
         description: Attic cache name
         required: false
         default: cache
+        type: string
       cache-public-key:
         description: Attic trusted public key
         required: false
         default: cache:C3spwmruXebNeOwAnYy98JGgTOnos586oMVmkYn/RYg=
+        type: string
       script:
         description: The script to run.
         required: true
