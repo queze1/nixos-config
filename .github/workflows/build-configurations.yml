@@ -6,7 +6,48 @@ on:
   pull_request:
 
 jobs:
+  find-configurations:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event_name == 'pull_request' &&
+        contains(github.event.pull_request.labels.*.name, 'automated') &&
+        contains(github.event.pull_request.labels.*.name, 'flake-update')
+      )
+    runs-on: ubuntu-latest
+    outputs:
+      configurations: ${{ steps.find-configurations.outputs.configurations }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - name: Find configuration names and runners
+        id: find-configurations
+        run: |
+          configurations=$(nix eval .#nixosConfigurations \
+            --apply '
+              configs:
+              let
+                runnerForSystem = {
+                  "x86_64-linux" = "ubuntu-latest";
+                  "aarch64-linux" = "ubuntu-24.04-arm";
+                };
+              in
+                builtins.map
+                  (name:
+                    let
+                      config = configs.${name};
+                      system = config.pkgs.stdenv.hostPlatform.system;
+                    in {
+                      attr = ".#nixosConfigurations.${name}.config.system.build.toplevel";
+                      runner = runnerForSystem.${system};
+                    })
+                  (builtins.attrNames configs)
+            ' \
+            --json)
+          echo "configurations=$configurations" >> "$GITHUB_OUTPUT"
+
   build-configurations:
+    needs: find-configurations
     # Only runs on a flake update
     if: >-
       github.event_name == 'workflow_dispatch' ||
@@ -18,20 +59,7 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - attr: ".#nixosConfigurations.able-archer.config.system.build.toplevel"
-            runner: ubuntu-24.04-arm
-          - attr: ".#nixosConfigurations.iron-hammer.config.system.build.toplevel"
-            runner: ubuntu-latest
-          - attr: ".#nixosConfigurations.steadfast-dart.config.system.build.toplevel"
-            runner: ubuntu-latest
-          - attr: ".#nixosConfigurations.steadfast-defender.config.system.build.toplevel"
-            runner: ubuntu-latest
-          - attr: ".#nixosConfigurations.mirage-red.config.system.build.toplevel"
-            runner: ubuntu-latest
-          - attr: ".#nixosConfigurations.mirage-blue.config.system.build.toplevel"
-            runner: ubuntu-latest
+      matrix: ${{ fromJSON(needs.find-configurations.outputs.configurations) }}
 
     uses: ./.github/workflows/build-with-attic.yml
     with:
@@ -42,4 +70,3 @@ jobs:
       TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
       TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
       ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }} 
-
