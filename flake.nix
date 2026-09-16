@@ -59,10 +59,6 @@
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    actions-languageservices = {
-      url = "github:actions/languageservices";
-      flake = false;
-    };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -95,6 +91,10 @@
     };
 
     # Non-flake applications
+    actions-languageservices = {
+      url = "github:actions/languageservices";
+      flake = false;
+    };
     creamlinux-installer = {
       url = "github:Novattz/creamlinux-installer";
       flake = false;
