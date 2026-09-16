@@ -202,7 +202,15 @@ in {
 
               github-actions-nvim = {
                 package = github-actions-nvim;
-                setup = "require('github-actions').setup {}";
+                setup = ''
+                  local actions = require('github-actions')
+                  vim.keymap.set('n', '<leader>gd', actions.dispatch_workflow, { desc = 'Dispatch workflow' })
+                  vim.keymap.set('n', '<leader>gh', actions.show_history, { desc = 'Show workflow history' })
+                  vim.keymap.set('n', '<leader>gp', function() actions.show_history({ pr_mode = true }) end, { desc = 'Show workflow history by branch/PR' })
+                  vim.keymap.set('n', '<leader>gw', actions.watch_workflow, { desc = 'Watch running workflow' })
+                  vim.keymap.set('n', '<leader>go', actions.open_workflow_url, { desc = 'Open workflow URL in browser' })
+                  actions.setup({});
+                '';
               };
             };
           };

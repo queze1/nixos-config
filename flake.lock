@@ -288,6 +288,22 @@
         "type": "github"
       }
     },
+    "github-actions-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787591608,
+        "narHash": "sha256-W8375avYiUkrAH/8E8x21n4xXzR0k9sSGbsRo186m2s=",
+        "owner": "skanehira",
+        "repo": "github-actions.nvim",
+        "rev": "340ab91f11643f76eaf854ede398e54769cccd4a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "skanehira",
+        "repo": "github-actions.nvim",
+        "type": "github"
+      }
+    },
     "github2forgejo": {
       "flake": false,
       "locked": {
@@ -719,6 +735,7 @@
         "filebrowser-quantum": "filebrowser-quantum",
         "flake-parts": "flake-parts",
         "git-hooks-nix": "git-hooks-nix",
+        "github-actions-nvim": "github-actions-nvim",
         "github2forgejo": "github2forgejo",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
