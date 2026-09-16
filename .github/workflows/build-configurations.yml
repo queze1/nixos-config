@@ -20,6 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
       - name: Find configuration names and runners
         id: find-configurations
         run: |
