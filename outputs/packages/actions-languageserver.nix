@@ -40,13 +40,6 @@
       npmDeps = pkgs.importNpmLock {npmRoot = src;};
       npmConfigHook = pkgs.importNpmLock.npmConfigHook;
       npmFlags = ["--loglevel" "verbose"];
-
-      preConfigure = ''
-        # Force git to use HTTPS instead of SSH for Github
-        git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
-        git config --global url."https://github.com/".insteadOf "git@github.com:"
-        git config --global url."https://github.com/".insteadOf "git+ssh://git@github.com/"
-      '';
     };
   };
 }
