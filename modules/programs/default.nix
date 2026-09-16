@@ -32,7 +32,6 @@ in {
           pkgs-stable.celluloid
 
           # Development
-          pkgs.act
           pkgs.npins
           pkgs.sops
           colmena
