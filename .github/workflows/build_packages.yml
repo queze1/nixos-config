@@ -16,6 +16,7 @@ jobs:
           - filebrowser-quantum
           - tumblr-backup
           - creamlinux-installer
+          - actions-languageserver
         system:
           - x86_64-linux
           - aarch64-linux
