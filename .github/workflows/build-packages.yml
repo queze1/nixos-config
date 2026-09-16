@@ -3,11 +3,19 @@ description: Build all custom packages & push to binary cache
 
 on:
   workflow_dispatch:
+  pull_request:
   push:
     branches: [ "main" ]
 
 jobs:
   find-packages:
+    # Only run on flake update PRs
+    if: >-
+      github.event_name != 'pull_request' ||
+      (
+        contains(github.event.pull_request.labels.*.name, 'automated') &&
+        contains(github.event.pull_request.labels.*.name, 'flake-update')
+      )
     runs-on: ubuntu-latest
     outputs:
       packages: ${{ steps.find-packages.outputs.packages }}
