@@ -32,6 +32,7 @@ in {
           pkgs-stable.celluloid
 
           # Development
+          pkgs.github-cli
           pkgs.npins
           pkgs.sops
           colmena
