@@ -20,6 +20,11 @@
         cp -R ${src}/. $out
         chmod -R u+w $out
 
+        # Force git to use HTTPS instead of SSH
+        git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+        git config --global url."https://github.com/".insteadOf "git@github.com:"
+        git config --global url."https://github.com/".insteadOf "git+ssh://git@github.com/"
+
         # Regenerate the lock file
         rm -f $out/package-lock.json
         npm install --package-lock-only --ignore-scripts --no-audit --no-fund --loglevel verbose --prefix $out
