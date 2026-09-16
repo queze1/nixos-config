@@ -1,5 +1,6 @@
 {
   config,
+  self,
   lib,
   ...
 }: {
@@ -15,7 +16,10 @@
         hostName = osConfig.networking.hostName;
         flakePath = "${config.home.homeDirectory}/etc/nixos";
       in {
-        home.packages = [pkgs.dafny];
+        home.packages = [
+          pkgs.dafny
+          self.packages.${pkgs.stdenv.hostPlatform.system}.actions-languageserver
+        ];
 
         programs.nvf.settings.vim = {
           languages = {
@@ -24,6 +28,10 @@
             markdown = {
               enable = true;
               extensions.render-markdown-nvim.enable = true;
+            };
+            yaml = {
+              enable = true;
+              lsp.enable = false;
             };
             nix = {
               enable = true;
@@ -63,6 +71,19 @@
             lspconfig.enable = true;
             formatOnSave = true;
             servers = {
+              actionsls = {
+                cmd = ["actions-languageserver" "--stdio"];
+                filetypes = ["yaml"];
+                root_markers = [".github/workflows"];
+                capabilities = {
+                  workspace = {
+                    didChangeWorkspaceFolders = {
+                      dynamicRegistration = true;
+                    };
+                  };
+                };
+              };
+
               basedpyright = {
                 settings = {
                   basedpyright = {
