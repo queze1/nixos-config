@@ -4,7 +4,13 @@
     version = (builtins.fromJSON (builtins.readFile "${src}/languageserver/package.json")).version;
     patchedSrc =
       pkgs.runCommand "actions-languageservices-patched" {
-        nativeBuildInputs = [pkgs.nodejs];
+        nativeBuildInputs = [
+          pkgs.nodejs
+          pkgs.writableTmpDirAsHomeHook
+        ];
+
+        SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+        NIX_SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
 
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
@@ -18,7 +24,8 @@
         npm install --package-lock-only --ignore-scripts --no-audit --no-fund --loglevel verbose --prefix $out
       '';
   in {
-    myPackages.patchedSrc = patchedSrc;
+    myPackages.actions-languageservices-patched-src = patchedSrc;
+
     myPackages.actions-languageserver = pkgs.buildNpmPackage {
       pname = "actions-languageserver";
       inherit version;
