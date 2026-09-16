@@ -6,6 +6,7 @@
       pkgs.runCommand "actions-languageservices-patched" {
         nativeBuildInputs = [
           pkgs.nodejs
+          pkgs.git
           pkgs.writableTmpDirAsHomeHook
         ];
 
