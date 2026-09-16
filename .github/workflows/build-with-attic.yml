@@ -1,10 +1,14 @@
-name: Run with Attic
+name: Build with Attic
 
 on:
   workflow_call:
     inputs:
       runs-on:
         description: What runner to run this workflow on.
+        required: true
+        type: string
+      target:
+        description: Nix build target
         required: true
         type: string
       server:
@@ -22,10 +26,6 @@ on:
         required: false
         default: cache:C3spwmruXebNeOwAnYy98JGgTOnos586oMVmkYn/RYg=
         type: string
-      script:
-        description: The script to run.
-        required: true
-        type: string
     secrets:
       GITHUB_ACCESS_TOKEN:
       TS_OAUTH_CLIENT_ID:
@@ -36,7 +36,7 @@ on:
         required: true
 
 jobs:
-  run-with-attic:
+  build-with-attic:
     runs-on: ${{ inputs.runs-on }}
     steps:
       - uses: actions/checkout@v7
@@ -59,10 +59,20 @@ jobs:
         with:
           token: ${{ secrets.ATTIC_TOKEN }}
 
-      - name: Run script
-        id: stdout
-        env:
-          SCRIPT: ${{ inputs.script }}
+      - name: Build target
+        id: build
         run: |
-          bash -c "$SCRIPT" 
+          nix build \
+            ${{ inputs.target }} \
+            --print-build-logs \
+            --print-out-paths > .out-paths
+          nix run nixpkgs#attic-client push cache $(<.out-paths)
+
+      - name: Upload out paths
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ inputs.target }}-paths
+          path: .out-paths
+          if-no-files-found: error
+          include-hidden-files: true
 

@@ -35,16 +35,10 @@ jobs:
           - system: aarch64-linux
             runner: ubuntu-24.04-arm
         
-    uses: ./.github/workflows/run-with-attic.yml
+    uses: ./.github/workflows/build-with-attic.yml
     with:
       runs-on: ${{ matrix.runner }}
-      script: |
-        build_target=".#packages.${{ matrix.system }}.${{ matrix.package }}"
-
-        nix build \
-          "$build_target" \
-          --print-build-logs
-        nix run nixpkgs#attic-client push cache ./result
+      target: ".#packages.${{ matrix.system }}.${{ matrix.package }}"
 
     secrets:
       GITHUB_ACCESS_TOKEN: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
