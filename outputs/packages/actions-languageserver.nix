@@ -1,5 +1,9 @@
 {inputs, ...}: {
-  perSystem = {pkgs, ...}: let
+  perSystem = {
+    pkgs,
+    lib,
+    ...
+  }: let
     src = inputs.actions-languageservices;
     version = (builtins.fromJSON (builtins.readFile "${src}/languageserver/package.json")).version;
     patchedSrc =
@@ -15,14 +19,17 @@
 
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
-        outputHash = "sha256-klZ6quUVC1RZRG9wP9gDrTAeHEPvXxrFmpPuiVu/bEI=";
+        outputHash = lib.fakeHash;
       } ''
         cp -R ${src}/. $out
         chmod -R u+w $out
 
         # Regenerate the lock file
         rm -f $out/package-lock.json
-        npm install --package-lock-only --ignore-scripts --no-audit --no-fund --loglevel verbose --prefix $out
+        npm install --package-lock-only \
+                    --prefix $out \
+                    --ignore-scripts --no-audit --no-fund \
+                    --loglevel verbose
       '';
   in {
     myPackages.actions-languageservices-patched-src = patchedSrc;
