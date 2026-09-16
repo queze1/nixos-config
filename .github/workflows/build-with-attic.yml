@@ -59,20 +59,35 @@ jobs:
         with:
           token: ${{ secrets.ATTIC_TOKEN }}
 
+      - name: Check Attic cache
+        id: cache
+        run: |
+          nix eval --raw ${{ inputs.target }} > .out-path
+
+          if nix path-info --store ${{ inputs.server }}/cache $(<.out-path) > /dev/null; then
+            echo "hit=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "hit=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build target
-        id: build
+        if: steps.cache.outputs.hit != 'true'
         run: |
           nix build \
             ${{ inputs.target }} \
             --print-build-logs \
-            --print-out-paths > .out-paths
-          nix run nixpkgs#attic-client push cache $(<.out-paths)
+            --print-out-paths > .out-path
 
-      - name: Upload out paths
+      - name: Upload to Attic cache
+        if: steps.cache.outputs.hit != 'true'
+        run: |
+          nix run nixpkgs#attic-client push cache $(<.out-path)
+
+      - name: Upload out path
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ inputs.target }}-paths
-          path: .out-paths
+          name: ${{ inputs.target }}-path
+          path: .out-path
           if-no-files-found: error
           include-hidden-files: true
 
