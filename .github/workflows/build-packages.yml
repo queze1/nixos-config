@@ -12,14 +12,26 @@ jobs:
     with:
       runs-on: ubuntu-latest
       script: |
-        nix flake check
+        nix eval .#myPackages.x86_64-linux \
+                 --apply builtins.attrNames \
+                 --json
     secrets:
       GITHUB_ACCESS_TOKEN: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
       TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
       TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
       ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }} 
 
-  build_packages:
+  build-packages:
+    runs-on: ubuntu-latest
+    needs: find-packages
+    steps:
+      env:
+        OUTPUT: ${{ needs.find-packages.outputs.stdout }}
+      run: |
+        echo "Output: $OUTPUT"
+
+
+  build_packages_old:
     if: false
     runs-on: ${{ matrix.runner }}
     strategy:
