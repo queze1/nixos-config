@@ -10,7 +10,7 @@ jobs:
   find-packages:
     runs-on: ubuntu-latest
     outputs:
-      packages: ${{ steps.find-packages.outputs.package-names }}
+      packages: ${{ steps.find-packages.outputs.packages }}
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
