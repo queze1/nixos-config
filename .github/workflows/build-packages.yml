@@ -18,7 +18,6 @@ jobs:
         id: find-packages
         run: |
           packages=$(nix eval .#myPackages.x86_64-linux --apply builtins.attrNames --json | jq -c .)
-          echo "packages=$packages"
           echo "packages=$packages" >> "$GITHUB_OUTPUT"
 
   build-packages:
@@ -38,16 +37,20 @@ jobs:
         
     uses: ./.github/workflows/run-with-attic.yml
     with:
-      runs-on: ubuntu-latest
+      runs-on: ${{ matrix.runner }}
       script: |
-        echo "hi" 
+        build_target=".#packages.${{ matrix.system }}.${{ matrix.package }}"
+
+        nix build \
+          "$build_target" \
+          --print-build-logs
+        nix run nixpkgs#attic-client push cache ./result
+
     secrets:
       GITHUB_ACCESS_TOKEN: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
       TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
       TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
       ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }} 
-
-
 
   build_packages_old:
     if: false
@@ -107,9 +110,8 @@ jobs:
         run: |
           nix build \
             ".#packages.${{ matrix.system }}.${{ matrix.package }}" \
-            --print-build-logs \
-            --no-link \
-            --print-out-paths > .attic-out-paths
+            --print-build-logs
+          nix run nixpkgs#attic-cache -- push 
 
       - name: Upload to Attic cache
         if: >-
