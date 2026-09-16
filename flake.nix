@@ -108,6 +108,12 @@
       flake = false;
     };
 
+    # Neovim plugins
+    github-actions-nvim = {
+      url = "github:skanehira/github-actions.nvim";
+      flake = false;
+    };
+
     # Yazi plugins
     bunny-yazi = {
       url = "github:stelcodes/bunny.yazi";

@@ -2,9 +2,14 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.my.programs.nvf;
+  github-actions-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "github-actions-nvim";
+    src = inputs.github-actions-nvim;
+  };
 in {
   options.my.programs.nvf.enable = lib.mkEnableOption "NVF";
 
@@ -136,9 +141,9 @@ in {
             # ----------------------------------------
             # Extra Plugins
             # ----------------------------------------
-            extraPlugins = with pkgs.vimPlugins; {
+            extraPlugins = {
               auto-save = {
-                package = auto-save-nvim;
+                package = pkgs.vimPlugins.auto-save-nvim;
                 setup = ''
                   local autosave = require("auto-save")
                   autosave.setup({})
@@ -147,7 +152,7 @@ in {
 
               # Autocomplete for command line
               cmp-cmdline = {
-                package = cmp-cmdline;
+                package = pkgs.vimPlugins.cmp-cmdline;
                 setup = ''
                   local cmp = require('cmp')
                   cmp.setup.cmdline(':', {
@@ -169,7 +174,7 @@ in {
 
               # Smooth scrolling
               neoscroll = {
-                package = neoscroll-nvim;
+                package = pkgs.vimPlugins.neoscroll-nvim;
                 setup = ''
                   neoscroll = require('neoscroll')
                   neoscroll.setup({
@@ -193,6 +198,11 @@ in {
                     vim.keymap.set(modes, key, func)
                   end
                 '';
+              };
+
+              github-actions-nvim = {
+                package = github-actions-nvim;
+                setup = "require('github-actions').setup {}";
               };
             };
           };
