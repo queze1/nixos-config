@@ -6,6 +6,9 @@
     myPackages.actions-languageserver = pkgs.buildNpmPackage {
       pname = "actions-languageserver";
       inherit src version;
+
+      nativeBuildInputs = [pkgs.git];
+
       npmWorkspace = "languageserver";
       npmDeps = pkgs.importNpmLock {npmRoot = src;};
       npmConfigHook = pkgs.importNpmLock.npmConfigHook;
