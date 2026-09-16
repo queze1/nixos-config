@@ -45,7 +45,7 @@ jobs:
             ~/.cache/nix
           gc-max-store-size-linux: 2G
 
-      - uses: nixbuild/nixbuild-action@v25
+      - uses: nixbuild/nixbuild-action@v27
         with:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
 
@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate nixbuild.net summary
-        uses: nixbuild/nixbuild-action@v25
+        uses: nixbuild/nixbuild-action@v27
         with:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
           generate_summary_for: 'workflow'

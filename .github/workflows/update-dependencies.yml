@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
       - name: Install Nix
         uses: cachix/install-nix-action@v31
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: DeterminateSystems/update-flake-lock@v29
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           nix-options: --access-tokens github.com=${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
@@ -27,13 +27,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7
       - name: Install Nix
         uses: cachix/install-nix-action@v31
       - name: Update npins
         run: nix run nixpkgs#npins -- update
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           add-paths: npins/sources.json
