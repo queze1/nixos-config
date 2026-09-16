@@ -64,5 +64,5 @@ jobs:
         env:
           SCRIPT: ${{ inputs.script }}
         run: |
-          bash -c "$SCRIPT" >> "$GITHUB_OUTPUT" 
+          bash -c "$SCRIPT" 
 
