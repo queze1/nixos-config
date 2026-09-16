@@ -8,14 +8,14 @@
 
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
-        outputHash = "sha256-hfdOtTQaMb7xy398EuB0Emoe27rn5AF1s/zg0vgVlu0=";
+        outputHash = "sha256-klZ6quUVC1RZRG9wP9gDrTAeHEPvXxrFmpPuiVu/bEI=";
       } ''
         cp -R ${src}/. $out
         chmod -R u+w $out
 
         # Regenerate the lock file
         rm -f $out/package-lock.json
-        npm install --package-lock-only --ignore-scripts --no-audit --no-fund --prefix $out
+        npm install --package-lock-only --ignore-scripts --no-audit --no-fund --loglevel verbose --prefix $out
       '';
   in {
     myPackages.patchedSrc = patchedSrc;
