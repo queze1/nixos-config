@@ -10,17 +10,7 @@
       nativeBuildInputs = [pkgs.git];
 
       npmWorkspace = "languageserver";
-      npmDeps = pkgs.importNpmLock {
-        npmRoot = src;
-        packageSourceOverrides = {
-          "node_modules/rest-api-description" = pkgs.fetchFromGitHub {
-            owner = "github";
-            repo = "rest-api-description";
-            rev = "5e28810649ba41b5483753ba74f976f83856a504";
-            hash = "sha256-cf5Bww0aT8ftBcHaX6ST17DbXEqlUsMKhxkl6z4yy5c=";
-          };
-        };
-      };
+      npmDeps = pkgs.importNpmLock {npmRoot = src;};
       npmConfigHook = pkgs.importNpmLock.npmConfigHook;
     };
   };
