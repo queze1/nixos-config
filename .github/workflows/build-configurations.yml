@@ -7,6 +7,7 @@ on:
 
 jobs:
   find-configurations:
+    # Only runs on a flake update
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (
@@ -51,15 +52,6 @@ jobs:
 
   build-configurations:
     needs: find-configurations
-    # Only runs on a flake update
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      (
-        github.event_name == 'pull_request' &&
-        contains(github.event.pull_request.labels.*.name, 'automated') &&
-        contains(github.event.pull_request.labels.*.name, 'flake-update')
-      )
-
     strategy:
       fail-fast: false
       matrix:
