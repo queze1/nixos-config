@@ -44,6 +44,10 @@ unless changing inputs deliberately.
 
 Do not add new code comments. The user writes and maintains comments themselves. When migrating code, keep any existing comments.
 
+Always use `lib.getExe` or `lib.getExe'` instead of using `/bin`.
+Always use `pkgs.stdenv.hostPlatform.system` instead of `pkgs.system`.
+Prefer using `lib.getExe` or `lib.getExe'` to refer to programs instead of relying on PATH.
+
 ## Commit & Pull Request Guidelines
 
 Use concise Conventional Commit-style subjects seen in history, such as
