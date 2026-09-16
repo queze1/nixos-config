@@ -17,7 +17,6 @@
         flakePath = "${config.home.homeDirectory}/etc/nixos";
       in {
         home.packages = [
-          pkgs.dafny
           self.packages.${pkgs.stdenv.hostPlatform.system}.actions-languageserver
         ];
 
