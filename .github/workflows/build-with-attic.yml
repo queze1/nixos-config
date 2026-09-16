@@ -63,6 +63,11 @@ jobs:
         with:
           token: ${{ secrets.ATTIC_TOKEN }}
 
+      - name: Use HTTPS instead of SSH for GitHub
+        run: |
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
+          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+
       - name: Check Attic cache
         id: cache
         run: |
