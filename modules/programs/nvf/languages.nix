@@ -1,6 +1,5 @@
 {
   config,
-  self,
   lib,
   ...
 }: {
@@ -15,11 +14,8 @@
       }: let
         hostName = osConfig.networking.hostName;
         flakePath = "${config.home.homeDirectory}/etc/nixos";
+        # actions-languageserver = self.packages.${pkgs.stdenv.hostPlatform.system}.actions-languageserver;
       in {
-        home.packages = [
-          self.packages.${pkgs.stdenv.hostPlatform.system}.actions-languageserver
-        ];
-
         programs.nvf.settings.vim = {
           languages = {
             clang.enable = true;
@@ -27,10 +23,6 @@
             markdown = {
               enable = true;
               extensions.render-markdown-nvim.enable = true;
-            };
-            yaml = {
-              enable = true;
-              lsp.enable = false;
             };
             nix = {
               enable = true;
@@ -70,10 +62,15 @@
             lspconfig.enable = true;
             formatOnSave = true;
             servers = {
+              # From https://github.com/actions/languageservices/tree/main/languageserver
               actionsls = {
                 cmd = ["actions-languageserver" "--stdio"];
-                filetypes = ["yaml"];
-                root_markers = [".github/workflows"];
+                filetypes = ["yaml.ghactions"];
+                root_markers = [
+                  ".github/workflows"
+                  ".forgejo/workflows"
+                  ".gitea/workflows"
+                ];
                 capabilities = {
                   workspace = {
                     didChangeWorkspaceFolders = {
