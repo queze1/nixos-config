@@ -19,7 +19,7 @@
 
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
-        outputHash = lib.fakeHash;
+        outputHash = "sha256-tApLjSS/5ZPXjQy+CgTR/hRkCVcrq+bhTA3Dv8NX2fE=";
       } ''
         cp -R ${src}/. $out
         chmod -R u+w $out
@@ -40,7 +40,7 @@
       src = patchedSrc;
 
       npmWorkspace = "languageserver";
-      npmDepsHash = "sha256-7ZsnU7aGT/OCEmuy2ndSmN27mwpOUKd1zG07oQjhc7c=";
+      npmDepsHash = lib.fakeHash;
       npmDepsFetcherVersion = 2;
     };
   };
