@@ -1,8 +1,4 @@
-{
-  inputs,
-  lib,
-  ...
-}: {
+{inputs, ...}: {
   perSystem = {pkgs, ...}: let
     # Read from package.json
     version = (builtins.fromJSON (builtins.readFile "${inputs.actions-languageservices}/languageserver/package.json")).version;
@@ -12,7 +8,7 @@
       inherit version;
       src = inputs.actions-languageservices;
       npmWorkspace = "languageserver";
-      npmDepsHash = lib.fakeHash;
+      npmDepsHash = "sha256-1MT3sOpWFc/QVFe83eEnNtKXsOeghzhRRVYarM1sdKk=";
     };
   };
 }
