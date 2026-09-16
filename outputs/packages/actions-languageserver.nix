@@ -7,10 +7,16 @@
       pname = "actions-languageserver";
       inherit src version;
 
-      nativeBuildInputs = [pkgs.git];
-
       npmWorkspace = "languageserver";
-      npmDeps = pkgs.importNpmLock {npmRoot = src;};
+      npmDeps = pkgs.importNpmLock {
+        npmRoot = src;
+        fetcherOpts = {
+          # Rewrite SSH to HTTPS
+          "node_modules/rest-api-description" = {
+            url = "https://github.com/github/rest-api-description.git";
+          };
+        };
+      };
       npmConfigHook = pkgs.importNpmLock.npmConfigHook;
     };
   };
