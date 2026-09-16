@@ -8,6 +8,8 @@ on:
     branches: [ "main" ]
 
 jobs:
+  # Consider another way of not re-running when the ISO wasn't changed than pushing to Attic cache
+  # Also consider whether this test is really necessary
   test-iso:
     # Only run on flake update PRs
     if: >-
