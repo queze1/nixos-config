@@ -8,7 +8,7 @@ on:
 
 jobs:
   find-packages:
-    uses: queze1/nixos-config/.github/workflows/run-with-attic.yml
+    uses: queze1/nixos-config/.github/workflows/run-with-attic.yml@main
     with:
       runs-on: ubuntu-latest
       script: |
