@@ -6,12 +6,12 @@ on:
   pull_request:
 
 jobs:
-  build:
+  build-configurations:
     # Only runs on a flake update
     if: >-
       contains(github.event.pull_request.labels.*.name, 'automated') &&
       contains(github.event.pull_request.labels.*.name, 'flake-update')
-    runs-on: ${{ matrix.runner }}
+
     strategy:
       fail-fast: false
       matrix:
