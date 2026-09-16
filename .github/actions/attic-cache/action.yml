@@ -13,6 +13,7 @@ inputs:
     description: Attic cache name
     required: false
     default: cache
+
 runs:
   using: composite
   steps:
