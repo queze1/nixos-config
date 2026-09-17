@@ -69,7 +69,7 @@
                   (lib.getExe actions-languageserver)
                   "--stdio"
                 ];
-                filetypes = ["yaml.ghactions"];
+                filetypes = ["yaml"];
                 root_markers = [
                   ".github/workflows"
                   ".forgejo/workflows"
