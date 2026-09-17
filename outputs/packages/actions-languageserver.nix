@@ -1,9 +1,5 @@
 {inputs, ...}: {
-  perSystem = {
-    lib,
-    pkgs,
-    ...
-  }: let
+  perSystem = {pkgs, ...}: let
     src = inputs.actions-languageservices;
     version = (builtins.fromJSON (builtins.readFile "${src}/languageserver/package.json")).version;
 
@@ -51,7 +47,7 @@
 
       npmWorkspace = "languageserver";
       npmDepsFetcherVersion = 2;
-      npmDepsHash = lib.fakeHash;
+      npmDepsHash = "sha256-7ZsnU7aGT/OCEmuy2ndSmN27mwpOUKd1zG07oQjhc7c=";
       npmFlags = ["--loglevel" "verbose"];
     };
   };
