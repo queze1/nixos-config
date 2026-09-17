@@ -13,7 +13,7 @@
 
       npmWorkspace = "languageserver";
       npmDepsFetcherVersion = 2;
-      npmDepsHash = lib.fakeHash;
+      npmDepsHash = "sha256-7ZsnU7aGT/OCEmuy2ndSmN27mwpOUKd1zG07oQjhc7c=";
       npmFlags = ["--loglevel" "verbose"];
 
       # postPatch = ''
