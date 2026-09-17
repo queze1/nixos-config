@@ -1,5 +1,5 @@
-name: Test ISO
-description: Boot the x86_64 ISO & push successful tests to binary cache
+name: Build ISOs
+description: Build ISOs & push to binary cache
 
 on:
   workflow_dispatch:
@@ -8,9 +8,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  # Consider another way of not re-running when the ISO wasn't changed than pushing to Attic cache
-  # Also consider whether this test is really necessary
-  test-iso:
+  build-isos:
     # Only run on flake update PRs
     if: >-
       github.event_name != 'pull_request' ||
@@ -18,12 +16,21 @@ jobs:
         contains(github.event.pull_request.labels.*.name, 'automated') &&
         contains(github.event.pull_request.labels.*.name, 'flake-update')
       )
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - attr: ".#packages.x86_64-linux.iso-system"
+            runner: ubuntu-latest
+          - attr: ".#packages.aarch64-linux.iso-system"
+            runner: ubuntu-26.04-arm
+        
     uses: ./.github/workflows/build-with-attic.yml
     with:
-      runs-on: ubuntu-latest
-      target: ".#packages.x86_64-linux.iso-boot-test"
+      runs-on: ${{ matrix.runner }}
+      target: ${{ matrix.attr }}
     secrets:
       GITHUB_ACCESS_TOKEN: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
       TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
       TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
-      ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+      ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }} 
