@@ -54,6 +54,10 @@ in {
           };
         };
         programs.nix-index-database.comma.enable = true;
+
+        my.home.preservation.extraDirectories = [
+          ".config/gh" # Github CLI
+        ];
       })
     ];
   };
