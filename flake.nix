@@ -5,6 +5,7 @@
     # Nix ecosystem
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs-actions-languageserver.url = "github:keirlawson/nixpkgs/init-actions-languageserver";
     home-manager.url = "github:nix-community/home-manager";
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -91,10 +92,6 @@
     };
 
     # Non-flake applications
-    actions-languageservices = {
-      url = "github:actions/languageservices";
-      flake = false;
-    };
     creamlinux-installer = {
       url = "github:Novattz/creamlinux-installer";
       flake = false;
