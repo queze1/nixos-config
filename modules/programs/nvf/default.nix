@@ -71,6 +71,9 @@ in {
             utility.surround.enable = true;
             autopairs.nvim-autopairs.enable = true;
 
+            # Format on save
+            formatter.conform-nvim.enable = true;
+
             # Paste images from system clipboard
             utility.images.img-clip.enable = true;
 
@@ -200,6 +203,7 @@ in {
                 '';
               };
 
+              # Detect outdated GHA actions & run workflows
               github-actions-nvim = {
                 package = github-actions-nvim;
                 setup = ''
