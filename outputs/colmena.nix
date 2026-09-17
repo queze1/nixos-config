@@ -75,9 +75,4 @@
         ];
       };
     };
-
-  # Export Colmena from the flake input
-  perSystem = {inputs', ...}: {
-    packages.colmena = inputs'.colmena.packages.colmena;
-  };
 }

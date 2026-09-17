@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "actions-languageservices": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1785941274,
-        "narHash": "sha256-hfdOtTQaMb7xy398EuB0Emoe27rn5AF1s/zg0vgVlu0=",
-        "owner": "actions",
-        "repo": "languageservices",
-        "rev": "4043eda158e16579cc5fb1b0b07a4bce2a76f0b5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "actions",
-        "repo": "languageservices",
-        "type": "github"
-      }
-    },
     "ark-rp-visualisation": {
       "inputs": {
         "nixpkgs": [
@@ -549,6 +533,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-actions-languageserver": {
+      "locked": {
+        "lastModified": 1788082375,
+        "narHash": "sha256-bNMDKO2MsWyPxHzUmUGgn3Xjw5vuQxWyEB9X2EnUlpY=",
+        "owner": "keirlawson",
+        "repo": "nixpkgs",
+        "rev": "506016c8961c97387e7ca96d612804754886f9e9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "keirlawson",
+        "ref": "init-actions-languageserver",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1788057806,
@@ -742,7 +742,6 @@
     },
     "root": {
       "inputs": {
-        "actions-languageservices": "actions-languageservices",
         "ark-rp-visualisation": "ark-rp-visualisation",
         "bunny-yazi": "bunny-yazi",
         "colmena": "colmena",
@@ -760,6 +759,7 @@
         "nix-index-database": "nix-index-database",
         "nixos-anywhere": "nixos-anywhere",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-actions-languageserver": "nixpkgs-actions-languageserver",
         "nixpkgs-stable": "nixpkgs-stable",
         "noctalia": "noctalia",
         "nvf": "nvf",

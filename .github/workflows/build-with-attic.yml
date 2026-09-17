@@ -1,0 +1,102 @@
+name: Build with Attic
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        description: What runner to run this workflow on.
+        required: true
+        type: string
+      target:
+        description: Nix build target
+        required: true
+        type: string
+      artifact-name:
+        description: Name of the artifact generated containing the out-path
+        required: false
+        type: string
+      server:
+        description: Attic server URL
+        required: false
+        default: https://attic.osipol.uk
+        type: string
+      cache:
+        description: Attic cache name
+        required: false
+        default: cache
+        type: string
+      cache-public-key:
+        description: Attic trusted public key
+        required: false
+        default: cache:C3spwmruXebNeOwAnYy98JGgTOnos586oMVmkYn/RYg=
+        type: string
+    secrets:
+      GITHUB_ACCESS_TOKEN:
+      TS_OAUTH_CLIENT_ID:
+        required: true
+      TS_OAUTH_SECRET:
+        required: true
+      ATTIC_TOKEN:
+        required: true
+
+jobs:
+  build-with-attic:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          extra_nix_config: |
+            extra-substituters = ${{ inputs.server }}/cache
+            extra-trusted-public-keys = ${{ inputs.cache-public-key }}
+
+      - name: Tailscale
+        uses: tailscale/github-action@v4.1.3
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+
+      - name: Configure Attic cache
+        uses: ./.github/actions/attic-cache
+        with:
+          token: ${{ secrets.ATTIC_TOKEN }}
+
+      - name: Use HTTPS instead of SSH for GitHub
+        run: |
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
+          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+
+      - name: Check Attic cache
+        id: cache
+        run: |
+          nix eval --raw ${{ inputs.target }} > .out-path
+
+          if nix path-info --store ${{ inputs.server }}/cache $(<.out-path) > /dev/null; then
+            echo "hit=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "hit=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build target
+        if: steps.cache.outputs.hit != 'true'
+        run: |
+          nix build \
+            ${{ inputs.target }} \
+            --print-build-logs \
+            --print-out-paths > .out-path
+
+      - name: Upload to Attic cache
+        if: steps.cache.outputs.hit != 'true'
+        run: |
+          nix run nixpkgs#attic-client push cache $(<.out-path)
+
+      - name: Upload out path
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ inputs.artifact-name || inputs.target }}
+          path: .out-path
+          if-no-files-found: error
+          include-hidden-files: true
+

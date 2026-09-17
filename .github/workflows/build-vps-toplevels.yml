@@ -13,7 +13,6 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
@@ -22,55 +21,16 @@ jobs:
           - target: "mirage-blue"
             attr: ".#nixosConfigurations.mirage-blue.config.system.build.toplevel"
 
-    steps:
-      - uses: actions/checkout@v7
-      - uses: cachix/install-nix-action@v31
-        with:
-          github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
-          extra_nix_config: |
-            extra-substituters = https://attic.osipol.uk/cache
-            extra-trusted-public-keys = cache:C3spwmruXebNeOwAnYy98JGgTOnos586oMVmkYn/RYg=
-
-      - name: Tailscale
-        uses: tailscale/github-action@v4.1.3
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:ci
-
-      - name: Cache Nix store and cache
-        uses: nix-community/cache-nix-action@v7
-        with:
-          primary-key: ${{ github.workflow }}-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-${{ hashFiles('**/*.nix') }}
-          restore-prefixes-first-match: |
-            ${{ github.workflow }}-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/flake.lock') }}-
-            ${{ github.workflow }}-${{ runner.os }}-${{ matrix.target }}-
-            ${{ github.workflow }}-${{ runner.os }}-
-          paths: |
-            ~/.cache/nix
-          gc-max-store-size-linux: 2G
-
-      - name: Configure Attic cache
-        uses: ./.github/actions/attic-cache
-        with:
-          token: ${{ secrets.ATTIC_TOKEN }}
-
-      - name: Build with Nix
-        run: |
-          nix build \
-            ${{ matrix.attr }} \
-            --print-build-logs \
-            --no-link \
-            --print-out-paths > .attic-out-paths
-          nix run nixpkgs#attic-client push cache $(<.attic-out-paths)
-
-      - name: Upload toplevel path
-        uses: actions/upload-artifact@v7
-        with:
-          name: ${{ matrix.target }}-toplevel
-          path: .attic-out-paths
-          if-no-files-found: error
-          include-hidden-files: true
+    uses: ./.github/workflows/build-with-attic.yml
+    with:
+      runs-on: ubuntu-latest
+      target: ${{ matrix.attr }}
+      artifact-name: ${{ matrix.target }}-toplevel
+    secrets:
+      GITHUB_ACCESS_TOKEN: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
+      TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+      TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
+      ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
 
   publish:
     needs: build
@@ -90,7 +50,7 @@ jobs:
           for artifact in toplevels/*-toplevel; do
             host="${artifact##*/}"
             host="${host%-toplevel}"
-            store_path="$(< "$artifact/.attic-out-paths")"
+            store_path="$(< "$artifact/.out-path")"
 
             echo "Artifact dir: $artifact"
             echo "  -> host:       $host"

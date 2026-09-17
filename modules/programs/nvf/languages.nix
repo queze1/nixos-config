@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   ...
 }: {
@@ -14,7 +15,7 @@
       }: let
         hostName = osConfig.networking.hostName;
         flakePath = "${config.home.homeDirectory}/etc/nixos";
-        # actions-languageserver = self.packages.${pkgs.stdenv.hostPlatform.system}.actions-languageserver;
+        actions-languageserver = inputs.nixpkgs-actions-languageserver.legacyPackages.${pkgs.stdenv.hostPlatform.system}.actions-languageserver;
       in {
         programs.nvf.settings.vim = {
           languages = {
@@ -64,7 +65,7 @@
             servers = {
               # From https://github.com/actions/languageservices/tree/main/languageserver
               actionsls = {
-                cmd = ["actions-languageserver" "--stdio"];
+                cmd = [lib.getExe actions-languageserver "--stdio"];
                 filetypes = ["yaml.ghactions"];
                 root_markers = [
                   ".github/workflows"
