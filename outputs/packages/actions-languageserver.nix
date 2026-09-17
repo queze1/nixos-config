@@ -11,15 +11,20 @@
       pname = "actions-languageserver";
       inherit version src;
 
-      nativeBuildInputs = [
-        pkgs.git
-      ];
       SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
       NIX_SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
 
       npmWorkspace = "languageserver";
       npmDepsHash = lib.fakeHash;
       npmFlags = ["--loglevel" "verbose"];
+
+      postPatch = ''
+        find . -name package-lock.json -type f -exec sed -i \
+          -e 's#git+ssh://git@github.com/#https://github.com/#g' \
+          -e 's#ssh://git@github.com/#https://github.com/#g' \
+          -e 's#git@github.com:#https://github.com/#g' \
+          {} +
+      '';
 
       outputHashMode = "recursive";
       outputHashAlgo = "sha256";
