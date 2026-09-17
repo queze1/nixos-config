@@ -11,6 +11,9 @@
       pname = "actions-languageserver";
       inherit version src;
 
+      SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+      NIX_SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+
       npmWorkspace = "languageserver";
       npmDepsFetcherVersion = 2;
       npmDepsHash = "sha256-7ZsnU7aGT/OCEmuy2ndSmN27mwpOUKd1zG07oQjhc7c=";
