@@ -20,17 +20,23 @@
 
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
-        outputHash = "sha256-tApLjSS/5ZPXjQy+CgTR/hRkCVcrq+bhTA3Dv8NX2fE=";
+        outputHash = "sha256-HaxXf4pY01NVJDtZXGgcIJYcYjWVqabguaX6KY46f6I=";
       } ''
         cp -R ${src}/. $out
         chmod -R u+w $out
 
-        # Regenerate the lock file
-        rm -f $out/package-lock.json
+        npm pkg set --prefix $out \
+          'languageserver.dependencies.@actions/languageservice=file:../languageservice' \
+          'languageserver.dependencies.@actions/workflow-parser=file:../workflow-parser' \
+          'languageservice.dependencies.@actions/expressions=file:../expressions' \
+          'languageservice.dependencies.@actions/workflow-parser=file:../workflow-parser' \
+          'workflow-parser.dependencies.@actions/expressions=file:../expressions'
+
         npm install --package-lock-only \
-                    --prefix $out \
-                    --ignore-scripts --no-audit --no-fund \
-                    --loglevel verbose
+          --prefix $out \
+          --install-links \
+          --ignore-scripts --no-audit --no-fund \
+          --loglevel verbose
       '';
   in {
     myPackages.actions-languageservices-patched-src = patchedSrc;
