@@ -19,6 +19,8 @@ jobs:
     strategy:
       matrix:
         include:
+          - target: "iron-hammer"
+            attr: ".#nixosConfigurations.iron-hammer.config.system.build.toplevel"
           - target: "steadfast-dart"
             attr: ".#nixosConfigurations.steadfast-dart.config.system.build.toplevel"
           - target: "steadfast-defender"
