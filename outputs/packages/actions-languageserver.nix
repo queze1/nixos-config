@@ -55,10 +55,6 @@
       #     -e 's#git@github.com:#https://github.com/#g' \
       #     {} +
       # '';
-
-      outputHashMode = "recursive";
-      outputHashAlgo = "sha256";
-      outputHash = lib.fakeHash;
     };
   };
 }
