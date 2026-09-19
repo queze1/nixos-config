@@ -40,7 +40,7 @@
                 end
               '';
             }
-            # Reload LSPs after loading direnv
+            # Disable and renable LSPs after loading direnv
             {
               event = ["User"];
               pattern = [
@@ -50,16 +50,19 @@
                 function()
                   local cwd = vim.fn.getcwd()
 
-                  -- Skip if we have already restarted the LSP for this directory
+                  # Skip if we have already reloaded LSPs for this directory
                   if vim.g.last_direnv_path == cwd then
                     return
                   end
 
-                  local clients = vim.lsp.get_clients({ bufnr = 0 })
-                  if #clients > 0 then
-                    vim.cmd("lsp restart")
+                  local enabled = vim.tbl_keys(vim.lsp._enabled_configs)
+
+                  vim.lsp.enable(enabled, false)
+
+                  vim.schedule(function()
+                    vim.lsp.enable(enabled, true)
                     vim.g.last_direnv_path = cwd
-                  end
+                  end)
                 end
               '';
             }
