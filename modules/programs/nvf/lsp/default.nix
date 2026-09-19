@@ -8,7 +8,6 @@
       {
         programs.nvf.settings.vim.lsp = {
           enable = true;
-          lspconfig.enable = true;
           formatOnSave = true;
         };
       }
