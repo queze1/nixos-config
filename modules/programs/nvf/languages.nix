@@ -42,7 +42,7 @@
           };
 
           extraPlugins = {
-            # Markdown rendering & editing
+            # Markdown editing
             markdown-nvim = {
               package = pkgs.vimPlugins.markdown-nvim;
               setup = ''
