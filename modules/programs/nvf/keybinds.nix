@@ -50,7 +50,7 @@
                 function()
                   local cwd = vim.fn.getcwd()
 
-                  # Skip if we have already reloaded LSPs for this directory
+                  -- Skip if we have already reloaded LSPs for this directory
                   if vim.g.last_direnv_path == cwd then
                     return
                   end
