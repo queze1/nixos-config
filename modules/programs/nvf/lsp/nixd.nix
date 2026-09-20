@@ -19,7 +19,7 @@
           settings = {
             nixd = {
               nixpkgs = {
-                expr = "import (builtins.getFlake \"${flakePath}\").inputs.nixpkgs-unstable {}";
+                expr = "import (builtins.getFlake \"${flakePath}\").inputs.nixpkgs {}";
               };
               formatting = {
                 command = ["${lib.getExe pkgs.alejandra}"];

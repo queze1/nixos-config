@@ -9,6 +9,6 @@ in {
     nixpkgs = inputs.nixpkgs-stable;
     system = "x86_64-linux";
     modules = [{my.hosts.${hostname}.enable = true;}];
-    extraPkgs.pkgs-unstable = inputs.nixpkgs-unstable;
+    extraPkgs.pkgs-unstable = inputs.nixpkgs;
   };
 }
