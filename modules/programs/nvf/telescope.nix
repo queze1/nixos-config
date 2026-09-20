@@ -36,13 +36,22 @@
               extensions = {
                 live_grep_args = {
                   auto_quoting = true;
-                  mappings = lib.mkLuaInline ''
-                    {
-                      i = {
-                        ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
-                        ["<C-w>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = ' --word-regexp' }),
-                      },
-                    }
+                  attach_mappings = lib.mkLuaInline ''
+                    function(_, map)
+                      local actions = require("telescope-live-grep-args.actions")
+
+                      map("i", "<C-k>", actions.quote_prompt(), {
+                        desc = "Quote prompt",
+                      })
+
+                      map("i", "<C-w>", actions.quote_prompt({
+                        postfix = " --word-regexp",
+                      }), {
+                        desc = "Quote prompt as word regexp",
+                      })
+
+                      return true
+                    end
                   '';
                 };
               };
