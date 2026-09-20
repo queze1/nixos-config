@@ -8,7 +8,7 @@
       system = "x86_64-linux";
       config.allowUnfree = true;
     };
-    pkgs-unstable_x86 = import inputs.nixpkgs {
+    pkgs-unstable_x86 = import inputs.nixpkgs-unstable {
       system = "x86_64-linux";
       config.allowUnfree = true;
     };

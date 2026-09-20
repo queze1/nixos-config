@@ -6,7 +6,7 @@
   hostname = "able-archer";
 in {
   flake.nixosConfigurations.${hostname} = self.factory.mkNixosSystem {
-    nixpkgs = inputs.nixpkgs;
+    nixpkgs = inputs.nixpkgs-unstable;
     system = "aarch64-linux";
     modules = [
       {my.hosts.${hostname}.enable = true;}
