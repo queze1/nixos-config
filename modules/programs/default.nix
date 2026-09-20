@@ -33,6 +33,7 @@ in {
 
           # Development
           pkgs.act
+          pkgs.flake-edit
           pkgs.github-cli
           pkgs.npins
           pkgs.sops
