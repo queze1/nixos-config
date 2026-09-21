@@ -22,6 +22,7 @@ in {
       [
         ".local/share/Steam"
         ".steam"
+        ".local/share/Paradox Interactive"
       ]
       ++ lib.optionals cfg.creamlinux.enable [
         ".config/creamlinux"
