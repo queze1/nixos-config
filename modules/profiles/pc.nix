@@ -73,7 +73,6 @@ in {
         "/etc/ssh"
         "/passwd"
         "/var/lib/nixos"
-        "/var/lib/tailscale"
         "/home/${mainUser}/Documents"
         "/home/${mainUser}/Desktop"
         "/home/${mainUser}/Music"

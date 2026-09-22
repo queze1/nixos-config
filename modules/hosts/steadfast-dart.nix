@@ -51,7 +51,6 @@ in {
       extraPaths = [
         "/etc/ssh"
         "/var/lib/nixos"
-        "/var/lib/tailscale"
       ];
       backups.backblaze-b2 = {
         timerConfig = {

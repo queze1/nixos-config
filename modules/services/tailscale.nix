@@ -73,6 +73,9 @@ in {
       }
     ];
 
+    # Backup Tailscale data
+    my.restic.extraPaths = ["/var/lib/tailscale"];
+
     # Ensure Tailscale waits for preservation
     systemd.services.tailscaled = {
       after = ["preservation.target"];
