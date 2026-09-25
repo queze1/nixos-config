@@ -41,6 +41,7 @@
       '';
 
       meta.mainProgram = "filebrowser-quantum";
+      passthru = {inherit frontend;};
     };
   };
 }
