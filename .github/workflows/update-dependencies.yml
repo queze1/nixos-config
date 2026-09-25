@@ -3,7 +3,7 @@ name: Update Dependencies
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 6' # run weekly on Saturday at midnight
+    - cron: '0 0 * * 5' # run weekly on Friday at midnight
 
 jobs:
   update-flake-lock:
