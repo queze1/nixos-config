@@ -81,9 +81,6 @@ in {
         "/home/${mainUser}/etc/nixos"
         "/home/${mainUser}/.config/sops/age"
         "/home/${mainUser}/.ssh"
-
-        "/home/${mainUser}/.local/share/Paradox Interactive/Europa Universalis IV/save games"
-        "/home/${mainUser}/.local/share/Paradox Interactive/Europa Universalis IV/Screenshots"
       ];
       extraExclude = [
         ".Trash-1000"

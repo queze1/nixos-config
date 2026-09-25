@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.my.hosts.iron-hammer;
+  mainUser = "queze";
 in {
   options.my.hosts.iron-hammer.enable =
     lib.mkEnableOption "iron-hammer host configuration";
@@ -19,7 +20,7 @@ in {
     };
     my.preservation = {
       enable = true;
-      users = ["queze"];
+      users = [mainUser];
     };
     my.btrbk.enable = true;
 
@@ -51,6 +52,10 @@ in {
     my.restic = {
       enable = true;
       snapshotsDir = "/persistent/snapshots";
+      extraPaths = [
+        "/home/${mainUser}/.local/share/Paradox Interactive/Europa Universalis IV/save games"
+        "/home/${mainUser}/.local/share/Paradox Interactive/Europa Universalis IV/Screenshots"
+      ];
       backups = {
         backblaze-b2 = {
           timerConfig = {
