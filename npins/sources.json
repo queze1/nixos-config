@@ -11,8 +11,8 @@
       "type": "Container",
       "image_name": "ghcr.io/alexta69/metube",
       "image_tag": "latest",
-      "image_digest": "sha256:5ebff7a547bf175e614c024053e5602a0b9193586a20c107dd47d571c391e635",
-      "hash": "sha256-MCtY7SEH6+iBf01h4xH6irlAZJ1eBVUF3x9P2YVkkKA="
+      "image_digest": "sha256:549f4b0eeb13b01ecae2a20b50153d17481b1d59b517de5ae0dddee03e058745",
+      "hash": "sha256-A/vVh7FroFvlv0az9oSi1pQOuwaDPVdUY1scS6e4O2Q="
     },
     "ghcr.io/guillevc/yubal": {
       "type": "Container",
