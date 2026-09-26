@@ -16,8 +16,8 @@ jobs:
         with:
           github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
 
-      - name: Update flake
-        run: nix flake update
+      - name: Update flake lock
+        run: nix flake update --commit-lock-file --commit-lockfile-summary "updated flake.lock"
 
       - name: Update npins
         run: nix run nixpkgs#npins -- update
@@ -33,7 +33,7 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
-          branch: update-dependencies
+          branch: update-dependencies-action
           commit-message: "chore: update dependencies"
           title: "Update dependencies"
           labels: |
