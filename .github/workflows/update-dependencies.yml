@@ -33,7 +33,6 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
-          add-paths: npins/sources.json
           branch: update-dependencies
           commit-message: "chore: update dependencies"
           title: "Update dependencies"
