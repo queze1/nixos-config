@@ -6,13 +6,21 @@ on:
     - cron: '0 0 * * 5' # run weekly on Friday at midnight
 
 jobs:
-  update-flake-lock:
+  update-dependencies:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7.0.1
       - name: Install Nix
         uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
+
+      - name: Update flake
+        run: nix flake update
+
+      - name: Update npins
+        run: nix run nixpkgs#npins -- update
 
       - name: Update package hashes
         run: |
@@ -21,33 +29,15 @@ jobs:
             --subpackage frontend \
             --version=skip
 
-      - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v29
-        with:
-          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
-          nix-options: --access-tokens github.com=${{ secrets.READ_NIXOS_SECRETS_GITHUB_TOKEN }}
-          pr-title: "Update Nix flake inputs"
-          pr-labels: |
-            automated
-            flake-update
-
-  update-npins:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31
-      - name: Update npins
-        run: nix run nixpkgs#npins -- update
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           add-paths: npins/sources.json
-          branch: update-npins
-          commit-message: "chore: update npins"
-          title: "Update npins"
+          branch: update-dependencies
+          commit-message: "chore: update dependencies"
+          title: "Update dependencies"
           labels: |
             automated
-            npins-update
+            flake-update
+
