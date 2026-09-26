@@ -32,9 +32,10 @@ jobs:
             delimiter="$(uuidgen)"
             {
               echo "pr-body<<$delimiter"
-              echo "## Flake lock updates"
-              echo
-              git log -1 --format=%B
+              echo "# Flake update summary"
+              echo ```
+              git log -1 --format=%b
+              echo ```
               echo "$delimiter"
             } >> "$GITHUB_OUTPUT"
           fi
