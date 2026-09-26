@@ -33,9 +33,9 @@ jobs:
             {
               echo "pr-body<<$delimiter"
               echo "# Flake update summary"
-              echo ```
+              printf '%s\n' '```'
               git log -1 --format=%b
-              echo ```
+              printf '%s\n' '```'
               echo "$delimiter"
             } >> "$GITHUB_OUTPUT"
           fi
