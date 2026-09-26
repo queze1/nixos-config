@@ -2,13 +2,13 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }: let
   cfg = config.services.caddy;
   myCfg = config.my.caddy;
 
-  uid = config.users.users.${cfg.user}.uid;
-  firewalledPortsStr = lib.join "," (lib.map toString myCfg.firewalledPorts);
+  caddyWithPlugins = self.packages.${pkgs.stdenv.hostPlatform.system}.caddy-with-plugins;
 in {
   options.my.caddy = {
     enable = lib.mkEnableOption "Caddy";
@@ -25,6 +25,7 @@ in {
     (lib.mkIf myCfg.enable {
       services.caddy = {
         enable = true;
+        package = caddyWithPlugins;
         globalConfig = ''
           admin unix//run/caddy/caddy-admin.sock
         '';
@@ -84,7 +85,10 @@ in {
       networking.nftables.tables = lib.mkIf (myCfg.firewalledPorts != []) {
         "caddy-firewall" = {
           family = "inet";
-          content = ''
+          content = let
+            uid = config.users.users.${cfg.user}.uid;
+            firewalledPortsStr = lib.join "," (lib.map toString myCfg.firewalledPorts);
+          in ''
             chain output {
               type filter hook output priority filter; policy accept;
 
@@ -97,12 +101,6 @@ in {
     })
     (lib.mkIf myCfg.cloudflareDns.enable {
       services.caddy = {
-        package = pkgs.caddy.withPlugins {
-          plugins = [
-            "github.com/caddy-dns/cloudflare@v0.2.4"
-          ];
-          hash = "sha256-dQvk6ezY6TQ1J7PjhCXnThF/SqVgPwBO8/RXzHCY+js=";
-        };
         extraConfig = ''
           (cloudflare_dns) {
             tls {
