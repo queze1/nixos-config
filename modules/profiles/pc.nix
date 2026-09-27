@@ -40,6 +40,7 @@ in {
 
     # Services
     my.tailscale.enable = true;
+    services.syncthing.enable = true;
 
     # User management
     my.homeManager = {
