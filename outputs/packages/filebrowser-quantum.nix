@@ -6,7 +6,7 @@
       inherit version;
       src = inputs.filebrowser-quantum;
       sourceRoot = "source/frontend";
-      npmDepsHash = "sha256-366xQEtlBctjXTyJVjivTh5+OHD0Ds8vIILbcIHNY/o=";
+      npmDepsHash = "sha256-ZJZtHaeNpHV7n3cT0m7YmBuIGM8CObp3IdQWdSiqbKc=";
       postPatch = ''
         chmod -R u+w ../backend
       '';
@@ -22,7 +22,7 @@
       src = inputs.filebrowser-quantum;
 
       sourceRoot = "source/backend";
-      vendorHash = "sha256-dMyiw45DyE1CJdYPJsQFeZMelUVMh0pRsyCzXLGR770=";
+      vendorHash = "sha256-P3H5kESEd1X5tl0EQyIm680fKz/18KegoPBp1jb69vo=";
       subPackages = ["."];
       doCheck = false;
       nativeBuildInputs = [pkgs.makeWrapper];
