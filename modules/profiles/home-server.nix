@@ -54,6 +54,7 @@ in {
       useAuthKey = true;
       ssh = true;
     };
+    services.syncthing.enable = true;
 
     # Nix-related config
     my.nix = {
