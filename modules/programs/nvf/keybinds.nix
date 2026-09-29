@@ -5,69 +5,8 @@
 }: {
   config = lib.mkIf config.my.programs.nvf.enable {
     home-manager.sharedModules = [
-      ({lib, ...}: {
+      {
         programs.nvf.settings.vim = {
-          # ----------------------------------------
-          # Autocommands
-          # ----------------------------------------
-          augroups = [
-            {
-              name = "close_with_q";
-              clear = true;
-            }
-          ];
-
-          # Close special buffers with 'q'
-          autocmds = [
-            {
-              event = ["FileType"];
-              group = "close_with_q";
-              pattern = [
-                # Use :set ft? to find FileType
-                "checkhealth"
-                "help"
-                "lspinfo"
-                "man"
-                "qf"
-              ];
-              callback = lib.generators.mkLuaInline ''
-                function(event)
-                  vim.keymap.set("n", "q", "<cmd>close<cr>", {
-                    buffer = event.buf,
-                    silent = true,
-                    desc = "Close special buffer"
-                  })
-                end
-              '';
-            }
-            # Disable and renable LSPs after loading direnv
-            {
-              event = ["User"];
-              pattern = [
-                "DirenvLoaded"
-              ];
-              callback = lib.generators.mkLuaInline ''
-                function()
-                  local cwd = vim.fn.getcwd()
-
-                  -- Skip if we have already reloaded LSPs for this directory
-                  if vim.g.last_direnv_path == cwd then
-                    return
-                  end
-
-                  local enabled = vim.tbl_keys(vim.lsp._enabled_configs)
-
-                  vim.lsp.enable(enabled, false)
-
-                  vim.schedule(function()
-                    vim.lsp.enable(enabled, true)
-                    vim.g.last_direnv_path = cwd
-                  end)
-                end
-              '';
-            }
-          ];
-
           # ----------------------------------------
           # Keymaps
           # ----------------------------------------
@@ -203,7 +142,7 @@
             })
           '';
         };
-      })
+      }
     ];
   };
 }
