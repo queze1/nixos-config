@@ -51,6 +51,13 @@ in {
               vim.opt.foldlevelstart = 99
             '';
 
+            # Custom filetypes
+            filetype = {
+              pattern = {
+                ".*%.rc" = "text"; # DCSS RC files
+              };
+            };
+
             # ----------------------------------------
             # Appearance
             # ----------------------------------------
