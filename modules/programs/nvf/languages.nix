@@ -11,6 +11,7 @@
             clang.enable = true;
             go.enable = true;
             haskell.enable = true;
+            lua.enable = true;
             markdown = {
               enable = true;
               extensions.render-markdown-nvim.enable = true;
