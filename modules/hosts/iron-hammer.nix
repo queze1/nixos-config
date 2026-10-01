@@ -13,6 +13,19 @@ in {
   config = lib.mkIf cfg.enable {
     my.profiles.pc.enable = true;
 
+    my.syncthing = {
+      devices.able-archer = {
+        id = "REPLACE_WITH_ABLE_ARCHER_DEVICE_ID";
+        addresses = ["tcp://100.84.92.27:22000"];
+      };
+      folders.media = {
+        id = "media";
+        label = "Media";
+        path = "/home/queze/Documents/Media";
+        devices = ["able-archer"];
+      };
+    };
+
     # Disk configuration
     my.disko = {
       profile = "btrfsEphemeralRoot";

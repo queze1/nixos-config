@@ -11,6 +11,19 @@ in {
   config = lib.mkIf cfg.enable {
     my.profiles.pc.enable = true;
 
+    my.syncthing = {
+      devices.iron-hammer = {
+        id = "REPLACE_WITH_IRON_HAMMER_DEVICE_ID";
+        addresses = ["tcp://100.104.155.85:22000"];
+      };
+      folders.media = {
+        id = "media";
+        label = "Media";
+        path = "/home/queze/Documents/Media";
+        devices = ["iron-hammer"];
+      };
+    };
+
     # VM support
     my.utm = {
       enable = true;
