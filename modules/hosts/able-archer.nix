@@ -13,7 +13,7 @@ in {
 
     my.syncthing = {
       devices.iron-hammer = {
-        id = "REPLACE_WITH_IRON_HAMMER_DEVICE_ID";
+        id = "BN67OOS-VSHGU2Y-BXR5JP2-KO4XJ7A-IEADNTQ-XC7XVHN-ASHDRTB-4WJM6Q3";
         addresses = ["tcp://100.104.155.85:22000"];
       };
       folders.media = {

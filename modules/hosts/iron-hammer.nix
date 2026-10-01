@@ -15,7 +15,7 @@ in {
 
     my.syncthing = {
       devices.able-archer = {
-        id = "REPLACE_WITH_ABLE_ARCHER_DEVICE_ID";
+        id = "3F67JHW-SU4I4QO-TVDGBLP-XGNJNA3-2FY66HO-QMUPAAI-6SDBCPG-HO7Z2QZ";
         addresses = ["tcp://100.84.92.27:22000"];
       };
       folders.media = {
