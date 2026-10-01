@@ -149,7 +149,7 @@ in {
                 }
                 {
                   key = "M";
-                  path = "${cfg.documents}/Media";
+                  path = "~/Documents/Media";
                   desc = "Media";
                 }
               ];
