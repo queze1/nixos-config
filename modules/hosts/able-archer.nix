@@ -16,11 +16,19 @@ in {
         id = "BN67OOS-VSHGU2Y-BXR5JP2-KO4XJ7A-IEADNTQ-XC7XVHN-ASHDRTB-4WJM6Q3";
         addresses = ["tcp://100.104.155.85:22000"];
       };
-      folders.media = {
-        id = "media";
-        label = "Media";
-        path = "/home/queze/Documents/Media";
-        devices = ["iron-hammer"];
+      folders = {
+        media = {
+          id = "media";
+          label = "Media";
+          path = "/home/queze/Documents/Media";
+          devices = ["iron-hammer"];
+        };
+        school = {
+          id = "school";
+          label = "School";
+          path = "/home/queze/Documents/School";
+          devices = ["iron-hammer"];
+        };
       };
     };
 

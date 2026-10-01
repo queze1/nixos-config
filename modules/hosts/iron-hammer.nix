@@ -18,11 +18,19 @@ in {
         id = "3F67JHW-SU4I4QO-TVDGBLP-XGNJNA3-2FY66HO-QMUPAAI-6SDBCPG-HO7Z2QZ";
         addresses = ["tcp://100.84.92.27:22000"];
       };
-      folders.media = {
-        id = "media";
-        label = "Media";
-        path = "/home/queze/Documents/Media";
-        devices = ["able-archer"];
+      folders = {
+        media = {
+          id = "media";
+          label = "Media";
+          path = "/home/queze/Documents/Media";
+          devices = ["able-archer"];
+        };
+        school = {
+          id = "school";
+          label = "School";
+          path = "/home/queze/Documents/School";
+          devices = ["able-archer"];
+        };
       };
     };
 

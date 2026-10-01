@@ -152,6 +152,11 @@ in {
                   path = "~/Documents/Media";
                   desc = "Media";
                 }
+                {
+                  key = "s";
+                  path = "~/Documents/School";
+                  desc = "School";
+                }
               ];
               desc_strategy = "path"; # If desc isn't present, use "path" or "filename", default is "path"
               ephemeral = true; # Enable ephemeral hops, default is true
