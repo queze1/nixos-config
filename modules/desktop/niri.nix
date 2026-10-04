@@ -36,7 +36,7 @@ in {
         foot = lib.getExe config.programs.foot.package;
         yazi = lib.getExe config.programs.yazi.package;
         xdgOpen = lib.getExe' pkgs.xdg-utils "xdg-open";
-        noctalia = lib.getExe config.programs.noctalia-shell.package;
+        noctalia = lib.getExe config.programs.noctalia.package;
         systemdRun = lib.getExe' pkgs.systemd "systemd-run";
         playerctl = lib.getExe pkgs.playerctl;
         spiceVdagent = lib.getExe' pkgs.spice-vdagent "spice-vdagent";
@@ -224,36 +224,36 @@ in {
               (noArgs "toggle-keyboard-shortcuts-inhibit" ["Mod+Escape"])
               (noArgs "quit" ["Mod+Shift+E" "Ctrl+Alt+Delete"])
               (noArgs "power-off-monitors" ["Mod+Shift+P"])
-              (lib.mkIf config.programs.noctalia-shell.enable {
+              (lib.mkIf config.programs.noctalia.enable {
                 "Mod+Space" = {
-                  _props.hotkey-overlay-title = "Open Launcher: noctalia-shell";
-                  spawn-sh = "${noctalia} ipc call launcher toggle";
+                  _props.hotkey-overlay-title = "Open Launcher: noctalia";
+                  spawn-sh = "${noctalia} msg panel-toggle launcher";
                 };
                 "Mod+S" = {
-                  _props.hotkey-overlay-title = "Open Control Centre: noctalia-shell";
-                  spawn-sh = "${noctalia} ipc call controlCenter toggle";
+                  _props.hotkey-overlay-title = "Open Control Centre: noctalia";
+                  spawn-sh = "${noctalia} msg panel-toggle control-center";
                 };
                 "Mod+Comma" = {
-                  _props.hotkey-overlay-title = "Open Settings: noctalia-shell";
-                  spawn-sh = "${noctalia} ipc call settings toggle";
+                  _props.hotkey-overlay-title = "Open Settings: noctalia";
+                  spawn-sh = "${noctalia} msg settings-toggle";
                 };
                 "Ctrl+Alt+L" = {
-                  _props.hotkey-overlay-title = "Lock Screen: noctalia-shell";
-                  spawn-sh = "${noctalia} ipc call lockScreen lock";
+                  _props.hotkey-overlay-title = "Lock Screen: noctalia";
+                  spawn-sh = "${noctalia} msg session lock";
                 };
                 "Mod+Shift+W" = {
-                  _props.hotkey-overlay-title = "Change Wallpaper: noctalia-shell";
-                  spawn-sh = "${noctalia} ipc call wallpaper toggle";
+                  _props.hotkey-overlay-title = "Change Wallpaper: noctalia";
+                  spawn-sh = "${noctalia} msg panel-toggle wallpaper";
                 };
                 "Mod+Shift+M" = {
-                  _props.hotkey-overlay-title = "Toggle Theme: noctalia-shell";
-                  spawn-sh = "${noctalia} ipc call darkMode toggle";
+                  _props.hotkey-overlay-title = "Toggle Theme: noctalia";
+                  spawn-sh = "${noctalia} msg theme-mode-toggle";
                 };
-                "XF86AudioRaiseVolume".spawn = [noctalia "ipc" "call" "volume" "increase"];
-                "XF86AudioLowerVolume".spawn = [noctalia "ipc" "call" "volume" "decrease"];
-                "XF86AudioMute".spawn = [noctalia "ipc" "call" "volume" "muteOutput"];
-                "XF86MonBrightnessUp".spawn = [noctalia "ipc" "call" "brightness" "increase"];
-                "XF86MonBrightnessDown".spawn = [noctalia "ipc" "call" "brightness" "decrease"];
+                "XF86AudioRaiseVolume".spawn = [noctalia "msg" "volume-up"];
+                "XF86AudioLowerVolume".spawn = [noctalia "msg" "volume-down"];
+                "XF86AudioMute".spawn = [noctalia "msg" "volume-mute"];
+                "XF86MonBrightnessUp".spawn = [noctalia "msg" "brightness-up"];
+                "XF86MonBrightnessDown".spawn = [noctalia "msg" "brightness-down"];
               })
               {
                 "Mod+T" = {
@@ -334,7 +334,7 @@ in {
               }) (lib.range 1 9)))
             ];
 
-            spawn-at-startup = lib.mkIf config.programs.noctalia-shell.enable noctalia;
+            spawn-at-startup = lib.mkIf config.programs.noctalia.enable noctalia;
             spawn-sh-at-startup = lib.mkIf isUtm "${spiceVdagent} -x";
           };
         };
