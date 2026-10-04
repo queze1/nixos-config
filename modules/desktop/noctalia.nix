@@ -24,6 +24,45 @@ in {
               avatar_path = "${inputs.secrets}/assets/pfp.png";
               clipboard_enabled = false; # v5 default: true (overridden); v4: appLauncher.enableClipboardHistory
               clipboard_auto_paste = "off"; # v5 default: "auto" (overridden); v4: appLauncher.autoPasteClipboard
+              session = {
+                actions = [
+                  {
+                    action = "lock";
+                    countdown_seconds = 0.0;
+                    enabled = true;
+                    shortcut = "1";
+                    variant = "default";
+                  }
+                  {
+                    action = "logout";
+                    countdown_seconds = 0.0;
+                    enabled = true;
+                    shortcut = "2";
+                    variant = "default";
+                  }
+                  {
+                    action = "lock_and_suspend";
+                    countdown_seconds = 0.0;
+                    enabled = false;
+                    shortcut = "3";
+                    variant = "default";
+                  }
+                  {
+                    action = "reboot";
+                    countdown_seconds = 0.0;
+                    enabled = true;
+                    shortcut = "4";
+                    variant = "default";
+                  }
+                  {
+                    action = "shutdown";
+                    countdown_seconds = 0.0;
+                    enabled = true;
+                    shortcut = "5";
+                    variant = "destructive";
+                  }
+                ];
+              };
               shadow = {
                 direction = "down_right"; # v5 default: "down" (overridden); v4: general.shadowDirection
               };
@@ -39,10 +78,12 @@ in {
                   };
                 };
               };
+              screen_time_enabled = true;
             };
             wallpaper = {
               default.path = "${inputs.secrets}/assets/laine-chinensy-temptation-v6.png";
               directory = "${config.xdg.userDirs.pictures}/Wallpapers";
+              transition_on_startup = true;
               edge_smoothness = 0.05; # v5 default: 0.3 (overridden); v4: wallpaper.transitionEdgeSmoothness
             };
             theme = {
@@ -60,7 +101,6 @@ in {
             lockscreen = {
               transition = []; # v5 default: ["fade", "wipe", "disc", "stripes", "zoom", "honeycomb"] (overridden); v4: general.lockScreenAnimations
               blur_intensity = 0; # v5 default: 0.5 (overridden); v4: general.lockScreenBlur
-              tint_intensity = 0; # v5 default: 0.3 (overridden); v4: general.lockScreenTint
             };
             brightness = {
               enable_ddcutil = true; # v5 default: false (overridden); v4: brightness.enableDdcSupport
