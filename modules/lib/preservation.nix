@@ -107,6 +107,7 @@ in {
               "Documents"
               "Downloads"
               "Music"
+              "Pictures"
               "Videos"
             ]
             # Merge directories added with NixOS and Home Manager
