@@ -374,7 +374,7 @@ in {
             spawn-at-startup =
               if config.programs.noctalia.enable
               then noctalia
-              else if lib.mkIf config.programs.noctalia-shell.enable
+              else if config.programs.noctalia-shell.enable
               then noctaliaV4
               else "";
             spawn-sh-at-startup = lib.mkIf isUtm "${spiceVdagent} -x";
