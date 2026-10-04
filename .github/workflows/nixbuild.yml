@@ -1,21 +1,22 @@
+# Fails to build some of the time
 name: nixbuild
 
 on:
   workflow_dispatch:
-  pull_request:
-  push:
-    branches: [ "main" ]
+  # pull_request:
+  # push:
+  #   branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     # Only run on flake update PRs
-    if: >-
-      github.event_name != 'pull_request' ||
-      (
-        contains(github.event.pull_request.labels.*.name, 'automated') &&
-        contains(github.event.pull_request.labels.*.name, 'flake-update')
-      )
+    # if: >-
+    #   github.event_name != 'pull_request' ||
+    #   (
+    #     contains(github.event.pull_request.labels.*.name, 'automated') &&
+    #     contains(github.event.pull_request.labels.*.name, 'flake-update')
+    #   )
     strategy:
       fail-fast: false
       matrix:
