@@ -1,4 +1,4 @@
-name: Deploy hosts using comin
+name: Deploy Comin
 description: Builds hosts using comin and fast-forwards deployed branch
 
 on:
@@ -20,7 +20,7 @@ jobs:
       - name: Find configuration names and runners
         id: find-configurations
         run: |
-          configurations=$(nix eval .#nixosConfigurations --apply "$(cat deploy-comin-matrix.nix)" --json)
+          configurations=$(nix eval .#nixosConfigurations --apply "$(cat .github/workflows/deploy-comin-matrix.nix)" --json)
           echo "configurations=$configurations" >> "$GITHUB_OUTPUT"
 
   build-configurations:

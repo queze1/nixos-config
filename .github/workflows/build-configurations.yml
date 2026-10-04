@@ -27,7 +27,7 @@ jobs:
       - name: Find configuration names and runners
         id: find-configurations
         run: |
-          configurations=$(nix eval .#nixosConfigurations --apply "$(cat build-configurations-matrix.nix)" --json)
+          configurations=$(nix eval .#nixosConfigurations --apply "$(cat .github/workflows/build-configurations-matrix.nix)" --json)
           echo "configurations=$configurations" >> "$GITHUB_OUTPUT"
 
   build-configurations:
