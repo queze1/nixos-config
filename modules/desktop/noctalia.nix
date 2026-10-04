@@ -57,10 +57,6 @@ in {
             notification = {
               layer = "overlay"; # v5 default: "top" (overridden); v4: notifications.overlayLayer
             };
-            osd = {
-              hide_delay_ms = 2000; # v5 default: 1400 (overridden); v4: osd.autoHideMs
-              background_opacity = 1; # v5 default: 0.97 (overridden); v4: osd.backgroundOpacity
-            };
             lockscreen = {
               transition = []; # v5 default: ["fade", "wipe", "disc", "stripes", "zoom", "honeycomb"] (overridden); v4: general.lockScreenAnimations
               blur_intensity = 0; # v5 default: 0.5 (overridden); v4: general.lockScreenBlur
@@ -79,12 +75,12 @@ in {
             idle = {
               behavior = {
                 lock = {
-                  timeout = 660; # v5 default: 600 (overridden); v4: idle.lockTimeout
-                  enabled = true; # v5 default: false (overridden); v4: idle.enabled
+                  timeout = 600;
+                  enabled = true;
                 };
                 screen-off = {
-                  timeout = 300; # v5 default: 660 (overridden); v4: idle.screenOffTimeout
-                  enabled = true; # v5 default: false (overridden); v4: idle.enabled
+                  timeout = 300;
+                  enabled = true;
                 };
               };
             };
@@ -98,7 +94,7 @@ in {
                 scale = 1.05;
                 capsule = true; # v5 default: false (overridden); v4: bar.showCapsule
                 start = ["workspaces" "active_window" "media"]; # v5 default: ["launcher", "wallpaper", "workspaces"] (overridden); v4: bar.widgets.left
-                end = ["tray" "notifications" "volume" "session"];
+                end = ["notifications" "volume" "session"];
               };
             };
             widget = {
@@ -119,10 +115,6 @@ in {
                 format = "{:%H:%M %a, %d/%m/%Y}"; # v5 default: "{:%H:%M}" (overridden); v4: bar.widgets.center.0.formatHorizontal
                 vertical_format = "{:%H %M - %d %m}"; # v5 default: "" (overridden); v4: bar.widgets.center.0.formatVertical
                 tooltip_format = "{:%H:%M %a, %b %d}"; # v5 default: "" (overridden); v4: bar.widgets.center.0.tooltipFormat
-              };
-              tray = {
-                drawer = true; # v5 default: false (overridden); v4: bar.widgets.right.0.drawerEnabled
-                hide_passive = false; # v5 default: true (overridden); v4: bar.widgets.right.0.hidePassive
               };
               volume = {
                 show_label = false; # v5 default: true (overridden); v4: bar.widgets.right.2.displayMode; approximation: v5 lacks documented hover-only label mode
