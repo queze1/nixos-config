@@ -1,20 +1,13 @@
-name: Build Configurations
-description: Build all NixOS configurations & push to binary cache
+name: Deploy hosts using comin
+description: Builds hosts using comin and fast-forwards deployed branch
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
+    branches: [ "main" ]
 
 jobs:
   find-configurations:
-    # Only runs on a flake update
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      (
-        github.event_name == 'pull_request' &&
-        contains(github.event.pull_request.labels.*.name, 'automated') &&
-        contains(github.event.pull_request.labels.*.name, 'flake-update')
-      )
     runs-on: ubuntu-latest
     outputs:
       configurations: ${{ steps.find-configurations.outputs.configurations }}
@@ -27,7 +20,7 @@ jobs:
       - name: Find configuration names and runners
         id: find-configurations
         run: |
-          configurations=$(nix eval .#nixosConfigurations --apply "$(cat build-configurations-matrix.nix)" --json)
+          configurations=$(nix eval .#nixosConfigurations --apply "$(cat deploy-comin-matrix.nix)" --json)
           echo "configurations=$configurations" >> "$GITHUB_OUTPUT"
 
   build-configurations:
@@ -46,3 +39,18 @@ jobs:
       TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
       TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
       ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }} 
+
+  # Add to deployed branch if tests pass and the push was on main
+  promote:
+    needs: build-configurations
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Fast-forward deployed branch
+        run: |
+          git push --force origin HEAD:refs/heads/deployed
