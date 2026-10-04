@@ -56,10 +56,6 @@
     };
 
     # Applications
-    noctalia = {
-      url = "github:noctalia-dev/noctalia/v5.2.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nvf = {
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";

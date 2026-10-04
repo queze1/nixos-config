@@ -9,10 +9,10 @@ in {
   options.my.desktop.noctalia.enable = lib.mkEnableOption "Noctalia";
 
   config = lib.mkIf cfg.enable {
+    programs.noctalia.enable = true;
+
     home-manager.sharedModules = [
       ({config, ...}: {
-        imports = [inputs.noctalia.homeModules.default];
-
         programs.noctalia = {
           enable = true;
           settings = {

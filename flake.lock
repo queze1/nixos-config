@@ -527,27 +527,6 @@
         "type": "github"
       }
     },
-    "noctalia": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1790517835,
-        "narHash": "sha256-RfRxWi9PfJVSyoLrLj5mQ5vo24FjkgfBIi+UmE96zZo=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia",
-        "rev": "ec704377180fc4ffe79322a14a6ae87e9f922cae",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "ref": "v5.2.0",
-        "repo": "noctalia",
-        "type": "github"
-      }
-    },
     "nvf": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -652,7 +631,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-actions-languageserver": "nixpkgs-actions-languageserver",
         "nixpkgs-stable": "nixpkgs-stable",
-        "noctalia": "noctalia",
         "nvf": "nvf",
         "preservation": "preservation",
         "pyproject-build-systems": "pyproject-build-systems",
