@@ -27,27 +27,7 @@ jobs:
       - name: Find configuration names and runners
         id: find-configurations
         run: |
-          configurations=$(nix eval .#nixosConfigurations \
-            --apply '
-              configs:
-              let
-                runnerForSystem = {
-                  "x86_64-linux" = "ubuntu-latest";
-                  "aarch64-linux" = "ubuntu-26.04-arm";
-                };
-              in
-                builtins.map
-                  (name:
-                    let
-                      config = configs.${name};
-                      system = config.pkgs.stdenv.hostPlatform.system;
-                    in {
-                      attr = ".#nixosConfigurations.${name}.config.system.build.toplevel";
-                      runner = runnerForSystem.${system};
-                    })
-                  (builtins.attrNames configs)
-            ' \
-            --json)
+          configurations=$(nix eval .#nixosConfigurations --apply "$(cat configuration-matrix.nix)" --json)
           echo "configurations=$configurations" >> "$GITHUB_OUTPUT"
 
   build-configurations:
