@@ -28,6 +28,7 @@ in {
       enable = true;
       homeWifi.enable = true;
     };
+    documentation.enable = false;
     zramSwap.enable = true;
 
     # Disk configuration
