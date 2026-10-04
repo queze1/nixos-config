@@ -45,5 +45,3 @@ A "typical" private service looks like:
 
 Public services use Cloudflare Tunnel for ingress.
 
-Pi-Hole DNS opens port 53 and listens on the Tailscale interface only.
-

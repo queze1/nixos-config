@@ -196,28 +196,28 @@ in {
             ];
             alerts = [{type = "discord";}];
           }
-          {
-            name = "Pi-Hole DNS";
-            group = "Private Services";
-            url = "100.85.118.26"; # mirage-blue
-            dns.query-name = "one.one.one.one";
-            dns.query-type = "A";
-            conditions = [
-              "[BODY] == any(1.1.1.1, 1.0.0.1)"
-              "[DNS_RCODE] == NOERROR"
-            ];
-            alerts = [{type = "discord";}];
-          }
-          {
-            name = "Pi-Hole Web";
-            group = "Private Services";
-            url = "https://pi-hole.osipol.uk/api/info/client";
-            conditions = [
-              "[STATUS] == 200"
-              "[RESPONSE_TIME] < ${responseTimeLimit}"
-            ];
-            alerts = [{type = "discord";}];
-          }
+          # {
+          #   name = "Pi-Hole DNS";
+          #   group = "Private Services";
+          #   url = "100.85.118.26"; # mirage-blue
+          #   dns.query-name = "one.one.one.one";
+          #   dns.query-type = "A";
+          #   conditions = [
+          #     "[BODY] == any(1.1.1.1, 1.0.0.1)"
+          #     "[DNS_RCODE] == NOERROR"
+          #   ];
+          #   alerts = [{type = "discord";}];
+          # }
+          # {
+          #   name = "Pi-Hole Web";
+          #   group = "Private Services";
+          #   url = "https://pi-hole.osipol.uk/api/info/client";
+          #   conditions = [
+          #     "[STATUS] == 200"
+          #     "[RESPONSE_TIME] < ${responseTimeLimit}"
+          #   ];
+          #   alerts = [{type = "discord";}];
+          # }
           {
             name = "Restic Server (steadfast-defender)";
             group = "Private Services";
