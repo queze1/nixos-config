@@ -113,8 +113,8 @@
           "textColor": "none"
         },
         {
-          "iconColor": "none",
-          "id": "DarkMode"
+          "iconColor": "error",
+          "id": "SessionMenu"
         }
       ]
     },
@@ -130,11 +130,11 @@
     "screenOverrides": []
   },
   "general": {
-    "avatarImage": "/nix/store/5cypzvax3vvbhf4q47z3mjzm2r1gw54v-source/assets/pfp.png",
+    "avatarImage": "/nix/store/mbwq8fvy217x1wlmh77i7529hc88xdwm-source/assets/pfp.png",
     "dimmerOpacity": 0.2,
     "showScreenCorners": false,
     "forceBlackScreenCorners": false,
-    "scaleRatio": 1.1,
+    "scaleRatio": 1,
     "radiusRatio": 1,
     "iRadiusRatio": 1,
     "boxRadiusRatio": 1,
