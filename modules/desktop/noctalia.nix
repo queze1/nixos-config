@@ -103,9 +103,6 @@ in {
             };
             widget = {
               workspaces = {
-                max_label_chars = 2; # v5 default: 1 (overridden); v4: bar.widgets.left.0.characterCount
-                labels_only_when_occupied = true; # v5 default: false (overridden); v4: bar.widgets.left.0.showLabelsOnlyWhenOccupied
-                pill_scale = 0.6; # v5 default: 1.0 (overridden); v4: bar.widgets.left.0.pillSize; approximate pill thickness mapping
                 font_weight = 700; # v5 default: "inherited" (overridden); v4: bar.widgets.left.0.fontWeight
               };
               active_window = {
