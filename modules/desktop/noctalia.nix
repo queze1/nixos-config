@@ -19,8 +19,7 @@ in {
             accessibility.ui_scale = 1.1;
             shell = {
               font_family = "Liberation Mono";
-              default.path = "${inputs.secrets}/assets/laine-chinensy-temptation-v6.png";
-              directory = "${config.xdg.userDirs.pictures}/Wallpapers";
+              avatar_path = "${inputs.secrets}/assets/pfp.png";
               clipboard_enabled = false; # v5 default: true (overridden); v4: appLauncher.enableClipboardHistory
               clipboard_auto_paste = "off"; # v5 default: "auto" (overridden); v4: appLauncher.autoPasteClipboard
               shadow = {
@@ -40,14 +39,9 @@ in {
               };
             };
             wallpaper = {
-              fill_color = "#000000"; # v5 default: "" (overridden); v4: wallpaper.fillColor
+              default.path = "${inputs.secrets}/assets/laine-chinensy-temptation-v6.png";
+              directory = "${config.xdg.userDirs.pictures}/Wallpapers";
               edge_smoothness = 0.05; # v5 default: 0.3 (overridden); v4: wallpaper.transitionEdgeSmoothness
-              directory = "/home/queze/Pictures/Wallpapers"; # v5 default: "" (overridden); v4: wallpaper.directory
-              transition = ["fade" "disc" "stripes" "wipe" "honeycomb"]; # v5 default: ["fade", "wipe", "disc", "stripes", "zoom", "honeycomb"] (overridden); v4: wallpaper.transitionType; pixelate omitted: not documented in v5; remaining order preserved
-              transition_on_startup = true; # v5 default: false (overridden); v4: wallpaper.skipStartupTransition
-              automation = {
-                interval_seconds = 300; # v5 default: 1800 (overridden); v4: wallpaper.randomIntervalSec
-              };
             };
             theme = {
               mode = "light"; # v5 default: "dark" (overridden); v4: colorSchemes.darkMode
@@ -73,9 +67,6 @@ in {
               blur_intensity = 0; # v5 default: 0.5 (overridden); v4: general.lockScreenBlur
               tint_intensity = 0; # v5 default: 0.3 (overridden); v4: general.lockScreenTint
             };
-            weather = {
-              enabled = true; # v5 default: false (overridden); v4: location.weatherEnabled
-            };
             brightness = {
               enable_ddcutil = true; # v5 default: false (overridden); v4: brightness.enableDdcSupport
             };
@@ -98,9 +89,6 @@ in {
                 };
               };
             };
-            keybinds = {
-              validate = ["return" "kp_enter"]; # v5 default: ["return", "kp_enter", "space"] (overridden); v4: general.keybinds.keyEnter
-            };
             bar = {
               main = {
                 background_opacity = 0.93; # v5 default: 1.0 (overridden); v4: bar.backgroundOpacity
@@ -112,9 +100,6 @@ in {
                 start = ["workspaces" "active_window" "media"]; # v5 default: ["launcher", "wallpaper", "workspaces"] (overridden); v4: bar.widgets.left
                 end = ["tray" "notifications" "volume" "theme_mode"]; # v5 default: ["media", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session"] (overridden); v4: bar.widgets.right
               };
-            };
-            desktop_widgets = {
-              enabled = true; # v5 default: false (overridden); v4: desktopWidgets.enabled
             };
             widget = {
               workspaces = {
