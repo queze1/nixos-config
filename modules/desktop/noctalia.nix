@@ -2,13 +2,15 @@
   config,
   inputs,
   lib,
+  options,
   ...
 }: let
   cfg = config.my.desktop.noctalia;
 in {
   options.my.desktop.noctalia.enable = lib.mkEnableOption "Noctalia";
 
-  config = lib.mkIf cfg.enable {
+  # Don't crash if programs.noctalia doesn't exist
+  config = lib.optionalAttrs (options ? programs.noctalia) (lib.mkIf cfg.enable {
     programs.noctalia.enable = true;
 
     home-manager.sharedModules = [
@@ -136,5 +138,5 @@ in {
         };
       })
     ];
-  };
+  });
 }
