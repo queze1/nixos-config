@@ -46,7 +46,6 @@ in {
             theme = {
               mode = "light"; # v5 default: "dark" (overridden); v4: colorSchemes.darkMode
               source = "wallpaper"; # v5 default: "builtin" (overridden); v4: colorSchemes.useWallpaperColors
-              builtin = "Catppuccin"; # v5 default: "Noctalia" (overridden); v4: colorSchemes.predefinedScheme; fallback; source is wallpaper
               wallpaper_scheme = "m3-rainbow"; # v5 default: "m3-content" (overridden); v4: colorSchemes.generationMethod
               templates = {
                 enable_builtin_templates = false; # v5 default: true (overridden); v4: templates.enableUserTheming; disable automatic app theming
@@ -54,9 +53,7 @@ in {
               };
             };
             notification = {
-              keep_dismissed_in_history = false; # v5 default: true (overridden); v4: notifications.clearDismissed
               layer = "overlay"; # v5 default: "top" (overridden); v4: notifications.overlayLayer
-              background_opacity = 1; # v5 default: 0.97 (overridden); v4: notifications.backgroundOpacity
             };
             osd = {
               hide_delay_ms = 2000; # v5 default: 1400 (overridden); v4: osd.autoHideMs
@@ -96,9 +93,10 @@ in {
                 margin_edge = 4; # v5 default: 10 (overridden); v4: bar.marginVertical
                 padding = 2; # v5 default: 14 (overridden); v4: bar.contentPadding; closest geometry mapping; v4 and v5 layout units differ
                 font_scale = 1.05; # v5 default: 1.0 (overridden); v4: bar.fontScale
+                scale = 1.05;
                 capsule = true; # v5 default: false (overridden); v4: bar.showCapsule
                 start = ["workspaces" "active_window" "media"]; # v5 default: ["launcher", "wallpaper", "workspaces"] (overridden); v4: bar.widgets.left
-                end = ["tray" "notifications" "volume" "theme_mode"]; # v5 default: ["media", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session"] (overridden); v4: bar.widgets.right
+                end = ["tray" "notifications" "volume" "session"];
               };
             };
             widget = {
