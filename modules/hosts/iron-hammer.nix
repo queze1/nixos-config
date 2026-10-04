@@ -46,7 +46,6 @@ in {
     my.btrbk.enable = true;
 
     # Services
-    my.deployment.comin.enable = true;
     my.beszel-agent.enable = true;
 
     # Programs
