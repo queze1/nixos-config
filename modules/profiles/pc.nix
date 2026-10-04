@@ -29,7 +29,8 @@ in {
     my.desktop = {
       enable = true;
       niri.enable = true;
-      noctalia.enable = true;
+      # noctalia.enable = true;
+      noctaliaV4.enable = true;
     };
 
     # Secret management
