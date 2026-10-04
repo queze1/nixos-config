@@ -6,6 +6,16 @@
   ...
 }: let
   cfg = config.my.programs.yazi;
+
+  # Broke on commit beb1969b271e (04/10/2026 flake update)
+  # Maybe file an issue on upstream?
+  clipboard-jh = pkgs.clipboard-jh.overrideAttrs (old: {
+    postPatch =
+      (old.postPatch or "")
+      + ''
+        sed -i '1i #include <climits>' src/cbwayland/src/fd.cpp
+      '';
+  });
 in {
   options.my.programs.yazi.enable = lib.mkEnableOption "Yazi";
 
@@ -15,7 +25,7 @@ in {
         cfg = config.xdg.userDirs;
       in {
         home.packages = [
-          pkgs.clipboard-jh # used by system-clipboard
+          clipboard-jh # used by system-clipboard
         ];
 
         programs.yazi = {
