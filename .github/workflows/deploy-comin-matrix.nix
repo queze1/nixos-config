@@ -4,7 +4,7 @@ configs: let
     "aarch64-linux" = "ubuntu-26.04-arm";
   };
   # Filter for configs with comin enabled
-  names = builtins.filter (name: configs.${name}.config.services.comin.enable) (builtins.attrValues configs);
+  names = builtins.filter (name: configs.${name}.config.services.comin.enable) (builtins.attrNames configs);
 in
   map (
     name: let
