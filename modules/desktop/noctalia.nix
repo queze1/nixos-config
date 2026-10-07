@@ -99,8 +99,8 @@ in {
               layer = "overlay"; # v5 default: "top" (overridden); v4: notifications.overlayLayer
             };
             lockscreen = {
-              transition = []; # v5 default: ["fade", "wipe", "disc", "stripes", "zoom", "honeycomb"] (overridden); v4: general.lockScreenAnimations
-              blur_intensity = 0; # v5 default: 0.5 (overridden); v4: general.lockScreenBlur
+              transition = []; # no transitions
+              blur_intensity = 0.2;
             };
             brightness = {
               enable_ddcutil = true; # v5 default: false (overridden); v4: brightness.enableDdcSupport
