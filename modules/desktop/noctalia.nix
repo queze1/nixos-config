@@ -113,12 +113,15 @@ in {
               address = "Sydney"; # v5 default: "" (overridden); v4: location.name; retained fallback; auto_locate takes precedence
             };
             idle = {
+              behavior_order = ["lock" "screen-off"];
               behavior = {
                 lock = {
+                  action = "lock";
                   timeout = 600;
                   enabled = true;
                 };
                 screen-off = {
+                  action = "screen_off";
                   timeout = 300;
                   enabled = true;
                 };
