@@ -50,6 +50,7 @@ in {
 
     # Programs
     my.programs = {
+      aegisub.enable = true;
       bitwarden.enable = true;
       dcss.enable = true;
       direnv.enable = true;
