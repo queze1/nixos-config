@@ -10,7 +10,7 @@ in {
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [
       ({pkgs, ...}: {
-        home.packages = [pkgs.crawl];
+        home.packages = [pkgs.crawlTiles];
 
         my.home.preservation.extraDirectories = [
           ".crawl"
