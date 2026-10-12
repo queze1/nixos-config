@@ -13,11 +13,7 @@ in {
     programs.seahorse.enable = true;
 
     home-manager.sharedModules = [
-      ({
-        pkgs,
-        pkgs-stable,
-        ...
-      }: {
+      ({pkgs, ...}: {
         imports = [inputs.nix-index-database.homeModules.default];
 
         home.packages = let
@@ -26,10 +22,10 @@ in {
           tumblrBackup = self.packages.${pkgs.stdenv.hostPlatform.system}.tumblr-backup;
           tumblrToEbook = self.packages.${pkgs.stdenv.hostPlatform.system}.tumblr-to-ebook;
         in [
+          pkgs.celluloid
           pkgs.gnome-clocks
           pkgs.pinta
           pkgs.qalculate-qt
-          pkgs-stable.celluloid
 
           # Development
           pkgs.act
