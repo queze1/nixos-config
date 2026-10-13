@@ -35,6 +35,12 @@ in {
           # Allow changing images in imv
           settings = {
             opener = {
+              aegisub = [
+                {
+                  run = ''${lib.getExe pkgs.aegisub} %s'';
+                  desc = "Edit subtitles with Aegisub";
+                }
+              ];
               imv = [
                 {
                   run = ''${lib.getExe pkgs.imv} -n %s1 %d1'';
@@ -58,6 +64,12 @@ in {
             };
             open = {
               prepend_rules = [
+                {
+                  url = "*.ass";
+                  use = [
+                    "aegisub"
+                  ];
+                }
                 {
                   url = "*.rar";
                   use = [
