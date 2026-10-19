@@ -66,6 +66,7 @@ in {
         enable = true;
         creamlinux.enable = true;
       };
+      stretchly.enable = true;
       vesktop.enable = true;
       yazi.enable = true;
     };
