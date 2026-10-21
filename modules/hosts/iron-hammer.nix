@@ -61,6 +61,7 @@ in {
       imv.enable = true;
       llmTools.enable = true;
       nvf.enable = true;
+      obs.enable = true;
       obsidian.enable = true;
       steam = {
         enable = true;
