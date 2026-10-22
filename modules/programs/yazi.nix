@@ -32,8 +32,8 @@ in {
           enable = true;
           shellWrapperName = "y";
 
-          # Allow changing images in imv
           settings = {
+            mgr.sort_by = "natural";
             opener = {
               aegisub = [
                 {
