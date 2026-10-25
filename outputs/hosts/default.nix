@@ -16,7 +16,7 @@ in {
       inherit system;
       config.allowUnfree = true;
       # temp fix
-      problems = {
+      config.problems = {
         handlers = {
           fastmcp-slim = {
             broken = "warn";
