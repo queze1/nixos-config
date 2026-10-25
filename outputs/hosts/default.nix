@@ -15,6 +15,14 @@ in {
     pkg-args = {
       inherit system;
       config.allowUnfree = true;
+      # temp fix
+      problems = {
+        handlers = {
+          fastmcp-slim = {
+            broken = "warn";
+          };
+        };
+      };
     };
     pkgs = import nixpkgs pkg-args;
   in
