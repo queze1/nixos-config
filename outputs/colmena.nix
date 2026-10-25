@@ -7,10 +7,26 @@
     pkgs_x86 = import inputs.nixpkgs-stable {
       system = "x86_64-linux";
       config.allowUnfree = true;
+      config.problems = {
+        # temp fix, figure out what's using this
+        handlers = {
+          fastmcp-slim = {
+            broken = "warn";
+          };
+        };
+      };
     };
     pkgs-unstable_x86 = import inputs.nixpkgs {
       system = "x86_64-linux";
       config.allowUnfree = true;
+      config.problems = {
+        # temp fix, figure out what's using this
+        handlers = {
+          fastmcp-slim = {
+            broken = "warn";
+          };
+        };
+      };
     };
     commonModules = inputs.import-tree ../modules;
   in
