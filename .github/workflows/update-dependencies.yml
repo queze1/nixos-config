@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '0 0 * * 5' # run weekly on Friday at midnight
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-dependencies:
     runs-on: ubuntu-latest
@@ -53,7 +57,6 @@ jobs:
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           branch: update-dependencies-action
           commit-message: "chore: update dependencies"
           title: "Update dependencies"
