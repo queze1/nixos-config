@@ -12,7 +12,8 @@ in {
       ({pkgs, ...}: {
         home.packages = with pkgs; [
           codex
-          mcp-nixos
+          # uses a broken python package
+          # mcp-nixos
         ];
 
         my.home.preservation.extraDirectories = [
