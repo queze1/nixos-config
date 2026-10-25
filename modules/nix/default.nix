@@ -24,11 +24,6 @@ in {
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
       nix.settings.experimental-features = ["nix-command" "flakes"];
-
-      # temp fix
-      nixpkgs.config.problems.handlers = {
-        fastmcp-slim.broken = "warn"; # or "ignore"
-      };
     })
     (lib.mkIf cfg.binaryCache.enable {
       nix.settings = {
