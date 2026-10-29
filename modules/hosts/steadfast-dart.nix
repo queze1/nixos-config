@@ -45,6 +45,10 @@ in {
       inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
     ];
 
+    environment.etc = {
+      "test".text = "test";
+    };
+
     my.restic = {
       enable = true;
       snapshotsDir = "/persistent/snapshots";
