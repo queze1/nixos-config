@@ -30,10 +30,6 @@ in {
       searxng.enable = true;
     };
 
-    environment.etc = {
-      "test".text = "test";
-    };
-
     # Backups
     my.restic = {
       enable = true;
