@@ -4,13 +4,13 @@
   ...
 }: {
   flake.colmenaHive = let
-    pkgs_x86 = import inputs.nixpkgs-stable {
+    pkgs_x86 = self.factory.mkPkgs {
+      nixpkgs = inputs.nixpkgs-stable;
       system = "x86_64-linux";
-      config.allowUnfree = true;
     };
-    pkgs-unstable_x86 = import inputs.nixpkgs {
+    pkgs-unstable_x86 = self.factory.mkPkgs {
+      nixpkgs = inputs.nixpkgs;
       system = "x86_64-linux";
-      config.allowUnfree = true;
     };
     commonModules = inputs.import-tree ../modules;
   in
