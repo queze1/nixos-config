@@ -59,6 +59,7 @@ in {
       foot.enable = true;
       git.enable = true;
       imv.enable = true;
+      kdenlive.enable = true;
       llmTools.enable = true;
       nvf.enable = true;
       obs.enable = true;
