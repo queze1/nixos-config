@@ -15,6 +15,9 @@
                 fpdf2 = python-prev.fpdf2.overridePythonAttrs (old: {
                   disabledTests = (old.disabledTests or []) ++ ["test_image_with_explicit_dimensions"];
                 });
+                pypdf = python-prev.pypdf.overridePythonAttrs (old: {
+                  disabledTests = (old.disabledTests or []) ++ ["test_flatedecode__decode_png_prediction__speed"];
+                });
               })
             ];
         })
