@@ -57,6 +57,7 @@ in {
       firefox.enable = true;
       fish.enable = true;
       foot.enable = true;
+      foliate.enable = true;
       git.enable = true;
       imv.enable = true;
       kdenlive.enable = true;

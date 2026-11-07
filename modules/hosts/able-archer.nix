@@ -63,6 +63,7 @@ in {
         useLegacyDefault = true;
       };
       foot.enable = true;
+      foliate.enable = true;
       git.enable = true;
       immichGo.enable = true;
       imv.enable = true;
