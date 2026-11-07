@@ -40,6 +40,11 @@ in {
           default = [];
           description = "Extra user directories to preserve.";
         };
+        options.my.home.preservation.extraFiles = lib.mkOption {
+          type = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
+          default = [];
+          description = "Extra user files to preserve.";
+        };
       })
     ];
 
@@ -114,6 +119,9 @@ in {
             ++ cfg.extraUserDirectories
             # Extract directories added with Home Manager
             ++ (config.home-manager.users.${username}.my.home.preservation.extraDirectories or [])
+          );
+          files = lib.unique (
+            config.home-manager.users.${username}.my.home.preservation.extraFiles or []
           );
         });
       };
