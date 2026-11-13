@@ -691,11 +691,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1792890158,
-        "narHash": "sha256-MdB31tyWva/+blR6pTsF4Ff44lUJMkJ7VWfJsw/JyXQ=",
+        "lastModified": 1794531911,
+        "narHash": "sha256-OHAiVMkbXpckiOslJOysEKAhByS/vxWH+26hGADrSuQ=",
         "owner": "queze1",
         "repo": "nixos-secrets",
-        "rev": "8a5fe1215e800015c477ef23a947da0614b642f4",
+        "rev": "cd16762f3ab5b9005108cd2ba2b806f97af3b3ba",
         "type": "github"
       },
       "original": {
