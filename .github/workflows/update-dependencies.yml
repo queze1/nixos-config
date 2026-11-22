@@ -49,6 +49,12 @@ jobs:
 
       - name: Update package hashes
         run: |
+          echo "Workspace: $PWD"
+          git status --short
+          flake_path="$(nix flake metadata --json . | jq -r .path)"
+          echo "Flake source path: $flake_path"
+          ls -ld "$flake_path"
+          nix path-info "$flake_path"
           nix run nixpkgs#nix-update -- \
             --flake filebrowser-quantum \
             --subpackage frontend \
