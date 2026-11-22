@@ -49,9 +49,7 @@ jobs:
 
       - name: Update package hashes
         run: |
-          echo "Workspace: $PWD"
-          git status --short
-          nix flake metadata
+          nix flake archive  # ensure flake is in Nix store
           nix run nixpkgs#nix-update -- \
             --flake filebrowser-quantum \
             --subpackage frontend \
