@@ -100,10 +100,6 @@
       url = "github:Novattz/creamlinux-installer";
       flake = false;
     };
-    filebrowser-quantum = {
-      url = "github:gtsteffaniak/filebrowser";
-      flake = false;
-    };
     tumblr-backup = {
       url = "github:cebtenzzre/tumblr-utils";
       flake = false;

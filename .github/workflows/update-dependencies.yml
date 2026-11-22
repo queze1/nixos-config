@@ -47,14 +47,6 @@ jobs:
       - name: Update npins
         run: nix run nixpkgs#npins -- update
 
-      - name: Update package hashes
-        run: |
-          nix flake prefetch  # ensure flake is in Nix store
-          nix run nixpkgs#nix-update -- \
-            --flake filebrowser-quantum \
-            --subpackage frontend \
-            --version=skip
-
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8
         with:

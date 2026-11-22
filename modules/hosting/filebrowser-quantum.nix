@@ -2,11 +2,10 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }: let
   myCfg = config.my.apps.filebrowser-quantum;
-  package = self.packages.${pkgs.stdenv.hostPlatform.system}.filebrowser-quantum;
+  package = pkgs.filebrowser-quantum;
 
   dataDir = "/var/lib/filebrowser-quantum";
   defaultSource = "${dataDir}/files";
@@ -72,6 +71,7 @@ in {
       description = "FileBrowser Quantum";
       after = ["network.target"];
       wantedBy = ["multi-user.target"];
+      path = [pkgs.ffmpeg];
       preStart = lib.optionalString myCfg.useDefaultSource ''
         mkdir -p ${defaultSource}
       '';
