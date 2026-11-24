@@ -52,7 +52,6 @@ in {
     my.programs = {
       aegisub.enable = true;
       bitwarden.enable = true;
-      dcss.enable = true;
       direnv.enable = true;
       firefox.enable = true;
       fish.enable = true;
